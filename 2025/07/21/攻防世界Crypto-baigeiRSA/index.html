@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/me.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/me.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/me.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"fishcanf1y.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.23.2","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="拿到附件后查看内容12345678910111213141516import libnumfrom Crypto.Util import numberfrom secret import flagsize &#x3D; 128e &#x3D; 65537p &#x3D; number.getPrime(size)q &#x3D; number.getPrime(size)n &#x3D; p*qm &#x3D; libnum.s2n(flag)c &#x3D; po">
+<meta property="og:type" content="article">
+<meta property="og:title" content="攻防世界Crypto-baigeiRSA">
+<meta property="og:url" content="http://fishcanf1y.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/index.html">
+<meta property="og:site_name" content="fishcanf1yのBlog">
+<meta property="og:description" content="拿到附件后查看内容12345678910111213141516import libnumfrom Crypto.Util import numberfrom secret import flagsize &#x3D; 128e &#x3D; 65537p &#x3D; number.getPrime(size)q &#x3D; number.getPrime(size)n &#x3D; p*qm &#x3D; libnum.s2n(flag)c &#x3D; po">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://fishcanf1y.github.io/images/baigeiRSA-1.png">
+<meta property="article:published_time" content="2025-07-21T01:29:24.000Z">
+<meta property="article:modified_time" content="2025-07-28T04:58:50.880Z">
+<meta property="article:author" content="fishcanf1y">
+<meta property="article:tag" content="Crypto">
+<meta property="article:tag" content="CTF">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://fishcanf1y.github.io/images/baigeiRSA-1.png">
+
+
+<link rel="canonical" href="http://fishcanf1y.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://fishcanf1y.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/","path":"2025/07/21/攻防世界Crypto-baigeiRSA/","title":"攻防世界Crypto-baigeiRSA"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>攻防世界Crypto-baigeiRSA | fishcanf1yのBlog</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">fishcanf1yのBlog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%BF%E5%88%B0%E9%99%84%E4%BB%B6%E5%90%8E%E6%9F%A5%E7%9C%8B%E5%86%85%E5%AE%B9"><span class="nav-number">1.</span> <span class="nav-text">拿到附件后查看内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE"><span class="nav-number">2.1.</span> <span class="nav-text">参数设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90RSA%E5%AF%86%E9%92%A5"><span class="nav-number">2.2.</span> <span class="nav-text">生成RSA密钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E5%AF%86flag"><span class="nav-number">2.3.</span> <span class="nav-text">加密flag</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E7%BB%93%E6%9E%9C"><span class="nav-number">2.4.</span> <span class="nav-text">输出结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%AF%86%E6%80%9D%E8%B7%AF"><span class="nav-number">3.</span> <span class="nav-text">解密思路</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="fishcanf1y"
+      src="/images/me.jpg">
+  <p class="site-author-name" itemprop="name">fishcanf1y</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/fishcanf1y" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;fishcanf1y" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:iszhenghailin@gmail.com" title="E-Mail → mailto:iszhenghailin@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/fishcanf1y_" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;fishcanf1y_" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/fishcanf1y" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;fishcanf1y" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          Links
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://securenexuslab.github.io/" title="https:&#x2F;&#x2F;SecureNexusLab.github.io" rel="noopener" target="_blank">SecureNexusLab</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://fishcanf1y.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpg">
+      <meta itemprop="name" content="fishcanf1y">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fishcanf1yのBlog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="攻防世界Crypto-baigeiRSA | fishcanf1yのBlog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          攻防世界Crypto-baigeiRSA
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-07-21 09:29:24" itemprop="dateCreated datePublished" datetime="2025-07-21T09:29:24+08:00">2025-07-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-07-28 12:58:50" itemprop="dateModified" datetime="2025-07-28T12:58:50+08:00">2025-07-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/CTF/" itemprop="url" rel="index"><span itemprop="name">CTF</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="拿到附件后查看内容"><a href="#拿到附件后查看内容" class="headerlink" title="拿到附件后查看内容"></a>拿到附件后查看内容</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> libnum</span><br><span class="line"><span class="keyword">from</span> Crypto.Util <span class="keyword">import</span> number</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line">size = <span class="number">128</span></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">p = number.getPrime(size)</span><br><span class="line">q = number.getPrime(size)</span><br><span class="line">n = p*q</span><br><span class="line"></span><br><span class="line">m = libnum.s2n(flag)</span><br><span class="line">c = <span class="built_in">pow</span>(m, e, n)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;n = %d&#x27;</span> % n)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;c = %d&#x27;</span> % c)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="参数设置"><a href="#参数设置" class="headerlink" title="参数设置"></a>参数设置</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">size = <span class="number">128</span></span><br><span class="line">e = <span class="number">65537</span></span><br></pre></td></tr></table></figure>
+
+<p><code>size</code>处设置了生成的素数<code>p</code>和<code>q</code>的比特长度</p>
+<p><code>e=65537</code>：RSA的公钥指数，这是一个常用的固定值</p>
+<h3 id="生成RSA密钥"><a href="#生成RSA密钥" class="headerlink" title="生成RSA密钥"></a>生成RSA密钥</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p = number.getPrime(size)</span><br><span class="line">q = number.getPrime(size)</span><br><span class="line">n = p*q</span><br></pre></td></tr></table></figure>
+
+<p><code>number.getPrime(size)</code>生成一个<code>size</code>比特的随机素数</p>
+<p><code>n = p*q</code>：计算RSA的模数<code>n</code>（一个256位的数）。</p>
+<h3 id="加密flag"><a href="#加密flag" class="headerlink" title="加密flag"></a>加密flag</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">m = libnum.s2n(flag)</span><br><span class="line">c = <span class="built_in">pow</span>(m, e, n)</span><br></pre></td></tr></table></figure>
+
+<p><code>libnum.s2n(flag)</code>：将<code>flag</code>字符串转换为一个大整数<code>m</code>（<code>s2n</code>表示“string to number”）。</p>
+<p><code>c = pow(m, e, n)</code>：计算密文<code>c</code>，即<code>m^e mod n</code>（RSA加密的核心操作）。</p>
+<h3 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;n = %d&#x27;</span> % n)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;c = %d&#x27;</span> % c)</span><br></pre></td></tr></table></figure>
+
+<h2 id="解密思路"><a href="#解密思路" class="headerlink" title="解密思路"></a>解密思路</h2><ol>
+<li>分解<code>n</code>得到<code>p</code>和<code>q</code>（因为<code>n</code>是256位的，对于现代计算机来说分解是可行的）。</li>
+<li>计算欧拉函数<code>φ(n) = (p-1)*(q-1)</code>。</li>
+<li>计算私钥<code>d</code>，即<code>e</code>模<code>φ(n)</code>的逆元：<code>d = pow(e, -1, φ(n))</code>。</li>
+<li>解密密文：<code>m = pow(c, d, n)</code>。</li>
+<li>将<code>m</code>转换为字符串：<code>flag = libnum.n2s(m)</code>。</li>
+</ol>
+<p>于是我们构造以下exploit</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> libnum</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> inverse</span><br><span class="line"><span class="keyword">from</span> Crypto.Util <span class="keyword">import</span> number</span><br><span class="line"></span><br><span class="line">size = <span class="number">128</span></span><br><span class="line">n = <span class="number">88503001447845031603457048661635807319447136634748350130947825183012205093541</span></span><br><span class="line">c = <span class="number">40876621398366534035989065383910105526025410999058860023908252093679681817257</span></span><br><span class="line">e=<span class="number">65537</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 分解n得到的p和q</span></span><br><span class="line">p=unknown</span><br><span class="line">q=unknown</span><br><span class="line"></span><br><span class="line">phi = (p - <span class="number">1</span>) * (q - <span class="number">1</span>)</span><br><span class="line">d = inverse(e, phi)</span><br><span class="line">m = <span class="built_in">pow</span>(c, d, n)</span><br><span class="line">flag = libnum.n2s(m)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;解密后的flag:&quot;</span>, flag)</span><br></pre></td></tr></table></figure>
+
+<p>然后暴力分解因数<code>n</code>得到<code>p</code>和<code>q</code></p>
+<p><img src="/images/baigeiRSA-1.png" alt="图一展示了在&#96;http:&#x2F;&#x2F;www.factordb.com&#x2F;&#96;上暴力分解因数"></p>
+<p>则最终的exp如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> libnum</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> inverse</span><br><span class="line"><span class="keyword">from</span> Crypto.Util <span class="keyword">import</span> number</span><br><span class="line"></span><br><span class="line">size = <span class="number">128</span></span><br><span class="line">n = <span class="number">88503001447845031603457048661635807319447136634748350130947825183012205093541</span></span><br><span class="line">c = <span class="number">40876621398366534035989065383910105526025410999058860023908252093679681817257</span></span><br><span class="line">e=<span class="number">65537</span></span><br><span class="line"></span><br><span class="line">p=<span class="number">274539690398523616505159415195049044439</span></span><br><span class="line">q=<span class="number">322368694010594584041053487661458382819</span></span><br><span class="line"></span><br><span class="line">phi = (p - <span class="number">1</span>) * (q - <span class="number">1</span>)</span><br><span class="line">d = inverse(e, phi)</span><br><span class="line">m = <span class="built_in">pow</span>(c, d, n)</span><br><span class="line">flag = libnum.n2s(m)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;解密后的flag:&quot;</span>, flag)</span><br></pre></td></tr></table></figure>
+
+<p>成功Caught the flag!</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">workspace# python3 exploit.py </span><br><span class="line">解密后的flag: b&#x27;HSCTF&#123;@Zh3n_Ba1_G3i!@&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Crypto/" rel="tag"># Crypto</a>
+              <a href="/tags/CTF/" rel="tag"># CTF</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/07/19/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E4%BB%8E%E5%A4%B4%E6%9E%84%E5%BB%BA%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" rel="prev" title="深度学习：从头构建神经网络">
+                  <i class="fa fa-angle-left"></i> 深度学习：从头构建神经网络
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-%E4%BA%8C%E5%85%83%E4%B8%80%E6%AC%A1%E6%96%B9%E7%A8%8B%E7%BB%84/" rel="next" title="攻防世界Crypto-二元一次方程组">
+                  攻防世界Crypto-二元一次方程组 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">fishcanf1y</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

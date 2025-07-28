@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/me.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/me.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/me.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"fishcanf1y.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.23.2","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="项目地址：https:&#x2F;&#x2F;github.com&#x2F;fishcanf1y&#x2F;MD5-Checker Description:MD5 校验器用于验证数据完整性和检测数据是否被篡改，常用于文件下载、软件更新、密码存储等场景。它可以快速生成文件的“数字指纹”——MD5 值，然后将该值与原始值进行比较，以确保文件在传输或存储过程中没有发生变化。﻿ 以下是MD5 校验器的主要用途和优势：  文件完整性验证: 当下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to design an MD5 verifier">
+<meta property="og:url" content="http://fishcanf1y.github.io/2025/07/11/md5verifier-20250711/index.html">
+<meta property="og:site_name" content="fishcanf1yのBlog">
+<meta property="og:description" content="项目地址：https:&#x2F;&#x2F;github.com&#x2F;fishcanf1y&#x2F;MD5-Checker Description:MD5 校验器用于验证数据完整性和检测数据是否被篡改，常用于文件下载、软件更新、密码存储等场景。它可以快速生成文件的“数字指纹”——MD5 值，然后将该值与原始值进行比较，以确保文件在传输或存储过程中没有发生变化。﻿ 以下是MD5 校验器的主要用途和优势：  文件完整性验证: 当下">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://fishcanf1y.github.io/images/verifier_1_20250712.png">
+<meta property="og:image" content="http://fishcanf1y.github.io/images/verifier_2_20250712.png">
+<meta property="article:published_time" content="2025-07-11T07:09:03.000Z">
+<meta property="article:modified_time" content="2025-07-12T13:23:56.295Z">
+<meta property="article:author" content="fishcanf1y">
+<meta property="article:tag" content="Coding">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://fishcanf1y.github.io/images/verifier_1_20250712.png">
+
+
+<link rel="canonical" href="http://fishcanf1y.github.io/2025/07/11/md5verifier-20250711/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://fishcanf1y.github.io/2025/07/11/md5verifier-20250711/","path":"2025/07/11/md5verifier-20250711/","title":"How to design an MD5 verifier"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>How to design an MD5 verifier | fishcanf1yのBlog</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">fishcanf1yのBlog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Description"><span class="nav-number">1.</span> <span class="nav-text">Description:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#How-To-Do"><span class="nav-number">2.</span> <span class="nav-text">How To Do?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%A0%B8%E5%BF%83%E7%9B%AE%E6%A0%87"><span class="nav-number">2.1.</span> <span class="nav-text">一、核心目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%85%B3%E9%94%AE%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF"><span class="nav-number">2.2.</span> <span class="nav-text">二、关键实现思路</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%96%87%E4%BB%B6%E5%93%88%E5%B8%8C%E8%AE%A1%E7%AE%97%EF%BC%88%E6%A0%B8%E5%BF%83%E7%AE%97%E6%B3%95%EF%BC%89"><span class="nav-number">2.2.1.</span> <span class="nav-text">1. 文件哈希计算（核心算法）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E9%AA%8C%E8%AF%81%E6%9C%BA%E5%88%B6"><span class="nav-number">2.2.2.</span> <span class="nav-text">2. 验证机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E6%89%B9%E9%87%8F%E5%A4%84%E7%90%86"><span class="nav-number">2.2.3.</span> <span class="nav-text">3. 批量处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.2.4.</span> <span class="nav-text">4. 命令行接口</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%85%B8%E5%9E%8B%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-number">2.3.</span> <span class="nav-text">三、典型工作流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF1%EF%BC%9A%E5%8D%95%E6%96%87%E4%BB%B6%E9%AA%8C%E8%AF%81"><span class="nav-number">2.3.1.</span> <span class="nav-text">场景1：单文件验证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF2%EF%BC%9A%E7%94%9F%E6%88%90%E9%AA%8C%E8%AF%81%E6%96%87%E4%BB%B6"><span class="nav-number">2.3.2.</span> <span class="nav-text">场景2：生成验证文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%89%A9%E5%B1%95%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF"><span class="nav-number">2.4.</span> <span class="nav-text">四、扩展设计思路</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%AE%97%E6%B3%95%E6%89%A9%E5%B1%95%E7%82%B9"><span class="nav-number">2.4.1.</span> <span class="nav-text">1. 算法扩展点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%96%B9%E5%90%91"><span class="nav-number">2.4.2.</span> <span class="nav-text">2. 性能优化方向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%AE%89%E5%85%A8%E5%A2%9E%E5%BC%BA"><span class="nav-number">2.4.3.</span> <span class="nav-text">3. 安全增强</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%B7%A5%E7%A8%8B%E5%8C%96%E6%94%B9%E8%BF%9B"><span class="nav-number">2.4.4.</span> <span class="nav-text">4. 工程化改进</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E8%AE%BE%E8%AE%A1%E6%9D%83%E8%A1%A1%E8%80%83%E9%87%8F"><span class="nav-number">2.5.</span> <span class="nav-text">五、设计权衡考量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E6%9C%80%E7%BB%88%E4%BB%A3%E7%A0%81%E5%91%88%E7%8E%B0"><span class="nav-number">2.6.</span> <span class="nav-text">六、最终代码呈现</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="fishcanf1y"
+      src="/images/me.jpg">
+  <p class="site-author-name" itemprop="name">fishcanf1y</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/fishcanf1y" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;fishcanf1y" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:iszhenghailin@gmail.com" title="E-Mail → mailto:iszhenghailin@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/fishcanf1y_" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;fishcanf1y_" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/fishcanf1y" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;fishcanf1y" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          Links
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://securenexuslab.github.io/" title="https:&#x2F;&#x2F;SecureNexusLab.github.io" rel="noopener" target="_blank">SecureNexusLab</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://fishcanf1y.github.io/2025/07/11/md5verifier-20250711/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpg">
+      <meta itemprop="name" content="fishcanf1y">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fishcanf1yのBlog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="How to design an MD5 verifier | fishcanf1yのBlog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          How to design an MD5 verifier
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-07-11 15:09:03" itemprop="dateCreated datePublished" datetime="2025-07-11T15:09:03+08:00">2025-07-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-07-12 21:23:56" itemprop="dateModified" datetime="2025-07-12T21:23:56+08:00">2025-07-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>项目地址：<em><a target="_blank" rel="noopener" href="https://github.com/fishcanf1y/MD5-Checker">https://github.com/fishcanf1y/MD5-Checker</a></em></p>
+<h2 id="Description"><a href="#Description" class="headerlink" title="Description:"></a>Description:</h2><p>MD5 校验器用于验证数据完整性和检测数据是否被篡改，常用于文件下载、软件更新、密码存储等场景。它可以快速生成文件的“数字指纹”——MD5 值，然后将该值与原始值进行比较，以确保文件在传输或存储过程中没有发生变化。﻿</p>
+<p>以下是MD5 校验器的主要用途和优势：</p>
+<ul>
+<li><p><strong>文件完整性验证:</strong></p>
+<p>当下载文件时，网站通常会提供文件的MD5 值。下载完成后，用户可以使用MD5 校验器计算下载文件的MD5 值，并与提供的MD5 值进行比较。如果两者一致，则表示文件没有损坏或被篡改；如果不一致，则表示文件可能损坏或被恶意修改，需要重新下载。﻿</p>
+</li>
+<li><p><strong>数据一致性验证:</strong></p>
+<p>在数据传输和存储过程中，可能会出现错误或干扰导致数据损坏。通过对数据进行MD5 校验，可以确保数据在不同节点之间的一致性，防止数据丢失或损坏。﻿</p>
+</li>
+<li><p><strong>安全性保护:</strong></p>
+<p>MD5 校验可以用于检测恶意篡改。如果文件在传输过程中被恶意篡改，其MD5 值会发生变化，从而可以及时发现并阻止恶意行为。﻿</p>
+</li>
+<li><p><strong>文件识别和重复性检测:</strong></p>
+<p>每个文件都有一个唯一的MD5 值，可以用于快速识别文件，避免存储和传输重复文件，节省存储空间和带宽。﻿</p>
+</li>
+<li><p><strong>密码存储:</strong></p>
+<p>虽然MD5 算法不再被推荐用于直接存储密码，但它仍然被广泛用于存储密码的哈希值。这样即使数据库泄露，攻击者也无法直接获取用户的明文密码。</p>
+</li>
+</ul>
+<p>﻿</p>
+<p>总而言之，MD5 校验器在保证数据安全和完整性方面发挥着重要作用，尤其是在文件传输、数据存储和密码管理等场景中。﻿</p>
+<h2 id="How-To-Do"><a href="#How-To-Do" class="headerlink" title="How To Do?"></a>How To Do?</h2><p>以下我将梳理大致思路并列举一些代码片段来说明其作用</p>
+<h3 id="一、核心目标"><a href="#一、核心目标" class="headerlink" title="一、核心目标"></a>一、核心目标</h3><ol>
+<li><strong>核心功能</strong>：<ul>
+<li>计算文件的MD5哈希值（文件完整性指纹）</li>
+<li>验证文件是否与预期MD5匹配</li>
+<li>支持批量处理和目录递归操作</li>
+</ul>
+</li>
+<li><strong>非功能性需求</strong>：<ul>
+<li>内存安全（支持大文件处理）</li>
+<li>跨平台兼容性（Windows&#x2F;Linux&#x2F;macOS）</li>
+<li>符合标准工具行为（兼容<code>md5sum</code>格式）</li>
+</ul>
+</li>
+</ol>
+<h3 id="二、关键实现思路"><a href="#二、关键实现思路" class="headerlink" title="二、关键实现思路"></a>二、关键实现思路</h3><h4 id="1-文件哈希计算（核心算法）"><a href="#1-文件哈希计算（核心算法）" class="headerlink" title="1. 文件哈希计算（核心算法）"></a>1. 文件哈希计算（核心算法）</h4><p><strong>设计要点</strong>：</p>
+<ul>
+<li><strong>分块处理</strong>：避免内存溢出</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calculate_md5</span>(<span class="params">file_path, block_size=<span class="number">65536</span></span>):</span><br><span class="line">    md5 = hashlib.md5()</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        <span class="keyword">for</span> block <span class="keyword">in</span> <span class="built_in">iter</span>(<span class="keyword">lambda</span>: f.read(block_size), <span class="string">b&#x27;&#x27;</span>):</span><br><span class="line">            md5.update(block)  <span class="comment"># 增量更新哈希</span></span><br><span class="line">    <span class="keyword">return</span> md5.hexdigest()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>使用生成器模式逐块读取（<code>iter+lambda</code>技巧）</p>
+</li>
+<li><p>默认64KB块大小平衡I&#x2F;O效率和内存占用</p>
+</li>
+<li><p><strong>错误处理</strong>：</p>
+<ul>
+<li>捕获<code>IOError</code>并返回<code>None</code>统一表示失败</li>
+<li>二进制模式(<code>&#39;rb&#39;</code>)确保跨平台一致性</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-验证机制"><a href="#2-验证机制" class="headerlink" title="2. 验证机制"></a>2. 验证机制</h4><p><strong>设计要点</strong>：</p>
+<ul>
+<li><strong>大小写不敏感</strong>：<code>.lower()</code>处理用户输入</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> actual_md5.lower() == expected_md5.lower()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>明确输出</strong>：格式化显示预期&#x2F;实际值对比</p>
+</li>
+<li><p><strong>返回布尔值</strong>：便于脚本化调用</p>
+</li>
+</ul>
+<h4 id="3-批量处理"><a href="#3-批量处理" class="headerlink" title="3. 批量处理"></a>3. 批量处理</h4><p><strong>递归目录处理</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> root, _, files <span class="keyword">in</span> os.walk(directory):</span><br><span class="line">    <span class="keyword">for</span> filename <span class="keyword">in</span> files:</span><br><span class="line">        file_path = os.path.join(root, filename)</span><br><span class="line">        relative_path = os.path.relpath(file_path, directory)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用<code>os.walk</code>实现深度优先遍历</li>
+<li><code>os.path.relpath</code>生成相对路径保证校验文件可移植性</li>
+</ul>
+<h4 id="4-命令行接口"><a href="#4-命令行接口" class="headerlink" title="4. 命令行接口"></a>4. 命令行接口</h4><p><strong>子命令模式</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">subparsers = parser.add_subparsers(dest=<span class="string">&#x27;command&#x27;</span>)</span><br><span class="line">calc_parser = subparsers.add_parser(<span class="string">&#x27;calc&#x27;</span>)</span><br><span class="line">verify_parser = subparsers.add_parser(<span class="string">&#x27;verify&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>分离<code>calc</code>和<code>verify</code>逻辑</li>
+<li>自动生成帮助信息（<code>-h</code>）</li>
+</ul>
+<hr>
+<h3 id="三、典型工作流程"><a href="#三、典型工作流程" class="headerlink" title="三、典型工作流程"></a>三、典型工作流程</h3><h4 id="场景1：单文件验证"><a href="#场景1：单文件验证" class="headerlink" title="场景1：单文件验证"></a>场景1：单文件验证</h4><p><img src="/images/verifier_1_20250712.png" alt="单文件验证"></p>
+<h4 id="场景2：生成验证文件"><a href="#场景2：生成验证文件" class="headerlink" title="场景2：生成验证文件"></a>场景2：生成验证文件</h4><p><img src="/images/verifier_2_20250712.png" alt="生成验证文件"></p>
+<h3 id="四、扩展设计思路"><a href="#四、扩展设计思路" class="headerlink" title="四、扩展设计思路"></a>四、扩展设计思路</h3><h4 id="1-算法扩展点"><a href="#1-算法扩展点" class="headerlink" title="1. 算法扩展点"></a>1. 算法扩展点</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calculate_hash</span>(<span class="params">file_path, algorithm=<span class="string">&#x27;md5&#x27;</span>, block_size=<span class="number">65536</span></span>):</span><br><span class="line">    hasher = hashlib.new(algorithm)  <span class="comment"># 动态选择算法</span></span><br><span class="line">    <span class="comment"># ...相同处理逻辑...</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-性能优化方向"><a href="#2-性能优化方向" class="headerlink" title="2. 性能优化方向"></a>2. 性能优化方向</h4><ul>
+<li><strong>并行计算</strong>：使用<code>concurrent.futures</code>加速批量处理</li>
+<li><strong>进度显示</strong>：添加<code>tqdm</code>进度条</li>
+</ul>
+<h4 id="3-安全增强"><a href="#3-安全增强" class="headerlink" title="3. 安全增强"></a>3. 安全增强</h4><ul>
+<li><strong>签名校验</strong>：支持PGP签名验证</li>
+<li><strong>哈希链</strong>：实现类似<code>git</code>的对象哈希链</li>
+</ul>
+<h4 id="4-工程化改进"><a href="#4-工程化改进" class="headerlink" title="4. 工程化改进"></a>4. 工程化改进</h4><ul>
+<li><strong>单元测试</strong>：针对大文件&#x2F;空文件&#x2F;非法路径等边界条件</li>
+<li><strong>日志记录</strong>：添加<code>logging</code>模块记录操作</li>
+</ul>
+<hr>
+<h3 id="五、设计权衡考量"><a href="#五、设计权衡考量" class="headerlink" title="五、设计权衡考量"></a>五、设计权衡考量</h3><ol>
+<li><strong>内存 vs 速度</strong>：<ul>
+<li>选择64KB块大小而非一次性读取</li>
+<li>牺牲少量速度换取内存安全性</li>
+</ul>
+</li>
+<li><strong>灵活性 vs 复杂度</strong>：<ul>
+<li>不默认支持多算法保持简单性</li>
+<li>但保留扩展接口</li>
+</ul>
+</li>
+<li><strong>严格模式可选</strong>：<ul>
+<li>当前大小写不敏感验证</li>
+<li>可添加<code>--strict</code>参数启用严格匹配</li>
+</ul>
+</li>
+</ol>
+<h3 id="六、最终代码呈现"><a href="#六、最终代码呈现" class="headerlink" title="六、最终代码呈现"></a>六、最终代码呈现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Dict</span>, <span class="type">List</span>, <span class="type">Optional</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 常量定义</span></span><br><span class="line">DEFAULT_BLOCK_SIZE = <span class="number">65536</span>  <span class="comment"># 64KB块大小</span></span><br><span class="line">MD5_FILE_EXTENSION = <span class="string">&#x27;.md5&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">calculate_md5</span>(<span class="params">file_path: <span class="built_in">str</span>, block_size: <span class="built_in">int</span> = DEFAULT_BLOCK_SIZE</span>) -&gt; <span class="type">Optional</span>[<span class="built_in">str</span>]:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    计算文件的MD5哈希值</span></span><br><span class="line"><span class="string">    :param file_path: 文件路径</span></span><br><span class="line"><span class="string">    :param block_size: 读取块大小(字节)</span></span><br><span class="line"><span class="string">    :return: MD5字符串(失败返回None)</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.isfile(file_path):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;错误: 文件不存在 - <span class="subst">&#123;file_path&#125;</span>&quot;</span>, file=sys.stderr)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    md5 = hashlib.md5()</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            <span class="keyword">for</span> block <span class="keyword">in</span> <span class="built_in">iter</span>(<span class="keyword">lambda</span>: f.read(block_size), <span class="string">b&#x27;&#x27;</span>):</span><br><span class="line">                md5.update(block)</span><br><span class="line">        <span class="keyword">return</span> md5.hexdigest()</span><br><span class="line">    <span class="keyword">except</span> (IOError, PermissionError) <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;错误: 无法读取文件 <span class="subst">&#123;file_path&#125;</span> - <span class="subst">&#123;<span class="built_in">str</span>(e)&#125;</span>&quot;</span>, file=sys.stderr)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">batch_calculate_md5</span>(<span class="params">file_list: <span class="type">List</span>[<span class="built_in">str</span>]</span>) -&gt; <span class="type">Dict</span>[<span class="built_in">str</span>, <span class="type">Optional</span>[<span class="built_in">str</span>]]:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    批量计算MD5值</span></span><br><span class="line"><span class="string">    :param file_list: 文件路径列表</span></span><br><span class="line"><span class="string">    :return: 字典&#123;文件路径: MD5值&#125;</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> &#123;file_path: calculate_md5(file_path) <span class="keyword">for</span> file_path <span class="keyword">in</span> file_list&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">verify_md5</span>(<span class="params">file_path: <span class="built_in">str</span>, expected_md5: <span class="built_in">str</span></span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    验证文件MD5值</span></span><br><span class="line"><span class="string">    :param file_path: 文件路径</span></span><br><span class="line"><span class="string">    :param expected_md5: 预期MD5值</span></span><br><span class="line"><span class="string">    :return: 是否匹配</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    actual_md5 = calculate_md5(file_path)</span><br><span class="line">    <span class="keyword">if</span> actual_md5 <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    is_match = actual_md5.lower() == expected_md5.lower()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;文件: <span class="subst">&#123;os.path.abspath(file_path)&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;预期MD5: <span class="subst">&#123;expected_md5.lower()&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;实际MD5: <span class="subst">&#123;actual_md5.lower()&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;验证结果: <span class="subst">&#123;<span class="string">&#x27;匹配&#x27;</span> <span class="keyword">if</span> is_match <span class="keyword">else</span> <span class="string">&#x27;不匹配&#x27;</span>&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> is_match</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">generate_md5_file</span>(<span class="params">directory: <span class="built_in">str</span>, output_file: <span class="built_in">str</span> = <span class="literal">None</span></span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    生成目录的MD5校验文件</span></span><br><span class="line"><span class="string">    :param directory: 目录路径</span></span><br><span class="line"><span class="string">    :param output_file: 输出文件路径(默认: 目录名.md5)</span></span><br><span class="line"><span class="string">    :return: 是否成功</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.isdir(directory):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;错误: 目录不存在 - <span class="subst">&#123;directory&#125;</span>&quot;</span>, file=sys.stderr)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> output_file <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        output_file = os.path.basename(directory.rstrip(<span class="string">&#x27;/\\&#x27;</span>)) + MD5_FILE_EXTENSION</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(output_file, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f_out:</span><br><span class="line">            <span class="keyword">for</span> root, _, files <span class="keyword">in</span> os.walk(directory):</span><br><span class="line">                <span class="keyword">for</span> filename <span class="keyword">in</span> files:</span><br><span class="line">                    file_path = os.path.join(root, filename)</span><br><span class="line">                    md5 = calculate_md5(file_path)</span><br><span class="line">                    <span class="keyword">if</span> md5:</span><br><span class="line">                        relative_path = os.path.relpath(file_path, directory)</span><br><span class="line">                        f_out.write(<span class="string">f&quot;<span class="subst">&#123;md5&#125;</span> *<span class="subst">&#123;relative_path&#125;</span>\n&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;成功生成校验文件: <span class="subst">&#123;os.path.abspath(output_file)&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">except</span> IOError <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;错误: 无法写入校验文件 - <span class="subst">&#123;<span class="built_in">str</span>(e)&#125;</span>&quot;</span>, file=sys.stderr)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">verify_md5_file</span>(<span class="params">md5_file: <span class="built_in">str</span></span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    验证MD5校验文件中的所有条目</span></span><br><span class="line"><span class="string">    :param md5_file: 校验文件路径</span></span><br><span class="line"><span class="string">    :return: 是否全部验证通过</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.isfile(md5_file):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;错误: 校验文件不存在 - <span class="subst">&#123;md5_file&#125;</span>&quot;</span>, file=sys.stderr)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    all_passed = <span class="literal">True</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(md5_file, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            <span class="keyword">for</span> line_num, line <span class="keyword">in</span> <span class="built_in">enumerate</span>(f, <span class="number">1</span>):</span><br><span class="line">                line = line.strip()</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> line <span class="keyword">or</span> line.startswith(<span class="string">&#x27;#&#x27;</span>):</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">                <span class="comment"># 解析格式: MD5 *文件名 或 MD5 文件名</span></span><br><span class="line">                parts = line.split(maxsplit=<span class="number">1</span>)</span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">len</span>(parts) != <span class="number">2</span>:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">f&quot;警告: 第<span class="subst">&#123;line_num&#125;</span>行格式错误 - <span class="subst">&#123;line&#125;</span>&quot;</span>, file=sys.stderr)</span><br><span class="line">                    all_passed = <span class="literal">False</span></span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">                expected_md5, file_path = parts</span><br><span class="line">                <span class="keyword">if</span> file_path.startswith(<span class="string">&#x27;*&#x27;</span>):</span><br><span class="line">                    file_path = file_path[<span class="number">1</span>:]</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> verify_md5(file_path, expected_md5):</span><br><span class="line">                    all_passed = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">except</span> IOError <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;错误: 读取校验文件失败 - <span class="subst">&#123;<span class="built_in">str</span>(e)&#125;</span>&quot;</span>, file=sys.stderr)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> all_passed</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">setup_argparse</span>() -&gt; argparse.ArgumentParser:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;配置命令行参数解析&quot;&quot;&quot;</span></span><br><span class="line">    parser = argparse.ArgumentParser(</span><br><span class="line">        description=<span class="string">&#x27;MD5校验工具&#x27;</span>,</span><br><span class="line">        formatter_class=argparse.RawDescriptionHelpFormatter,</span><br><span class="line">        epilog=<span class="string">&quot;&quot;&quot;使用示例:</span></span><br><span class="line"><span class="string">  计算MD5:  %(prog)s calc file.txt</span></span><br><span class="line"><span class="string">  验证文件: %(prog)s verify file.txt d41d8cd98f00b204e9800998ecf8427e</span></span><br><span class="line"><span class="string">  生成校验: %(prog)s gen ./directory</span></span><br><span class="line"><span class="string">  验证校验: %(prog)s check checksums.md5&quot;&quot;&quot;</span></span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    subparsers = parser.add_subparsers(dest=<span class="string">&#x27;command&#x27;</span>, required=<span class="literal">True</span>, <span class="built_in">help</span>=<span class="string">&#x27;子命令&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># calc 子命令</span></span><br><span class="line">    calc_parser = subparsers.add_parser(<span class="string">&#x27;calc&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;计算文件MD5值&#x27;</span>)</span><br><span class="line">    calc_parser.add_argument(<span class="string">&#x27;file&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;目标文件路径&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># verify 子命令</span></span><br><span class="line">    verify_parser = subparsers.add_parser(<span class="string">&#x27;verify&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;验证文件MD5值&#x27;</span>)</span><br><span class="line">    verify_parser.add_argument(<span class="string">&#x27;file&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;要验证的文件路径&#x27;</span>)</span><br><span class="line">    verify_parser.add_argument(<span class="string">&#x27;md5&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;预期的MD5值&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># gen 子命令</span></span><br><span class="line">    gen_parser = subparsers.add_parser(<span class="string">&#x27;gen&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;生成目录的MD5校验文件&#x27;</span>)</span><br><span class="line">    gen_parser.add_argument(<span class="string">&#x27;directory&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;目标目录路径&#x27;</span>)</span><br><span class="line">    gen_parser.add_argument(<span class="string">&#x27;-o&#x27;</span>, <span class="string">&#x27;--output&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;输出文件路径&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># check 子命令</span></span><br><span class="line">    check_parser = subparsers.add_parser(<span class="string">&#x27;check&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;验证MD5校验文件&#x27;</span>)</span><br><span class="line">    check_parser.add_argument(<span class="string">&#x27;md5_file&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;MD5校验文件路径&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> parser</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    parser = setup_argparse()</span><br><span class="line">    args = parser.parse_args()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> args.command == <span class="string">&#x27;calc&#x27;</span>:</span><br><span class="line">        md5 = calculate_md5(args.file)</span><br><span class="line">        <span class="keyword">if</span> md5:</span><br><span class="line">            <span class="built_in">print</span>(md5)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">elif</span> args.command == <span class="string">&#x27;verify&#x27;</span>:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> verify_md5(args.file, args.md5):</span><br><span class="line">            sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">elif</span> args.command == <span class="string">&#x27;gen&#x27;</span>:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> generate_md5_file(args.directory, args.output):</span><br><span class="line">            sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">elif</span> args.command == <span class="string">&#x27;check&#x27;</span>:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> verify_md5_file(args.md5_file):</span><br><span class="line">            sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<p>参考文章：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lfri/p/12257706.html">MD5校验码有什么作用</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lfri/p/12257706.html">MD5校验 </a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_66196770/article/details/140391190">为什么文件需要校验MD5</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.sysceo.com/Article-article_info-id-1932.html">如何使用MD5进行文件验证</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/lgj123xj/article/details/134725144">使用MD5当做文件的唯一标识，这样安全么？</a></li>
+</ol>
+<script src="https://giscus.app/client.js"
+        data-repo="fishcanf1y/fishcanf1y.github.io"
+        data-repo-id="R_kgDONzaTTQ"
+        data-category="Announcements"
+        data-category-id="DIC_kwDONzaTTc4Cpqn7"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+</script>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Coding/" rel="tag"># Coding</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/07/11/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="prev" title="Go基础语法学习笔记">
+                  <i class="fa fa-angle-left"></i> Go基础语法学习笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/07/11/Linux%E4%B8%8B8086%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="next" title="Linux下8086汇编语言环境搭建">
+                  Linux下8086汇编语言环境搭建 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">fishcanf1y</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>

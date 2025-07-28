@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/me.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/me.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/me.jpg">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"fishcanf1y.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.23.2","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js" defer></script>
+
+    <meta name="description" content="后记：在MD5-Checker 项目开发中，我也遇到了很多知识面缺陷的问题，于是在开发过程中我选择使用了AI来辅助开发（学艺不精）在此，我根据AI的建议，梳理了一份思路——如何成为一名合格的Devloper 以下是针对MD5校验工具设计思路所涉及的软件工程原则（以MD5-Checker开发为例）、经典理论以及对应的学习吸收方法的系统化总结：  一、涉及的核心理论与原则1. 模块化设计 SOLID原">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to design an MD5 verifier - 后记">
+<meta property="og:url" content="http://fishcanf1y.github.io/2025/07/12/verifier-talk/index.html">
+<meta property="og:site_name" content="fishcanf1yのBlog">
+<meta property="og:description" content="后记：在MD5-Checker 项目开发中，我也遇到了很多知识面缺陷的问题，于是在开发过程中我选择使用了AI来辅助开发（学艺不精）在此，我根据AI的建议，梳理了一份思路——如何成为一名合格的Devloper 以下是针对MD5校验工具设计思路所涉及的软件工程原则（以MD5-Checker开发为例）、经典理论以及对应的学习吸收方法的系统化总结：  一、涉及的核心理论与原则1. 模块化设计 SOLID原">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-07-12T13:16:23.000Z">
+<meta property="article:modified_time" content="2025-07-24T04:41:22.657Z">
+<meta property="article:author" content="fishcanf1y">
+<meta property="article:tag" content="Coding">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://fishcanf1y.github.io/2025/07/12/verifier-talk/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://fishcanf1y.github.io/2025/07/12/verifier-talk/","path":"2025/07/12/verifier-talk/","title":"How to design an MD5 verifier - 后记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>How to design an MD5 verifier - 后记 | fishcanf1yのBlog</title>
+  
+
+
+
+
+
+
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous" defer></script>
+<script src="/js/utils.js" defer></script><script src="/js/motion.js" defer></script><script src="/js/sidebar.js" defer></script><script src="/js/next-boot.js" defer></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js" defer></script>
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">fishcanf1yのBlog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%8E%E8%AE%B0%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">后记：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%B6%89%E5%8F%8A%E7%9A%84%E6%A0%B8%E5%BF%83%E7%90%86%E8%AE%BA%E4%B8%8E%E5%8E%9F%E5%88%99"><span class="nav-number">1.0.1.</span> <span class="nav-text">一、涉及的核心理论与原则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E6%A8%A1%E5%9D%97%E5%8C%96%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">1. 模块化设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="nav-number">1.0.1.2.</span> <span class="nav-text">2. 性能优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="nav-number">1.0.1.3.</span> <span class="nav-text">3. 错误处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E6%8E%A5%E5%8F%A3%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.0.1.4.</span> <span class="nav-text">4. 接口设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7"><span class="nav-number">1.0.1.5.</span> <span class="nav-text">5. 可扩展性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AD%A6%E4%B9%A0%E5%90%B8%E6%94%B6%E6%96%B9%E6%B3%95%E8%AE%BA"><span class="nav-number">1.0.2.</span> <span class="nav-text">二、学习吸收方法论</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%90%86%E8%AE%BA-%E2%86%92-%E5%AE%9E%E8%B7%B5%E5%BE%AA%E7%8E%AF"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">1. 理论 → 实践循环</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E4%BB%A3%E7%A0%81%E8%80%83%E5%8F%A4%E5%AD%A6"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">2. 代码考古学</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E9%87%8F%E5%8C%96%E5%88%86%E6%9E%90%E5%AE%9E%E8%B7%B5"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">3. 量化分析实践</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%98%A0%E5%B0%84"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">4. 设计模式映射</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E5%88%BB%E6%84%8F%E7%BB%83%E4%B9%A0%E8%B7%AF%E7%BA%BF"><span class="nav-number">1.0.2.5.</span> <span class="nav-text">5. 刻意练习路线</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%8E%A8%E8%8D%90%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90"><span class="nav-number">1.0.3.</span> <span class="nav-text">三、推荐学习资源</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%BF%85%E8%AF%BB%E7%BB%8F%E5%85%B8"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">1. 必读经典</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%AE%BA%E6%96%87%E5%8F%82%E8%80%83"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">2. 论文参考</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%AE%9E%E8%B7%B5%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.0.3.3.</span> <span class="nav-text">3. 实践项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E5%8F%AF%E8%A7%86%E5%8C%96%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.0.3.4.</span> <span class="nav-text">4. 可视化学习</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E7%9F%A5%E8%AF%86%E5%90%B8%E6%94%B6%E6%A3%80%E6%9F%A5%E8%A1%A8"><span class="nav-number">1.0.4.</span> <span class="nav-text">四、知识吸收检查表</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="fishcanf1y"
+      src="/images/me.jpg">
+  <p class="site-author-name" itemprop="name">fishcanf1y</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/fishcanf1y" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;fishcanf1y" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:iszhenghailin@gmail.com" title="E-Mail → mailto:iszhenghailin@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/fishcanf1y_" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;fishcanf1y_" rel="noopener me" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/fishcanf1y" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;fishcanf1y" rel="noopener me" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          Links
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://securenexuslab.github.io/" title="https:&#x2F;&#x2F;SecureNexusLab.github.io" rel="noopener" target="_blank">SecureNexusLab</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://fishcanf1y.github.io/2025/07/12/verifier-talk/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpg">
+      <meta itemprop="name" content="fishcanf1y">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fishcanf1yのBlog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="How to design an MD5 verifier - 后记 | fishcanf1yのBlog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          How to design an MD5 verifier - 后记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2025-07-12 21:16:23" itemprop="dateCreated datePublished" datetime="2025-07-12T21:16:23+08:00">2025-07-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2025-07-24 12:41:22" itemprop="dateModified" datetime="2025-07-24T12:41:22+08:00">2025-07-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="后记："><a href="#后记：" class="headerlink" title="后记："></a>后记：</h1><p>在<code>MD5-Checker</code> 项目开发中，我也遇到了很多知识面缺陷的问题，于是在开发过程中我选择使用了AI来辅助开发（学艺不精）在此，我根据AI的建议，梳理了一份思路——如何成为一名合格的Devloper</p>
+<p>以下是针对MD5校验工具设计思路所涉及的软件工程原则（以MD5-Checker开发为例）、经典理论以及对应的学习吸收方法的系统化总结：</p>
+<hr>
+<h3 id="一、涉及的核心理论与原则"><a href="#一、涉及的核心理论与原则" class="headerlink" title="一、涉及的核心理论与原则"></a>一、涉及的核心理论与原则</h3><h4 id="1-模块化设计"><a href="#1-模块化设计" class="headerlink" title="1. 模块化设计"></a>1. <strong>模块化设计</strong></h4><ul>
+<li><strong>SOLID原则</strong>（尤其是单一职责原则）<ul>
+<li>每个函数只做一件事（如<code>calculate_md5</code>仅负责计算）</li>
+<li>参考：《Clean Code》by Robert C. Martin</li>
+</ul>
+</li>
+<li><strong>关注点分离(SoC)</strong><ul>
+<li>CLI解析、业务逻辑、文件操作分层处理</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-性能优化"><a href="#2-性能优化" class="headerlink" title="2. 性能优化"></a>2. <strong>性能优化</strong></h4><ul>
+<li><strong>I&#x2F;O效率原则</strong><ul>
+<li>分块大小选择（64KB）涉及《操作系统概念》中的磁盘预读策略</li>
+<li>参考：Linux内核的<code>readahead</code>机制</li>
+</ul>
+</li>
+<li><strong>时间&#x2F;空间权衡</strong><ul>
+<li>内存分块 vs 计算速度的平衡（《算法导论》第17章平摊分析）</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-错误处理"><a href="#3-错误处理" class="headerlink" title="3. 错误处理"></a>3. <strong>错误处理</strong></h4><ul>
+<li><strong>防御式编程</strong><ul>
+<li><code>try/except</code>处理文件操作（《代码大全》第8章）</li>
+</ul>
+</li>
+<li><strong>契约设计</strong><ul>
+<li>函数输入&#x2F;输出约定（如<code>verify_md5</code>返回布尔值）</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-接口设计"><a href="#4-接口设计" class="headerlink" title="4. 接口设计"></a>4. <strong>接口设计</strong></h4><ul>
+<li><strong>Unix哲学</strong><ul>
+<li>“Do One Thing and Do It Well”（命令行工具设计）</li>
+<li>参考：《The Art of Unix Programming》</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-可扩展性"><a href="#5-可扩展性" class="headerlink" title="5. 可扩展性"></a>5. <strong>可扩展性</strong></h4><ul>
+<li><strong>开放封闭原则(OCP)</strong><ul>
+<li>通过<code>hashlib.new()</code>预留多算法支持</li>
+<li>参考：《设计模式：可复用面向对象软件的基础》</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="二、学习吸收方法论"><a href="#二、学习吸收方法论" class="headerlink" title="二、学习吸收方法论"></a>二、学习吸收方法论</h3><h4 id="1-理论-→-实践循环"><a href="#1-理论-→-实践循环" class="headerlink" title="1. 理论 → 实践循环"></a>1. <strong>理论 → 实践循环</strong></h4><ul>
+<li><strong>步骤</strong>：<ol>
+<li>阅读《Clean Code》函数设计章节 → 重构自己的函数</li>
+<li>研究Linux文件系统预读机制 → 调整<code>block_size</code>测试性能</li>
+<li>学习SOLID原则 → 分析工具中哪些模块符合&#x2F;违反原则</li>
+</ol>
+</li>
+</ul>
+<h4 id="2-代码考古学"><a href="#2-代码考古学" class="headerlink" title="2. 代码考古学"></a>2. <strong>代码考古学</strong></h4><ul>
+<li><p><strong>经典工具对比学习</strong>：</p>
+<p>bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 研究GNU coreutils的md5sum实现</span><br><span class="line">git clone git://git.sv.gnu.org/coreutils</span><br><span class="line">grep -r &quot;BLOCKSIZE&quot; src/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Python生态参考</strong>：</p>
+<ul>
+<li>对比<code>hashlib</code>与<code>cryptography</code>库的设计差异</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-量化分析实践"><a href="#3-量化分析实践" class="headerlink" title="3. 量化分析实践"></a>3. <strong>量化分析实践</strong></h4><ul>
+<li><p><strong>性能基准测试</strong>：</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import timeit</span><br><span class="line">timeit.timeit(&#x27;calculate_md5(&quot;large_file.iso&quot;, block_size=8192)&#x27;, number=10)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>内存分析</strong>：</p>
+<p>bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m memory_profiler md5_tool.py</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="4-设计模式映射"><a href="#4-设计模式映射" class="headerlink" title="4. 设计模式映射"></a>4. <strong>设计模式映射</strong></h4><ul>
+<li><p><strong>识别模式应用</strong>：</p>
+<table>
+<thead>
+<tr>
+<th align="left">模式</th>
+<th align="left">本工具实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">模板方法</td>
+<td align="left"><code>calculate_md5</code>的分块处理流程</td>
+</tr>
+<tr>
+<td align="left">工厂方法</td>
+<td align="left"><code>hashlib.md5()</code>构造函数</td>
+</tr>
+<tr>
+<td align="left">命令模式</td>
+<td align="left">argparse子命令实现</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h4 id="5-刻意练习路线"><a href="#5-刻意练习路线" class="headerlink" title="5. 刻意练习路线"></a>5. <strong>刻意练习路线</strong></h4><ol>
+<li><strong>基础阶段</strong>：<ul>
+<li>实现单文件MD5计算（理解分块哈希）</li>
+<li>添加单元测试（文件不存在、空文件等case）</li>
+</ul>
+</li>
+<li><strong>进阶阶段</strong>：<ul>
+<li>增加SHA-256支持（实践开放封闭原则）</li>
+<li>实现多线程批量计算（学习GIL限制）</li>
+</ul>
+</li>
+<li><strong>高级阶段</strong>：<ul>
+<li>开发VS Code插件调用该工具（接口设计实践）</li>
+<li>用Rust重写性能关键部分（FFI交互学习）</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="三、推荐学习资源"><a href="#三、推荐学习资源" class="headerlink" title="三、推荐学习资源"></a>三、推荐学习资源</h3><h4 id="1-必读经典"><a href="#1-必读经典" class="headerlink" title="1. 必读经典"></a>1. <strong>必读经典</strong></h4><ul>
+<li>《代码大全》第5章（设计）、第8章（防御式编程）</li>
+<li>《Unix编程艺术》第1章（模块化）、第7章（接口设计）</li>
+</ul>
+<h4 id="2-论文参考"><a href="#2-论文参考" class="headerlink" title="2. 论文参考"></a>2. <strong>论文参考</strong></h4><ul>
+<li><em>The MD5 Message-Digest Algorithm</em> (RFC 1321)</li>
+<li><em>A Quantitative Study of File Systems’ Block Size Selection</em> (FAST’13)</li>
+</ul>
+<h4 id="3-实践项目"><a href="#3-实践项目" class="headerlink" title="3. 实践项目"></a>3. <strong>实践项目</strong></h4><ul>
+<li>GNU coreutils源码（md5sum实现）</li>
+<li>Python标准库<code>hashlib</code>的C实现（<code>_hashlib.c</code>）</li>
+</ul>
+<h4 id="4-可视化学习"><a href="#4-可视化学习" class="headerlink" title="4. 可视化学习"></a>4. <strong>可视化学习</strong></h4><ul>
+<li>MD5算法可视化：<a target="_blank" rel="noopener" href="https://www.cs.usfca.edu/~galles/visualization/Algorithms.html">https://www.cs.usfca.edu/~galles/visualization/Algorithms.html</a></li>
+<li>I&#x2F;O缓冲区交互演示：<a target="_blank" rel="noopener" href="https://www.linuxatemyram.com/">https://www.linuxatemyram.com/</a></li>
+</ul>
+<hr>
+<h3 id="四、知识吸收检查表"><a href="#四、知识吸收检查表" class="headerlink" title="四、知识吸收检查表"></a>四、知识吸收检查表</h3><p>当你认为自己已掌握某个概念时，尝试回答：</p>
+<table>
+<thead>
+<tr>
+<th align="left">检查项</th>
+<th align="left">是&#x2F;否</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">能解释64KB块大小的选择依据？</td>
+<td align="left">✓</td>
+<td align="left">磁盘扇区对齐、内存页大小</td>
+</tr>
+<tr>
+<td align="left">能画出数据流图？</td>
+<td align="left">✓</td>
+<td align="left">文件→分块→哈希更新→hexdigest</td>
+</tr>
+<tr>
+<td align="left">能列举3种替代设计方案？</td>
+<td align="left">✓</td>
+<td align="left">mmap映射、内存视图、GPU加速</td>
+</tr>
+<tr>
+<td align="left">能说明异常处理的设计取舍？</td>
+<td align="left">✓</td>
+<td align="left">返回None vs 抛出异常</td>
+</tr>
+</tbody></table>
+<hr>
+<p>通过这种结构化学习路径，你可以将工具开发经验转化为可迁移的软件工程能力，逐步构建自己的系统设计思维体系。</p>
+<p>上了个置顶，遍笔者和各位朋友慢慢消化吸收</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Coding/" rel="tag"># Coding</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2025/07/12/P1149-Matchstick/" rel="prev" title="P1149 [NOIP 2008 提高组] 火柴棒等式">
+                  <i class="fa fa-angle-left"></i> P1149 [NOIP 2008 提高组] 火柴棒等式
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2025/07/12/%E5%85%B3%E4%BA%8EPython%E6%89%93%E5%8C%85%E6%88%90EXE%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/" rel="next" title="关于Python打包成EXE的那些事">
+                  关于Python打包成EXE的那些事 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">fishcanf1y</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+</body>
+</html>
