@@ -143,7 +143,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">29</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -206,7 +206,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://fishcanf1y.github.io/2025/07/10/About-20250210/">
+    <link itemprop="mainEntityOfPage" href="http://fishcanf1y.github.io/2025/07/29/luogu-p1464-memo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/me.jpg">
@@ -224,10 +224,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-              <span class="post-sticky-flag" title="Sticky">
-                <i class="fa fa-thumbtack"></i>
-              </span><a href="/2025/07/10/About-20250210/" class="post-title-link" itemprop="url">Some Things You May Want to Know</a>
+          <a href="/2025/07/29/luogu-p1464-memo/" class="post-title-link" itemprop="url">P1464与递归函数的记忆化搜索</a>
         </h2>
 
         <div class="post-meta-container">
@@ -237,15 +234,18 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
+      
 
-      <time title="Created: 2025-07-10 20:25:42" itemprop="dateCreated datePublished" datetime="2025-07-10T20:25:42+08:00">2025-07-10</time>
+      <time title="Created: 2025-07-29 18:37:36 / Modified: 19:04:32" itemprop="dateCreated datePublished" datetime="2025-07-29T18:37:36+08:00">2025-07-29</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
+        <i class="far fa-folder"></i>
       </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-07-21 19:47:13" itemprop="dateModified" datetime="2025-07-21T19:47:13+08:00">2025-07-21</time>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Coding/" itemprop="url" rel="index"><span itemprop="name">Coding</span></a>
+        </span>
     </span>
 
   
@@ -258,12 +258,39 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h3 id="About-Me"><a href="#About-Me" class="headerlink" title="About Me:"></a>About Me:</h3><p>Hi~ 我的名字是ZhenngHailin，目前是一位在读高中生，网络安全爱好者</p>
-<p>以前是一名Web手，同时还涉猎简单的Misc，我对<code>Pwnable</code> &#x2F; <code>Reverse</code>很感兴趣，欢迎和我交流</p>
-<p>我的博客主要用于记录一些CTF赛题、技术研究和Coding(个人感觉大部分都是些很基础的东西)，同时也会放一些个人感想 希望它能够帮到你</p>
-<p>我的邮箱是：<em><a href="mailto:&#x69;&#x73;&#122;&#104;&#101;&#110;&#103;&#104;&#97;&#x69;&#108;&#x69;&#110;&#64;&#103;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;">iszhenghailin@gmail.com</a></em> 欢迎和我联系！</p>
-<p>（可以交换友链，麻烦联系我的邮箱 Thx~）</p>
-<p>每一篇文章都可以点进行在底下留言分享你的学习心得~</p>
+          <p>原题地址：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1464">https://www.luogu.com.cn/problem/P1464</a></p>
+<ol>
+<li><p>如果 $a≤0$ 或 $b≤0$ 或 $c≤0$ 就返回值 1</p>
+</li>
+<li><p>如果 $a&gt;20$ 或 $b&gt;20$ 或 $c&gt;20$ 就返回 w(20,20,20)$</p>
+</li>
+<li><p>如果 $a&lt;b$ 并且 $b&lt;c$ 就返回 $w(a,b,c−1)+w(a,b−1,c−1)−w(a,b−1,c)$</p>
+</li>
+<li><p>else $w(a−1,b,c)+w(a−1,b−1,c)+w(a−1,b,c−1)−w(a−1,b−1,c−1)$</p>
+</li>
+</ol>
+<p><em>注意：例如 $<em>w</em>(30,−1,0)$ 又满足条件 1 又满足条件 2，请按照最上面的条件来算，答案为 1。</em></p>
+<p><strong>分析</strong>：本题考察递归的记忆化漏洞，记忆化不仅是递归的动态规划，更是对递归的优化，并非从底自上的动态规划填表法</p>
+<p><strong>其他注意事项</strong></p>
+<ul>
+<li><p>保证输入的数在 $[−9223372036854775808,9223372036854775807]$ 之间，并且是整数。</p>
+</li>
+<li><p>保证不包括 $−1,−1,−1$ 的输入行数 $T$ 满足 $1≤T≤10^5$</p>
+</li>
+</ul>
+<p>综上所述还需要开longlong防止爆掉</p>
+<p><strong>AC Code</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ll long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line">ll memo[<span class="number">21</span>][<span class="number">21</span>][<span class="number">21</span>];</span><br><span class="line"><span class="function">ll <span class="title">w</span><span class="params">(ll a, ll b, ll c)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(a&lt;=<span class="number">0</span> || b&lt;=<span class="number">0</span> || c&lt;=<span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(a&gt;<span class="number">20</span> || b&gt;<span class="number">20</span> || c&gt;<span class="number">20</span>) <span class="keyword">return</span> <span class="built_in">w</span>(<span class="number">20</span>,<span class="number">20</span>,<span class="number">20</span>);</span><br><span class="line">    <span class="keyword">if</span> (memo[a][b][c] != <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> memo[a][b][c];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (a&lt;b &amp;&amp; b&lt;c) &#123;</span><br><span class="line">        memo[a][b][c] = <span class="built_in">w</span>(a,b,c<span class="number">-1</span>) + <span class="built_in">w</span>(a,b<span class="number">-1</span>,c<span class="number">-1</span>) - <span class="built_in">w</span>(a,b<span class="number">-1</span>,c);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        memo[a][b][c] = <span class="built_in">w</span>(a<span class="number">-1</span>,b,c) + <span class="built_in">w</span>(a<span class="number">-1</span>,b<span class="number">-1</span>,c) + <span class="built_in">w</span>(a<span class="number">-1</span>,b,c<span class="number">-1</span>) - <span class="built_in">w</span>(a<span class="number">-1</span>,b<span class="number">-1</span>,c<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> memo[a][b][c];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(memo, <span class="number">-1</span>, <span class="built_in">sizeof</span>(memo));</span><br><span class="line">    ll a,b,c;</span><br><span class="line">    <span class="keyword">while</span>(cin&gt;&gt;a&gt;&gt;b&gt;&gt;c) &#123;</span><br><span class="line">        <span class="keyword">if</span>(a==<span class="number">-1</span> &amp;&amp; b==<span class="number">-1</span> &amp;&amp;c==<span class="number">-1</span>) <span class="keyword">break</span>;</span><br><span class="line">        ll ans = <span class="built_in">w</span>(a,b,c);</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;w(&quot;</span> &lt;&lt; a &lt;&lt; <span class="string">&quot;, &quot;</span> &lt;&lt; b &lt;&lt; <span class="string">&quot;, &quot;</span> &lt;&lt; c &lt;&lt; <span class="string">&quot;) = &quot;</span> &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>以下的QFA来自暂时can not fly的fish在做题中犯的一些错误</p>
+<p><strong>Q: if(a&#x3D;&#x3D;-1 &amp;&amp; b&#x3D;&#x3D;-1 &amp;&amp;c&#x3D;&#x3D;-1) break; 为什么这一步是break掉而不是return 一个值？</strong></p>
+<p><strong>A:</strong> 因为这行代码的作用是满足判断条件后就跳出输入循环</p>
+<p><strong>Q: 意思就是仅跳过这个long long result &#x3D; w(a, b, c); 调用w函数的代码然后return 0;是吗？</strong></p>
+<p><strong>A: Yes~</strong></p>
+<p><strong>Q: 在上述代码中把w函数写在了main函数前面，代码是先经过主函数的读取数字再调用了w函数进行计算，那按照这个处理逻辑能否把main函数写在w函数前面?</strong></p>
+<p><strong>A:</strong> 在C++中，函数顺序定义会影响其可见性，以我们的代码为例，我们把main函数写在w函数前，但是我们调用了一个没有定义的函数w，编译器就会报错，除非提前声明函数原型，因此，如果要把main函数写在w函数前面，需要先声明w函数，再定义main，最后定义 w的实现。</p>
 
       
     </div>
@@ -571,7 +598,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-07-28 12:57:49" itemprop="dateModified" datetime="2025-07-28T12:57:49+08:00">2025-07-28</time>
+      <time title="Modified: 2025-07-29 19:06:46" itemprop="dateModified" datetime="2025-07-29T19:06:46+08:00">2025-07-29</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -673,9 +700,9 @@
 <p>直接用XFF(X-Forwarded-For)</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GET /./a.php HTTP/1.1</span><br><span class="line">Host: node7.anna.nssctf.cn:28524</span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Accept-Language: en-US</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">User-Agent: WLLM</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Connection: keep-alive</span><br><span class="line">X-Forwarded-For:127.0.0.1</span><br><span class="line">Content-Length: 2</span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/SWPUCTF-http-3.png"></p>
+<p><img src="/images/SWPUCTF-Web-http-3.png"></p>
 <p>在MITM交互式劫持页面选择放行（我们上面构造的数据包）</p>
-<p><img src="/images/SWPUCTF-http-4.png"></p>
+<p><img src="/images/SWPUCTF-Web-http-3.png"></p>
 <p>成功拿到flag</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NSSCTF&#123;ee2756e8-a41c-4d15-8bd9-0f50a445919d&#125;</span><br></pre></td></tr></table></figure>
 
