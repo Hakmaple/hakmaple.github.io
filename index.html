@@ -206,6 +206,119 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://fishcanf1y.github.io/2025/08/01/What-is-Attention/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpg">
+      <meta itemprop="name" content="fishcanf1y">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="fishcanf1yのBlog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" | fishcanf1yのBlog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2025/08/01/What-is-Attention/" class="post-title-link" itemprop="url">What is Attention?</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2025-08-01 13:23:11 / Modified: 09:29:21" itemprop="dateCreated datePublished" datetime="2025-08-01T13:23:11+08:00">2025-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="Attention"><a href="#Attention" class="headerlink" title="Attention"></a>Attention</h2><p>注意力的来源或许是因为大数据，在大数据中什么样子的数据都有，对于重要的数据我们要使用，对于不太重要的数据我们需要暂时忽略。</p>
+<p>但是对于主流的卷积神经网络(Convolutional Neural Networks, CNN)或短期记忆递归神经网络(Long Short-Term Memory, LSTM)很难去决定什么重要，什么不重要。</p>
+<p>在2017年Google发布 <em>Attention is All You Need</em> 前就已经有人发现了如何在深度学习的模型上做注意力，再后来注意力就诞生了。</p>
+<h2 id="人类的视觉注意力"><a href="#人类的视觉注意力" class="headerlink" title="人类的视觉注意力"></a>人类的视觉注意力</h2><p>Attention翻译成注意力，从其的命名方式来看，很明显借鉴了人类的注意力机制，因此，我们首先介绍人类的注意力</p>
+<p><img src="/images/What-is-Attention-1.jpg" alt="人类的注意力"></p>
+<p>我们看到这张图，研究员发现，当一个人看到这张图时，他&#x2F;她的眼睛会聚焦到红色的区域。</p>
+<p>我们分解以下可以得到以下信息：</p>
+<ul>
+<li>人看脸</li>
+<li>文章看标题</li>
+<li>段落看开头</li>
+</ul>
+<p>研究员们发现，这些红色的区域往往可能包含着重要的信息。</p>
+<p>**注意力机制：**我们会把我们的焦点聚焦在比较重要的事物上。</p>
+<h2 id="怎么做注意力？"><a href="#怎么做注意力？" class="headerlink" title="怎么做注意力？"></a>怎么做注意力？</h2><p>回到刚才的那张图，存在着两个对象：</p>
+<ol>
+<li>我（查询对象$Q$）</li>
+<li>图（被查询对象$V$）</li>
+</ol>
+<p>当我们看到这张图的第一眼，我们就会开始去判断哪些事物对我而言重要和哪些事物对我而言不重要，其实就是去计算$Q$和$V$里的事物的重要度。</p>
+<p>重要度计算其实就是相似度计算，就是计算$Q$和$V$里面的事物哪些更接近？</p>
+<p>以下我们使用点乘的方式去进行相似度计算。</p>
+<p>$Q$, $K &#x3D; K_1,K_2,\cdots,k_n$</p>
+<p>我们的$K$包含了很多的事物，如上述式子，通过点乘的方法计算$Q$和$K$里的每一个事物的相似度，就可以拿到$Q$和$K_1$的相似值$a_1$，$Q$和$K_2$的相似值$a_2$，$Q$和$K_n$的相似度$a_n$。</p>
+<p><em>Tips：点乘其实就是求内积，在此我们无需知道为什么它能求内积</em></p>
+<p>再拿到相似度后，我们做一层$Softmax(a_1,a_2,\cdots,a_n)$就可以得到概率。</p>
+<p>进而就可以找出哪个对于$Q$而言就更重要。</p>
+<p><img src="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/attention-%E8%AE%A1%E7%AE%97%E5%9B%BE.png" alt="Q和K"></p>
+<p>对于我们获得的所有的概率值我们还需要进行汇总，当你使用$Q$查询结束后，$Q$已经失去了它的使用价值了，而我们最终拿到的是一张多了一些信息的图片（多了于我而言更重要和更不重要的信息）。</p>
+<p>在$(a_1,a_2,\cdots,a_n)*(v_1,v_2,\cdots,v_n) &#x3D; (a_1 * v_1+a_2 * v_2+\cdots+a_n * v_n)$</p>
+<p>这样之后就得到了一个新的$V$，这个新的$V$就包含了哪些更重要，哪些不重要的信息在里面。</p>
+<p>一般情况下$K &#x3D; V$，在Transformer里，$K!&#x3D;V$的情况也是可以的，但是$K$和$V$之间一定有联系，这样$Q$和$K$点乘出来的值才是有意义的，才能指导$V$哪些重要哪些不重要。</p>
+<p>之后将得到的相似度进行 $softmax$ 操作，进行归一化：</p>
+<p>$\alpha_i &#x3D; \text{softmax}\left(\frac{f(Q, K_i)}{\sqrt{d_k}}\right)$，这里简单讲解除以 $sort(dk)$的作用：假设$Q$,$K$里的元素的均值为0，方差为 1，那么$A^T&#x3D;Q^TK$中元素的均值为$0$，方差为$d$。当$d$变得很大时，$A$中的元素的方差也会变得很大，如果 A 中的元素方差很大(分布的方差大，分布集中在绝对值大的区域)，<strong>在数量级较大时，$softmax$将几乎全部的概率分布都分配给了最大值对应的标签</strong>，由于某一维度的数量级较大，进而会导致$softmax$未来求梯度时会消失。总结一下就是$softmax(A)$的分布会和$d$有关。因此$A$中每一个元素除$sort(dₖ)$后，方差又变为1，并且$A$的数量级也将会变小。</p>
+<p>最后，针对计算出来的权重$a_i$，对$V$中的所有 values 进行加权求和计算，得到 Attention 向量：$\text{Attention}(Q, K, V) &#x3D; \sum_{i&#x3D;1}^{m} \text{softmax}\left(\frac{f(Q, K_i)}{\sqrt{d_k}}\right) V_i$</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://fishcanf1y.github.io/2025/07/29/luogu-p1464-memo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1303,92 +1416,6 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 定义真实的权重向量（训练目标）</span><br><span class="line">w_list = np.array([2, 3, 4, 7, 11, 5, 13])</span><br></pre></td></tr></table></figure>
 
 <p>从中我们可以看到我们的模型最终计算出的权重值非常[2,3,4,7,11,5,13]，由此得出模型已成功训练并找到了正确的权重值！</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://fishcanf1y.github.io/2025/07/19/What-is-Attention/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/me.jpg">
-      <meta itemprop="name" content="fishcanf1y">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="fishcanf1yのBlog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | fishcanf1yのBlog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2025/07/19/What-is-Attention/" class="post-title-link" itemprop="url">What is Attention?</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2025-07-19 13:23:11" itemprop="dateCreated datePublished" datetime="2025-07-19T13:23:11+08:00">2025-07-19</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2025-07-24 12:41:04" itemprop="dateModified" datetime="2025-07-24T12:41:04+08:00">2025-07-24</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="人类的视觉注意力"><a href="#人类的视觉注意力" class="headerlink" title="人类的视觉注意力"></a>人类的视觉注意力</h2><p>Attention翻译成注意力，从其的命名方式来看，很明显借鉴了人类的注意力机制，因此，我们首先介绍人类的注意力</p>
-<p><img src="/images/What-is-Attention-1.jpg" alt="人类的注意力"></p>
 
       
     </div>
