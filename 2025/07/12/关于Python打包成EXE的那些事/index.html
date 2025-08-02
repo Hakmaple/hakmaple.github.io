@@ -14,12 +14,12 @@
     <link rel="shortcut icon" href="/images/icon.png">
   
 
-  <meta name="description" content="一、为咩要打包Python程序？设想下，你是一位Python开发者，而且你经常将你开发的各类工具分享给你的好朋友们使用，但是你的好朋友可能并不一定是学计算坤的，所以对方可能会没有Python环境也在情理之中，这时候就需要将.py文件打包成.exe可执行文件。常见的应用场景包括：  给非技术人员使用的小工具 需要保密的商业软件 方便分发的应用程序  于是在此我将介绍5种打包方式，具体选择哪一种可以根">
+  <meta name="description" content="一、为咩要打包Python程序？ 设想下，你是一位Python开发者，而且你经常将你开发的各类工具分享给你的好朋友们使用，但是你的好朋友可能并不一定是学计算坤的，所以对方可能会没有Python环境也在情理之中，这时候就需要将.py文件打包成.exe可执行文件。常见的应用场景包括：  给非技术人员使用的小工具 需要保密的商业软件 方便分发的应用程序  于是在此我将介绍5种打包方式，具体选择哪一种可以">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于Python打包成EXE的那些事">
 <meta property="og:url" content="http://fishcanf1y.github.io/2025/07/12/%E5%85%B3%E4%BA%8EPython%E6%89%93%E5%8C%85%E6%88%90EXE%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/index.html">
 <meta property="og:site_name" content="fishcanf1y&#39;s Blog">
-<meta property="og:description" content="一、为咩要打包Python程序？设想下，你是一位Python开发者，而且你经常将你开发的各类工具分享给你的好朋友们使用，但是你的好朋友可能并不一定是学计算坤的，所以对方可能会没有Python环境也在情理之中，这时候就需要将.py文件打包成.exe可执行文件。常见的应用场景包括：  给非技术人员使用的小工具 需要保密的商业软件 方便分发的应用程序  于是在此我将介绍5种打包方式，具体选择哪一种可以根">
+<meta property="og:description" content="一、为咩要打包Python程序？ 设想下，你是一位Python开发者，而且你经常将你开发的各类工具分享给你的好朋友们使用，但是你的好朋友可能并不一定是学计算坤的，所以对方可能会没有Python环境也在情理之中，这时候就需要将.py文件打包成.exe可执行文件。常见的应用场景包括：  给非技术人员使用的小工具 需要保密的商业软件 方便分发的应用程序  于是在此我将介绍5种打包方式，具体选择哪一种可以">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-07-12T13:25:11.000Z">
 <meta property="article:modified_time" content="2025-07-24T04:40:55.800Z">
@@ -28,7 +28,7 @@
 <meta name="twitter:card" content="summary">
   <meta name="generator" content="Hexo 7.3.0">
   <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://fishcanf1y.github.io/2025/07/12/%E5%85%B3%E4%BA%8EPython%E6%89%93%E5%8C%85%E6%88%90EXE%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/"},"headline":"关于Python打包成EXE的那些事","description":"一、为咩要打包Python程序？设想下，你是一位Python开发者，而且你经常将你开发的各类工具分享给你的好朋友们使用，但是你的好朋友可能并不一定是学计算坤的，所以对方可能会没有Python环境也在情理之中，这时候就需要将.py文件打包成.exe可执行文件。常见的应用场景包括： 给非技术人员使用的小工具 需要保密的商业","datePublished":"2025-07-12T13:25:11.000Z","dateModified":"2025-07-24T04:40:55.800Z","author":{"@type":"Person","name":"fishcanf1y"},"publisher":{"@type":"Organization","name":"fishcanf1y's Blog","logo":{"@type":"ImageObject","url":"http://fishcanf1y.github.io/images/icon.png"}}}
+{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://fishcanf1y.github.io/2025/07/12/%E5%85%B3%E4%BA%8EPython%E6%89%93%E5%8C%85%E6%88%90EXE%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/"},"headline":"关于Python打包成EXE的那些事","description":"一、为咩要打包Python程序？ 设想下，你是一位Python开发者，而且你经常将你开发的各类工具分享给你的好朋友们使用，但是你的好朋友可能并不一定是学计算坤的，所以对方可能会没有Python环境也在情理之中，这时候就需要将.py文件打包成.exe可执行文件。常见的应用场景包括： 给非技术人员使用的小工具 需要保密的商","datePublished":"2025-07-12T13:25:11.000Z","dateModified":"2025-07-24T04:40:55.800Z","author":{"@type":"Person","name":"fishcanf1y"},"publisher":{"@type":"Organization","name":"fishcanf1y's Blog","logo":{"@type":"ImageObject","url":"http://fishcanf1y.github.io/images/icon.png"}}}
 </script>
 
   
@@ -150,36 +150,36 @@
   <div class="sea-doc">
     
     <div class="sea-article-content">
-      <h2 id="一、为咩要打包Python程序？"><a href="#一、为咩要打包Python程序？" class="headerlink" title="一、为咩要打包Python程序？"></a>一、为咩要打包Python程序？</h2><p>设想下，你是一位Python开发者，而且你经常将你开发的各类工具分享给你的好朋友们使用，但是你的好朋友可能并不一定是学计算坤的，所以对方可能会没有Python环境也在情理之中，这时候就需要将.py文件打包成.exe可执行文件。常见的应用场景包括：</p>
+      <h2 id="一-为咩要打包python程序？">一、为咩要打包Python程序？</h2>
+<p>设想下，你是一位Python开发者，而且你经常将你开发的各类工具分享给你的好朋友们使用，但是你的好朋友可能并不一定是学计算坤的，所以对方可能会没有Python环境也在情理之中，这时候就需要将.py文件打包成.exe可执行文件。常见的应用场景包括：</p>
 <ul>
 <li>给非技术人员使用的小工具</li>
 <li>需要保密的商业软件</li>
 <li>方便分发的应用程序</li>
 </ul>
 <p>于是在此我将介绍5种打包方式，具体选择哪一种可以根据你的喜好。</p>
-<h2 id="各类打包方式过程和对比"><a href="#各类打包方式过程和对比" class="headerlink" title="各类打包方式过程和对比"></a>各类打包方式过程和对比</h2><h3 id="方法1：PyInstaller"><a href="#方法1：PyInstaller" class="headerlink" title="方法1：PyInstaller"></a>方法1：PyInstaller</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装</span></span><br><span class="line">pip install pyinstaller</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打包命令（基础版）</span></span><br><span class="line">pyinstaller -F -w your-python-program.py</span><br><span class="line"></span><br><span class="line"><span class="comment"># 高级版（添加图标）</span></span><br><span class="line">pyinstaller -F -w -i app.ico your-python-program.py</span><br></pre></td></tr></table></figure>
-
-
-
+<h2 id="各类打包方式过程和对比">各类打包方式过程和对比</h2>
+<h3 id="方法1：pyinstaller">方法1：PyInstaller</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装</span></span><br><span class="line">pip install pyinstaller</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打包命令（基础版）</span></span><br><span class="line">pyinstaller -F -w your-python-program.py</span><br><span class="line"></span><br><span class="line"><span class="comment"># 高级版（添加图标）</span></span><br><span class="line">pyinstaller -F -w -i app.ico your-python-program.py</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>-F</code>：打包成单个exe文件</li>
 <li><code>-w</code>：隐藏控制台窗口（GUI程序专用）</li>
 <li><code>-i</code>：设置程序图标</li>
 </ul>
-<h3 id="方法2：cx-Freeze"><a href="#方法2：cx-Freeze" class="headerlink" title="方法2：cx_Freeze"></a>方法2：cx_Freeze</h3><p>创建setup.py文件：</p>
+<h3 id="方法2：cx-freeze">方法2：cx_Freeze</h3>
+<p>创建setup.py文件：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> cx_Freeze <span class="keyword">import</span> setup, Executable</span><br><span class="line"></span><br><span class="line">setup(</span><br><span class="line">    name=<span class="string">&quot;代码管理工具&quot;</span>,</span><br><span class="line">    version=<span class="string">&quot;1.0&quot;</span>,</span><br><span class="line">    description=<span class="string">&quot;Python代码管理工具&quot;</span>,</span><br><span class="line">    executables=[Executable(<span class="string">&quot;your-python-program.py&quot;</span>, base=<span class="string">&quot;Win32GUI&quot;</span>)]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
 <p>执行打包：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python setup.py build</span><br></pre></td></tr></table></figure>
-
-<h3 id="方法3：Nuitka（编译为原生二进制）"><a href="#方法3：Nuitka（编译为原生二进制）" class="headerlink" title="方法3：Nuitka（编译为原生二进制）"></a>方法3：Nuitka（编译为原生二进制）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装</span></span><br><span class="line">pip install nuitka</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打包命令</span></span><br><span class="line">nuitka --standalone --onefile --windows-disable-console code-summar-tool.py</span><br></pre></td></tr></table></figure>
-
-<h3 id="方法4：Py2exe（仅Windows）"><a href="#方法4：Py2exe（仅Windows）" class="headerlink" title="方法4：Py2exe（仅Windows）"></a>方法4：Py2exe（仅Windows）</h3><p>创建setup.py：</p>
+<h3 id="方法3：nuitka-编译为原生二进制">方法3：Nuitka（编译为原生二进制）</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装</span></span><br><span class="line">pip install nuitka</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打包命令</span></span><br><span class="line">nuitka --standalone --onefile --windows-disable-console code-summar-tool.py</span><br></pre></td></tr></table></figure>
+<h3 id="方法4：py2exe-仅windows">方法4：Py2exe（仅Windows）</h3>
+<p><a target="_blank" rel="noopener" href="http://xn--setup-ll6hz28e.py">创建setup.py</a>：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> distutils.core <span class="keyword">import</span> setup</span><br><span class="line"><span class="keyword">import</span> py2exe</span><br><span class="line"></span><br><span class="line">setup(windows=[<span class="string">&quot;your-python-program.py&quot;</span>])</span><br></pre></td></tr></table></figure>
 <p>执行打包：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python setup.py py2exe</span><br></pre></td></tr></table></figure>
-<h3 id="方法5：auto-py-to-exe（图形界面）"><a href="#方法5：auto-py-to-exe（图形界面）" class="headerlink" title="方法5：auto-py-to-exe（图形界面）"></a>方法5：auto-py-to-exe（图形界面）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装</span></span><br><span class="line">pip install auto-py-to-exe</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动图形界面</span></span><br><span class="line">auto-py-to-exe</span><br></pre></td></tr></table></figure>
-
+<h3 id="方法5：auto-py-to-exe-图形界面">方法5：auto-py-to-exe（图形界面）</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装</span></span><br><span class="line">pip install auto-py-to-exe</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动图形界面</span></span><br><span class="line">auto-py-to-exe</span><br></pre></td></tr></table></figure>
 
     </div>
   </div>
