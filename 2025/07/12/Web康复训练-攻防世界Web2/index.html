@@ -154,37 +154,32 @@
     <div class="sea-article-content">
       <p>打开题目，给了以下代码：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$miwen</span>=<span class="string">&quot;a1zLbgQsCESEIqRLwuQAyMwLyq2L5VwBxqGA3RQAyumZ0tmMvSGM2ZwB4tws&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">encode</span>(<span class="params"><span class="variable">$str</span></span>)</span>&#123;</span><br><span class="line">    <span class="variable">$_o</span>=<span class="title function_ invoke__">strrev</span>(<span class="variable">$str</span>);</span><br><span class="line">    <span class="comment">// echo $_o;</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">for</span>(<span class="variable">$_0</span>=<span class="number">0</span>;<span class="variable">$_0</span>&lt;<span class="title function_ invoke__">strlen</span>(<span class="variable">$_o</span>);<span class="variable">$_0</span>++)&#123;</span><br><span class="line">       </span><br><span class="line">        <span class="variable">$_c</span>=<span class="title function_ invoke__">substr</span>(<span class="variable">$_o</span>,<span class="variable">$_0</span>,<span class="number">1</span>);</span><br><span class="line">        <span class="variable">$__</span>=<span class="title function_ invoke__">ord</span>(<span class="variable">$_c</span>)+<span class="number">1</span>;</span><br><span class="line">        <span class="variable">$_c</span>=<span class="title function_ invoke__">chr</span>(<span class="variable">$__</span>);</span><br><span class="line">        <span class="variable">$_</span>=<span class="variable">$_</span>.<span class="variable">$_c</span>;   </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">return</span> <span class="title function_ invoke__">str_rot13</span>(<span class="title function_ invoke__">strrev</span>(<span class="title function_ invoke__">base64_encode</span>(<span class="variable">$_</span>)));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">   逆向加密算法，解密$miwen就是flag</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p><strong>分析：</strong></p>
 <ul>
-<li>
-<p><code>strlen()</code> 函数返回字符串的长度</p>
+<li><p><code>strlen()</code> 函数返回字符串的长度</p>
 </li>
-<li>
-<p><code>strrev()</code>  反转字符串顺序</p>
+<li><p><code>strrev()</code>  反转字符串顺序</p>
 </li>
 </ul>
 <p><em>This is an example:</em></p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">strrev</span>(<span class="string">&quot;Hello World!&quot;</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+
 <p>输出反转字符串 “!dlroW olleH”：</p>
 <ul>
-<li>
-<p><code>substr()</code> 函数返回字符串的一部分。<code>substr(string,start,length)</code></p>
+<li><p><code>substr()</code> 函数返回字符串的一部分。<code>substr(string,start,length)</code></p>
 <p>tips：如果 start 参数是负数且 length 小于或等于 start，则 length 为 0。</p>
 </li>
-<li>
-<p><code>&lt;?php echo substr(&quot;Hello world&quot;,6); ?&gt;</code>从字符串中返回 “world”：</p>
+<li><p><code>&lt;?php echo substr(&quot;Hello world&quot;,6); ?&gt;</code>从字符串中返回 “world”：</p>
 </li>
-<li>
-<p><code>ord()</code> 函数返回字符串中第一个字符的 ASCII 值。</p>
+<li><p><code>ord()</code> 函数返回字符串中第一个字符的 ASCII 值。</p>
 </li>
-<li>
-<p><code>chr()</code> 函数从指定 ASCII 值返回字符。并可以指定ASCII是十进制或是十六进制或是八进制。</p>
+<li><p><code>chr()</code> 函数从指定 ASCII 值返回字符。并可以指定ASCII是十进制或是十六进制或是八进制。</p>
 </li>
-<li>
-<p>“.” 是字符运算符，作用是把两个字符串连接起来，其使用方法：首先创建一个PHP示例文件；然后定义两个变量；最后通过“<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi>e</mi><mi>s</mi><mi>u</mi><mi>l</mi><mi>t</mi><mi mathvariant="normal">.</mi></mrow><annotation encoding="application/x-tex">result.</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault">e</span><span class="mord mathdefault">s</span><span class="mord mathdefault">u</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">t</span><span class="mord">.</span></span></span></span>result”方式将两个变量连接起来即可</p>
+<li><p>“.” 是字符运算符，作用是把两个字符串连接起来，其使用方法：首先创建一个PHP示例文件；然后定义两个变量；最后通过“$result.$result”方式将两个变量连接起来即可</p>
 </li>
-<li>
-<p><code>str_rot13()</code> 函数对字符串执行 ROT13 编码。</p>
+<li><p><code>str_rot13()</code> 函数对字符串执行 ROT13 编码。</p>
 <p>ROT13 编码是把每一个字母在字母表中向前移动 13 个字母得到。数字和非字母字符保持不变。</p>
 </li>
 </ul>
