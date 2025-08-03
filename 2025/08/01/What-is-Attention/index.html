@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>What is Attention? | fishcanf1y's Blog</title>
+  <title>What is Attention? | Carvino's Blog</title>
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="keywords" content="">
   <meta name="theme-color" content="#10b981">
 
-  <link rel="canonical" href="http://fishcanf1y.github.io/2025/08/01/What-is-Attention/">
+  <link rel="canonical" href="https://carvinozheng.github.io/2025/08/01/What-is-Attention/">
 
   
     <link rel="shortcut icon" href="/images/icon.png">
@@ -17,11 +17,11 @@
   <meta name="description" content="Attention注意力的来源或许是因为大数据，在大数据中什么样子的数据都有，对于重要的数据我们要使用，对于不太重要的数据我们需要暂时忽略。 但是对于主流的卷积神经网络(Convolutional Neural Networks, CNN)或短期记忆递归神经网络(Long Short-Term Memory, LSTM)很难去决定什么重要，什么不重要。 在2017年Google发布 Attenti">
 <meta property="og:type" content="article">
 <meta property="og:title" content="What is Attention?">
-<meta property="og:url" content="http://fishcanf1y.github.io/2025/08/01/What-is-Attention/index.html">
-<meta property="og:site_name" content="fishcanf1y&#39;s Blog">
+<meta property="og:url" content="https://carvinozheng.github.io/2025/08/01/What-is-Attention/index.html">
+<meta property="og:site_name" content="Carvino&#39;s Blog">
 <meta property="og:description" content="Attention注意力的来源或许是因为大数据，在大数据中什么样子的数据都有，对于重要的数据我们要使用，对于不太重要的数据我们需要暂时忽略。 但是对于主流的卷积神经网络(Convolutional Neural Networks, CNN)或短期记忆递归神经网络(Long Short-Term Memory, LSTM)很难去决定什么重要，什么不重要。 在2017年Google发布 Attenti">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://fishcanf1y.github.io/images/What-is-Attention-1.jpg">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://carvinozheng.github.io/images/What-is-Attention-1.jpg">
 <meta property="og:image" content="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/attention-%E8%AE%A1%E7%AE%97%E5%9B%BE.png">
 <meta property="article:published_time" content="2025-08-01T05:23:11.000Z">
 <meta property="article:modified_time" content="2025-08-01T01:29:21.605Z">
@@ -30,10 +30,10 @@
 <meta property="article:tag" content="ML">
 <meta property="article:tag" content="Attention">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://fishcanf1y.github.io/images/What-is-Attention-1.jpg">
+<meta name="twitter:image" content="https://carvinozheng.github.io/images/What-is-Attention-1.jpg">
   <meta name="generator" content="Hexo 7.3.0">
   <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://fishcanf1y.github.io/2025/08/01/What-is-Attention/"},"headline":"What is Attention?","description":"Attention注意力的来源或许是因为大数据，在大数据中什么样子的数据都有，对于重要的数据我们要使用，对于不太重要的数据我们需要暂时忽略。 但是对于主流的卷积神经网络(Convolutional Neural Networks, CNN)或短期记忆递归神经网络(Long Short-Term Memory, LSTM","datePublished":"2025-08-01T05:23:11.000Z","dateModified":"2025-08-01T01:29:21.605Z","author":{"@type":"Person","name":"fishcanf1y"},"publisher":{"@type":"Organization","name":"fishcanf1y's Blog","logo":{"@type":"ImageObject","url":"http://fishcanf1y.github.io/images/icon.png"}}}
+{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://carvinozheng.github.io/2025/08/01/What-is-Attention/"},"headline":"What is Attention?","description":"Attention注意力的来源或许是因为大数据，在大数据中什么样子的数据都有，对于重要的数据我们要使用，对于不太重要的数据我们需要暂时忽略。 但是对于主流的卷积神经网络(Convolutional Neural Networks, CNN)或短期记忆递归神经网络(Long Short-Term Memory, LSTM","datePublished":"2025-08-01T05:23:11.000Z","dateModified":"2025-08-01T01:29:21.605Z","author":{"@type":"Person","name":"fishcanf1y"},"publisher":{"@type":"Organization","name":"Carvino's Blog","logo":{"@type":"ImageObject","url":"https://carvinozheng.github.io/images/icon.png"}}}
 </script>
 
   
@@ -54,7 +54,7 @@
   <header class="sea-header">
     <nav class="sea-nav-wrap">
   <div class="sea-nav-logo" title="">
-    <a href="/">fishcanf1y's Blog</a>
+    <a href="/">Carvino's Blog</a>
   </div>
   <div class="sea-nav-menus">
     <div id="sea-nav-toggle">
@@ -69,7 +69,7 @@
       
       href="/"
     >
-      主页
+      Home
     </a>
   
     <a
@@ -77,7 +77,7 @@
       
       href="/archives/"
     >
-      归档
+      Archives
     </a>
   
     <a
@@ -85,7 +85,7 @@
       
       href="/friends/"
     >
-      友链
+      Friends
     </a>
   
     <a
@@ -93,7 +93,7 @@
       
       href="/messages/"
     >
-      留言
+      Messages
     </a>
   
     <a
@@ -101,7 +101,7 @@
       
       href="/about/"
     >
-      关于
+      About
     </a>
   
 
@@ -248,7 +248,7 @@
           
             target="_blank"
           
-          href="https://x.com/fishcanf1y"
+          href="https://x.com/Carvino_zheng"
         >
           X
         </a>

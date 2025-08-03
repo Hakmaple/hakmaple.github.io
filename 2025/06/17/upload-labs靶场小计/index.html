@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>upload-labs靶场小计 | fishcanf1y's Blog</title>
+  <title>upload-labs靶场小计 | Carvino's Blog</title>
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="keywords" content="">
   <meta name="theme-color" content="#10b981">
 
-  <link rel="canonical" href="http://fishcanf1y.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/">
+  <link rel="canonical" href="https://carvinozheng.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/">
 
   
     <link rel="shortcut icon" href="/images/icon.png">
@@ -17,21 +17,21 @@
   <meta name="description" content="Introduction： Repo Address: https:&#x2F;&#x2F;github.com&#x2F;c0ny1&#x2F;upload-labs Description：upload-labs是一个使用php语言编写的，专门收集渗透测试和CTF中遇到的各种上传漏洞的靶场。旨在帮助大家对上传漏洞有一个全面的了解。目前一共20关，每一关都包含着不同上传方式。  正文开始Pass-01源码分析: 12345678910">
 <meta property="og:type" content="article">
 <meta property="og:title" content="upload-labs靶场小计">
-<meta property="og:url" content="http://fishcanf1y.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/index.html">
-<meta property="og:site_name" content="fishcanf1y&#39;s Blog">
+<meta property="og:url" content="https://carvinozheng.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/index.html">
+<meta property="og:site_name" content="Carvino&#39;s Blog">
 <meta property="og:description" content="Introduction： Repo Address: https:&#x2F;&#x2F;github.com&#x2F;c0ny1&#x2F;upload-labs Description：upload-labs是一个使用php语言编写的，专门收集渗透测试和CTF中遇到的各种上传漏洞的靶场。旨在帮助大家对上传漏洞有一个全面的了解。目前一共20关，每一关都包含着不同上传方式。  正文开始Pass-01源码分析: 12345678910">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://fishcanf1y.github.io/images/upload-labs-1.PNG">
-<meta property="og:image" content="http://fishcanf1y.github.io/images/upload-labs-2.PNG">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://carvinozheng.github.io/images/upload-labs-1.PNG">
+<meta property="og:image" content="https://carvinozheng.github.io/images/upload-labs-2.PNG">
 <meta property="article:published_time" content="2025-06-17T14:11:09.000Z">
 <meta property="article:modified_time" content="2025-07-24T04:41:33.069Z">
 <meta property="article:author" content="fishcanf1y">
 <meta property="article:tag" content="Web安全">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://fishcanf1y.github.io/images/upload-labs-1.PNG">
+<meta name="twitter:image" content="https://carvinozheng.github.io/images/upload-labs-1.PNG">
   <meta name="generator" content="Hexo 7.3.0">
   <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://fishcanf1y.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/"},"headline":"upload-labs靶场小计","description":"Introduction： Repo Address: https://github.com/c0ny1/upload-labs Description：upload-labs是一个使用php语言编写的，专门收集渗透测试和CTF中遇到的各种上传漏洞的靶场。旨在帮助大家对上传漏洞有一个全面的了解。目前一共20关，每一关都","datePublished":"2025-06-17T14:11:09.000Z","dateModified":"2025-07-24T04:41:33.069Z","author":{"@type":"Person","name":"fishcanf1y"},"publisher":{"@type":"Organization","name":"fishcanf1y's Blog","logo":{"@type":"ImageObject","url":"http://fishcanf1y.github.io/images/icon.png"}}}
+{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://carvinozheng.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/"},"headline":"upload-labs靶场小计","description":"Introduction： Repo Address: https://github.com/c0ny1/upload-labs Description：upload-labs是一个使用php语言编写的，专门收集渗透测试和CTF中遇到的各种上传漏洞的靶场。旨在帮助大家对上传漏洞有一个全面的了解。目前一共20关，每一关都","datePublished":"2025-06-17T14:11:09.000Z","dateModified":"2025-07-24T04:41:33.069Z","author":{"@type":"Person","name":"fishcanf1y"},"publisher":{"@type":"Organization","name":"Carvino's Blog","logo":{"@type":"ImageObject","url":"https://carvinozheng.github.io/images/icon.png"}}}
 </script>
 
   
@@ -52,7 +52,7 @@
   <header class="sea-header">
     <nav class="sea-nav-wrap">
   <div class="sea-nav-logo" title="">
-    <a href="/">fishcanf1y's Blog</a>
+    <a href="/">Carvino's Blog</a>
   </div>
   <div class="sea-nav-menus">
     <div id="sea-nav-toggle">
@@ -67,7 +67,7 @@
       
       href="/"
     >
-      主页
+      Home
     </a>
   
     <a
@@ -75,7 +75,7 @@
       
       href="/archives/"
     >
-      归档
+      Archives
     </a>
   
     <a
@@ -83,7 +83,7 @@
       
       href="/friends/"
     >
-      友链
+      Friends
     </a>
   
     <a
@@ -91,7 +91,7 @@
       
       href="/messages/"
     >
-      留言
+      Messages
     </a>
   
     <a
@@ -99,7 +99,7 @@
       
       href="/about/"
     >
-      关于
+      About
     </a>
   
 
@@ -260,7 +260,7 @@
           
             target="_blank"
           
-          href="https://x.com/fishcanf1y"
+          href="https://x.com/Carvino_zheng"
         >
           X
         </a>

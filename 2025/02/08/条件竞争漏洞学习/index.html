@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>条件竞争漏洞学习 | fishcanf1y's Blog</title>
+  <title>条件竞争漏洞学习 | Carvino's Blog</title>
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="keywords" content="">
   <meta name="theme-color" content="#10b981">
 
-  <link rel="canonical" href="http://fishcanf1y.github.io/2025/02/08/%E6%9D%A1%E4%BB%B6%E7%AB%9E%E4%BA%89%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/">
+  <link rel="canonical" href="https://carvinozheng.github.io/2025/02/08/%E6%9D%A1%E4%BB%B6%E7%AB%9E%E4%BA%89%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/">
 
   
     <link rel="shortcut icon" href="/images/icon.png">
@@ -17,10 +17,10 @@
   <meta name="description" content="Web安全条件竞争漏洞学习0x00 概述​		条件竞争漏洞发生在多个线程同时访问同一个共享代码、变量、文件等，，由于多个不同线程同时与相同的数据进行交互，从而导致碰撞冲突（例如，后端多个线程同时修改数据库中的某一个字段值）。攻击者通过精心定制请求到达后端的时间故意制造冲突，并由此实现恶意目的。这个漏洞存在于操作系统、数据库、web等多个层面，由于大多服务端框架在处理不同用户的请求时是并发进行的，而">
 <meta property="og:type" content="article">
 <meta property="og:title" content="条件竞争漏洞学习">
-<meta property="og:url" content="http://fishcanf1y.github.io/2025/02/08/%E6%9D%A1%E4%BB%B6%E7%AB%9E%E4%BA%89%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/index.html">
-<meta property="og:site_name" content="fishcanf1y&#39;s Blog">
+<meta property="og:url" content="https://carvinozheng.github.io/2025/02/08/%E6%9D%A1%E4%BB%B6%E7%AB%9E%E4%BA%89%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="Carvino&#39;s Blog">
 <meta property="og:description" content="Web安全条件竞争漏洞学习0x00 概述​		条件竞争漏洞发生在多个线程同时访问同一个共享代码、变量、文件等，，由于多个不同线程同时与相同的数据进行交互，从而导致碰撞冲突（例如，后端多个线程同时修改数据库中的某一个字段值）。攻击者通过精心定制请求到达后端的时间故意制造冲突，并由此实现恶意目的。这个漏洞存在于操作系统、数据库、web等多个层面，由于大多服务端框架在处理不同用户的请求时是并发进行的，而">
-<meta property="og:locale" content="zh_CN">
+<meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://pic2.zhimg.com/80/v2-ffffaa1fb957682cebb626a0482344b3_720w.webp">
 <meta property="og:image" content="https://pica.zhimg.com/80/v2-b3ccc0bc7165f6bd90fcf6769c591786_720w.webp">
 <meta property="og:image" content="https://pic4.zhimg.com/80/v2-936e0bec041297e3b7f8b1f0d9f568d1_720w.webp">
@@ -33,7 +33,7 @@
 <meta name="twitter:image" content="https://pic2.zhimg.com/80/v2-ffffaa1fb957682cebb626a0482344b3_720w.webp">
   <meta name="generator" content="Hexo 7.3.0">
   <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"http://fishcanf1y.github.io/2025/02/08/%E6%9D%A1%E4%BB%B6%E7%AB%9E%E4%BA%89%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/"},"headline":"条件竞争漏洞学习","description":"Web安全条件竞争漏洞学习0x00 概述​\t\t条件竞争漏洞发生在多个线程同时访问同一个共享代码、变量、文件等，，由于多个不同线程同时与相同的数据进行交互，从而导致碰撞冲突（例如，后端多个线程同时修改数据库中的某一个字段值）。攻击者通过精心定制请求到达后端的时间故意制造冲突，并由此实现恶意目的。这个漏洞存在于操作系统、数","datePublished":"2025-02-08T09:02:24.000Z","dateModified":"2025-07-19T01:18:36.019Z","author":{"@type":"Person","name":"fishcanf1y"},"publisher":{"@type":"Organization","name":"fishcanf1y's Blog","logo":{"@type":"ImageObject","url":"http://fishcanf1y.github.io/images/icon.png"}}}
+{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://carvinozheng.github.io/2025/02/08/%E6%9D%A1%E4%BB%B6%E7%AB%9E%E4%BA%89%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/"},"headline":"条件竞争漏洞学习","description":"Web安全条件竞争漏洞学习0x00 概述​\t\t条件竞争漏洞发生在多个线程同时访问同一个共享代码、变量、文件等，，由于多个不同线程同时与相同的数据进行交互，从而导致碰撞冲突（例如，后端多个线程同时修改数据库中的某一个字段值）。攻击者通过精心定制请求到达后端的时间故意制造冲突，并由此实现恶意目的。这个漏洞存在于操作系统、数","datePublished":"2025-02-08T09:02:24.000Z","dateModified":"2025-07-19T01:18:36.019Z","author":{"@type":"Person","name":"fishcanf1y"},"publisher":{"@type":"Organization","name":"Carvino's Blog","logo":{"@type":"ImageObject","url":"https://carvinozheng.github.io/images/icon.png"}}}
 </script>
 
   
@@ -54,7 +54,7 @@
   <header class="sea-header">
     <nav class="sea-nav-wrap">
   <div class="sea-nav-logo" title="">
-    <a href="/">fishcanf1y's Blog</a>
+    <a href="/">Carvino's Blog</a>
   </div>
   <div class="sea-nav-menus">
     <div id="sea-nav-toggle">
@@ -69,7 +69,7 @@
       
       href="/"
     >
-      主页
+      Home
     </a>
   
     <a
@@ -77,7 +77,7 @@
       
       href="/archives/"
     >
-      归档
+      Archives
     </a>
   
     <a
@@ -85,7 +85,7 @@
       
       href="/friends/"
     >
-      友链
+      Friends
     </a>
   
     <a
@@ -93,7 +93,7 @@
       
       href="/messages/"
     >
-      留言
+      Messages
     </a>
   
     <a
@@ -101,7 +101,7 @@
       
       href="/about/"
     >
-      关于
+      About
     </a>
   
 
@@ -263,7 +263,7 @@
           
             target="_blank"
           
-          href="https://x.com/fishcanf1y"
+          href="https://x.com/Carvino_zheng"
         >
           X
         </a>
