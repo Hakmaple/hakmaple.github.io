@@ -1,454 +1,937 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-default-color-scheme=auto>
+
+
+
 <head>
-  <meta charset="utf-8">
-  <title>How to design an MD5 verifier - 后记 | Carvino's Blog</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.jpg">
+  <link rel="icon" href="/img/icon.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="fishcanf1y">
   <meta name="keywords" content="">
-  <meta name="theme-color" content="#10b981">
-
-  <link rel="canonical" href="https://carvinozheng.github.io/2025/07/12/verifier-talk/">
-
   
-    <link rel="shortcut icon" href="/images/icon.png">
-  
-
-  <meta name="description" content="后记：在MD5-Checker 项目开发中，我也遇到了很多知识面缺陷的问题，于是在开发过程中我选择使用了AI来辅助开发（学艺不精）在此，我根据AI的建议，梳理了一份思路——如何成为一名合格的Devloper 以下是针对MD5校验工具设计思路所涉及的软件工程原则（以MD5-Checker开发为例）、经典理论以及对应的学习吸收方法的系统化总结：  一、涉及的核心理论与原则1. 模块化设计 SOLID原">
+    <meta name="description" content="后记： 在MD5-Checker 项目开发中，我也遇到了很多知识面缺陷的问题，于是在开发过程中我选择使用了AI来辅助开发（学艺不精）在此，我根据AI的建议，梳理了一份思路——如何成为一名合格的Devloper 以下是针对MD5校验工具设计思路所涉及的软件工程原则（以MD5-Checker开发为例）、经典理论以及对应的学习吸收方法的系统化总结：  一、涉及的核心理论与原则 1. 模块化设计  SOL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="How to design an MD5 verifier - 后记">
 <meta property="og:url" content="https://carvinozheng.github.io/2025/07/12/verifier-talk/index.html">
 <meta property="og:site_name" content="Carvino&#39;s Blog">
-<meta property="og:description" content="后记：在MD5-Checker 项目开发中，我也遇到了很多知识面缺陷的问题，于是在开发过程中我选择使用了AI来辅助开发（学艺不精）在此，我根据AI的建议，梳理了一份思路——如何成为一名合格的Devloper 以下是针对MD5校验工具设计思路所涉及的软件工程原则（以MD5-Checker开发为例）、经典理论以及对应的学习吸收方法的系统化总结：  一、涉及的核心理论与原则1. 模块化设计 SOLID原">
+<meta property="og:description" content="后记： 在MD5-Checker 项目开发中，我也遇到了很多知识面缺陷的问题，于是在开发过程中我选择使用了AI来辅助开发（学艺不精）在此，我根据AI的建议，梳理了一份思路——如何成为一名合格的Devloper 以下是针对MD5校验工具设计思路所涉及的软件工程原则（以MD5-Checker开发为例）、经典理论以及对应的学习吸收方法的系统化总结：  一、涉及的核心理论与原则 1. 模块化设计  SOL">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-07-12T13:16:23.000Z">
 <meta property="article:modified_time" content="2025-07-24T04:41:22.657Z">
 <meta property="article:author" content="fishcanf1y">
 <meta property="article:tag" content="Coding">
-<meta name="twitter:card" content="summary">
-  <meta name="generator" content="Hexo 7.3.0">
-  <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://carvinozheng.github.io/2025/07/12/verifier-talk/"},"headline":"How to design an MD5 verifier - 后记","description":"后记：在MD5-Checker 项目开发中，我也遇到了很多知识面缺陷的问题，于是在开发过程中我选择使用了AI来辅助开发（学艺不精）在此，我根据AI的建议，梳理了一份思路——如何成为一名合格的Devloper 以下是针对MD5校验工具设计思路所涉及的软件工程原则（以MD5-Checker开发为例）、经典理论以及对应的学习","datePublished":"2025-07-12T13:16:23.000Z","dateModified":"2025-07-24T04:41:22.657Z","author":{"@type":"Person","name":"fishcanf1y"},"publisher":{"@type":"Organization","name":"Carvino's Blog","logo":{"@type":"ImageObject","url":"https://carvinozheng.github.io/images/icon.png"}}}
-</script>
-
+<meta name="twitter:card" content="summary_large_image">
   
   
-<link rel="stylesheet" href="/css/main.css">
+  
+  <title>How to design an MD5 verifier - 后记 - Carvino&#39;s Blog</title>
 
-  <style>
-    :root {
-      --sea-color-primary: #10b981;
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.7.0/style.min.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"carvinozheng.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
     }
-  </style>
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
 
   
-<script src="/js/theme_mode.js"></script>
+  <script src="/js/sakura.js"></script>
+  <script src="/js/love.js"></script>
+<meta name="generator" content="Hexo 7.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
 
-<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
 <body>
-  <header class="sea-header">
-    <nav class="sea-nav-wrap">
-  <div class="sea-nav-logo" title="">
-    <a href="/">Carvino's Blog</a>
-  </div>
-  <div class="sea-nav-menus">
-    <div id="sea-nav-toggle">
-      <svg t="1716965724278" class="sea-svg-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10878" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M950.857143 768v73.142857c0 20.004571-16.566857 36.571429-36.571429 36.571429H109.714286c-20.004571 0-36.571429-16.566857-36.571429-36.571429v-73.142857c0-20.004571 16.566857-36.571429 36.571429-36.571429h804.571428c20.004571 0 36.571429 16.566857 36.571429 36.571429z m0-292.571429v73.142858c0 20.004571-16.566857 36.571429-36.571429 36.571428H109.714286c-20.004571 0-36.571429-16.566857-36.571429-36.571428v-73.142858c0-20.004571 16.566857-36.571429 36.571429-36.571428h804.571428c20.004571 0 36.571429 16.566857 36.571429 36.571428z m0-292.571428v73.142857c0 20.004571-16.566857 36.571429-36.571429 36.571429H109.714286c-20.004571 0-36.571429-16.566857-36.571429-36.571429V182.857143c0-20.004571 16.566857-36.571429 36.571429-36.571429h804.571428c20.004571 0 36.571429 16.566857 36.571429 36.571429z" p-id="10879"></path></svg>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>fishcanf1y&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>Links</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
     </div>
-
-    <div id="sea-nav-dimmer"></div>
-<div class="sea-menu-wrap">
-  
-    <a
-      class="sea-menu-link "
-      
-      href="/"
-    >
-      Home
-    </a>
-  
-    <a
-      class="sea-menu-link "
-      
-      href="/archives/"
-    >
-      Archives
-    </a>
-  
-    <a
-      class="sea-menu-link "
-      
-      href="/friends/"
-    >
-      Friends
-    </a>
-  
-    <a
-      class="sea-menu-link "
-      
-      href="/messages/"
-    >
-      Messages
-    </a>
-  
-    <a
-      class="sea-menu-link "
-      
-      href="/about/"
-    >
-      About
-    </a>
-  
-
-  <span class="sea-menu-sep">|</span>
-
-  
-  
-
-  
-
-
-  <span class="sea-menu-icon" id="sea-theme-dark">
-    <svg t="1725413107294" class="sea-svg-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10118" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M557.553778 976.355556c-257.265778 0-466.56-207.160889-466.56-464.426667 0-253.923556 206.577778-464.284444 460.501333-464.284445h0.355556c10.766222 0 20.622222 3.953778 25.443555 13.610667 4.878222 9.756444 3.740444 20.394667-2.915555 29.027556-55.722667 72.220444-85.162667 158.108444-85.162667 249.372444 0 225.891556 183.779556 409.386667 409.671111 409.386667l5.248-0.256c10.325333-0.142222 20.977778 5.859556 25.841778 15.644444a28.302222 28.302222 0 0 1-2.915556 30.051556C837.902222 910.08 703.203556 976.355556 557.553778 976.355556zM495.274667 105.016889C299.192889 135.281778 147.882667 306.161778 147.882667 509.809778c0 225.877333 183.779556 409.656889 409.671111 409.656889 108.686222 0 210.403556-42.055111 286.577778-116.977778-231.566222-27.192889-411.804444-224.625778-411.804445-463.36 0-83.427556 21.617778-163.299556 62.947556-234.112z" fill="" p-id="10119"></path><path d="M578.830222 879.132444c-186.865778 0-345.784889-133.418667-377.841778-317.269333a14.222222 14.222222 0 1 1 28.017778-4.878222c29.681778 170.183111 176.810667 293.703111 349.824 293.703111a14.222222 14.222222 0 1 1 0 28.444444zM209.991111 531.2c-7.537778 0-13.838222-6.997333-14.193778-14.606222-0.312889-6.584889-0.483556-13.795556-0.483555-20.465778 0-7.864889 6.357333-14.492444 14.222222-14.492444s14.222222 6.229333 14.222222 14.094222c0 6.229333 0.170667 13.425778 0.455111 19.584 0.369778 7.850667-5.674667 15.886222-13.525333 15.886222h-0.696889z" fill="" p-id="10120"></path><path d="M622.350222 309.930667m-25.344 0a25.344 25.344 0 1 0 50.688 0 25.344 25.344 0 1 0-50.688 0Z" fill="" p-id="10121"></path><path d="M787.072 188.273778m-25.344 0a25.344 25.344 0 1 0 50.688 0 25.344 25.344 0 1 0-50.688 0Z" fill="" p-id="10122"></path><path d="M731.960889 415.303111m-25.344 0a25.344 25.344 0 1 0 50.688 0 25.344 25.344 0 1 0-50.688 0Z" p-id="10123"></path></svg>
-  </span>
-  <span class="sea-menu-icon" id="sea-theme-light">
-    <svg t="1725410359322" class="sea-svg-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4274" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M512 768c-141.376 0-256-114.624-256-256s114.624-256 256-256 256 114.624 256 256-114.624 256-256 256z m0-85.333333a170.666667 170.666667 0 1 0 0-341.333334 170.666667 170.666667 0 0 0 0 341.333334zM469.333333 85.333333a42.666667 42.666667 0 1 1 85.333334 0v85.333334a42.666667 42.666667 0 1 1-85.333334 0V85.333333z m0 768a42.666667 42.666667 0 1 1 85.333334 0v85.333334a42.666667 42.666667 0 1 1-85.333334 0v-85.333334zM85.333333 554.666667a42.666667 42.666667 0 1 1 0-85.333334h85.333334a42.666667 42.666667 0 1 1 0 85.333334H85.333333z m768 0a42.666667 42.666667 0 1 1 0-85.333334h85.333334a42.666667 42.666667 0 1 1 0 85.333334h-85.333334zM161.834667 222.165333a42.666667 42.666667 0 0 1 60.330666-60.330666l64 64a42.666667 42.666667 0 0 1-60.330666 60.330666l-64-64z m576 576a42.666667 42.666667 0 0 1 60.330666-60.330666l64 64a42.666667 42.666667 0 0 1-60.330666 60.330666l-64-64z m-515.669334 64a42.666667 42.666667 0 0 1-60.330666-60.330666l64-64a42.666667 42.666667 0 0 1 60.330666 60.330666l-64 64z m576-576a42.666667 42.666667 0 0 1-60.330666-60.330666l64-64a42.666667 42.666667 0 0 1 60.330666 60.330666l-64 64z" p-id="4275"></path></svg>
-  </span>
-
-  <span id="sea-menu-close-icon">
-    <svg t="1725435896874" class="sea-svg-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4408" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M556.8 512l265.6-265.6c12.8-12.8 12.8-32 0-44.8s-32-12.8-44.8 0L512 467.2 246.4 201.6c-12.8-12.8-32-12.8-44.8 0s-12.8 32 0 44.8l265.6 265.6-265.6 265.6c-12.8 12.8-12.8 32 0 44.8 6.4 6.4 12.8 9.6 22.4 9.6s16-3.2 22.4-9.6l265.6-265.6 265.6 265.6c6.4 6.4 16 9.6 22.4 9.6s16-3.2 22.4-9.6c12.8-12.8 12.8-32 0-44.8L556.8 512z" p-id="4409"></path></svg>
-  </span>
-</div>
   </div>
 </nav>
-  </header>
-  <main id="sea-main-wrapper" data-pagefind-body>
-    <article class="sea-page-card-wrapper">
-  <header class="sea-article-header">
-    <h1 class="sea-article-title">How to design an MD5 verifier - 后记</h1>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/background.PNG') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="How to design an MD5 verifier - 后记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
     
-      <div class="sea-post-meta sea-post-meta__center">
-        <div class="sea-post-time">
-  <svg t="1716964550804" class="sea-svg-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2621" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M805.49888 981.49888l-602.3168-0.76288c-86.59456-8.192-154.56768-81.3056-154.56768-170.01472L48.6144 291.73248c0-94.1568 76.60032-170.75712 170.7776-170.75712l586.10176 0c94.1568 0 170.73152 76.60032 170.73152 170.75712L976.22528 810.7008C976.2304 904.87296 899.63008 981.49888 805.49888 981.49888L805.49888 981.49888zM219.3664 190.57152c-55.79776 0-101.20192 45.38368-101.20192 101.18144l0 518.96832c0 55.79776 45.40416 101.20704 101.20192 101.20704l586.13248 0c55.77728 0 101.16096-45.40928 101.16096-101.20704L906.65984 291.73248c0-55.79776-45.38368-101.18656-101.16096-101.18656L219.3664 190.54592 219.3664 190.57152zM698.84416 290.51904c-25.60512 0-46.38208-20.77696-46.38208-46.38208l0-158.6688c0-25.6 20.77696-46.38208 46.38208-46.38208 25.6 0 46.38208 20.78208 46.38208 46.38208L745.22624 244.1216C745.22624 269.7472 724.46976 290.51904 698.84416 290.51904L698.84416 290.51904zM315.65824 290.51904c-25.60512 0-46.38208-20.77696-46.38208-46.38208l0-158.6688c0-25.6 20.77696-46.38208 46.38208-46.38208 25.6 0 46.38208 20.78208 46.38208 46.38208L362.04032 244.1216C362.04032 269.7472 341.28896 290.51904 315.65824 290.51904L315.65824 290.51904zM534.8864 794.78784l-44.27264 0c-25.6 0-46.38208-20.77696-46.38208-46.38208 0-25.6 20.78208-46.38208 46.38208-46.38208l44.27264 0c25.6 0 46.38208 20.78208 46.38208 46.38208C581.26848 774.01088 560.4864 794.78784 534.8864 794.78784L534.8864 794.78784zM930.79552 452.608 121.24672 452.608c-25.60512 0-46.38208-20.78208-46.38208-46.38208 0-25.60512 20.77696-46.38208 46.38208-46.38208l809.5744 0c25.6 0 46.38208 20.77696 46.38208 46.38208C977.2032 431.82592 956.42624 452.608 930.79552 452.608L930.79552 452.608zM327.92576 649.03168l-44.27264 0c-25.6 0-46.38208-20.78208-46.38208-46.38208 0-25.60512 20.78208-46.38208 46.38208-46.38208l44.27264 0c25.6 0 46.38208 20.77696 46.38208 46.38208C374.30784 628.25472 353.52576 649.03168 327.92576 649.03168L327.92576 649.03168zM534.8864 649.03168l-44.27264 0c-25.6 0-46.38208-20.78208-46.38208-46.38208 0-25.60512 20.78208-46.38208 46.38208-46.38208l44.27264 0c25.6 0 46.38208 20.77696 46.38208 46.38208S560.4864 649.03168 534.8864 649.03168L534.8864 649.03168zM741.27872 649.03168l-44.26752 0c-25.60512 0-46.38208-20.78208-46.38208-46.38208 0-25.60512 20.77696-46.38208 46.38208-46.38208l44.26752 0c25.60512 0 46.38208 20.77696 46.38208 46.38208C787.6608 628.25472 766.90944 649.03168 741.27872 649.03168L741.27872 649.03168zM327.92576 794.78784l-44.27264 0c-25.6 0-46.38208-20.77696-46.38208-46.38208 0-25.6 20.78208-46.38208 46.38208-46.38208l44.27264 0c25.6 0 46.38208 20.78208 46.38208 46.38208C374.30784 774.01088 353.52576 794.78784 327.92576 794.78784L327.92576 794.78784zM741.27872 794.78784l-44.26752 0c-25.60512 0-46.38208-20.77696-46.38208-46.38208 0-25.6 20.77696-46.38208 46.38208-46.38208l44.26752 0c25.60512 0 46.38208 20.78208 46.38208 46.38208C787.6608 774.01088 766.90944 794.78784 741.27872 794.78784L741.27872 794.78784z" p-id="2622"></path></svg>
-  <time datetime="2025-07-12T13:16:23.000Z">2025-07-12</time>
-</div>
-        
-  <div class="sea-post-categories">
-    <svg t="1716964680422" class="sea-svg-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4550" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M810.666667 85.333333a85.333333 85.333333 0 0 1 85.333333 85.333334v152.021333c36.821333 9.493333 64 42.88 64 82.645333v405.333334a128 128 0 0 1-128 128H192a128 128 0 0 1-128-128V298.666667a85.376 85.376 0 0 1 64-82.645334V170.666667a85.333333 85.333333 0 0 1 85.333333-85.333334h597.333334zM128.149333 296.170667L128 298.666667v512a64 64 0 0 0 60.245333 63.893333L192 874.666667h640a64 64 0 0 0 63.893333-60.245334L896 810.666667V405.333333a21.333333 21.333333 0 0 0-18.837333-21.184L874.666667 384H638.165333l-122.069333-101.717333a21.333333 21.333333 0 0 0-10.688-4.736l-2.986667-0.213334H149.333333a21.333333 21.333333 0 0 0-21.184 18.837334zM535.189333 213.333333l127.978667 106.666667H832V170.666667a21.333333 21.333333 0 0 0-18.837333-21.184L810.666667 149.333333H213.333333a21.333333 21.333333 0 0 0-21.184 18.837334L192 170.666667v42.666666h343.168z" p-id="4551"></path></svg>
-    <a class="category-link" href="/categories/Coding/">Coding</a>
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-12 21:16" pubdate>
+          July 12, 2025 pm
+        </time>
+      </span>
+    
   </div>
 
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
         
-  <div class="sea-post-tags">
-    <svg t="1716964811431" class="sea-svg-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6117" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M384 977.152c-20.5312 0-39.8336-7.9872-54.3232-22.4256l-260.4032-260.4032c-14.4896-14.4896-22.4256-33.7408-22.4256-54.3232s7.9872-39.8336 22.4256-54.3232l439.6032-439.6032c24.9344-24.9344 70.2464-43.7248 105.5232-43.7248h230.4c42.3424 0 76.8 34.4576 76.8 76.8v230.4c0 35.2256-18.7904 80.5888-43.6736 105.5232l-439.6032 439.6032a76.1856 76.1856 0 0 1-54.3232 22.4256zM614.4 153.6c-21.248 0-54.272 13.6704-69.2736 28.7232l-439.6032 439.6032c-4.8128 4.8128-7.424 11.2128-7.424 18.1248s2.6624 13.312 7.424 18.0736l260.4032 260.4032c4.8128 4.8128 11.2128 7.424 18.1248 7.424s13.312-2.6624 18.1248-7.424l439.6032-439.6032c15.0016-15.0016 28.7232-48.0768 28.7232-69.3248V179.2a25.6 25.6 0 0 0-25.6-25.6h-230.4z" p-id="6118"></path><path d="M742.4 358.4c-42.3424 0-76.8-34.4576-76.8-76.8S700.0576 204.8 742.4 204.8s76.8 34.4576 76.8 76.8S784.7424 358.4 742.4 358.4z m0-102.4a25.6 25.6 0 1 0 0 51.2 25.6 25.6 0 0 0 0-51.2z" p-id="6119"></path></svg>
-    <a class="tag-link" href="/tags/Coding/" rel="tag">Coding</a>
+          968 words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          9 mins
+        
+      </span>
+    
+
+    
+    
   </div>
 
+
+        
       </div>
-    
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
   </header>
-  <div class="sea-doc">
+
+  <main>
     
-    <div class="sea-article-content">
-      <h1 id="后记："><a href="#后记：" class="headerlink" title="后记："></a>后记：</h1><p>在<code>MD5-Checker</code> 项目开发中，我也遇到了很多知识面缺陷的问题，于是在开发过程中我选择使用了AI来辅助开发（学艺不精）在此，我根据AI的建议，梳理了一份思路——如何成为一名合格的Devloper</p>
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">How to design an MD5 verifier - 后记</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1>后记：</h1>
+<p>在<code>MD5-Checker</code> 项目开发中，我也遇到了很多知识面缺陷的问题，于是在开发过程中我选择使用了AI来辅助开发（学艺不精）在此，我根据AI的建议，梳理了一份思路——如何成为一名合格的Devloper</p>
 <p>以下是针对MD5校验工具设计思路所涉及的软件工程原则（以MD5-Checker开发为例）、经典理论以及对应的学习吸收方法的系统化总结：</p>
 <hr>
-<h3 id="一、涉及的核心理论与原则"><a href="#一、涉及的核心理论与原则" class="headerlink" title="一、涉及的核心理论与原则"></a>一、涉及的核心理论与原则</h3><h4 id="1-模块化设计"><a href="#1-模块化设计" class="headerlink" title="1. 模块化设计"></a>1. <strong>模块化设计</strong></h4><ul>
-<li><strong>SOLID原则</strong>（尤其是单一职责原则）<ul>
+<h3 id="一-涉及的核心理论与原则">一、涉及的核心理论与原则</h3>
+<h4 id="1-模块化设计">1. <strong>模块化设计</strong></h4>
+<ul>
+<li><strong>SOLID原则</strong>（尤其是单一职责原则）
+<ul>
 <li>每个函数只做一件事（如<code>calculate_md5</code>仅负责计算）</li>
 <li>参考：《Clean Code》by Robert C. Martin</li>
 </ul>
 </li>
-<li><strong>关注点分离(SoC)</strong><ul>
+<li><strong>关注点分离(SoC)</strong>
+<ul>
 <li>CLI解析、业务逻辑、文件操作分层处理</li>
 </ul>
 </li>
 </ul>
-<h4 id="2-性能优化"><a href="#2-性能优化" class="headerlink" title="2. 性能优化"></a>2. <strong>性能优化</strong></h4><ul>
-<li><strong>I&#x2F;O效率原则</strong><ul>
+<h4 id="2-性能优化">2. <strong>性能优化</strong></h4>
+<ul>
+<li><strong>I/O效率原则</strong>
+<ul>
 <li>分块大小选择（64KB）涉及《操作系统概念》中的磁盘预读策略</li>
 <li>参考：Linux内核的<code>readahead</code>机制</li>
 </ul>
 </li>
-<li><strong>时间&#x2F;空间权衡</strong><ul>
+<li><strong>时间/空间权衡</strong>
+<ul>
 <li>内存分块 vs 计算速度的平衡（《算法导论》第17章平摊分析）</li>
 </ul>
 </li>
 </ul>
-<h4 id="3-错误处理"><a href="#3-错误处理" class="headerlink" title="3. 错误处理"></a>3. <strong>错误处理</strong></h4><ul>
-<li><strong>防御式编程</strong><ul>
+<h4 id="3-错误处理">3. <strong>错误处理</strong></h4>
+<ul>
+<li><strong>防御式编程</strong>
+<ul>
 <li><code>try/except</code>处理文件操作（《代码大全》第8章）</li>
 </ul>
 </li>
-<li><strong>契约设计</strong><ul>
-<li>函数输入&#x2F;输出约定（如<code>verify_md5</code>返回布尔值）</li>
+<li><strong>契约设计</strong>
+<ul>
+<li>函数输入/输出约定（如<code>verify_md5</code>返回布尔值）</li>
 </ul>
 </li>
 </ul>
-<h4 id="4-接口设计"><a href="#4-接口设计" class="headerlink" title="4. 接口设计"></a>4. <strong>接口设计</strong></h4><ul>
-<li><strong>Unix哲学</strong><ul>
+<h4 id="4-接口设计">4. <strong>接口设计</strong></h4>
+<ul>
+<li><strong>Unix哲学</strong>
+<ul>
 <li>“Do One Thing and Do It Well”（命令行工具设计）</li>
 <li>参考：《The Art of Unix Programming》</li>
 </ul>
 </li>
 </ul>
-<h4 id="5-可扩展性"><a href="#5-可扩展性" class="headerlink" title="5. 可扩展性"></a>5. <strong>可扩展性</strong></h4><ul>
-<li><strong>开放封闭原则(OCP)</strong><ul>
+<h4 id="5-可扩展性">5. <strong>可扩展性</strong></h4>
+<ul>
+<li><strong>开放封闭原则(OCP)</strong>
+<ul>
 <li>通过<code>hashlib.new()</code>预留多算法支持</li>
 <li>参考：《设计模式：可复用面向对象软件的基础》</li>
 </ul>
 </li>
 </ul>
 <hr>
-<h3 id="二、学习吸收方法论"><a href="#二、学习吸收方法论" class="headerlink" title="二、学习吸收方法论"></a>二、学习吸收方法论</h3><h4 id="1-理论-→-实践循环"><a href="#1-理论-→-实践循环" class="headerlink" title="1. 理论 → 实践循环"></a>1. <strong>理论 → 实践循环</strong></h4><ul>
-<li><strong>步骤</strong>：<ol>
+<h3 id="二-学习吸收方法论">二、学习吸收方法论</h3>
+<h4 id="1-理论-实践循环">1. <strong>理论 → 实践循环</strong></h4>
+<ul>
+<li><strong>步骤</strong>：
+<ol>
 <li>阅读《Clean Code》函数设计章节 → 重构自己的函数</li>
 <li>研究Linux文件系统预读机制 → 调整<code>block_size</code>测试性能</li>
-<li>学习SOLID原则 → 分析工具中哪些模块符合&#x2F;违反原则</li>
+<li>学习SOLID原则 → 分析工具中哪些模块符合/违反原则</li>
 </ol>
 </li>
 </ul>
-<h4 id="2-代码考古学"><a href="#2-代码考古学" class="headerlink" title="2. 代码考古学"></a>2. <strong>代码考古学</strong></h4><ul>
-<li><p><strong>经典工具对比学习</strong>：</p>
+<h4 id="2-代码考古学">2. <strong>代码考古学</strong></h4>
+<ul>
+<li>
+<p><strong>经典工具对比学习</strong>：</p>
 <p>bash</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 研究GNU coreutils的md5sum实现</span><br><span class="line">git clone git://git.sv.gnu.org/coreutils</span><br><span class="line">grep -r &quot;BLOCKSIZE&quot; src/</span><br></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs crmsh"><span class="hljs-comment"># 研究GNU coreutils的md5sum实现</span>
+git <span class="hljs-keyword">clone</span> <span class="hljs-title">git</span>://git.sv.gnu.org/coreutils
+grep -r <span class="hljs-string">&quot;BLOCKSIZE&quot;</span> src/</code></pre></div>
 </li>
-<li><p><strong>Python生态参考</strong>：</p>
+<li>
+<p><strong>Python生态参考</strong>：</p>
 <ul>
 <li>对比<code>hashlib</code>与<code>cryptography</code>库的设计差异</li>
 </ul>
 </li>
 </ul>
-<h4 id="3-量化分析实践"><a href="#3-量化分析实践" class="headerlink" title="3. 量化分析实践"></a>3. <strong>量化分析实践</strong></h4><ul>
-<li><p><strong>性能基准测试</strong>：</p>
+<h4 id="3-量化分析实践">3. <strong>量化分析实践</strong></h4>
+<ul>
+<li>
+<p><strong>性能基准测试</strong>：</p>
 <p>python</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import timeit</span><br><span class="line">timeit.timeit(&#x27;calculate_md5(&quot;large_file.iso&quot;, block_size=8192)&#x27;, number=10)</span><br></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">import</span> timeit
+<span class="hljs-attribute">timeit</span>.timeit(&#x27;calculate_md5(<span class="hljs-string">&quot;large_file.iso&quot;</span>, block_size=<span class="hljs-number">8192</span>)&#x27;, number=<span class="hljs-number">10</span>)</code></pre></div>
 </li>
-<li><p><strong>内存分析</strong>：</p>
+<li>
+<p><strong>内存分析</strong>：</p>
 <p>bash</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m memory_profiler md5_tool.py</span><br></pre></td></tr></table></figure></li>
+<div class="code-wrapper"><pre><code class="hljs vim"><span class="hljs-keyword">python</span> -<span class="hljs-keyword">m</span> memory_profiler md5_tool.<span class="hljs-keyword">py</span></code></pre></div>
+</li>
 </ul>
-<h4 id="4-设计模式映射"><a href="#4-设计模式映射" class="headerlink" title="4. 设计模式映射"></a>4. <strong>设计模式映射</strong></h4><ul>
-<li><p><strong>识别模式应用</strong>：</p>
+<h4 id="4-设计模式映射">4. <strong>设计模式映射</strong></h4>
+<ul>
+<li>
+<p><strong>识别模式应用</strong>：</p>
 <table>
 <thead>
 <tr>
-<th align="left">模式</th>
-<th align="left">本工具实例</th>
+<th style="text-align:left">模式</th>
+<th style="text-align:left">本工具实例</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">模板方法</td>
-<td align="left"><code>calculate_md5</code>的分块处理流程</td>
+<tbody>
+<tr>
+<td style="text-align:left">模板方法</td>
+<td style="text-align:left"><code>calculate_md5</code>的分块处理流程</td>
 </tr>
 <tr>
-<td align="left">工厂方法</td>
-<td align="left"><code>hashlib.md5()</code>构造函数</td>
+<td style="text-align:left">工厂方法</td>
+<td style="text-align:left"><code>hashlib.md5()</code>构造函数</td>
 </tr>
 <tr>
-<td align="left">命令模式</td>
-<td align="left">argparse子命令实现</td>
+<td style="text-align:left">命令模式</td>
+<td style="text-align:left">argparse子命令实现</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 </li>
 </ul>
-<h4 id="5-刻意练习路线"><a href="#5-刻意练习路线" class="headerlink" title="5. 刻意练习路线"></a>5. <strong>刻意练习路线</strong></h4><ol>
-<li><strong>基础阶段</strong>：<ul>
+<h4 id="5-刻意练习路线">5. <strong>刻意练习路线</strong></h4>
+<ol>
+<li><strong>基础阶段</strong>：
+<ul>
 <li>实现单文件MD5计算（理解分块哈希）</li>
 <li>添加单元测试（文件不存在、空文件等case）</li>
 </ul>
 </li>
-<li><strong>进阶阶段</strong>：<ul>
+<li><strong>进阶阶段</strong>：
+<ul>
 <li>增加SHA-256支持（实践开放封闭原则）</li>
 <li>实现多线程批量计算（学习GIL限制）</li>
 </ul>
 </li>
-<li><strong>高级阶段</strong>：<ul>
+<li><strong>高级阶段</strong>：
+<ul>
 <li>开发VS Code插件调用该工具（接口设计实践）</li>
 <li>用Rust重写性能关键部分（FFI交互学习）</li>
 </ul>
 </li>
 </ol>
 <hr>
-<h3 id="三、推荐学习资源"><a href="#三、推荐学习资源" class="headerlink" title="三、推荐学习资源"></a>三、推荐学习资源</h3><h4 id="1-必读经典"><a href="#1-必读经典" class="headerlink" title="1. 必读经典"></a>1. <strong>必读经典</strong></h4><ul>
+<h3 id="三-推荐学习资源">三、推荐学习资源</h3>
+<h4 id="1-必读经典">1. <strong>必读经典</strong></h4>
+<ul>
 <li>《代码大全》第5章（设计）、第8章（防御式编程）</li>
 <li>《Unix编程艺术》第1章（模块化）、第7章（接口设计）</li>
 </ul>
-<h4 id="2-论文参考"><a href="#2-论文参考" class="headerlink" title="2. 论文参考"></a>2. <strong>论文参考</strong></h4><ul>
+<h4 id="2-论文参考">2. <strong>论文参考</strong></h4>
+<ul>
 <li><em>The MD5 Message-Digest Algorithm</em> (RFC 1321)</li>
 <li><em>A Quantitative Study of File Systems’ Block Size Selection</em> (FAST’13)</li>
 </ul>
-<h4 id="3-实践项目"><a href="#3-实践项目" class="headerlink" title="3. 实践项目"></a>3. <strong>实践项目</strong></h4><ul>
+<h4 id="3-实践项目">3. <strong>实践项目</strong></h4>
+<ul>
 <li>GNU coreutils源码（md5sum实现）</li>
 <li>Python标准库<code>hashlib</code>的C实现（<code>_hashlib.c</code>）</li>
 </ul>
-<h4 id="4-可视化学习"><a href="#4-可视化学习" class="headerlink" title="4. 可视化学习"></a>4. <strong>可视化学习</strong></h4><ul>
+<h4 id="4-可视化学习">4. <strong>可视化学习</strong></h4>
+<ul>
 <li>MD5算法可视化：<a target="_blank" rel="noopener" href="https://www.cs.usfca.edu/~galles/visualization/Algorithms.html">https://www.cs.usfca.edu/~galles/visualization/Algorithms.html</a></li>
-<li>I&#x2F;O缓冲区交互演示：<a target="_blank" rel="noopener" href="https://www.linuxatemyram.com/">https://www.linuxatemyram.com/</a></li>
+<li>I/O缓冲区交互演示：<a target="_blank" rel="noopener" href="https://www.linuxatemyram.com/">https://www.linuxatemyram.com/</a></li>
 </ul>
 <hr>
-<h3 id="四、知识吸收检查表"><a href="#四、知识吸收检查表" class="headerlink" title="四、知识吸收检查表"></a>四、知识吸收检查表</h3><p>当你认为自己已掌握某个概念时，尝试回答：</p>
+<h3 id="四-知识吸收检查表">四、知识吸收检查表</h3>
+<p>当你认为自己已掌握某个概念时，尝试回答：</p>
 <table>
 <thead>
 <tr>
-<th align="left">检查项</th>
-<th align="left">是&#x2F;否</th>
-<th align="left">示例</th>
+<th style="text-align:left">检查项</th>
+<th style="text-align:left">是/否</th>
+<th style="text-align:left">示例</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="left">能解释64KB块大小的选择依据？</td>
-<td align="left">✓</td>
-<td align="left">磁盘扇区对齐、内存页大小</td>
+<tbody>
+<tr>
+<td style="text-align:left">能解释64KB块大小的选择依据？</td>
+<td style="text-align:left">✓</td>
+<td style="text-align:left">磁盘扇区对齐、内存页大小</td>
 </tr>
 <tr>
-<td align="left">能画出数据流图？</td>
-<td align="left">✓</td>
-<td align="left">文件→分块→哈希更新→hexdigest</td>
+<td style="text-align:left">能画出数据流图？</td>
+<td style="text-align:left">✓</td>
+<td style="text-align:left">文件→分块→哈希更新→hexdigest</td>
 </tr>
 <tr>
-<td align="left">能列举3种替代设计方案？</td>
-<td align="left">✓</td>
-<td align="left">mmap映射、内存视图、GPU加速</td>
+<td style="text-align:left">能列举3种替代设计方案？</td>
+<td style="text-align:left">✓</td>
+<td style="text-align:left">mmap映射、内存视图、GPU加速</td>
 </tr>
 <tr>
-<td align="left">能说明异常处理的设计取舍？</td>
-<td align="left">✓</td>
-<td align="left">返回None vs 抛出异常</td>
+<td style="text-align:left">能说明异常处理的设计取舍？</td>
+<td style="text-align:left">✓</td>
+<td style="text-align:left">返回None vs 抛出异常</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <hr>
 <p>通过这种结构化学习路径，你可以将工具开发经验转化为可迁移的软件工程能力，逐步构建自己的系统设计思维体系。</p>
 <p>上了个置顶，遍笔者和各位朋友慢慢消化吸收</p>
 
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Coding/" class="category-chain-item">Coding</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Coding/" class="print-no-link">#Coding</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>How to design an MD5 verifier - 后记</div>
+      <div>https://carvinozheng.github.io/2025/07/12/verifier-talk/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>fishcanf1y</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>July 12, 2025</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/07/12/%E5%85%B3%E4%BA%8EPython%E6%89%93%E5%8C%85%E6%88%90EXE%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/" title="关于Python打包成EXE的那些事">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">关于Python打包成EXE的那些事</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/07/12/P1149-Matchstick/" title="P1149 [NOIP 2008 提高组] 火柴棒等式">
+                        <span class="hidden-mobile">P1149 [NOIP 2008 提高组] 火柴棒等式</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
     </div>
   </div>
+</div>
+
+
+
+
 
   
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
     
-  <div class="sea-prev-next-wrapper">
+
     
-      <div class="prev">
-        <svg t="1725418977480" class="sea-svg-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4239" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="4240"></path></svg>
-        <a class="link" href="/2025/07/12/%E5%85%B3%E4%BA%8EPython%E6%89%93%E5%8C%85%E6%88%90EXE%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/">
-          关于Python打包成EXE的那些事
-        </a>
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-    
-    
-      <div class="next">
-        <a class="link" href="/2025/07/12/P1149-Matchstick/">
-          P1149 [NOIP 2008 提高组] 火柴棒等式
-        </a>
-        <svg t="1725418993065" class="sea-svg-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6832" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200"><path d="M731.733333 480l-384-341.333333c-17.066667-14.933333-44.8-14.933333-59.733333 4.266666-14.933333 17.066667-14.933333 44.8 4.266667 59.733334L640 512 292.266667 821.333333c-17.066667 14.933333-19.2 42.666667-4.266667 59.733334 8.533333 8.533333 19.2 14.933333 32 14.933333 10.666667 0 19.2-4.266667 27.733333-10.666667l384-341.333333c8.533333-8.533333 14.933333-19.2 14.933334-32s-4.266667-23.466667-14.933334-32z" p-id="6833"></path></svg>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
       </div>
-    
+    </div>
   </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
 
   
-</article>
-
-
-  
-
+    <script  src="/js/img-lazyload.js" ></script>
   
 
 
-<script defer>
-  document.addEventListener('DOMContentLoaded', function () {
-    const toggleIcon = document.querySelector('.sea-article-catalog-title .sea-svg-icon');
-    const tocContent = document.querySelector('.sea-article-catalog > .toc');
-    if (toggleIcon && tocContent) {
-      toggleIcon.addEventListener('click', function () {
-        tocContent.classList.toggle('sea-article-catalog-show');
-        toggleIcon.classList.toggle('sea-svg-icon-rotate');
-      });
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
     }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
   });
 </script>
-  </main>
-  <footer id="sea-footer-container">
-  <div class="sea-footer-row">
-    <div class="sea-footer-menu-link">
-      
-        <a
-          class="sea-footer-link"
-          
-          href="mailto:iszhenghailin@gmail.com"
-        >
-          Email
-        </a>
-        <span class="sea-footer-link__dot">·</span>
-      
-        <a
-          class="sea-footer-link"
-          
-            target="_blank"
-          
-          href="https://x.com/Carvino_zheng"
-        >
-          X
-        </a>
-        <span class="sea-footer-link__dot">·</span>
-      
-        <a
-          class="sea-footer-link"
-          
-            target="_blank"
-          
-          href="https://www.weibo.com/u/2935453535"
-        >
-          Weibo
-        </a>
-        <span class="sea-footer-link__dot">·</span>
-      
-        <a
-          class="sea-footer-link"
-          
-            target="_blank"
-          
-          href="https://www.bilibili.com/"
-        >
-          Bilibili
-        </a>
-        <span class="sea-footer-link__dot">·</span>
-      
-        <a
-          class="sea-footer-link"
-          
-            target="_blank"
-          
-          href="https://www.zhihu.com/people/arr0g4nce"
-        >
-          知乎
-        </a>
-        <span class="sea-footer-link__dot">·</span>
-      
-    </div>
-  </div>
-  
-  
-  <div class="sea-footer-row">
-    <div class="sea-footer-copyright">
-      <span>©</span>
-      
-        2025
-      
-      <span>·</span>
-      fishcanf1y
-    </div>
-    <span class="split-line">|</span>
-    <div class="sea-footer-theme-by">
-      Theme by <a class="theme" href="https://github.com/hai-zou/hexo-theme-sea" target="_blank">Sea</a>
-    </div>
-  </div>
-</footer>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
 
   
-<script src="/js/main.js" defer></script>
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
 
 
-<script src="/js/theme.js" defer></script>
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
 
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
 </body>
 </html>
