@@ -19,12 +19,12 @@
   <meta name="author" content="fishcanf1y">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Tips: 新手向文章，其中涉及的代码你可以在 Https:&#x2F;&#x2F;github.com&#x2F;fishcanf1y&#x2F;Programming&#x3D;Learning&#x2F;Golang&#x2F; 中找到 Hello World： package main   import &quot;fmt&quot;      func main() &#123;       fmt.Printf(&quot;Hello World\n&amp;q">
+    <meta name="description" content="Tips: 新手向文章，其中涉及的代码你可以在 Https:&#x2F;&#x2F;github.com&#x2F;fishcanf1y&#x2F;Programming&#x3D;Learning&#x2F;Golang&#x2F; 中找到 Hello World：package main   import &quot;fmt&quot;      func main() &#123;       fmt.Printf(&quot;Hello World\n&amp;qu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Go基础语法学习笔记">
 <meta property="og:url" content="https://carvinozheng.github.io/2025/07/11/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Carvino&#39;s Blog">
-<meta property="og:description" content="Tips: 新手向文章，其中涉及的代码你可以在 Https:&#x2F;&#x2F;github.com&#x2F;fishcanf1y&#x2F;Programming&#x3D;Learning&#x2F;Golang&#x2F; 中找到 Hello World： package main   import &quot;fmt&quot;      func main() &#123;       fmt.Printf(&quot;Hello World\n&amp;q">
+<meta property="og:description" content="Tips: 新手向文章，其中涉及的代码你可以在 Https:&#x2F;&#x2F;github.com&#x2F;fishcanf1y&#x2F;Programming&#x3D;Learning&#x2F;Golang&#x2F; 中找到 Hello World：package main   import &quot;fmt&quot;      func main() &#123;       fmt.Printf(&quot;Hello World\n&amp;qu">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-07-11T01:13:16.000Z">
 <meta property="article:modified_time" content="2025-07-12T11:18:01.981Z">
@@ -294,21 +294,20 @@
             
               <div class="markdown-body">
                 
-                <p><strong>Tips:</strong> 新手向文章，其中涉及的代码你可以在 <em><a href="Https://github.com/fishcanf1y/Programming=Learning/Golang/">Https://github.com/fishcanf1y/Programming=Learning/Golang/</a></em> 中找到</p>
-<h1>Hello World：</h1>
-<div class="code-wrapper"><pre><code class="hljs Golang"><span class="hljs-keyword">package</span> main  
+                <p><strong>Tips:</strong> 新手向文章，其中涉及的代码你可以在 <em><a target="_blank" rel="noopener" href="https://github.com/fishcanf1y/Programming=Learning/Golang/">Https://github.com/fishcanf1y/Programming=Learning/Golang/</a></em> 中找到</p>
+<h1 id="Hello-World："><a href="#Hello-World：" class="headerlink" title="Hello World："></a>Hello World：</h1><div class="code-wrapper"><pre><code class="hljs Golang"><span class="hljs-keyword">package</span> main  
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>  
   
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;  
     fmt.Printf(<span class="hljs-string">&quot;Hello World\n&quot;</span>)  
     <span class="hljs-comment">// go run hello.go</span>
 &#125;</code></pre></div>
+
+
 <p>在第一行代码中 <code>package main</code> 定义了包名。你必须在源文件中非注释的第一行指明这个文件属于哪个包，如：<code>package main</code>。 <code>package main</code>表示一个可独立执行的程序，每个 <code>Go</code> 应用程序都包含一个名为 <code>main</code> 的包。</p>
 <p>下一行 <code>import &quot;fmt&quot;</code> 告诉 Go 编译器这个程序需要使用 <code>fmt</code> 包（的函数，或其他元素），<code>fmt</code> 包实现了格式化 <code>IO(输入/输出)</code>的函数。</p>
 <p>下一行 <code>func main()</code> 是程序开始执行的函数。<code>main</code> 函数是每一个可执行程序所必须包含的，一般来说都是在启动后第一个执行的函数（如果有 <code>init()</code> 函数则会先执行该函数）。</p>
-<p>下一行 <code>fmt.Println(...)</code> 可以将字符串输出到控制台，并在最后自动增加换行字符 <code>\n</code>。<br>
-使用 <code>fmt.Print(&quot;hello, world\n&quot;)</code> 可以得到相同的结果。<br>
-<code>Print</code> 和 <code>Println</code> 这两个函数也支持使用变量，如：<code>fmt.Println(arr)</code>。如果没有特别指定，它们会以默认的打印格式将变量 <code>arr</code> 输出到控制台。</p>
+<p>下一行 <code>fmt.Println(...)</code> 可以将字符串输出到控制台，并在最后自动增加换行字符 <code>\n</code>。<br>使用 <code>fmt.Print(&quot;hello, world\n&quot;)</code> 可以得到相同的结果。<br><code>Print</code> 和 <code>Println</code> 这两个函数也支持使用变量，如：<code>fmt.Println(arr)</code>。如果没有特别指定，它们会以默认的打印格式将变量 <code>arr</code> 输出到控制台。</p>
 <p>当标识符（包括常量、变量、类型、函数名、结构字段等等）以一个大写字母开头，如：Group1，那么使用这种形式的标识符的对象就可以被外部包的代码所使用（客户端程序需要先导入这个包），这被称为导出（像面向对象语言中的 public）；标识符如果以小写字母开头，则对包外是不可见的，但是他们在整个包的内部是可见并且可用的（像面向对象语言中的 protected ）。</p>
 <p><em>Attention:<code>&#123;</code>不能单独放在一行，所以以下代码在运行时会产生错误：</em></p>
 <div class="code-wrapper"><pre><code class="hljs Golang"><span class="hljs-keyword">package</span> main
@@ -319,14 +318,13 @@
 &#123;  <span class="hljs-comment">// 错误，&#123; 不能在单独的行上</span>
     fmt.Println(<span class="hljs-string">&quot;Hello, World!&quot;</span>)
 &#125;</code></pre></div>
-<h2 id="关于包：">关于包：</h2>
-<p>关于包，在本地测试得到以下几点</p>
+
+<h2 id="关于包："><a href="#关于包：" class="headerlink" title="关于包："></a>关于包：</h2><p>关于包，在本地测试得到以下几点</p>
 <ul>
 <li>文件名与包名没有直接关系，不一定要将文件名与包名定成同一个。</li>
 <li>同一个文件夹下的文件只能有一个包名，否则编译报错。</li>
 </ul>
-<h3 id="测试：">测试：</h3>
-<p><strong>文件结构：</strong></p>
+<h3 id="测试："><a href="#测试：" class="headerlink" title="测试："></a>测试：</h3><p><strong>文件结构：</strong></p>
 <div class="code-wrapper"><pre><code class="hljs Golang">Test
 --helloworld.<span class="hljs-keyword">go</span>
 
@@ -359,8 +357,8 @@ myMath
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Sub</span><span class="hljs-params">(x <span class="hljs-type">int</span>, y <span class="hljs-type">int</span>)</span></span> <span class="hljs-type">int</span> &#123;
 	<span class="hljs-keyword">return</span> x - y
 &#125;</code></pre></div>
-<h1>Go标记</h1>
-<p>Go程序可以由多个标记组成，可以是关键字、标识符、常量、字符串和符号等。如以下程序由6个标记组成：</p>
+
+<h1 id="Go标记"><a href="#Go标记" class="headerlink" title="Go标记"></a>Go标记</h1><p>Go程序可以由多个标记组成，可以是关键字、标识符、常量、字符串和符号等。如以下程序由6个标记组成：</p>
 <div class="code-wrapper"><pre><code class="hljs Golang">fmt.Printf(<span class="hljs-string">&quot;Hello World!&quot;</span>)</code></pre></div>
 <p>6个标记分别是这些</p>
 <div class="code-wrapper"><pre><code class="hljs Golang"><span class="hljs-number">1.</span> .fmt
@@ -369,20 +367,20 @@ myMath
 <span class="hljs-number">4.</span> (
 <span class="hljs-number">5.</span> <span class="hljs-string">&quot;Hello World!&quot;</span>
 <span class="hljs-number">6.</span> )</code></pre></div>
-<h1>行分隔符</h1>
-<p>在Go程序中，一行代表一个语句结束，每一个语句不需要像C家族的语言中添加分号，如果打算将多个语句写在同一行，它们则必须使用 <code>;</code> 以人为区分，实际开发中并不鼓励这种做法。</p>
+
+<h1 id="行分隔符"><a href="#行分隔符" class="headerlink" title="行分隔符"></a>行分隔符</h1><p>在Go程序中，一行代表一个语句结束，每一个语句不需要像C家族的语言中添加分号，如果打算将多个语句写在同一行，它们则必须使用 <code>;</code> 以人为区分，实际开发中并不鼓励这种做法。</p>
 <p><em>This is am example:</em></p>
 <div class="code-wrapper"><pre><code class="hljs Golang">fmt.Println(<span class="hljs-string">&quot;Hello, World!&quot;</span>)
 fmt.Println(<span class="hljs-string">&quot;Hello, Golang!&quot;</span>)</code></pre></div>
-<h1>注释</h1>
-<p>注释的内容不会被编译，单行注释是最常见的注释形式，你可以在任何地方使用以 <code>//</code> 开头的单行注释。多行注释也叫块注释，均已以 <code>/*</code> 开头，并以 <code>*/</code> 结尾。如：</p>
+
+<h1 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h1><p>注释的内容不会被编译，单行注释是最常见的注释形式，你可以在任何地方使用以 <code>//</code> 开头的单行注释。多行注释也叫块注释，均已以 <code>/*</code> 开头，并以 <code>*/</code> 结尾。如：</p>
 <div class="code-wrapper"><pre><code class="hljs Golang"><span class="hljs-comment">// 单行注释</span>
 <span class="hljs-comment">/*</span>
 <span class="hljs-comment"> Author by fishcanf1y</span>
 <span class="hljs-comment"> 我是多行注释</span>
 <span class="hljs-comment"> */</span></code></pre></div>
-<h1>标识符</h1>
-<p>标识符用来命名变量、类型等程序实体。一个标识符实际上就是一个或是多个字母(A~Z和a~z)数字(0~9)、下划线_组成的序列，但是第一个字符必须是字母或下划线而不能是数字。</p>
+
+<h1 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h1><p>标识符用来命名变量、类型等程序实体。一个标识符实际上就是一个或是多个字母(A<del>Z和a</del>z)数字(0~9)、下划线_组成的序列，但是第一个字符必须是字母或下划线而不能是数字。</p>
 <p>以下是有效的标识符：</p>
 <div class="code-wrapper"><pre><code class="hljs Golang">mahesh   kumar   abc   move_name   a_123
 myname50   _temp   j   a23b9   retVal</code></pre></div>
@@ -392,8 +390,7 @@ myname50   _temp   j   a23b9   retVal</code></pre></div>
 <li>case（Go 语言的关键字）</li>
 <li>a+b（运算符是不允许的）</li>
 </ul>
-<h1>字符串链接</h1>
-<p>Go语言的字符串连接可以通过<code>+</code>来实现：</p>
+<h1 id="字符串链接"><a href="#字符串链接" class="headerlink" title="字符串链接"></a>字符串链接</h1><p>Go语言的字符串连接可以通过<code>+</code>来实现：</p>
 <div class="code-wrapper"><pre><code class="hljs Golang"><span class="hljs-keyword">package</span> main
 
 <span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
@@ -401,8 +398,8 @@ myname50   _temp   j   a23b9   retVal</code></pre></div>
 <span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
 	fmt.Println(<span class="hljs-string">&quot;Hello&quot;</span> + <span class="hljs-string">&quot;Google&quot;</span>)
 &#125;</code></pre></div>
-<h1>关键字</h1>
-<p>以下列举Go代码中会使用到的25个关键字或保留字：</p>
+
+<h1 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h1><p>以下列举Go代码中会使用到的25个关键字或保留字：</p>
 <table>
 <thead>
 <tr>
@@ -410,8 +407,7 @@ myname50   _temp   j   a23b9   retVal</code></pre></div>
 <th>Description</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>break</td>
 <td>终止最内层的for或switch语句</td>
 </tr>
@@ -511,8 +507,7 @@ myname50   _temp   j   a23b9   retVal</code></pre></div>
 <td>var</td>
 <td>变量声明</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>除以上所介绍的关键字，Go语言还有36个预定义标识符：</p>
 <table>
 <thead>
@@ -521,8 +516,7 @@ myname50   _temp   j   a23b9   retVal</code></pre></div>
 <th>Description</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>append</td>
 <td>添加元素到切片</td>
 </tr>
@@ -666,11 +660,8 @@ myname50   _temp   j   a23b9   retVal</code></pre></div>
 <td>uintptr</td>
 <td>无符号指针类型</td>
 </tr>
-</tbody>
-</table>
-<h1>Go语言中的空格</h1>
-<p>在 Go 语言中，空格通常用于分隔标识符、关键字、运算符和表达式，以提高代码的可读性。<br>
-Go 语言中变量的声明必须使用空格隔开，如：</p>
+</tbody></table>
+<h1 id="Go语言中的空格"><a href="#Go语言中的空格" class="headerlink" title="Go语言中的空格"></a>Go语言中的空格</h1><p>在 Go 语言中，空格通常用于分隔标识符、关键字、运算符和表达式，以提高代码的可读性。<br>Go 语言中变量的声明必须使用空格隔开，如：</p>
 <div class="code-wrapper"><pre><code class="hljs Golang"><span class="hljs-keyword">var</span> x <span class="hljs-type">int</span>
 <span class="hljs-keyword">const</span> Pi <span class="hljs-type">float64</span> = <span class="hljs-number">3.14159265358979323846</span></code></pre></div>
 <p>在运算符和操作数之间要使用空格能让程序更易阅读</p>
@@ -681,13 +672,13 @@ Go 语言中变量的声明必须使用空格隔开，如：</p>
 <div class="code-wrapper"><pre><code class="hljs golang"><span class="hljs-keyword">if</span> x &gt; <span class="hljs-number">0</span> &#123;
     <span class="hljs-comment">// do something</span>
 &#125;</code></pre></div>
+
 <p>在函数调用时，函数名和左边等号之间要使用空格，参数之间也要使用空格。</p>
 <p>例如：</p>
 <div class="code-wrapper"><pre><code class="hljs Golang">result := add(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>)</code></pre></div>
-<h1>格式化字符串</h1>
-<p>Go 语言中使用 <code>fmt.Sprintf</code> 或 <code>fmt.Printf</code> 格式化字符串并赋值给新串：</p>
-<p><code>Sprintf</code> 根据格式化参数生成格式化的字符串并返回该字符串。<br>
-<code>Printf</code> 根据格式化参数生成格式化的字符串并写入标准输出。</p>
+
+<h1 id="格式化字符串"><a href="#格式化字符串" class="headerlink" title="格式化字符串"></a>格式化字符串</h1><p>Go 语言中使用 <code>fmt.Sprintf</code> 或 <code>fmt.Printf</code> 格式化字符串并赋值给新串：</p>
+<p><code>Sprintf</code> 根据格式化参数生成格式化的字符串并返回该字符串。<br><code>Printf</code> 根据格式化参数生成格式化的字符串并写入标准输出。</p>
 <p><em>Sprintf示例：</em></p>
 <div class="code-wrapper"><pre><code class="hljs Golang"><span class="hljs-keyword">package</span> main
 
@@ -705,6 +696,7 @@ Go 语言中变量的声明必须使用空格隔开，如：</p>
 &#125;</code></pre></div>
 <p>输出结果为：</p>
 <div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">Code</span>=<span class="hljs-number">123</span>&amp;endDate=<span class="hljs-number">2025</span>-<span class="hljs-number">07</span>-<span class="hljs-number">11</span></code></pre></div>
+
 <p><em>Printf示例：</em></p>
 <div class="code-wrapper"><pre><code class="hljs Golang"><span class="hljs-keyword">package</span> main
 
@@ -720,6 +712,7 @@ Go 语言中变量的声明必须使用空格隔开，如：</p>
 &#125;</code></pre></div>
 <p>输出结果为：</p>
 <div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">Code</span>=<span class="hljs-number">123</span>&amp;endDate=<span class="hljs-number">2025</span>-<span class="hljs-number">07</span>-<span class="hljs-number">11</span></code></pre></div>
+
 <script src="https://giscus.app/client.js"
         data-repo="fishcanf1y/fishcanf1y.github.io"
         data-repo-id="R_kgDONzaTTQ"
