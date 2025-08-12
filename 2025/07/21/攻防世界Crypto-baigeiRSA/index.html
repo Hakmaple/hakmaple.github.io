@@ -19,12 +19,12 @@
   <meta name="author" content="fishcanf1y">
   <meta name="keywords" content="">
   
-    <meta name="description" content="拿到附件后查看内容import libnum from Crypto.Util import number from secret import flag  size &#x3D; 128 e &#x3D; 65537 p &#x3D; number.getPrime(size) q &#x3D; number.getPrime(size) n &#x3D; p*q  m &#x3D; libnum.s2n(flag) c &#x3D; pow(m, e, n)">
+    <meta name="description" content="拿到附件后查看内容 import libnum from Crypto.Util import number from secret import flag  size &#x3D; 128 e &#x3D; 65537 p &#x3D; number.getPrime(size) q &#x3D; number.getPrime(size) n &#x3D; p*q  m &#x3D; libnum.s2n(flag) c &#x3D; pow(m, e, n)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="攻防世界Crypto-baigeiRSA">
 <meta property="og:url" content="https://carvinozheng.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/index.html">
 <meta property="og:site_name" content="Carvino&#39;s Blog">
-<meta property="og:description" content="拿到附件后查看内容import libnum from Crypto.Util import number from secret import flag  size &#x3D; 128 e &#x3D; 65537 p &#x3D; number.getPrime(size) q &#x3D; number.getPrime(size) n &#x3D; p*q  m &#x3D; libnum.s2n(flag) c &#x3D; pow(m, e, n)">
+<meta property="og:description" content="拿到附件后查看内容 import libnum from Crypto.Util import number from secret import flag  size &#x3D; 128 e &#x3D; 65537 p &#x3D; number.getPrime(size) q &#x3D; number.getPrime(size) n &#x3D; p*q  m &#x3D; libnum.s2n(flag) c &#x3D; pow(m, e, n)">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://carvinozheng.github.io/images/baigeiRSA-1.png">
 <meta property="article:published_time" content="2025-07-21T01:29:24.000Z">
@@ -297,7 +297,8 @@
             
               <div class="markdown-body">
                 
-                <h2 id="拿到附件后查看内容"><a href="#拿到附件后查看内容" class="headerlink" title="拿到附件后查看内容"></a>拿到附件后查看内容</h2><div class="code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">import</span> libnum
+                <h2 id="拿到附件后查看内容">拿到附件后查看内容</h2>
+<div class="code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">import</span> libnum
 <span class="hljs-keyword">from</span> Crypto.Util <span class="hljs-keyword">import</span> number
 <span class="hljs-keyword">from</span> secret <span class="hljs-keyword">import</span> flag
 
@@ -313,27 +314,28 @@ c = <span class="hljs-built_in">pow</span>(m, e, n)
 <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;n = %d&#x27;</span> % n)
 <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;c = %d&#x27;</span> % c)
 </code></pre></div>
-
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="参数设置"><a href="#参数设置" class="headerlink" title="参数设置"></a>参数设置</h3><div class="code-wrapper"><pre><code class="hljs python">size = <span class="hljs-number">128</span>
+<h2 id="分析">分析</h2>
+<h3 id="参数设置">参数设置</h3>
+<div class="code-wrapper"><pre><code class="hljs python">size = <span class="hljs-number">128</span>
 e = <span class="hljs-number">65537</span></code></pre></div>
-
 <p><code>size</code>处设置了生成的素数<code>p</code>和<code>q</code>的比特长度</p>
 <p><code>e=65537</code>：RSA的公钥指数，这是一个常用的固定值</p>
-<h3 id="生成RSA密钥"><a href="#生成RSA密钥" class="headerlink" title="生成RSA密钥"></a>生成RSA密钥</h3><div class="code-wrapper"><pre><code class="hljs python">p = number.getPrime(size)
+<h3 id="生成rsa密钥">生成RSA密钥</h3>
+<div class="code-wrapper"><pre><code class="hljs python">p = number.getPrime(size)
 q = number.getPrime(size)
 n = p*q</code></pre></div>
-
 <p><code>number.getPrime(size)</code>生成一个<code>size</code>比特的随机素数</p>
 <p><code>n = p*q</code>：计算RSA的模数<code>n</code>（一个256位的数）。</p>
-<h3 id="加密flag"><a href="#加密flag" class="headerlink" title="加密flag"></a>加密flag</h3><div class="code-wrapper"><pre><code class="hljs python">m = libnum.s2n(flag)
+<h3 id="加密flag">加密flag</h3>
+<div class="code-wrapper"><pre><code class="hljs python">m = libnum.s2n(flag)
 c = <span class="hljs-built_in">pow</span>(m, e, n)</code></pre></div>
-
 <p><code>libnum.s2n(flag)</code>：将<code>flag</code>字符串转换为一个大整数<code>m</code>（<code>s2n</code>表示“string to number”）。</p>
 <p><code>c = pow(m, e, n)</code>：计算密文<code>c</code>，即<code>m^e mod n</code>（RSA加密的核心操作）。</p>
-<h3 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h3><div class="code-wrapper"><pre><code class="hljs Python"><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;n = %d&#x27;</span> % n)
+<h3 id="输出结果">输出结果</h3>
+<div class="code-wrapper"><pre><code class="hljs Python"><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;n = %d&#x27;</span> % n)
 <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;c = %d&#x27;</span> % c)</code></pre></div>
-
-<h2 id="解密思路"><a href="#解密思路" class="headerlink" title="解密思路"></a>解密思路</h2><ol>
+<h2 id="解密思路">解密思路</h2>
+<ol>
 <li>分解<code>n</code>得到<code>p</code>和<code>q</code>（因为<code>n</code>是256位的，对于现代计算机来说分解是可行的）。</li>
 <li>计算欧拉函数<code>φ(n) = (p-1)*(q-1)</code>。</li>
 <li>计算私钥<code>d</code>，即<code>e</code>模<code>φ(n)</code>的逆元：<code>d = pow(e, -1, φ(n))</code>。</li>
@@ -359,9 +361,8 @@ d = inverse(e, phi)
 m = <span class="hljs-built_in">pow</span>(c, d, n)
 flag = libnum.n2s(m)
 <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;解密后的flag:&quot;</span>, flag)</code></pre></div>
-
 <p>然后暴力分解因数<code>n</code>得到<code>p</code>和<code>q</code></p>
-<p><img src="/images/baigeiRSA-1.png" srcset="/img/loading.gif" lazyload alt="图一展示了在&#96;http:&#x2F;&#x2F;www.factordb.com&#x2F;&#96;上暴力分解因数"></p>
+<p><img src="/images/baigeiRSA-1.png" srcset="/img/loading.gif" lazyload alt="图一展示了在上暴力分解因数"></p>
 <p>则最终的exp如下：</p>
 <div class="code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">import</span> libnum
 <span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span> inverse
@@ -380,11 +381,9 @@ d = inverse(e, phi)
 m = <span class="hljs-built_in">pow</span>(c, d, n)
 flag = libnum.n2s(m)
 <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;解密后的flag:&quot;</span>, flag)</code></pre></div>
-
 <p>成功Caught the flag!</p>
 <div class="code-wrapper"><pre><code class="hljs gherkin">workspace<span class="hljs-comment"># python3 exploit.py </span>
 解密后的flag: b&#x27;HSCTF&#123;<span class="hljs-meta">@Zh3n_Ba1_G3i!</span><span class="hljs-meta">@&#125;&#x27;</span></code></pre></div>
-
 
                 
               </div>

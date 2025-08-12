@@ -19,12 +19,12 @@
   <meta name="author" content="fishcanf1y">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言大模型建议先从主流开源的Qwen3、Llama3.1上⼿，先快速体验提示词⼯程，然后再学习 LLM模型架构，尝试RAG，跑LoRA微调脚本。 进一步学习目标：  学习如何从零训练大模型（1B左右规模，预训练+SFT+DPO）  钻研SFT • 1）专有任务如Code⽣成、NL2SQL或通⽤NLP的NER、分类、抽取、摘要模型  • 2）场景领域微调，⾦融任务LLM、法律LLM、医学LLM、电商">
+    <meta name="description" content="前言 大模型建议先从主流开源的Qwen3、Llama3.1上⼿，先快速体验提示词⼯程，然后再学习 LLM模型架构，尝试RAG，跑LoRA微调脚本。 进一步学习目标：   学习如何从零训练大模型（1B左右规模，预训练+SFT+DPO）   钻研SFT • 1）专有任务如Code⽣成、NL2SQL或通⽤NLP的NER、分类、抽取、摘要模型 • 2）场景领域微调，⾦融任务LLM、法律LLM、医学LLM、">
 <meta property="og:type" content="article">
 <meta property="og:title" content="动手学深度学习系列01-楔子">
 <meta property="og:url" content="https://carvinozheng.github.io/2025/07/18/%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%9701-%E6%A5%94%E5%AD%90/index.html">
 <meta property="og:site_name" content="Carvino&#39;s Blog">
-<meta property="og:description" content="前言大模型建议先从主流开源的Qwen3、Llama3.1上⼿，先快速体验提示词⼯程，然后再学习 LLM模型架构，尝试RAG，跑LoRA微调脚本。 进一步学习目标：  学习如何从零训练大模型（1B左右规模，预训练+SFT+DPO）  钻研SFT • 1）专有任务如Code⽣成、NL2SQL或通⽤NLP的NER、分类、抽取、摘要模型  • 2）场景领域微调，⾦融任务LLM、法律LLM、医学LLM、电商">
+<meta property="og:description" content="前言 大模型建议先从主流开源的Qwen3、Llama3.1上⼿，先快速体验提示词⼯程，然后再学习 LLM模型架构，尝试RAG，跑LoRA微调脚本。 进一步学习目标：   学习如何从零训练大模型（1B左右规模，预训练+SFT+DPO）   钻研SFT • 1）专有任务如Code⽣成、NL2SQL或通⽤NLP的NER、分类、抽取、摘要模型 • 2）场景领域微调，⾦融任务LLM、法律LLM、医学LLM、">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-07-18T10:44:38.000Z">
 <meta property="article:modified_time" content="2025-07-24T04:40:44.792Z">
@@ -241,7 +241,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          998 words
+          971 words
         
       </span>
     
@@ -294,46 +294,59 @@
             
               <div class="markdown-body">
                 
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>大模型建议先从主流开源的Qwen3、Llama3.1上⼿，先快速体验提示词⼯程，然后再学习 LLM模型架构，尝试RAG，跑LoRA微调脚本。</p>
+                <h2 id="前言">前言</h2>
+<p>大模型建议先从主流开源的Qwen3、Llama3.1上⼿，先快速体验提示词⼯程，然后再学习 LLM模型架构，尝试RAG，跑LoRA微调脚本。</p>
 <p>进一步学习目标：</p>
 <ul>
-<li><p>学习如何从零训练大模型（1B左右规模，预训练+SFT+DPO）</p>
+<li>
+<p>学习如何从零训练大模型（1B左右规模，预训练+SFT+DPO）</p>
 </li>
-<li><p>钻研SFT</p>
-<p>• 1）专有任务如Code⽣成、NL2SQL或通⽤NLP的NER、分类、抽取、摘要模型 </p>
-<p>• 2）场景领域微调，⾦融任务LLM、法律LLM、医学LLM、电商LLM </p>
+<li>
+<p>钻研SFT</p>
+<p>• 1）专有任务如Code⽣成、NL2SQL或通⽤NLP的NER、分类、抽取、摘要模型</p>
+<p>• 2）场景领域微调，⾦融任务LLM、法律LLM、医学LLM、电商LLM</p>
 <span id="more"></span>
 </li>
-<li><p>Llama系列\Gemma系列中文增量预训练：先做Llama3.1, 等待Llama4，期望Llama5 </p>
+<li>
+<p>Llama系列\Gemma系列中文增量预训练：先做Llama3.1, 等待Llama4，期望Llama5</p>
 </li>
-<li><p>RAG落地：搭建领域问答机器人、知识问答助手</p>
+<li>
+<p>RAG落地：搭建领域问答机器人、知识问答助手</p>
 </li>
 </ul>
-<p>大模型学习的思路有两个： </p>
+<p>大模型学习的思路有两个：</p>
 <ol>
 <li>学习见效最快，投入产出比最大的 -&gt; 快速上手之后，能⽴即带来产出收益（譬如调包微调） 2. 学习底层基础，越靠近第⼀性原理越好 -&gt; 底层变得慢，短期无收益但长期看好（譬如优化器）</li>
 </ol>
 <p>但这么多内容，不可能什么都学，⼀定得排⼀个优先级，⽴⼀个⽬标来学习，实践和理论相 结合，不然四处为战，很快就懈怠了。</p>
-<h2 id="学习路线"><a href="#学习路线" class="headerlink" title="学习路线"></a>学习路线</h2><h3 id="一、机器学习数学原理"><a href="#一、机器学习数学原理" class="headerlink" title="一、机器学习数学原理"></a>一、机器学习数学原理</h3><ul>
-<li>线性代数：这对于理解许多算法⾄关重要，尤其是深度学习中使⽤的算法。关键概念包括向量、矩阵、行列式、特征值和特征向量、向量空间和线性变换。 </li>
-<li>微积分：许多机器学习算法涉及连续函数的优化，这需要了解导数、积分、极限和级数。 多变量微积分和梯度的概念也很重要。 </li>
+<h2 id="学习路线">学习路线</h2>
+<h3 id="一-机器学习数学原理">一、机器学习数学原理</h3>
+<ul>
+<li>线性代数：这对于理解许多算法⾄关重要，尤其是深度学习中使⽤的算法。关键概念包括向量、矩阵、行列式、特征值和特征向量、向量空间和线性变换。</li>
+<li>微积分：许多机器学习算法涉及连续函数的优化，这需要了解导数、积分、极限和级数。 多变量微积分和梯度的概念也很重要。</li>
 <li>概率和统计：这些对于理解模型如何从数据中学习并做出预测至关重要。关键概念包括概 率论、随机变量、概率分布、期望、方差、协方差、相关性、假设检验、置信区间、最大似然估计和贝叶斯推理。</li>
 </ul>
-<h3 id="二、用于机器学习的Python"><a href="#二、用于机器学习的Python" class="headerlink" title="二、用于机器学习的Python"></a>二、用于机器学习的Python</h3><ul>
+<h3 id="二-用于机器学习的python">二、用于机器学习的Python</h3>
+<ul>
 <li>Python基础知识：Python编程需要很好地理解基本语法、数据类型、错误处理和面向对象编程。</li>
 <li>数据科学库：包括熟悉用于数值运算的 NumPy、用于数据操作和分析的 Pandas、用于数据可视化的 Matplotlib 和 Seaborn。</li>
-<li>数据预处理：这涉及特征缩放和标准化、处理缺失数据、异常值检测、分类数据编码以及<br>将数据拆分为训练集、验证集和测试集。</li>
-<li>机器学习库：熟练使用 <code>Scikit-learn</code>（⼀个提供多种监督和⾮监督学习算法的库）至关重<br>要。了解如何实现线性回归、逻辑回归、决策树、随机森林、k 最近邻 (K-NN) 和K均值聚类等算法。PCA和t-SNE等降维技术也有助于可视化高维数据</li>
+<li>数据预处理：这涉及特征缩放和标准化、处理缺失数据、异常值检测、分类数据编码以及<br>
+将数据拆分为训练集、验证集和测试集。</li>
+<li>机器学习库：熟练使用 <code>Scikit-learn</code>（⼀个提供多种监督和⾮监督学习算法的库）至关重<br>
+要。了解如何实现线性回归、逻辑回归、决策树、随机森林、k 最近邻 (K-NN) 和K均值聚类等算法。PCA和t-SNE等降维技术也有助于可视化高维数据</li>
 </ul>
-<h3 id="神经网络"><a href="#神经网络" class="headerlink" title="神经网络"></a>神经网络</h3><p>神经网络是许多机器学习模型的基本组成部分，特别是在深度学习领域。为了有效地利用它<br>们，全面了解它们的设计和机制至关重要。</p>
+<h3 id="神经网络">神经网络</h3>
+<p>神经网络是许多机器学习模型的基本组成部分，特别是在深度学习领域。为了有效地利用它<br>
+们，全面了解它们的设计和机制至关重要。</p>
 <ul>
 <li>基础知识：这包括理解神经网络的结构，例如层、权重、偏差、激活函数（sigmoid、tanh、ReLU 等）</li>
 <li>训练和优化：熟悉反向传播和不同类型的损失函数，例如均方误差 (MSE) 和交叉熵。了解各种优化算法，例如梯度下降、随机梯度下降、RMSprop 和 Adam。</li>
-<li>过度拟合：了解过度拟合的概念（模型在训练数据上表现良好，但在未见过的数据上表现不佳）并学习各种正则化技术（dropout、L1&#x2F;L2 正则化、提前停止、数据增强）来防止<br>过度拟合。</li>
+<li>过度拟合：了解过度拟合的概念（模型在训练数据上表现良好，但在未见过的数据上表现不佳）并学习各种正则化技术（dropout、L1/L2 正则化、提前停止、数据增强）来防止<br>
+过度拟合。</li>
 <li>实现多层感知器 (MLP)：使用 PyTorch 构建 MLP，也称为全连接网络。</li>
 </ul>
 <p>其他地不想写了，看这里吧(完整版)</p>
-<p><em><a target="_blank" rel="noopener" href="https://github.com/fishcanf1y/Machine-Learning-Notes/blob/main/%E4%B8%80%E3%80%81%E5%A4%A7%E6%A8%A1%E5%9E%8B%E4%BB%8E0%E5%88%B01%E5%AD%A6%E4%B9%A0-%E5%9F%BA%E7%A1%80%E9%80%9F%E5%AD%A6.pdf">https://github.com/fishcanf1y/Machine-Learning-Notes/blob/main/%E4%B8%80%E3%80%81%E5%A4%A7%E6%A8%A1%E5%9E%8B%E4%BB%8E0%E5%88%B01%E5%AD%A6%E4%B9%A0-%E5%9F%BA%E7%A1%80%E9%80%9F%E5%AD%A6.pdf</a></em></p>
+<p><em><a target="_blank" rel="noopener" href="https://github.com/fishcanf1y/Machine-Learning-Notes/blob/main/%E4%B8%80%E3%80%81%E5%A4%A7%E6%A8%A1%E5%9E%8B%E4%BB%8E0%E5%88%B01%E5%AD%A6%E4%B9%A0-%E5%9F%BA%E7%A1%80%E9%80%9F%E5%AD%A6.pdf">https://github.com/fishcanf1y/Machine-Learning-Notes/blob/main/一、大模型从0到1学习-基础速学.pdf</a></em></p>
 
                 
               </div>

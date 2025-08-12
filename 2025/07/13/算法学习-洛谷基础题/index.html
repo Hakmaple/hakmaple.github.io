@@ -313,9 +313,7 @@
 &#125;
 
 <span class="hljs-comment">// gcc 三角形面积.c -lm -o 三角形面积</span></code></pre></div>
-
 <span id="more"></span>
-
 <p><strong>对角线</strong></p>
 <blockquote>
 <p>两条对角线其实确定了四个点（可以这么理解）</p>
@@ -337,7 +335,9 @@
 <p><em>小技巧 <code>b=a*(a-1)*(a-2)*(a-3)/24;</code> 改成 <code>b=a*(a-1)/2*(a-2)/3*(a-3)/4;</code></em></p>
 <p><strong>数的性质</strong></p>
 <p>一些数字可能拥有以下的性质：</p>
-<p>性质 1：是偶数；<br>性质 2：大于 4 且不大于 12。<br>小A 喜欢这两个性质同时成立的数字；Uim 喜欢这至少符合其中一种性质的数字；八尾勇喜欢刚好有符合其中一个性质的数字；正妹喜欢不符合这两个性质的数字。</p>
+<p>性质 1：是偶数；<br>
+性质 2：大于 4 且不大于 12。<br>
+小A 喜欢这两个性质同时成立的数字；Uim 喜欢这至少符合其中一种性质的数字；八尾勇喜欢刚好有符合其中一个性质的数字；正妹喜欢不符合这两个性质的数字。</p>
 <div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;math.h&gt;</span></span>
 
@@ -366,8 +366,8 @@
     &#125;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
-
-<p><strong>闰年判断</strong><br>输入一个年份（大于 1582 的整数 ），判断这一年是否是闰年，如果是输出 1，否则输出 0。</p>
+<p><strong>闰年判断</strong><br>
+输入一个年份（大于 1582 的整数 ），判断这一年是否是闰年，如果是输出 1，否则输出 0。</p>
 <div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;math.h&gt;</span></span>
 
@@ -387,7 +387,6 @@
     <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d&quot;</span>,choice);
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
-
 <p><strong>洛谷团队系统</strong></p>
 <div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
 <span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>&#123;
@@ -399,7 +398,6 @@
     <span class="hljs-keyword">else</span> <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Luogu&quot;</span>);
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
-
 <p><strong>肥胖问题</strong></p>
 <div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
 
@@ -415,8 +413,8 @@
     &#125;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
-
-<p><strong>三位数排序</strong><br>给出三个整数 a,b,c(0&lt;&#x3D;a,b,c&lt;&#x3D;100)a,b,c(0≤a,b,c≤100)，要求把这三位整数从小到大排序。</p>
+<p><strong>三位数排序</strong><br>
+给出三个整数 a,b,c(0&lt;=a,b,c&lt;=100)a,b,c(0≤a,b,c≤100)，要求把这三位整数从小到大排序。</p>
 <div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
 
 <span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>&#123;
@@ -442,8 +440,8 @@
     &#125;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
-
-<p><strong>月份天数</strong><br>输入年份和月份，输出这一年的这一月有多少天。需要考虑闰年</p>
+<p><strong>月份天数</strong><br>
+输入年份和月份，输出这一年的这一月有多少天。需要考虑闰年</p>
 <div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
 
 <span class="hljs-type">int</span> <span class="hljs-title function_">judge</span><span class="hljs-params">(<span class="hljs-type">int</span> a)</span>&#123;
@@ -473,14 +471,26 @@
     judge(month);
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
-
-<p><strong>ISBN号码</strong><br>每一本正式出版的图书都有一个ISBN号码与之对应，ISBN码包括9位数字、1位识别码和3位分隔符，其规定格式如<code>x-xxx-xxxxx-x</code>，其中符号<code>-</code>就是分隔符（键盘上的减号），最后一位是识别码，例如<code>0-670-82162-4</code>就是一个标准的ISBN码。ISBN码的首位数字表示书籍的出版语言，例如0代表英语；第一个分隔符-之后的三位数字代表出版社，例如670代表维京出版社；第二个分隔符后的五位数字代表该书在该出版社的编号；最后一位为识别码。</p>
+<p><strong>ISBN号码</strong><br>
+每一本正式出版的图书都有一个ISBN号码与之对应，ISBN码包括9位数字、1位识别码和3位分隔符，其规定格式如<code>x-xxx-xxxxx-x</code>，其中符号<code>-</code>就是分隔符（键盘上的减号），最后一位是识别码，例如<code>0-670-82162-4</code>就是一个标准的ISBN码。ISBN码的首位数字表示书籍的出版语言，例如0代表英语；第一个分隔符-之后的三位数字代表出版社，例如670代表维京出版社；第二个分隔符后的五位数字代表该书在该出版社的编号；最后一位为识别码。</p>
 <p>识别码的计算方法如下：</p>
-<p>首位数字乘以11加上次位数字乘以22……以此类推，用所得的结果mod11，所得的余数即为识别码，如果余数为10，则识别码为大写字母XX。例如ISBN号码0-670-82162-4中的识别码4是这样得到的：对067082162这9个数字，从左至右，分别乘以1,2,…,9再求和，即0×1+6×2+……+2×9&#x3D;158然后取158mod11的结果4作为识别码。</p>
+<p>首位数字乘以11加上次位数字乘以22……以此类推，用所得的结果mod11，所得的余数即为识别码，如果余数为10，则识别码为大写字母XX。例如ISBN号码0-670-82162-4中的识别码4是这样得到的：对067082162这9个数字，从左至右，分别乘以1,2,…,9再求和，即0×1+6×2+……+2×9=158然后取158mod11的结果4作为识别码。</p>
 <p>你的任务是编写程序判断输入的ISBN号码中识别码是否正确，如果正确，则仅输出Right；如果错误，则输出你认为是正确的ISBN号码。</p>
-<p>字符串转数字<br>需要库函数#include&lt;stdlib.h&gt;</p>
-<p>● atof()：将字符串转换为双精度浮点型值。<br>● atoi()：将字符串转换为整型值。<br>● atol()：将字符串转换为长整型值。<br>● strtod()：将字符串转换为双精度浮点型值，并报告不能被转换的所有剩余数字。<br>● strtol()：将字符串转换为长整值，并报告不能被转换的所有剩余数字。<br>● strtoul()：将字符串转换为无符号长整型值，并报告不能被转换的所有剩余数字。</p>
-<p>数字转字符串<br>● itoa()：将整型值转换为字符串。<br>● ltoa()：将长整型值转换为字符串。<br>● ultoa()：将无符号长整型值转换为字符串。<br>● gcvt()：将浮点型数转换为字符串，取四舍五入。<br>● ecvt()：将双精度浮点型值转换为字符串，转换结果中不包含十进制小数点。<br>● fcvt()：指定位数为转换精度，其余同ecvt()。</p>
+<p>字符串转数字<br>
+需要库函数#include&lt;stdlib.h&gt;</p>
+<p>● atof()：将字符串转换为双精度浮点型值。<br>
+● atoi()：将字符串转换为整型值。<br>
+● atol()：将字符串转换为长整型值。<br>
+● strtod()：将字符串转换为双精度浮点型值，并报告不能被转换的所有剩余数字。<br>
+● strtol()：将字符串转换为长整值，并报告不能被转换的所有剩余数字。<br>
+● strtoul()：将字符串转换为无符号长整型值，并报告不能被转换的所有剩余数字。</p>
+<p>数字转字符串<br>
+● itoa()：将整型值转换为字符串。<br>
+● ltoa()：将长整型值转换为字符串。<br>
+● ultoa()：将无符号长整型值转换为字符串。<br>
+● gcvt()：将浮点型数转换为字符串，取四舍五入。<br>
+● ecvt()：将双精度浮点型值转换为字符串，转换结果中不包含十进制小数点。<br>
+● fcvt()：指定位数为转换精度，其余同ecvt()。</p>
 <div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span>
@@ -528,7 +538,6 @@
     &#125;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
-
 <p><strong>小鱼的航程</strong></p>
 <div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
 <span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>
@@ -558,7 +567,6 @@
   &#125;
   <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
-
 <p><strong>三角形分类</strong></p>
 <div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;math.h&gt;</span></span>
@@ -612,7 +620,6 @@
     &#125;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
-
 <p><strong>ABC</strong></p>
 <div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;math.h&gt;</span></span>
