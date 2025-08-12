@@ -19,24 +19,23 @@
   <meta name="author" content="fishcanf1y">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1.什么是时间复杂度时间复杂度是算法复杂度的一个类别(另一个是空间复杂度)，时间复杂度是指执行算法所需要的计算工作量，空间复杂度指执行这个算法所需要的内存空间 时间复杂度一个算法花费的时间与算法中语句的执行次数成正比例，哪个算法中语句执行次数多，它花费时间就多。一个算法中的语句执行次数称为语句频度或时间频度，记为$T(n)$ 一般情况下，算法中基本操作重复执行的次数是问题规模 $n$ 的某个函数，">
+    <meta name="description" content="附件内容： 艾尔登法环正式发售在即，迫不及待的mjj身上好像有蚂蚁在爬，写下了一句谜语： 3207357975641587136122466514425152961654613410728337142271750273124995105747053991640817066352343657398947248938255086358418100814441196784643527787764297">
 <meta property="og:type" content="article">
-<meta property="og:title" content="聊聊算法中的时间复杂度">
-<meta property="og:url" content="https://carvinozheng.github.io/2025/08/11/%E8%81%8A%E8%81%8A%E7%AE%97%E6%B3%95%E4%B8%AD%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/index.html">
+<meta property="og:title" content="攻防世界Misc-真是阳间题">
+<meta property="og:url" content="https://carvinozheng.github.io/2025/08/12/adworld-misc-yangjianti/index.html">
 <meta property="og:site_name" content="Carvino&#39;s Blog">
-<meta property="og:description" content="1.什么是时间复杂度时间复杂度是算法复杂度的一个类别(另一个是空间复杂度)，时间复杂度是指执行算法所需要的计算工作量，空间复杂度指执行这个算法所需要的内存空间 时间复杂度一个算法花费的时间与算法中语句的执行次数成正比例，哪个算法中语句执行次数多，它花费时间就多。一个算法中的语句执行次数称为语句频度或时间频度，记为$T(n)$ 一般情况下，算法中基本操作重复执行的次数是问题规模 $n$ 的某个函数，">
+<meta property="og:description" content="附件内容： 艾尔登法环正式发售在即，迫不及待的mjj身上好像有蚂蚁在爬，写下了一句谜语： 3207357975641587136122466514425152961654613410728337142271750273124995105747053991640817066352343657398947248938255086358418100814441196784643527787764297">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://carvinozheng.github.io/images/algorithm-time-1.png">
-<meta property="article:published_time" content="2025-08-11T01:50:35.000Z">
-<meta property="article:modified_time" content="2025-08-11T05:30:18.169Z">
+<meta property="article:published_time" content="2025-08-12T04:39:46.000Z">
+<meta property="article:modified_time" content="2025-08-12T04:47:40.787Z">
 <meta property="article:author" content="fishcanf1y">
-<meta property="article:tag" content="algorithm">
+<meta property="article:tag" content="misc">
+<meta property="article:tag" content="ctf">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://carvinozheng.github.io/images/algorithm-time-1.png">
   
   
   
-  <title>聊聊算法中的时间复杂度 - Carvino&#39;s Blog</title>
+  <title>攻防世界Misc-真是阳间题 - Carvino&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -220,7 +219,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="聊聊算法中的时间复杂度"></span>
+            <span id="subtitle" data-typed-text="攻防世界Misc-真是阳间题"></span>
           
         </div>
 
@@ -231,8 +230,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-08-11 09:50" pubdate>
-          August 11, 2025 am
+        <time datetime="2025-08-12 12:39" pubdate>
+          August 12, 2025 pm
         </time>
       </span>
     
@@ -243,7 +242,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.8k words
+          595 words
         
       </span>
     
@@ -254,7 +253,7 @@
         
         
         
-          16 mins
+          5 mins
         
       </span>
     
@@ -291,135 +290,123 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">聊聊算法中的时间复杂度</h1>
+            <h1 id="seo-header">攻防世界Misc-真是阳间题</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="1-什么是时间复杂度"><a href="#1-什么是时间复杂度" class="headerlink" title="1.什么是时间复杂度"></a>1.什么是时间复杂度</h2><p><strong>时间复杂度</strong>是<strong>算法复杂度</strong>的一个类别(另一个是<strong>空间复杂度</strong>)，时间复杂度是指执行算法所需要的计算工作量，空间复杂度指执行这个算法所需要的内存空间</p>
-<h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p><u>一个算法花费的时间与算法中语句的执行次数成正比例</u>，哪个算法中语句执行次数多，它花费时间就多。一个算法中的语句执行次数称为语句频度或时间频度，记为$T(n)$</p>
-<p>一般情况下，算法中基本操作重复执行的次数是问题规模 $n$ 的某个函数，用 $T(n)$ 表示，若有某个辅助函数 $f(n)$ ，使得当 $n$ 趋近于无穷大时，$T(n)&#x2F;f(n)$ 的极限值为不等于零的常数，则称 $f(n)$ 是 $T(n)$ 的同数量级函数。记作 $T(n)&#x3D;O(f(n))$，称 $O(f(n))$ 为算法的渐进时间复杂度，简称时间复杂度</p>
-<p><img src="/images/algorithm-time-1.png" srcset="/img/loading.gif" lazyload alt="随着问题规模n的不断增大，上述时间复杂度不断增大，算法的执行效率越低。"></p>
-<h3 id="时间复杂度分类"><a href="#时间复杂度分类" class="headerlink" title="时间复杂度分类"></a>时间复杂度分类</h3><ul>
-<li><p>算法完成工作最少需要多少基本操作叫做最优时间复杂度，是一种最乐观最理想的状态</p>
-</li>
-<li><p>算法完成工作最多需要多少基本操作叫做最坏时间复杂度，是算法的一个保障</p>
-</li>
-<li><p>算法完成工作平均需要多少基本操作叫做平均时间复杂度，它可以均匀全面的评价一个算法的好坏</p>
-</li>
-</ul>
-<h2 id="2-时间复杂度计算"><a href="#2-时间复杂度计算" class="headerlink" title="2.时间复杂度计算"></a>2.时间复杂度计算</h2><p>假设计算机运行一行基础代码需要执行一次运算，那么运行下边这个方法就需要执行 2 次运算</p>
-<div class="code-wrapper"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">aFunc</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span> &#123;
-    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello, World!\n&quot;</span>);      <span class="hljs-comment">// 需要执行 1 次</span>
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;                       <span class="hljs-comment">// 需要执行 1 次</span>
-&#125;</code></pre></div>
+                <p>附件内容：</p>
+<div class="code-wrapper"><pre><code class="hljs sqf">艾尔登法环正式发售在即，迫不及待的mjj身上好像有蚂蚁在爬，写下了一句谜语：
+<span class="hljs-number">3207357975641587136122466514425152961654613410728337142271750273124995105747053991640817066352343657398947248938255086358418100814441196784643527787764297</span>
+谜底就是<span class="hljs-built_in">flag</span>，也是他给所有新生的祝福，希望大家享受解码的过程。</code></pre></div>
 
-<p>再看另外一个例子</p>
-<div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-type">int</span> <span class="hljs-title function_">aFunc</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> &#123;
-    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i&lt;n; i++) &#123;         <span class="hljs-comment">// 需要执行 (n + 1) 次</span>
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello, World!\n&quot;</span>);     <span class="hljs-comment">// 需要执行 n 次</span>
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;                          <span class="hljs-comment">// 需要执行 1 次</span>
-&#125;</code></pre></div>
+<p>先十进制转十六进制</p>
+<p><a target="_blank" rel="noopener" href="http://www.hiencode.com/jinzhi.html">CTF在线工具-ASCII与进制转换|任意进制转换|ASCII、2进制、8进制、10进制、16进制</a></p>
+<p>得到十六进制编码后的内容</p>
+<div class="code-wrapper"><pre><code class="hljs dns"><span class="hljs-number">3d</span>3d3d3d513642475354334f4859464d37435a415450424f4454344348324d4e37434e36565a414f5a3358474859344b374b354144474e5045535<span class="hljs-number">54355495a49</span></code></pre></div>
 
-<p>则需要执行 n+1+n+1&#x3D;2n+2 次运算</p>
-<p>我们把算法需要执行的运算次数用输入大小<code>n</code>的函数表示，即 T(n) </p>
-<h3 id="拿到算法的执行次数函数-T-n-之后如何得到算法的时间复杂度呢？"><a href="#拿到算法的执行次数函数-T-n-之后如何得到算法的时间复杂度呢？" class="headerlink" title="拿到算法的执行次数函数 T(n) 之后如何得到算法的时间复杂度呢？"></a>拿到算法的执行次数函数 T(n) 之后如何得到算法的时间复杂度呢？</h3><p>（1）我们知道常数项对函数的增长速度影响并不大，所以当 T(n) &#x3D; c，c 为一个常数的时候，我们说这个算法的时间复杂度为 O(1)；如果 T(n) 不等于一个常数项时，直接<strong>将常数项省略</strong></p>
-<ol>
-<li>第一个 Hello World 的例子中 $T(n) &#x3D; 2$，所以我们说那个函数(算法)的时间复杂度为 $O(1)$</li>
-<li>$T(n) &#x3D; n + 29$，此时时间复杂度为 $O(n)$</li>
-</ol>
-<p>（2）我们知道高次项对于函数的增长速度的影响是最大的。n^3 的增长速度是远超 n^2 的，同时 n^2 的增长速度是远超 n 的。 同时因为要求的精度不高，所以我们直接<strong>忽略低次项</strong></p>
-<ol>
-<li>$T(n) &#x3D; n^3 + n^2 + 29$，此时时间复杂度为 $O(n^3)$</li>
-</ol>
-<p>（3）因为函数的阶数对函数的增长速度的影响是最显著的，所以我们<strong>忽略与最高阶相乘的常数</strong></p>
-<ol>
-<li>T(n) &#x3D; 3n^3，此时时间复杂度为 O(n^3)</li>
-</ol>
-<p><strong>综上</strong>：如果一个算法的执行次数是 T(n)，那么只保留最高次项，同时忽略最高项的系数后得到函数 f(n)，此时算法的时间复杂度就是 O(f(n))。为了方便描述，下文称此为大O推导法</p>
-<p>由此可见，由执行次数 T(n) 得到时间复杂度并不困难，很多时候<strong>困难的是从算法通过分析和数学运算得到 T(n)</strong>。对此，提供下列四个便利的法则，这些法则都是可以简单推导出来的，总结出来以便提高效率</p>
-<h3 id="单个循环体推导法则"><a href="#单个循环体推导法则" class="headerlink" title="单个循环体推导法则"></a>单个循环体推导法则</h3><p>对于一个循环，假设循环体的时间复杂度为 $O(n)$，循环次数为 $m$，则这个循环的时间复杂度为 $O(n×m)$</p>
-<div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-type">void</span> <span class="hljs-title function_">aFunc</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> &#123;
-    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;         <span class="hljs-comment">// 循环次数为 n</span>
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello, World!\n&quot;</span>);       <span class="hljs-comment">// 循环体时间复杂度为 O(1)</span>
-    &#125;
-&#125;</code></pre></div>
+<p>然后十六进制转字符串</p>
+<p><a target="_blank" rel="noopener" href="https://www.lddgo.net/string/hex">字符串HEX转换</a></p>
+<div class="code-wrapper"><pre><code class="hljs abnf"><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span>Q6BGST3OHYFM7CZATPBODT4CH2MN7CN6VZAOZ3XGHY4K7K5ADGNPESUCUIZI</code></pre></div>
 
-<p>此时时间复杂度为 $O(n × 1)$，即 $O(n)$</p>
-<h3 id="多重循环体推导法则"><a href="#多重循环体推导法则" class="headerlink" title="多重循环体推导法则"></a>多重循环体推导法则</h3><p>对于多个循环，假设循环体的时间复杂度为 O(n)，各个循环的循环次数分别是a, b, c…，则这个循环的时间复杂度为O(n×a×b×c…)。分析的时候应该由里向外分析这些循环</p>
-<div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-type">void</span> <span class="hljs-title function_">aFunc</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> &#123;
-    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;            <span class="hljs-comment">// 循环次数为 n</span>
-        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; n; j++) &#123;        <span class="hljs-comment">// 循环次数为 n</span>
-            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello, World!\n&quot;</span>);      <span class="hljs-comment">// 循环体时间复杂度为 O(1)</span>
-        &#125;
-    &#125;
-&#125;</code></pre></div>
+<p>字符串反转</p>
+<div class="code-wrapper"><pre><code class="hljs Python"><span class="hljs-comment">#!/usr/bin/env python3</span>
+<span class="hljs-comment"># -*- coding: utf-8 -*-</span>
 
-<p>此时时间复杂度为 $O(n × n × 1)$，即 $O(n^2)$</p>
-<h3 id="多个时间负责度推导法则"><a href="#多个时间负责度推导法则" class="headerlink" title="多个时间负责度推导法则"></a>多个时间负责度推导法则</h3><p>对于顺序执行的语句或者算法，总的时间复杂度等于其中最大的时间复杂度</p>
-<div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-type">void</span> <span class="hljs-title function_">aFunc</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> &#123;
-    <span class="hljs-comment">// 第一部分时间复杂度为 O(n^2)</span>
-    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;
-        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; n; j++) &#123;
-            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello, World!\n&quot;</span>);
-        &#125;
-    &#125;
-    <span class="hljs-comment">// 第二部分时间复杂度为 O(n)</span>
-    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; n; j++) &#123;
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello, World!\n&quot;</span>);
-    &#125;
-&#125;</code></pre></div>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">reverse_string</span>(<span class="hljs-params">text</span>):
+    <span class="hljs-keyword">return</span> text[::-<span class="hljs-number">1</span>]
 
-<p>此时时间复杂度为$max(O(n^2)，O(n))$，即 $O(n^2)$</p>
-<h3 id="条件语句的推导法则"><a href="#条件语句的推导法则" class="headerlink" title="条件语句的推导法则"></a>条件语句的推导法则</h3><p>对于条件判断语句，总的时间复杂度等于其中<strong>时间复杂度最大的路径</strong>的时间复杂度</p>
-<div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-type">void</span> <span class="hljs-title function_">aFunc</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> &#123;
-    <span class="hljs-keyword">if</span> (n &gt;= <span class="hljs-number">0</span>) &#123;
-        <span class="hljs-comment">// 第一条路径时间复杂度为 O(n^2)</span>
-        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;
-            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; n; j++) &#123;
-                <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;输入数据大于等于零\n&quot;</span>);
-            &#125;
-        &#125;
-    &#125; <span class="hljs-keyword">else</span> &#123;
-        <span class="hljs-comment">// 第二条路径时间复杂度为 O(n)</span>
-        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; n; j++) &#123;
-            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;输入数据小于零\n&quot;</span>);
-        &#125;
-    &#125;
-&#125;</code></pre></div>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;字符串反转工具&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;输入 &#x27;quit&#x27; 退出&quot;</span>)
+    
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        user_input = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;\n请输入要反转的字符串: &quot;</span>).strip()
+        
+        <span class="hljs-keyword">if</span> user_input.lower() == <span class="hljs-string">&#x27;quit&#x27;</span>:
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Bye!&quot;</span>)
+            <span class="hljs-keyword">break</span>
+        
+        <span class="hljs-keyword">if</span> user_input:
+            reversed_text = reverse_string(user_input)
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;反转结果: <span class="hljs-subst">&#123;reversed_text&#125;</span>&quot;</span>)
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;请输入有效的字符串&quot;</span>)
 
-<p> 此时时间复杂度为 $max(O(n^2)$, O(n))，即 $O(n^2)$</p>
-<p><strong>时间复杂度分析的基本策略是：从内向外分析，从最深层开始分析。如果遇到函数调用，要深入函数进行分析</strong></p>
-<h2 id="3-练习"><a href="#3-练习" class="headerlink" title="3.练习"></a>3.练习</h2><h3 id="（1）基础题"><a href="#（1）基础题" class="headerlink" title="（1）基础题"></a>（1）基础题</h3><div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-type">void</span> <span class="hljs-title function_">aFunc</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> &#123;
-    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;
-        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = i; j &lt; n; j++) &#123;
-            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello World\n&quot;</span>);
-        &#125;
-    &#125;
-&#125;</code></pre></div>
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+    main()</code></pre></div>
 
-<p>程序执行次数为 $T(n) &#x3D; n + (n - 1) + (n - 2)……+ 1 &#x3D; n(n + 1) &#x2F; 2 &#x3D; n^2 &#x2F; 2 + n &#x2F; 2$，则时间复杂度为 $O(n^2)$</p>
-<h3 id="（2）进阶题"><a href="#（2）进阶题" class="headerlink" title="（2）进阶题"></a>（2）进阶题</h3><div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-type">void</span> <span class="hljs-title function_">aFunc</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> &#123;
-    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">2</span>; i &lt; n; i++) &#123;
-        i *= <span class="hljs-number">2</span>;
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%i\n&quot;</span>, i);
-    &#125;
-&#125;</code></pre></div>
+<p>反转后结果：</p>
+<div class="code-wrapper"><pre><code class="hljs abnf"><span class="hljs-attribute">IZIUCUSEPNGDA5K7K4YHGX3ZOAZV6NC7NM2HC4TDOBPTAZC7MFYHO3TSGB6Q</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span></code></pre></div>
 
-<p>假设循环次数为 t，则循环条件满足 $2^t &lt; n$</p>
-<p>执行次数 $T &#x3D; log(2)(n)$，即 $T(n) &#x3D; log(2)(n)$，可见时间复杂度为 $O(log(2)(n))$，即 $O(log n)$</p>
-<h3 id="（3）真进阶题"><a href="#（3）真进阶题" class="headerlink" title="（3）真进阶题"></a>（3）真进阶题</h3><div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-type">long</span> <span class="hljs-title function_">aFunc</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> &#123;
-    <span class="hljs-keyword">if</span> (n &lt;= <span class="hljs-number">1</span>) &#123;
-        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
-    &#125; <span class="hljs-keyword">else</span> &#123;
-        <span class="hljs-keyword">return</span> aFunc(n - <span class="hljs-number">1</span>) + aFunc(n - <span class="hljs-number">2</span>);
-    &#125;
-&#125;</code></pre></div>
+<p>base32解码</p>
+<div class="code-wrapper"><pre><code class="hljs dust"><span class="language-xml">FQARD</span><span class="hljs-template-variable">&#123;L0u_W0s_yp3_4_k4qrcp_0d_apwnr0&#125;</span></code></pre></div>
 
-<p>$T(0) &#x3D; T(1) &#x3D; 1, T_2 &#x3D; T(n - 1) + T(n - 2) + 1$</p>
-<p>$T(n) &#x3D; T(n - 1) + T(n - 2) $是一个斐波那契数列，通过归纳证明法可以证明，当 $n &gt;&#x3D; 1$ 时 $T(n) &lt; (5&#x2F;3)^n$，同时当 $n &gt; 4$ 时 $T(n) &gt;&#x3D; (3&#x2F;2)^n$</p>
-<p>所以该方法的时间复杂度可以表示为 $O((5&#x2F;3)^n)$，简化后为 $O(2^n)$</p>
+<p>凯撒以下，偏移量爆破</p>
+<div class="code-wrapper"><pre><code class="hljs Python"><span class="hljs-comment">#!/usr/bin/env python3</span>
+<span class="hljs-comment"># -*- coding: utf-8 -*-</span>
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">caesar_decrypt</span>(<span class="hljs-params">text, shift</span>):
+    result = <span class="hljs-string">&quot;&quot;</span>
+    <span class="hljs-keyword">for</span> char <span class="hljs-keyword">in</span> text:
+        <span class="hljs-keyword">if</span> char.isalpha():
+            base = <span class="hljs-built_in">ord</span>(<span class="hljs-string">&#x27;a&#x27;</span>) <span class="hljs-keyword">if</span> char.islower() <span class="hljs-keyword">else</span> <span class="hljs-built_in">ord</span>(<span class="hljs-string">&#x27;A&#x27;</span>)
+            decrypted = <span class="hljs-built_in">chr</span>((<span class="hljs-built_in">ord</span>(char) - base - shift + <span class="hljs-number">26</span>) % <span class="hljs-number">26</span> + base)
+            result += decrypted
+        <span class="hljs-keyword">else</span>:
+            result += char
+    <span class="hljs-keyword">return</span> result
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():
+    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+        encrypted_text = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;\n请输入要解密的文本: &quot;</span>).strip()
+        
+        <span class="hljs-keyword">if</span> encrypted_text.lower() == <span class="hljs-string">&#x27;quit&#x27;</span>:
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Bye!&quot;</span>)
+            <span class="hljs-keyword">break</span>
+        
+        <span class="hljs-keyword">if</span> encrypted_text:
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n所有偏移量的解密结果:&quot;</span>)
+            <span class="hljs-keyword">for</span> shift <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">26</span>):
+                decrypted = caesar_decrypt(encrypted_text, shift)
+                <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;偏移量 <span class="hljs-subst">&#123;shift:2d&#125;</span>: <span class="hljs-subst">&#123;decrypted&#125;</span>&quot;</span>)
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;请输入有效的文本&quot;</span>)
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
+    main()</code></pre></div>
+
+<p>结果</p>
+<div class="code-wrapper"><pre><code class="hljs nestedtext"><span class="hljs-attribute">请输入要解密的文本</span><span class="hljs-punctuation">:</span> <span class="hljs-string">FQARD&#123;L0u_W0s_yp3_4_k4qrcp_0d_apwnr0&#125;</span>
+
+<span class="hljs-attribute">所有偏移量的解密结果</span><span class="hljs-punctuation">:</span>
+<span class="hljs-attribute">偏移量  1</span><span class="hljs-punctuation">:</span> <span class="hljs-string">EPZQC&#123;K0t_V0r_xo3_4_j4pqbo_0c_zovmq0&#125;</span>
+<span class="hljs-attribute">偏移量  2</span><span class="hljs-punctuation">:</span> <span class="hljs-string">DOYPB&#123;J0s_U0q_wn3_4_i4opan_0b_ynulp0&#125;</span>
+<span class="hljs-attribute">偏移量  3</span><span class="hljs-punctuation">:</span> <span class="hljs-string">CNXOA&#123;I0r_T0p_vm3_4_h4nozm_0a_xmtko0&#125;</span>
+<span class="hljs-attribute">偏移量  4</span><span class="hljs-punctuation">:</span> <span class="hljs-string">BMWNZ&#123;H0q_S0o_ul3_4_g4mnyl_0z_wlsjn0&#125;</span>
+<span class="hljs-attribute">偏移量  5</span><span class="hljs-punctuation">:</span> <span class="hljs-string">ALVMY&#123;G0p_R0n_tk3_4_f4lmxk_0y_vkrim0&#125;</span>
+<span class="hljs-attribute">偏移量  6</span><span class="hljs-punctuation">:</span> <span class="hljs-string">ZKULX&#123;F0o_Q0m_sj3_4_e4klwj_0x_ujqhl0&#125;</span>
+<span class="hljs-attribute">偏移量  7</span><span class="hljs-punctuation">:</span> <span class="hljs-string">YJTKW&#123;E0n_P0l_ri3_4_d4jkvi_0w_tipgk0&#125;</span>
+<span class="hljs-attribute">偏移量  8</span><span class="hljs-punctuation">:</span> <span class="hljs-string">XISJV&#123;D0m_O0k_qh3_4_c4ijuh_0v_shofj0&#125;</span>
+<span class="hljs-attribute">偏移量  9</span><span class="hljs-punctuation">:</span> <span class="hljs-string">WHRIU&#123;C0l_N0j_pg3_4_b4hitg_0u_rgnei0&#125;</span>
+<span class="hljs-attribute">偏移量 10</span><span class="hljs-punctuation">:</span> <span class="hljs-string">VGQHT&#123;B0k_M0i_of3_4_a4ghsf_0t_qfmdh0&#125;</span>
+<span class="hljs-attribute">偏移量 11</span><span class="hljs-punctuation">:</span> <span class="hljs-string">UFPGS&#123;A0j_L0h_ne3_4_z4fgre_0s_pelcg0&#125;</span>
+<span class="hljs-attribute">偏移量 12</span><span class="hljs-punctuation">:</span> <span class="hljs-string">TEOFR&#123;Z0i_K0g_md3_4_y4efqd_0r_odkbf0&#125;</span>
+<span class="hljs-attribute">偏移量 13</span><span class="hljs-punctuation">:</span> <span class="hljs-string">SDNEQ&#123;Y0h_J0f_lc3_4_x4depc_0q_ncjae0&#125;</span>
+<span class="hljs-attribute">偏移量 14</span><span class="hljs-punctuation">:</span> <span class="hljs-string">RCMDP&#123;X0g_I0e_kb3_4_w4cdob_0p_mbizd0&#125;</span>
+<span class="hljs-attribute">偏移量 15</span><span class="hljs-punctuation">:</span> <span class="hljs-string">QBLCO&#123;W0f_H0d_ja3_4_v4bcna_0o_lahyc0&#125;</span>
+<span class="hljs-attribute">偏移量 16</span><span class="hljs-punctuation">:</span> <span class="hljs-string">PAKBN&#123;V0e_G0c_iz3_4_u4abmz_0n_kzgxb0&#125;</span>
+<span class="hljs-attribute">偏移量 17</span><span class="hljs-punctuation">:</span> <span class="hljs-string">OZJAM&#123;U0d_F0b_hy3_4_t4zaly_0m_jyfwa0&#125;</span>
+<span class="hljs-attribute">偏移量 18</span><span class="hljs-punctuation">:</span> <span class="hljs-string">NYIZL&#123;T0c_E0a_gx3_4_s4yzkx_0l_ixevz0&#125;</span>
+<span class="hljs-attribute">偏移量 19</span><span class="hljs-punctuation">:</span> <span class="hljs-string">MXHYK&#123;S0b_D0z_fw3_4_r4xyjw_0k_hwduy0&#125;</span>
+<span class="hljs-attribute">偏移量 20</span><span class="hljs-punctuation">:</span> <span class="hljs-string">LWGXJ&#123;R0a_C0y_ev3_4_q4wxiv_0j_gvctx0&#125;</span>
+<span class="hljs-attribute">偏移量 21</span><span class="hljs-punctuation">:</span> <span class="hljs-string">KVFWI&#123;Q0z_B0x_du3_4_p4vwhu_0i_fubsw0&#125;</span>
+<span class="hljs-attribute">偏移量 22</span><span class="hljs-punctuation">:</span> <span class="hljs-string">JUEVH&#123;P0y_A0w_ct3_4_o4uvgt_0h_etarv0&#125;</span>
+<span class="hljs-attribute">偏移量 23</span><span class="hljs-punctuation">:</span> <span class="hljs-string">ITDUG&#123;O0x_Z0v_bs3_4_n4tufs_0g_dszqu0&#125;</span>
+<span class="hljs-attribute">偏移量 24</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HSCTF&#123;N0w_Y0u_ar3_4_m4ster_0f_crypt0&#125;</span>
+<span class="hljs-attribute">偏移量 25</span><span class="hljs-punctuation">:</span> <span class="hljs-string">GRBSE&#123;M0v_X0t_zq3_4_l4rsdq_0e_bqxos0&#125;</span></code></pre></div>
+
+<p>flag-&gt; <code>HSCTF&#123;N0w_Y0u_ar3_4_m4ster_0f_crypt0&#125;</code></p>
 
                 
               </div>
@@ -438,7 +425,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Coding/" class="category-chain-item">Coding</a>
+  <a href="/categories/misc/" class="category-chain-item">misc</a>
   
   
 
@@ -453,7 +440,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/algorithm/" class="print-no-link">#algorithm</a>
+        <a href="/tags/misc/" class="print-no-link">#misc</a>
+      
+        <a href="/tags/ctf/" class="print-no-link">#ctf</a>
       
     </div>
   
@@ -465,8 +454,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>聊聊算法中的时间复杂度</div>
-      <div>https://carvinozheng.github.io/2025/08/11/聊聊算法中的时间复杂度/</div>
+      <div>攻防世界Misc-真是阳间题</div>
+      <div>https://carvinozheng.github.io/2025/08/12/adworld-misc-yangjianti/</div>
     </div>
     <div class="license-meta">
       
@@ -478,7 +467,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>August 11, 2025</div>
+          <div>August 12, 2025</div>
         </div>
       
       
@@ -510,18 +499,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/08/12/adworld-misc-yangjianti/" title="攻防世界Misc-真是阳间题">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">攻防世界Misc-真是阳间题</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/08/06/luogu-p2089/" title="P2089 烤鸡">
-                        <span class="hidden-mobile">P2089 烤鸡</span>
+                      <a href="/2025/08/11/%E8%81%8A%E8%81%8A%E7%AE%97%E6%B3%95%E4%B8%AD%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/" title="聊聊算法中的时间复杂度">
+                        <span class="hidden-mobile">聊聊算法中的时间复杂度</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
