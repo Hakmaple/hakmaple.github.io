@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>攻防世界Misc-Cat_Jump-Miao合集</title>
+    <link href="/2025/08/12/adworld-Misc-Jump-Cat-miao/"/>
+    <url>/2025/08/12/adworld-Misc-Jump-Cat-miao/</url>
+    
+    <content type="html"><![CDATA[<h2 id="Cat-Jump"><a href="#Cat-Jump" class="headerlink" title="Cat_Jump"></a>Cat_Jump</h2><p>直接用vscode打开搜索<code>catctf&#123;</code></p><p><img src="/images/adworld-cat_jump.png" alt="Caught The Flag"></p><h2 id="Miao"><a href="#Miao" class="headerlink" title="Miao~"></a>Miao~</h2><p>附件内容是一张小猫的图片</p><p><img src="/images/adworld-miao-1.jpg" alt="喵~"></p><p>分析图片中隐含的内容，得到一个wav文件</p><p><img src="/images/adworld-miao-2.png" alt="图二展示了使用foremost工具分析图片中隐藏文件及其结果"></p><p>在<code>Audacity</code>中打开，查看频谱图，得到密码CatCTF </p><p><img src="/images/adworld-miao-3.png" alt="图三展示了在Audacity中通过查看频谱图得到密码"></p><p>然后在Deepsound中打开wav文件，得到<code>flag.txt</code></p><p>工具下载地址：<a href="https://github.com/Jpinsoft/DeepSound">Jpinsoft&#x2F;DeepSound: Official DeepSound repository migrated from jpinsoft.net. DeepSound is a freeware steganography tool and audio converter that hides secret data into audio files. The application also enables you to extract secret files directly from audio files or audio CD tracks.</a></p><p><img src="/images/adworld-misc-miao-4.png" alt="图四展示了在Deepsound中提取音频中的隐藏文件"></p><p>文件内容如下</p><div class="code-wrapper"><pre><code class="hljs haml">~呜喵喵喵喵呜呜啊呜啊呜喵呜呜~喵啊喵啊喵啊呜喵呜~~~喵~呜喵啊喵啊喵喵喵呜呜~呜~呜喵呜呜啊啊~呜啊喵啊呜喵呜呜啊~喵~呜呜喵喵~喵喵喵呜呜呜喵~呜喵呜呜啊~呜啊啊喵啊呜喵呜呜喵~喵~呜喵呜~~喵喵喵呜啊呜啊喵呜喵呜呜啊~呜啊啊喵啊呜~啊喵~~喵~呜呜喵喵喵喵喵喵呜啊呜呜~呜喵呜呜~喵~喵啊喵啊呜~~啊啊~喵~呜呜喵喵啊喵喵喵呜呜呜呜~呜喵呜呜~呜啊~啊喵啊呜~~啊啊~喵~呜呜喵喵呜喵喵喵呜啊喵呜喵呜喵呜呜啊呜啊啊啊喵啊呜喵喵呜啊~喵~呜喵呜喵喵喵喵喵呜啊喵喵呜呜喵呜呜~喵~啊啊喵啊呜~~啊啊~喵~呜喵呜~啊喵喵喵呜呜~喵啊呜喵呜呜啊啊呜喵啊喵啊呜~呜~喵~喵~呜呜喵喵喵喵喵喵呜啊喵喵啊呜喵呜呜~呜呜呜啊喵啊呜喵呜啊喵啊</code></pre></div><p>看我用自学的猫语翻译喵喵喵~</p><p>工具地址：<a href="https://roar.iiilab.com/">https://roar.iiilab.com/</a></p><p>成功拿到flag</p><div class="code-wrapper"><pre><code class="hljs dust"><span class="language-xml">CatCTF</span><span class="hljs-template-variable">&#123;d0_y0u_Hate_c4t_ba3k1ng_?_M1ao~&#125;</span></code></pre></div>]]></content>
+    
+    
+    <categories>
+      
+      <category>misc</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>misc</tag>
+      
+      <tag>ctf</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>攻防世界Misc-真是阳间题</title>
     <link href="/2025/08/12/adworld-misc-yangjianti/"/>
     <url>/2025/08/12/adworld-misc-yangjianti/</url>
@@ -247,9 +274,9 @@
     
     <tags>
       
-      <tag>Crypto</tag>
-      
       <tag>CTF</tag>
+      
+      <tag>Crypto</tag>
       
     </tags>
     
@@ -274,9 +301,9 @@
     
     <tags>
       
-      <tag>Crypto</tag>
-      
       <tag>CTF</tag>
+      
+      <tag>Crypto</tag>
       
     </tags>
     
@@ -301,9 +328,9 @@
     
     <tags>
       
-      <tag>Crypto</tag>
-      
       <tag>CTF</tag>
+      
+      <tag>Crypto</tag>
       
     </tags>
     
@@ -328,9 +355,9 @@
     
     <tags>
       
-      <tag>Crypto</tag>
-      
       <tag>CTF</tag>
+      
+      <tag>Crypto</tag>
       
     </tags>
     
@@ -670,9 +697,9 @@
     
     <tags>
       
-      <tag>Crypto</tag>
-      
       <tag>CTF</tag>
+      
+      <tag>Crypto</tag>
       
     </tags>
     
