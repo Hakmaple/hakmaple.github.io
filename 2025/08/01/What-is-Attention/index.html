@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=auto>
+<html lang="zh-CN" data-default-color-scheme=auto>
 
 
 
@@ -16,21 +16,21 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="fishcanf1y">
+  <meta name="author" content="zer0ptr">
   <meta name="keywords" content="">
   
     <meta name="description" content="Attention注意力的来源或许是因为大数据，在大数据中什么样子的数据都有，对于重要的数据我们要使用，对于不太重要的数据我们需要暂时忽略。 但是对于主流的卷积神经网络(Convolutional Neural Networks, CNN)或短期记忆递归神经网络(Long Short-Term Memory, LSTM)很难去决定什么重要，什么不重要。 在2017年Google发布 Attenti">
 <meta property="og:type" content="article">
 <meta property="og:title" content="What is Attention?">
 <meta property="og:url" content="https://carvinozheng.github.io/2025/08/01/What-is-Attention/index.html">
-<meta property="og:site_name" content="Carvino&#39;s Blog">
+<meta property="og:site_name" content="zer0ptr&#39;s Blog">
 <meta property="og:description" content="Attention注意力的来源或许是因为大数据，在大数据中什么样子的数据都有，对于重要的数据我们要使用，对于不太重要的数据我们需要暂时忽略。 但是对于主流的卷积神经网络(Convolutional Neural Networks, CNN)或短期记忆递归神经网络(Long Short-Term Memory, LSTM)很难去决定什么重要，什么不重要。 在2017年Google发布 Attenti">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://carvinozheng.github.io/images/What-is-Attention-1.jpg">
 <meta property="og:image" content="https://imgmd.oss-cn-shanghai.aliyuncs.com/BERT_IMG/attention-%E8%AE%A1%E7%AE%97%E5%9B%BE.png">
 <meta property="article:published_time" content="2025-08-01T05:23:11.000Z">
 <meta property="article:modified_time" content="2025-08-01T01:29:21.605Z">
-<meta property="article:author" content="fishcanf1y">
+<meta property="article:author" content="zer0ptr">
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="ML">
 <meta property="article:tag" content="Attention">
@@ -39,7 +39,7 @@
   
   
   
-  <title>What is Attention? - Carvino&#39;s Blog</title>
+  <title>What is Attention? - zer0ptr&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -109,7 +109,7 @@
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
-      <strong>fishcanf1y&#39;s blog</strong>
+      <strong>zer0ptr&#39;s blog</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -129,7 +129,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
-                <span>Home</span>
+                <span>首页</span>
               </a>
             </li>
           
@@ -141,7 +141,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
-                <span>Archives</span>
+                <span>归档</span>
               </a>
             </li>
           
@@ -153,7 +153,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>Categories</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -165,7 +165,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
-                <span>Tags</span>
+                <span>标签</span>
               </a>
             </li>
           
@@ -177,7 +177,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
-                <span>About</span>
+                <span>关于</span>
               </a>
             </li>
           
@@ -189,7 +189,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/links/" target="_self">
                 <i class="iconfont icon-link-fill"></i>
-                <span>Links</span>
+                <span>友链</span>
               </a>
             </li>
           
@@ -235,7 +235,7 @@
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
         <time datetime="2025-08-01 13:23" pubdate>
-          August 1, 2025 pm
+          2025年8月1日 下午
         </time>
       </span>
     
@@ -246,7 +246,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k words
+          1.1k 字
         
       </span>
     
@@ -257,7 +257,7 @@
         
         
         
-          10 mins
+          10 分钟
         
       </span>
     
@@ -389,26 +389,26 @@
     <div class="license-meta">
       
         <div class="license-meta-item">
-          <div>Author</div>
-          <div>fishcanf1y</div>
+          <div>作者</div>
+          <div>zer0ptr</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
-          <div>Posted on</div>
-          <div>August 1, 2025</div>
+          <div>发布于</div>
+          <div>2025年8月1日</div>
         </div>
       
       
       
         <div class="license-meta-item">
-          <div>Licensed under</div>
+          <div>许可协议</div>
           <div>
             
               
               
                 <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-cc-by"></i>
                   </span>
                 </a>
@@ -431,7 +431,7 @@
                       <a href="/2025/08/05/CVE-2025-24813-Tomcat-RCE/" title="Tomcat RCE漏洞CVE-2025-24813复现">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">Tomcat RCE漏洞CVE-2025-24813复现</span>
-                        <span class="visible-mobile">Previous</span>
+                        <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
@@ -440,7 +440,7 @@
                     
                       <a href="/2025/07/29/luogu-p1464-memo/" title="P1464与递归函数的记忆化搜索">
                         <span class="hidden-mobile">P1464与递归函数的记忆化搜索</span>
-                        <span class="visible-mobile">Next</span>
+                        <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -470,7 +470,7 @@
     <div id="toc">
   <p class="toc-header">
     <i class="iconfont icon-list"></i>
-    <span>Table of Contents</span>
+    <span>目录</span>
   </p>
   <div class="toc-body" id="toc-body"></div>
 </div>
@@ -532,7 +532,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -540,7 +540,7 @@
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
@@ -761,7 +761,7 @@
   
 
   <noscript>
-    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
 </body>
 </html>
