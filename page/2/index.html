@@ -253,7 +253,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-babyFibo/" target="_self">
         <div>
-          分析附件内容： import os import libnum from secret import flag  def fibo(n):     assert n &gt;= 0     if n &lt; 2:         return n     return fibo(n-1) + fibo(n-2)  s = fibo(1000) m = libnum.s2n(flag+os.ura
+          分析 附件内容： import os import libnum from secret import flag  def fibo(n):     assert n &gt;= 0     if n &lt; 2:         return n     return fibo(n-1) + fibo(n-2)  s = fibo(1000) m = libnum.s2n(flag+os.ur
         </div>
       </a>
 
@@ -316,7 +316,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-%E5%88%9D%E8%AF%86RSA/" target="_self">
         <div>
-          分析附件内容： from Crypto.Util.number import bytes_to_long,inverse,getPrime from flag import flag  m = bytes_to_long(flag)  p = getPrime(1024) q = getPrime(1024) n = p*q print(n) e = 65537  c = pow(m,e,n)
+          分析 附件内容： from Crypto.Util.number import bytes_to_long,inverse,getPrime from flag import flag  m = bytes_to_long(flag)  p = getPrime(1024) q = getPrime(1024) n = p*q print(n) e = 65537  c = pow(m,e,n)
         </div>
       </a>
 
@@ -379,7 +379,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-%E4%BA%8C%E5%85%83%E4%B8%80%E6%AC%A1%E6%96%B9%E7%A8%8B%E7%BB%84/" target="_self">
         <div>
-          分析：import libnum from Crypto.Util import number from secret import flag   size = 256 e = 65537 p = number.getPrime(size) q = number.getPrime(size) avg = (p+q)/2 n = p*q  m = libnum.s2n(flag) c = pow(m
+          分析： import libnum from Crypto.Util import number from secret import flag   size = 256 e = 65537 p = number.getPrime(size) q = number.getPrime(size) avg = (p+q)/2 n = p*q  m = libnum.s2n(flag) c = pow(
         </div>
       </a>
 
@@ -442,7 +442,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/" target="_self">
         <div>
-          拿到附件后查看内容import libnum from Crypto.Util import number from secret import flag  size = 128 e = 65537 p = number.getPrime(size) q = number.getPrime(size) n = p*q  m = libnum.s2n(flag) c = pow(m, e, n)
+          拿到附件后查看内容 import libnum from Crypto.Util import number from secret import flag  size = 128 e = 65537 p = number.getPrime(size) q = number.getPrime(size) n = p*q  m = libnum.s2n(flag) c = pow(m, e, n)
         </div>
       </a>
 
@@ -505,7 +505,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2025/07/19/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E4%BB%8E%E5%A4%B4%E6%9E%84%E5%BB%BA%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" target="_self">
         <div>
-          Description本文旨在使用PyTorch构建并训练一个最简单的神经网络，无需添加任何花哨的层或依赖包。 该模型将足够简单，大家都能使用CPU或GPU来构建和训练。 这个模型虽然简单，但包含了当前诸如LLM和Stable Diffusions等大型模型所拥有的所有基本元素。 准备数据假设我们要训练一个具有四个权重并能输出一个数字结果的模型，如下所示： $ y &#x3D; w_1 * x_1
+          Description 本文旨在使用PyTorch构建并训练一个最简单的神经网络，无需添加任何花哨的层或依赖包。 该模型将足够简单，大家都能使用CPU或GPU来构建和训练。 这个模型虽然简单，但包含了当前诸如LLM和Stable Diffusions等大型模型所拥有的所有基本元素。 准备数据 假设我们要训练一个具有四个权重并能输出一个数字结果的模型，如下所示： $ y = w_1 * x_1 +
         </div>
       </a>
 
@@ -568,7 +568,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2025/07/18/%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%9701-%E6%A5%94%E5%AD%90/" target="_self">
         <div>
-          前言大模型建议先从主流开源的Qwen3、Llama3.1上⼿，先快速体验提示词⼯程，然后再学习 LLM模型架构，尝试RAG，跑LoRA微调脚本。 进一步学习目标：  学习如何从零训练大模型（1B左右规模，预训练+SFT+DPO）  钻研SFT • 1）专有任务如Code⽣成、NL2SQL或通⽤NLP的NER、分类、抽取、摘要模型  • 2）场景领域微调，⾦融任务LLM、法律LLM、医学LLM、电商
+          前言 大模型建议先从主流开源的Qwen3、Llama3.1上⼿，先快速体验提示词⼯程，然后再学习 LLM模型架构，尝试RAG，跑LoRA微调脚本。 进一步学习目标：   学习如何从零训练大模型（1B左右规模，预训练+SFT+DPO）   钻研SFT • 1）专有任务如Code⽣成、NL2SQL或通⽤NLP的NER、分类、抽取、摘要模型 • 2）场景领域微调，⾦融任务LLM、法律LLM、医学LLM、
         </div>
       </a>
 
@@ -629,7 +629,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/" target="_self">
         <div>
-          起因最近突然需要找一下自己爱企查的账号cookie，于是上来一个F12结果发现半天按不出来(刚开始在想是不是键盘的F12坏了，但是换了其他的页面就是正常的) 在B站看到了id为”无名的Coder”大佬的视频在此做个学习记录 Hyperlink: js逆向-爱企查：F12检测绕过，头部参数加密_哔哩哔哩_bilibili  开搞先打开F12（不用管是否正常显示，当然正常显示你就不用继续看了） 之后
+          起因 最近突然需要找一下自己爱企查的账号cookie，于是上来一个F12结果发现半天按不出来(刚开始在想是不是键盘的F12坏了，但是换了其他的页面就是正常的) 在B站看到了id为&quot;无名的Coder&quot;大佬的视频在此做个学习记录 Hyperlink: js逆向-爱企查：F12检测绕过，头部参数加密_哔哩哔哩_bilibili  开搞 先打开F12（不用管是否正常显示，当然正常显示你
         </div>
       </a>
 
@@ -812,7 +812,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2025/07/12/%E5%85%B3%E4%BA%8EPython%E6%89%93%E5%8C%85%E6%88%90EXE%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/" target="_self">
         <div>
-          一、为咩要打包Python程序？设想下，你是一位Python开发者，而且你经常将你开发的各类工具分享给你的好朋友们使用，但是你的好朋友可能并不一定是学计算坤的，所以对方可能会没有Python环境也在情理之中，这时候就需要将.py文件打包成.exe可执行文件。常见的应用场景包括：  给非技术人员使用的小工具 需要保密的商业软件 方便分发的应用程序  于是在此我将介绍5种打包方式，具体选择哪一种可以根
+          一、为咩要打包Python程序？ 设想下，你是一位Python开发者，而且你经常将你开发的各类工具分享给你的好朋友们使用，但是你的好朋友可能并不一定是学计算坤的，所以对方可能会没有Python环境也在情理之中，这时候就需要将.py文件打包成.exe可执行文件。常见的应用场景包括：  给非技术人员使用的小工具 需要保密的商业软件 方便分发的应用程序  于是在此我将介绍5种打包方式，具体选择哪一种可以
         </div>
       </a>
 
