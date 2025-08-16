@@ -1,795 +1,335 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
+<html lang=en>
 <head>
-  <meta charset="UTF-8">
-
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/SecureNexusLab.png">
-  <link rel="icon" href="/img/SecureNexusLab.png">
-  
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="zer0ptr">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="原题地址：https:&#x2F;&#x2F;www.luogu.com.cn&#x2F;problem&#x2F;P1464   如果 a≤0a≤0a≤0 或 b≤0b≤0b≤0 或 c≤0c≤0c≤0 就返回值 1   如果 a&gt;20a&gt;20a&gt;20 或 b&gt;20b&gt;20b&gt;20 或 c&gt;20c&gt;20c&gt;20 就返回 w(20,20,20)$   如果 a&lt;ba&lt;ba">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="原题地址：https:&#x2F;&#x2F;www.luogu.com.cn&#x2F;problem&#x2F;P1464  如果 $a≤0$ 或 $b≤0$ 或 $c≤0$ 就返回值 1  如果 $a&gt;20$ 或 $b&gt;20$ 或 $c&gt;20$ 就返回 w(20,20,20)$  如果 $a&lt;b$ 并且 $b&lt;c$ 就返回 $w(a,b,c−1)+w(a,b−1,c−1)−w(a,b−1,c)$  e">
 <meta property="og:type" content="article">
 <meta property="og:title" content="P1464与递归函数的记忆化搜索">
 <meta property="og:url" content="https://zer0ptr.github.io/2025/07/29/luogu-p1464-memo/index.html">
 <meta property="og:site_name" content="zer0ptr&#39;s Blog">
-<meta property="og:description" content="原题地址：https:&#x2F;&#x2F;www.luogu.com.cn&#x2F;problem&#x2F;P1464   如果 a≤0a≤0a≤0 或 b≤0b≤0b≤0 或 c≤0c≤0c≤0 就返回值 1   如果 a&gt;20a&gt;20a&gt;20 或 b&gt;20b&gt;20b&gt;20 或 c&gt;20c&gt;20c&gt;20 就返回 w(20,20,20)$   如果 a&lt;ba&lt;ba">
-<meta property="og:locale" content="zh_CN">
+<meta property="og:description" content="原题地址：https:&#x2F;&#x2F;www.luogu.com.cn&#x2F;problem&#x2F;P1464  如果 $a≤0$ 或 $b≤0$ 或 $c≤0$ 就返回值 1  如果 $a&gt;20$ 或 $b&gt;20$ 或 $c&gt;20$ 就返回 w(20,20,20)$  如果 $a&lt;b$ 并且 $b&lt;c$ 就返回 $w(a,b,c−1)+w(a,b−1,c−1)−w(a,b−1,c)$  e">
+<meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-07-29T10:37:36.000Z">
 <meta property="article:modified_time" content="2025-07-29T11:04:32.896Z">
 <meta property="article:author" content="zer0ptr">
 <meta property="article:tag" content="Coding">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="algorithm">
-<meta name="twitter:card" content="summary_large_image">
-  
-  
-  
-  <title>P1464与递归函数的记忆化搜索 - zer0ptr&#39;s Blog</title>
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-
-
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/cat.png">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/cat.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/cat.png">
+        
+      
+    
+    <!-- title -->
+    <title>P1464与递归函数的记忆化搜索</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
 
 
-<link  rel="stylesheet" href="/css/main.css" />
+    <!-- Umami Analytics -->
 
 
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
 
-
-
-  
-<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.7.0/style.min.css">
-
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"zer0ptr.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
-    }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
-
-
-  
-  <script src="/js/sakura.js"></script>
-  <script src="/js/love.js"></script>
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
 <meta name="generator" content="Hexo 7.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
 
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/zer0ptr">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2025/08/01/What-is-Attention/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/07/28/hello-world/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://zer0ptr.github.io/2025/07/29/luogu-p1464-memo/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://zer0ptr.github.io/2025/07/29/luogu-p1464-memo/&text=P1464与递归函数的记忆化搜索"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://zer0ptr.github.io/2025/07/29/luogu-p1464-memo/&title=P1464与递归函数的记忆化搜索"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zer0ptr.github.io/2025/07/29/luogu-p1464-memo/&is_video=false&description=P1464与递归函数的记忆化搜索"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=P1464与递归函数的记忆化搜索&body=Check out this article: https://zer0ptr.github.io/2025/07/29/luogu-p1464-memo/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://zer0ptr.github.io/2025/07/29/luogu-p1464-memo/&title=P1464与递归函数的记忆化搜索"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://zer0ptr.github.io/2025/07/29/luogu-p1464-memo/&title=P1464与递归函数的记忆化搜索"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://zer0ptr.github.io/2025/07/29/luogu-p1464-memo/&title=P1464与递归函数的记忆化搜索"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://zer0ptr.github.io/2025/07/29/luogu-p1464-memo/&title=P1464与递归函数的记忆化搜索"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://zer0ptr.github.io/2025/07/29/luogu-p1464-memo/&name=P1464与递归函数的记忆化搜索&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://zer0ptr.github.io/2025/07/29/luogu-p1464-memo/&t=P1464与递归函数的记忆化搜索"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
 
-<body>
-  
+    </div>
+    
+    
+  </span>
+</div>
 
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     
+    <h1 class="posttitle p-name" itemprop="name headline">
+        P1464与递归函数的记忆化搜索
+    </h1>
 
-<div class="header-inner" style="height: 70vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>zer0ptr&#39;s blog</strong>
-    </a>
 
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
 
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">zer0ptr</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-07-29T10:37:36.000Z" class="dt-published" itemprop="datePublished">2025-07-29</time>
         
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/" target="_self">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
+        (Updated: <time datetime="2025-07-29T11:04:32.896Z" class="dt-updated" itemprop="dateModified">2025-07-29</time>)
         
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/" target="_self">
-                <i class="iconfont icon-archive-fill"></i>
-                <span>归档</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/" target="_self">
-                <i class="iconfont icon-category-fill"></i>
-                <span>分类</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/" target="_self">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/" target="_self">
-                <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/" target="_self">
-                <i class="iconfont icon-link-fill"></i>
-                <span>友链</span>
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
-      </ul>
+      
     </div>
-  </div>
-</nav>
 
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/Coding/">Coding</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/Coding/" rel="tag">Coding</a>, <a class="p-category" href="/tags/algorithm/" rel="tag">algorithm</a>, <a class="p-category" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
+    </div>
+
+
+    </div>
+  </header>
   
 
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/background.PNG') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="P1464与递归函数的记忆化搜索"></span>
-          
-        </div>
-
-        
-          
-  <div class="mt-3">
-    
-    
-      <span class="post-meta">
-        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-07-29 18:37" pubdate>
-          2025年7月29日 晚上
-        </time>
-      </span>
-    
-  </div>
-
-  <div class="mt-1">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-chart"></i>
-        
-          822 字
-        
-      </span>
-    
-
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-clock-fill"></i>
-        
-        
-        
-          7 分钟
-        
-      </span>
-    
-
-    
-    
-  </div>
-
-
-        
-      </div>
-
-      
-    </div>
-  </div>
-</div>
-
-</div>
-
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">P1464与递归函数的记忆化搜索</h1>
-            
-            
-              <div class="markdown-body">
-                
-                <p>原题地址：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1464">https://www.luogu.com.cn/problem/P1464</a></p>
+  <div class="content e-content" itemprop="articleBody">
+    <p>原题地址：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1464">https://www.luogu.com.cn/problem/P1464</a></p>
 <ol>
-<li>
-<p>如果 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>≤</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">a≤0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 或 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>≤</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">b≤0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83041em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 或 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>≤</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">c≤0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord mathdefault">c</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span> 就返回值 1</p>
+<li><p>如果 $a≤0$ 或 $b≤0$ 或 $c≤0$ 就返回值 1</p>
 </li>
-<li>
-<p>如果 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>&gt;</mo><mn>20</mn></mrow><annotation encoding="application/x-tex">a&gt;20</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">0</span></span></span></span> 或 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>&gt;</mo><mn>20</mn></mrow><annotation encoding="application/x-tex">b&gt;20</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">0</span></span></span></span> 或 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>&gt;</mo><mn>20</mn></mrow><annotation encoding="application/x-tex">c&gt;20</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">c</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord">0</span></span></span></span> 就返回 w(20,20,20)$</p>
+<li><p>如果 $a&gt;20$ 或 $b&gt;20$ 或 $c&gt;20$ 就返回 w(20,20,20)$</p>
 </li>
-<li>
-<p>如果 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>&lt;</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">a&lt;b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">a</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span></span></span></span> 并且 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>&lt;</mo><mi>c</mi></mrow><annotation encoding="application/x-tex">b&lt;c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord mathdefault">b</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">c</span></span></span></span> 就返回 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mo stretchy="false">(</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>c</mi><mtext>−</mtext><mn>1</mn><mo stretchy="false">)</mo><mo>+</mo><mi>w</mi><mo stretchy="false">(</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mtext>−</mtext><mn>1</mn><mo separator="true">,</mo><mi>c</mi><mtext>−</mtext><mn>1</mn><mo stretchy="false">)</mo><mtext>−</mtext><mi>w</mi><mo stretchy="false">(</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mtext>−</mtext><mn>1</mn><mo separator="true">,</mo><mi>c</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">w(a,b,c−1)+w(a,b−1,c−1)−w(a,b−1,c)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mopen">(</span><span class="mord mathdefault">a</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">c</span><span class="mord">−</span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mopen">(</span><span class="mord mathdefault">a</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mord">−</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">c</span><span class="mord">−</span><span class="mord">1</span><span class="mclose">)</span><span class="mord">−</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mopen">(</span><span class="mord mathdefault">a</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mord">−</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">c</span><span class="mclose">)</span></span></span></span></p>
+<li><p>如果 $a&lt;b$ 并且 $b&lt;c$ 就返回 $w(a,b,c−1)+w(a,b−1,c−1)−w(a,b−1,c)$</p>
 </li>
-<li>
-<p>else <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>w</mi><mo stretchy="false">(</mo><mi>a</mi><mtext>−</mtext><mn>1</mn><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>c</mi><mo stretchy="false">)</mo><mo>+</mo><mi>w</mi><mo stretchy="false">(</mo><mi>a</mi><mtext>−</mtext><mn>1</mn><mo separator="true">,</mo><mi>b</mi><mtext>−</mtext><mn>1</mn><mo separator="true">,</mo><mi>c</mi><mo stretchy="false">)</mo><mo>+</mo><mi>w</mi><mo stretchy="false">(</mo><mi>a</mi><mtext>−</mtext><mn>1</mn><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>c</mi><mtext>−</mtext><mn>1</mn><mo stretchy="false">)</mo><mtext>−</mtext><mi>w</mi><mo stretchy="false">(</mo><mi>a</mi><mtext>−</mtext><mn>1</mn><mo separator="true">,</mo><mi>b</mi><mtext>−</mtext><mn>1</mn><mo separator="true">,</mo><mi>c</mi><mtext>−</mtext><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">w(a−1,b,c)+w(a−1,b−1,c)+w(a−1,b,c−1)−w(a−1,b−1,c−1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mopen">(</span><span class="mord mathdefault">a</span><span class="mord">−</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">c</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mopen">(</span><span class="mord mathdefault">a</span><span class="mord">−</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mord">−</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">c</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mopen">(</span><span class="mord mathdefault">a</span><span class="mord">−</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">c</span><span class="mord">−</span><span class="mord">1</span><span class="mclose">)</span><span class="mord">−</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mopen">(</span><span class="mord mathdefault">a</span><span class="mord">−</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">b</span><span class="mord">−</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">c</span><span class="mord">−</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></p>
+<li><p>else $w(a−1,b,c)+w(a−1,b−1,c)+w(a−1,b,c−1)−w(a−1,b−1,c−1)$</p>
 </li>
 </ol>
-<p><em>注意：例如 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∗</mo><mi>w</mi><mo>∗</mo><mo stretchy="false">(</mo><mn>30</mn><mo separator="true">,</mo><mtext>−</mtext><mn>1</mn><mo separator="true">,</mo><mn>0</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">*w*(30,−1,0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.46528em;vertical-align:0em;"></span><span class="mord">∗</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">3</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">−</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mclose">)</span></span></span></span> 又满足条件 1 又满足条件 2，请按照最上面的条件来算，答案为 1。</em></p>
+<p><em>注意：例如 $<em>w</em>(30,−1,0)$ 又满足条件 1 又满足条件 2，请按照最上面的条件来算，答案为 1。</em></p>
 <p><strong>分析</strong>：本题考察递归的记忆化漏洞，记忆化不仅是递归的动态规划，更是对递归的优化，并非从底自上的动态规划填表法</p>
 <p><strong>其他注意事项</strong></p>
 <ul>
-<li>
-<p>保证输入的数在 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mtext>−</mtext><mn>9223372036854775808</mn><mo separator="true">,</mo><mn>9223372036854775807</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[−9223372036854775808,9223372036854775807]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">−</span><span class="mord">9</span><span class="mord">2</span><span class="mord">2</span><span class="mord">3</span><span class="mord">3</span><span class="mord">7</span><span class="mord">2</span><span class="mord">0</span><span class="mord">3</span><span class="mord">6</span><span class="mord">8</span><span class="mord">5</span><span class="mord">4</span><span class="mord">7</span><span class="mord">7</span><span class="mord">5</span><span class="mord">8</span><span class="mord">0</span><span class="mord">8</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">9</span><span class="mord">2</span><span class="mord">2</span><span class="mord">3</span><span class="mord">3</span><span class="mord">7</span><span class="mord">2</span><span class="mord">0</span><span class="mord">3</span><span class="mord">6</span><span class="mord">8</span><span class="mord">5</span><span class="mord">4</span><span class="mord">7</span><span class="mord">7</span><span class="mord">5</span><span class="mord">8</span><span class="mord">0</span><span class="mord">7</span><span class="mclose">]</span></span></span></span> 之间，并且是整数。</p>
+<li><p>保证输入的数在 $[−9223372036854775808,9223372036854775807]$ 之间，并且是整数。</p>
 </li>
-<li>
-<p>保证不包括 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>−</mtext><mn>1</mn><mo separator="true">,</mo><mtext>−</mtext><mn>1</mn><mo separator="true">,</mo><mtext>−</mtext><mn>1</mn></mrow><annotation encoding="application/x-tex">−1,−1,−1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">−</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">−</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">−</span><span class="mord">1</span></span></span></span> 的输入行数 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi></mrow><annotation encoding="application/x-tex">T</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span></span></span></span> 满足 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>≤</mo><mi>T</mi><mo>≤</mo><mn>1</mn><msup><mn>0</mn><mn>5</mn></msup></mrow><annotation encoding="application/x-tex">1≤T≤10^5</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.78041em;vertical-align:-0.13597em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span></p>
+<li><p>保证不包括 $−1,−1,−1$ 的输入行数 $T$ 满足 $1≤T≤10^5$</p>
 </li>
 </ul>
 <p>综上所述还需要开longlong防止爆掉</p>
 <p><strong>AC Code</strong></p>
-<div class="code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;cstdio&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;cstring&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-keyword">define</span> ll long long</span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ll long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line">ll memo[<span class="number">21</span>][<span class="number">21</span>][<span class="number">21</span>];</span><br><span class="line"><span class="function">ll <span class="title">w</span><span class="params">(ll a, ll b, ll c)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(a&lt;=<span class="number">0</span> || b&lt;=<span class="number">0</span> || c&lt;=<span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(a&gt;<span class="number">20</span> || b&gt;<span class="number">20</span> || c&gt;<span class="number">20</span>) <span class="keyword">return</span> <span class="built_in">w</span>(<span class="number">20</span>,<span class="number">20</span>,<span class="number">20</span>);</span><br><span class="line">    <span class="keyword">if</span> (memo[a][b][c] != <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> memo[a][b][c];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (a&lt;b &amp;&amp; b&lt;c) &#123;</span><br><span class="line">        memo[a][b][c] = <span class="built_in">w</span>(a,b,c<span class="number">-1</span>) + <span class="built_in">w</span>(a,b<span class="number">-1</span>,c<span class="number">-1</span>) - <span class="built_in">w</span>(a,b<span class="number">-1</span>,c);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        memo[a][b][c] = <span class="built_in">w</span>(a<span class="number">-1</span>,b,c) + <span class="built_in">w</span>(a<span class="number">-1</span>,b<span class="number">-1</span>,c) + <span class="built_in">w</span>(a<span class="number">-1</span>,b,c<span class="number">-1</span>) - <span class="built_in">w</span>(a<span class="number">-1</span>,b<span class="number">-1</span>,c<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> memo[a][b][c];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(memo, <span class="number">-1</span>, <span class="built_in">sizeof</span>(memo));</span><br><span class="line">    ll a,b,c;</span><br><span class="line">    <span class="keyword">while</span>(cin&gt;&gt;a&gt;&gt;b&gt;&gt;c) &#123;</span><br><span class="line">        <span class="keyword">if</span>(a==<span class="number">-1</span> &amp;&amp; b==<span class="number">-1</span> &amp;&amp;c==<span class="number">-1</span>) <span class="keyword">break</span>;</span><br><span class="line">        ll ans = <span class="built_in">w</span>(a,b,c);</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;w(&quot;</span> &lt;&lt; a &lt;&lt; <span class="string">&quot;, &quot;</span> &lt;&lt; b &lt;&lt; <span class="string">&quot;, &quot;</span> &lt;&lt; c &lt;&lt; <span class="string">&quot;) = &quot;</span> &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-ll memo[<span class="hljs-number">21</span>][<span class="hljs-number">21</span>][<span class="hljs-number">21</span>];
-<span class="hljs-function">ll <span class="hljs-title">w</span><span class="hljs-params">(ll a, ll b, ll c)</span> </span>&#123;
-    <span class="hljs-keyword">if</span>(a&lt;=<span class="hljs-number">0</span> || b&lt;=<span class="hljs-number">0</span> || c&lt;=<span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
-    <span class="hljs-keyword">if</span>(a&gt;<span class="hljs-number">20</span> || b&gt;<span class="hljs-number">20</span> || c&gt;<span class="hljs-number">20</span>) <span class="hljs-keyword">return</span> <span class="hljs-built_in">w</span>(<span class="hljs-number">20</span>,<span class="hljs-number">20</span>,<span class="hljs-number">20</span>);
-    <span class="hljs-keyword">if</span> (memo[a][b][c] != <span class="hljs-number">-1</span>) &#123;
-        <span class="hljs-keyword">return</span> memo[a][b][c];
-    &#125;
-    <span class="hljs-keyword">if</span> (a&lt;b &amp;&amp; b&lt;c) &#123;
-        memo[a][b][c] = <span class="hljs-built_in">w</span>(a,b,c<span class="hljs-number">-1</span>) + <span class="hljs-built_in">w</span>(a,b<span class="hljs-number">-1</span>,c<span class="hljs-number">-1</span>) - <span class="hljs-built_in">w</span>(a,b<span class="hljs-number">-1</span>,c);
-    &#125; <span class="hljs-keyword">else</span> &#123;
-        memo[a][b][c] = <span class="hljs-built_in">w</span>(a<span class="hljs-number">-1</span>,b,c) + <span class="hljs-built_in">w</span>(a<span class="hljs-number">-1</span>,b<span class="hljs-number">-1</span>,c) + <span class="hljs-built_in">w</span>(a<span class="hljs-number">-1</span>,b,c<span class="hljs-number">-1</span>) - <span class="hljs-built_in">w</span>(a<span class="hljs-number">-1</span>,b<span class="hljs-number">-1</span>,c<span class="hljs-number">-1</span>);
-    &#125;
-    <span class="hljs-keyword">return</span> memo[a][b][c];
-&#125;
 
-<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
-    <span class="hljs-built_in">memset</span>(memo, <span class="hljs-number">-1</span>, <span class="hljs-built_in">sizeof</span>(memo));
-    ll a,b,c;
-    <span class="hljs-keyword">while</span>(cin&gt;&gt;a&gt;&gt;b&gt;&gt;c) &#123;
-        <span class="hljs-keyword">if</span>(a==<span class="hljs-number">-1</span> &amp;&amp; b==<span class="hljs-number">-1</span> &amp;&amp;c==<span class="hljs-number">-1</span>) <span class="hljs-keyword">break</span>;
-        ll ans = <span class="hljs-built_in">w</span>(a,b,c);
-        cout &lt;&lt; <span class="hljs-string">&quot;w(&quot;</span> &lt;&lt; a &lt;&lt; <span class="hljs-string">&quot;, &quot;</span> &lt;&lt; b &lt;&lt; <span class="hljs-string">&quot;, &quot;</span> &lt;&lt; c &lt;&lt; <span class="hljs-string">&quot;) = &quot;</span> &lt;&lt; ans &lt;&lt; endl;
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre></div>
+
 <p>以下的QFA来自暂时can not fly的fish在做题中犯的一些错误</p>
-<p><strong>Q: if(a==-1 &amp;&amp; b==-1 &amp;&amp;c==-1) break; 为什么这一步是break掉而不是return 一个值？</strong></p>
+<p><strong>Q: if(a&#x3D;&#x3D;-1 &amp;&amp; b&#x3D;&#x3D;-1 &amp;&amp;c&#x3D;&#x3D;-1) break; 为什么这一步是break掉而不是return 一个值？</strong></p>
 <p><strong>A:</strong> 因为这行代码的作用是满足判断条件后就跳出输入循环</p>
-<p><strong>Q: 意思就是仅跳过这个long long result = w(a, b, c); 调用w函数的代码然后return 0;是吗？</strong></p>
+<p><strong>Q: 意思就是仅跳过这个long long result &#x3D; w(a, b, c); 调用w函数的代码然后return 0;是吗？</strong></p>
 <p><strong>A: Yes~</strong></p>
 <p><strong>Q: 在上述代码中把w函数写在了main函数前面，代码是先经过主函数的读取数字再调用了w函数进行计算，那按照这个处理逻辑能否把main函数写在w函数前面?</strong></p>
 <p><strong>A:</strong> 在C++中，函数顺序定义会影响其可见性，以我们的代码为例，我们把main函数写在w函数前，但是我们调用了一个没有定义的函数w，编译器就会报错，除非提前声明函数原型，因此，如果要把main函数写在w函数前面，需要先声明w函数，再定义main，最后定义 w的实现。</p>
 
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
+  </div>
+</article>
 
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
+
+
         
-  <a href="/categories/Coding/" class="category-chain-item">Coding</a>
-  
-  
+          <div id="footer-post-container">
+  <div id="footer-post">
 
-      </span>
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="http://github.com/zer0ptr">Projects</a></li>
+        
+      </ul>
+    </div>
+
     
-  
-</span>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://zer0ptr.github.io/2025/07/29/luogu-p1464-memo/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://zer0ptr.github.io/2025/07/29/luogu-p1464-memo/&text=P1464与递归函数的记忆化搜索"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://zer0ptr.github.io/2025/07/29/luogu-p1464-memo/&title=P1464与递归函数的记忆化搜索"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zer0ptr.github.io/2025/07/29/luogu-p1464-memo/&is_video=false&description=P1464与递归函数的记忆化搜索"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=P1464与递归函数的记忆化搜索&body=Check out this article: https://zer0ptr.github.io/2025/07/29/luogu-p1464-memo/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://zer0ptr.github.io/2025/07/29/luogu-p1464-memo/&title=P1464与递归函数的记忆化搜索"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://zer0ptr.github.io/2025/07/29/luogu-p1464-memo/&title=P1464与递归函数的记忆化搜索"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://zer0ptr.github.io/2025/07/29/luogu-p1464-memo/&title=P1464与递归函数的记忆化搜索"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://zer0ptr.github.io/2025/07/29/luogu-p1464-memo/&title=P1464与递归函数的记忆化搜索"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://zer0ptr.github.io/2025/07/29/luogu-p1464-memo/&name=P1464与递归函数的记忆化搜索&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://zer0ptr.github.io/2025/07/29/luogu-p1464-memo/&t=P1464与递归函数的记忆化搜索"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
 
     </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Coding/" class="print-no-link">#Coding</a>
-      
-        <a href="/tags/%E7%AE%97%E6%B3%95/" class="print-no-link">#算法</a>
-      
-        <a href="/tags/algorithm/" class="print-no-link">#algorithm</a>
-      
-    </div>
-  
-</div>
 
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>P1464与递归函数的记忆化搜索</div>
-      <div>https://zer0ptr.github.io/2025/07/29/luogu-p1464-memo/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>zer0ptr</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2025年7月29日</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>许可协议</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-cc-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2025/08/01/What-is-Attention/" title="What is Attention?">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">What is Attention?</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2025/07/28/hello-world/" title="Hello World">
-                        <span class="hidden-mobile">Hello World</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-  
-  
-    <article id="comments" lazyload>
-      
-
-    </article>
-  
-
-
-          </article>
-        </div>
-      </div>
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
     </div>
 
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-
-
-  </aside>
-
-
-    </div>
   </div>
 </div>
 
-
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-  
-  
-
-
-
-
-
-
-
-
-
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
     
-
     
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
+    2025
+    zer0ptr
   </div>
-</div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/zer0ptr">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
 
-    
-
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
     </div>
-  
-  
-  
-</div>
+    <!-- styles -->
 
-  </footer>
 
-  <!-- Scripts -->
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
   
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
     })
+  })
   </script>
 
 
-<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
+<script src="/js/main.js"></script>
 
+<!-- search -->
 
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
+<!-- Baidu Analytics -->
 
+<!-- Cloudflare Analytics -->
 
+<!-- Disqus Comments -->
 
+<!-- utterances Comments -->
 
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
-    var toc = jQuery('#toc');
-    if (toc.length === 0 || !window.tocbot) { return; }
-    var boardCtn = jQuery('#board-ctn');
-    var boardTop = boardCtn.offset().top;
-
-    window.tocbot.init(Object.assign({
-      tocSelector     : '#toc-body',
-      contentSelector : '.markdown-body',
-      linkClass       : 'tocbot-link',
-      activeLinkClass : 'tocbot-active-link',
-      listClass       : 'tocbot-list',
-      isCollapsedClass: 'tocbot-is-collapsed',
-      collapsibleClass: 'tocbot-is-collapsible',
-      scrollSmooth    : true,
-      includeTitleTags: true,
-      headingsOffset  : -boardTop,
-    }, CONFIG.toc));
-    if (toc.find('.toc-list-item').length > 0) {
-      toc.css('visibility', 'visible');
-    }
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('tocbot' in window) {
-        tocbot.refresh();
-        var toc = jQuery('#toc');
-        if (toc.length === 0 || !tocbot) {
-          return;
-        }
-        if (toc.find('.toc-list-item').length > 0) {
-          toc.css('visibility', 'visible');
-        }
-      }
-    });
-  });
-</script>
-
-
-  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
-
-  <script>Fluid.plugins.codeWidget();</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
-    window.anchors.options = {
-      placement: CONFIG.anchorjs.placement,
-      visible  : CONFIG.anchorjs.visible
-    };
-    if (CONFIG.anchorjs.icon) {
-      window.anchors.options.icon = CONFIG.anchorjs.icon;
-    }
-    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-    var res = [];
-    for (var item of el) {
-      res.push('.markdown-body > ' + item.trim());
-    }
-    if (CONFIG.anchorjs.placement === 'left') {
-      window.anchors.options.class = 'anchorjs-link-left';
-    }
-    window.anchors.add(res.join(', '));
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('anchors' in window) {
-        anchors.removeAll();
-        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-        var res = [];
-        for (var item of el) {
-          res.push('.markdown-body > ' + item.trim());
-        }
-        if (CONFIG.anchorjs.placement === 'left') {
-          anchors.options.class = 'anchorjs-link-left';
-        }
-        anchors.add(res.join(', '));
-      }
-    });
-  });
-</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
-    Fluid.plugins.fancyBox();
-  });
-</script>
-
-
-  <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
-  
-
-  <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
-  </noscript>
 </body>
 </html>

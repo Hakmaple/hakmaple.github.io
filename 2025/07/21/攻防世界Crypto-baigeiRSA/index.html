@@ -1,341 +1,192 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
+<html lang=en>
 <head>
-  <meta charset="UTF-8">
-
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/SecureNexusLab.png">
-  <link rel="icon" href="/img/SecureNexusLab.png">
-  
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="zer0ptr">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="拿到附件后查看内容 import libnum from Crypto.Util import number from secret import flag  size &#x3D; 128 e &#x3D; 65537 p &#x3D; number.getPrime(size) q &#x3D; number.getPrime(size) n &#x3D; p*q  m &#x3D; libnum.s2n(flag) c &#x3D; pow(m, e, n)">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="拿到附件后查看内容12345678910111213141516import libnumfrom Crypto.Util import numberfrom secret import flagsize &#x3D; 128e &#x3D; 65537p &#x3D; number.getPrime(size)q &#x3D; number.getPrime(size)n &#x3D; p*qm &#x3D; libnum.s2n(flag)c &#x3D; po">
 <meta property="og:type" content="article">
 <meta property="og:title" content="攻防世界Crypto-baigeiRSA">
 <meta property="og:url" content="https://zer0ptr.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/index.html">
 <meta property="og:site_name" content="zer0ptr&#39;s Blog">
-<meta property="og:description" content="拿到附件后查看内容 import libnum from Crypto.Util import number from secret import flag  size &#x3D; 128 e &#x3D; 65537 p &#x3D; number.getPrime(size) q &#x3D; number.getPrime(size) n &#x3D; p*q  m &#x3D; libnum.s2n(flag) c &#x3D; pow(m, e, n)">
-<meta property="og:locale" content="zh_CN">
+<meta property="og:description" content="拿到附件后查看内容12345678910111213141516import libnumfrom Crypto.Util import numberfrom secret import flagsize &#x3D; 128e &#x3D; 65537p &#x3D; number.getPrime(size)q &#x3D; number.getPrime(size)n &#x3D; p*qm &#x3D; libnum.s2n(flag)c &#x3D; po">
+<meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://zer0ptr.github.io/images/baigeiRSA-1.png">
 <meta property="article:published_time" content="2025-07-21T01:29:24.000Z">
 <meta property="article:modified_time" content="2025-07-28T04:58:50.880Z">
 <meta property="article:author" content="zer0ptr">
 <meta property="article:tag" content="Crypto">
 <meta property="article:tag" content="CTF">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://zer0ptr.github.io/images/baigeiRSA-1.png">
-  
-  
-  
-  <title>攻防世界Crypto-baigeiRSA - zer0ptr&#39;s Blog</title>
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-
-
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/cat.png">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/cat.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/cat.png">
+        
+      
+    
+    <!-- title -->
+    <title>攻防世界Crypto-baigeiRSA</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
 
 
-<link  rel="stylesheet" href="/css/main.css" />
+    <!-- Umami Analytics -->
 
 
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
 
-
-
-  
-<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.7.0/style.min.css">
-
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"zer0ptr.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
-    }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
-
-
-  
-  <script src="/js/sakura.js"></script>
-  <script src="/js/love.js"></script>
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
 <meta name="generator" content="Hexo 7.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
 
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/zer0ptr">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-%E4%BA%8C%E5%85%83%E4%B8%80%E6%AC%A1%E6%96%B9%E7%A8%8B%E7%BB%84/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/07/19/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E4%BB%8E%E5%A4%B4%E6%9E%84%E5%BB%BA%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://zer0ptr.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://zer0ptr.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/&text=攻防世界Crypto-baigeiRSA"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://zer0ptr.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/&title=攻防世界Crypto-baigeiRSA"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zer0ptr.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/&is_video=false&description=攻防世界Crypto-baigeiRSA"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=攻防世界Crypto-baigeiRSA&body=Check out this article: https://zer0ptr.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://zer0ptr.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/&title=攻防世界Crypto-baigeiRSA"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://zer0ptr.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/&title=攻防世界Crypto-baigeiRSA"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://zer0ptr.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/&title=攻防世界Crypto-baigeiRSA"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://zer0ptr.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/&title=攻防世界Crypto-baigeiRSA"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://zer0ptr.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/&name=攻防世界Crypto-baigeiRSA&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://zer0ptr.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/&t=攻防世界Crypto-baigeiRSA"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
 
-<body>
-  
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%BF%E5%88%B0%E9%99%84%E4%BB%B6%E5%90%8E%E6%9F%A5%E7%9C%8B%E5%86%85%E5%AE%B9"><span class="toc-number">1.</span> <span class="toc-text">拿到附件后查看内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.1.</span> <span class="toc-text">参数设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90RSA%E5%AF%86%E9%92%A5"><span class="toc-number">2.2.</span> <span class="toc-text">生成RSA密钥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86flag"><span class="toc-number">2.3.</span> <span class="toc-text">加密flag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E7%BB%93%E6%9E%9C"><span class="toc-number">2.4.</span> <span class="toc-text">输出结果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%AF%86%E6%80%9D%E8%B7%AF"><span class="toc-number">3.</span> <span class="toc-text">解密思路</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
 
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     
+    <h1 class="posttitle p-name" itemprop="name headline">
+        攻防世界Crypto-baigeiRSA
+    </h1>
 
-<div class="header-inner" style="height: 70vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>zer0ptr&#39;s blog</strong>
-    </a>
 
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
 
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">zer0ptr</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-07-21T01:29:24.000Z" class="dt-published" itemprop="datePublished">2025-07-21</time>
         
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/" target="_self">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
+        (Updated: <time datetime="2025-07-28T04:58:50.880Z" class="dt-updated" itemprop="dateModified">2025-07-28</time>)
         
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/" target="_self">
-                <i class="iconfont icon-archive-fill"></i>
-                <span>归档</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/" target="_self">
-                <i class="iconfont icon-category-fill"></i>
-                <span>分类</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/" target="_self">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/" target="_self">
-                <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/" target="_self">
-                <i class="iconfont icon-link-fill"></i>
-                <span>友链</span>
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
-      </ul>
+      
     </div>
-  </div>
-</nav>
 
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/CTF/">CTF</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/CTF/" rel="tag">CTF</a>, <a class="p-category" href="/tags/Crypto/" rel="tag">Crypto</a>
+    </div>
+
+
+    </div>
+  </header>
   
 
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/background.PNG') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="攻防世界Crypto-baigeiRSA"></span>
-          
-        </div>
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="拿到附件后查看内容"><a href="#拿到附件后查看内容" class="headerlink" title="拿到附件后查看内容"></a>拿到附件后查看内容</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> libnum</span><br><span class="line"><span class="keyword">from</span> Crypto.Util <span class="keyword">import</span> number</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line">size = <span class="number">128</span></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">p = number.getPrime(size)</span><br><span class="line">q = number.getPrime(size)</span><br><span class="line">n = p*q</span><br><span class="line"></span><br><span class="line">m = libnum.s2n(flag)</span><br><span class="line">c = <span class="built_in">pow</span>(m, e, n)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;n = %d&#x27;</span> % n)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;c = %d&#x27;</span> % c)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-        
-          
-  <div class="mt-3">
-    
-    
-      <span class="post-meta">
-        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-07-21 09:29" pubdate>
-          2025年7月21日 上午
-        </time>
-      </span>
-    
-  </div>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="参数设置"><a href="#参数设置" class="headerlink" title="参数设置"></a>参数设置</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">size = <span class="number">128</span></span><br><span class="line">e = <span class="number">65537</span></span><br></pre></td></tr></table></figure>
 
-  <div class="mt-1">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-chart"></i>
-        
-          399 字
-        
-      </span>
-    
-
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-clock-fill"></i>
-        
-        
-        
-          4 分钟
-        
-      </span>
-    
-
-    
-    
-  </div>
-
-
-        
-      </div>
-
-      
-    </div>
-  </div>
-</div>
-
-</div>
-
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">攻防世界Crypto-baigeiRSA</h1>
-            
-            
-              <div class="markdown-body">
-                
-                <h2 id="拿到附件后查看内容">拿到附件后查看内容</h2>
-<div class="code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">import</span> libnum
-<span class="hljs-keyword">from</span> Crypto.Util <span class="hljs-keyword">import</span> number
-<span class="hljs-keyword">from</span> secret <span class="hljs-keyword">import</span> flag
-
-size = <span class="hljs-number">128</span>
-e = <span class="hljs-number">65537</span>
-p = number.getPrime(size)
-q = number.getPrime(size)
-n = p*q
-
-m = libnum.s2n(flag)
-c = <span class="hljs-built_in">pow</span>(m, e, n)
-
-<span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;n = %d&#x27;</span> % n)
-<span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;c = %d&#x27;</span> % c)
-</code></pre></div>
-<h2 id="分析">分析</h2>
-<h3 id="参数设置">参数设置</h3>
-<div class="code-wrapper"><pre><code class="hljs python">size = <span class="hljs-number">128</span>
-e = <span class="hljs-number">65537</span></code></pre></div>
 <p><code>size</code>处设置了生成的素数<code>p</code>和<code>q</code>的比特长度</p>
 <p><code>e=65537</code>：RSA的公钥指数，这是一个常用的固定值</p>
-<h3 id="生成rsa密钥">生成RSA密钥</h3>
-<div class="code-wrapper"><pre><code class="hljs python">p = number.getPrime(size)
-q = number.getPrime(size)
-n = p*q</code></pre></div>
+<h3 id="生成RSA密钥"><a href="#生成RSA密钥" class="headerlink" title="生成RSA密钥"></a>生成RSA密钥</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p = number.getPrime(size)</span><br><span class="line">q = number.getPrime(size)</span><br><span class="line">n = p*q</span><br></pre></td></tr></table></figure>
+
 <p><code>number.getPrime(size)</code>生成一个<code>size</code>比特的随机素数</p>
 <p><code>n = p*q</code>：计算RSA的模数<code>n</code>（一个256位的数）。</p>
-<h3 id="加密flag">加密flag</h3>
-<div class="code-wrapper"><pre><code class="hljs python">m = libnum.s2n(flag)
-c = <span class="hljs-built_in">pow</span>(m, e, n)</code></pre></div>
+<h3 id="加密flag"><a href="#加密flag" class="headerlink" title="加密flag"></a>加密flag</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">m = libnum.s2n(flag)</span><br><span class="line">c = <span class="built_in">pow</span>(m, e, n)</span><br></pre></td></tr></table></figure>
+
 <p><code>libnum.s2n(flag)</code>：将<code>flag</code>字符串转换为一个大整数<code>m</code>（<code>s2n</code>表示“string to number”）。</p>
 <p><code>c = pow(m, e, n)</code>：计算密文<code>c</code>，即<code>m^e mod n</code>（RSA加密的核心操作）。</p>
-<h3 id="输出结果">输出结果</h3>
-<div class="code-wrapper"><pre><code class="hljs Python"><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;n = %d&#x27;</span> % n)
-<span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;c = %d&#x27;</span> % c)</code></pre></div>
-<h2 id="解密思路">解密思路</h2>
-<ol>
+<h3 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;n = %d&#x27;</span> % n)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;c = %d&#x27;</span> % c)</span><br></pre></td></tr></table></figure>
+
+<h2 id="解密思路"><a href="#解密思路" class="headerlink" title="解密思路"></a>解密思路</h2><ol>
 <li>分解<code>n</code>得到<code>p</code>和<code>q</code>（因为<code>n</code>是256位的，对于现代计算机来说分解是可行的）。</li>
 <li>计算欧拉函数<code>φ(n) = (p-1)*(q-1)</code>。</li>
 <li>计算私钥<code>d</code>，即<code>e</code>模<code>φ(n)</code>的逆元：<code>d = pow(e, -1, φ(n))</code>。</li>
@@ -343,473 +194,154 @@ c = <span class="hljs-built_in">pow</span>(m, e, n)</code></pre></div>
 <li>将<code>m</code>转换为字符串：<code>flag = libnum.n2s(m)</code>。</li>
 </ol>
 <p>于是我们构造以下exploit</p>
-<div class="code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">import</span> libnum
-<span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span> inverse
-<span class="hljs-keyword">from</span> Crypto.Util <span class="hljs-keyword">import</span> number
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> libnum</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> inverse</span><br><span class="line"><span class="keyword">from</span> Crypto.Util <span class="keyword">import</span> number</span><br><span class="line"></span><br><span class="line">size = <span class="number">128</span></span><br><span class="line">n = <span class="number">88503001447845031603457048661635807319447136634748350130947825183012205093541</span></span><br><span class="line">c = <span class="number">40876621398366534035989065383910105526025410999058860023908252093679681817257</span></span><br><span class="line">e=<span class="number">65537</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 分解n得到的p和q</span></span><br><span class="line">p=unknown</span><br><span class="line">q=unknown</span><br><span class="line"></span><br><span class="line">phi = (p - <span class="number">1</span>) * (q - <span class="number">1</span>)</span><br><span class="line">d = inverse(e, phi)</span><br><span class="line">m = <span class="built_in">pow</span>(c, d, n)</span><br><span class="line">flag = libnum.n2s(m)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;解密后的flag:&quot;</span>, flag)</span><br></pre></td></tr></table></figure>
 
-size = <span class="hljs-number">128</span>
-n = <span class="hljs-number">88503001447845031603457048661635807319447136634748350130947825183012205093541</span>
-c = <span class="hljs-number">40876621398366534035989065383910105526025410999058860023908252093679681817257</span>
-e=<span class="hljs-number">65537</span>
-
-<span class="hljs-comment"># 分解n得到的p和q</span>
-p=unknown
-q=unknown
-
-phi = (p - <span class="hljs-number">1</span>) * (q - <span class="hljs-number">1</span>)
-d = inverse(e, phi)
-m = <span class="hljs-built_in">pow</span>(c, d, n)
-flag = libnum.n2s(m)
-<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;解密后的flag:&quot;</span>, flag)</code></pre></div>
 <p>然后暴力分解因数<code>n</code>得到<code>p</code>和<code>q</code></p>
-<p><img src="/images/baigeiRSA-1.png" srcset="/img/loading.gif" lazyload alt="图一展示了在上暴力分解因数"></p>
+<p><img src="/images/baigeiRSA-1.png" alt="图一展示了在&#96;http:&#x2F;&#x2F;www.factordb.com&#x2F;&#96;上暴力分解因数"></p>
 <p>则最终的exp如下：</p>
-<div class="code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">import</span> libnum
-<span class="hljs-keyword">from</span> Crypto.Util.number <span class="hljs-keyword">import</span> inverse
-<span class="hljs-keyword">from</span> Crypto.Util <span class="hljs-keyword">import</span> number
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> libnum</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> inverse</span><br><span class="line"><span class="keyword">from</span> Crypto.Util <span class="keyword">import</span> number</span><br><span class="line"></span><br><span class="line">size = <span class="number">128</span></span><br><span class="line">n = <span class="number">88503001447845031603457048661635807319447136634748350130947825183012205093541</span></span><br><span class="line">c = <span class="number">40876621398366534035989065383910105526025410999058860023908252093679681817257</span></span><br><span class="line">e=<span class="number">65537</span></span><br><span class="line"></span><br><span class="line">p=<span class="number">274539690398523616505159415195049044439</span></span><br><span class="line">q=<span class="number">322368694010594584041053487661458382819</span></span><br><span class="line"></span><br><span class="line">phi = (p - <span class="number">1</span>) * (q - <span class="number">1</span>)</span><br><span class="line">d = inverse(e, phi)</span><br><span class="line">m = <span class="built_in">pow</span>(c, d, n)</span><br><span class="line">flag = libnum.n2s(m)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;解密后的flag:&quot;</span>, flag)</span><br></pre></td></tr></table></figure>
 
-size = <span class="hljs-number">128</span>
-n = <span class="hljs-number">88503001447845031603457048661635807319447136634748350130947825183012205093541</span>
-c = <span class="hljs-number">40876621398366534035989065383910105526025410999058860023908252093679681817257</span>
-e=<span class="hljs-number">65537</span>
-
-p=<span class="hljs-number">274539690398523616505159415195049044439</span>
-q=<span class="hljs-number">322368694010594584041053487661458382819</span>
-
-phi = (p - <span class="hljs-number">1</span>) * (q - <span class="hljs-number">1</span>)
-d = inverse(e, phi)
-m = <span class="hljs-built_in">pow</span>(c, d, n)
-flag = libnum.n2s(m)
-<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;解密后的flag:&quot;</span>, flag)</code></pre></div>
 <p>成功Caught the flag!</p>
-<div class="code-wrapper"><pre><code class="hljs gherkin">workspace<span class="hljs-comment"># python3 exploit.py </span>
-解密后的flag: b&#x27;HSCTF&#123;<span class="hljs-meta">@Zh3n_Ba1_G3i!</span><span class="hljs-meta">@&#125;&#x27;</span></code></pre></div>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">workspace# python3 exploit.py </span><br><span class="line">解密后的flag: b&#x27;HSCTF&#123;@Zh3n_Ba1_G3i!@&#125;&#x27;</span><br></pre></td></tr></table></figure>
 
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
 
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
+  </div>
+</article>
+
+
+
         
-  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
-  
-  
+          <div id="footer-post-container">
+  <div id="footer-post">
 
-      </span>
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="http://github.com/zer0ptr">Projects</a></li>
+        
+      </ul>
+    </div>
+
     
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Crypto/" class="print-no-link">#Crypto</a>
-      
-        <a href="/tags/CTF/" class="print-no-link">#CTF</a>
-      
-    </div>
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>攻防世界Crypto-baigeiRSA</div>
-      <div>https://zer0ptr.github.io/2025/07/21/攻防世界Crypto-baigeiRSA/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>zer0ptr</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2025年7月21日</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>许可协议</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-cc-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-%E4%BA%8C%E5%85%83%E4%B8%80%E6%AC%A1%E6%96%B9%E7%A8%8B%E7%BB%84/" title="攻防世界Crypto-二元一次方程组">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">攻防世界Crypto-二元一次方程组</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2025/07/19/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E4%BB%8E%E5%A4%B4%E6%9E%84%E5%BB%BA%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" title="深度学习：从头构建神经网络">
-                        <span class="hidden-mobile">深度学习：从头构建神经网络</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-  
-  
-    <article id="comments" lazyload>
-      
-
-    </article>
-  
-
-
-          </article>
-        </div>
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%BF%E5%88%B0%E9%99%84%E4%BB%B6%E5%90%8E%E6%9F%A5%E7%9C%8B%E5%86%85%E5%AE%B9"><span class="toc-number">1.</span> <span class="toc-text">拿到附件后查看内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E8%AE%BE%E7%BD%AE"><span class="toc-number">2.1.</span> <span class="toc-text">参数设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90RSA%E5%AF%86%E9%92%A5"><span class="toc-number">2.2.</span> <span class="toc-text">生成RSA密钥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86flag"><span class="toc-number">2.3.</span> <span class="toc-text">加密flag</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E7%BB%93%E6%9E%9C"><span class="toc-number">2.4.</span> <span class="toc-text">输出结果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%AF%86%E6%80%9D%E8%B7%AF"><span class="toc-number">3.</span> <span class="toc-text">解密思路</span></a></li></ol>
       </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://zer0ptr.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://zer0ptr.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/&text=攻防世界Crypto-baigeiRSA"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://zer0ptr.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/&title=攻防世界Crypto-baigeiRSA"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zer0ptr.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/&is_video=false&description=攻防世界Crypto-baigeiRSA"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=攻防世界Crypto-baigeiRSA&body=Check out this article: https://zer0ptr.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://zer0ptr.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/&title=攻防世界Crypto-baigeiRSA"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://zer0ptr.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/&title=攻防世界Crypto-baigeiRSA"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://zer0ptr.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/&title=攻防世界Crypto-baigeiRSA"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://zer0ptr.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/&title=攻防世界Crypto-baigeiRSA"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://zer0ptr.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/&name=攻防世界Crypto-baigeiRSA&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://zer0ptr.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/&t=攻防世界Crypto-baigeiRSA"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
     </div>
 
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-
-
-  </aside>
-
-
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
     </div>
+
   </div>
 </div>
 
-
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-  
-  
-
-
-
-
-
-
-
-
-
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
     
-
     
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
+    2025
+    zer0ptr
   </div>
-</div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/zer0ptr">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
 
-    
-
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
     </div>
-  
-  
-  
-</div>
+    <!-- styles -->
 
-  </footer>
 
-  <!-- Scripts -->
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
   
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
     })
+  })
   </script>
 
 
-<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
+<script src="/js/main.js"></script>
 
+<!-- search -->
 
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
+<!-- Baidu Analytics -->
 
+<!-- Cloudflare Analytics -->
 
+<!-- Disqus Comments -->
 
+<!-- utterances Comments -->
 
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
-    var toc = jQuery('#toc');
-    if (toc.length === 0 || !window.tocbot) { return; }
-    var boardCtn = jQuery('#board-ctn');
-    var boardTop = boardCtn.offset().top;
-
-    window.tocbot.init(Object.assign({
-      tocSelector     : '#toc-body',
-      contentSelector : '.markdown-body',
-      linkClass       : 'tocbot-link',
-      activeLinkClass : 'tocbot-active-link',
-      listClass       : 'tocbot-list',
-      isCollapsedClass: 'tocbot-is-collapsed',
-      collapsibleClass: 'tocbot-is-collapsible',
-      scrollSmooth    : true,
-      includeTitleTags: true,
-      headingsOffset  : -boardTop,
-    }, CONFIG.toc));
-    if (toc.find('.toc-list-item').length > 0) {
-      toc.css('visibility', 'visible');
-    }
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('tocbot' in window) {
-        tocbot.refresh();
-        var toc = jQuery('#toc');
-        if (toc.length === 0 || !tocbot) {
-          return;
-        }
-        if (toc.find('.toc-list-item').length > 0) {
-          toc.css('visibility', 'visible');
-        }
-      }
-    });
-  });
-</script>
-
-
-  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
-
-  <script>Fluid.plugins.codeWidget();</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
-    window.anchors.options = {
-      placement: CONFIG.anchorjs.placement,
-      visible  : CONFIG.anchorjs.visible
-    };
-    if (CONFIG.anchorjs.icon) {
-      window.anchors.options.icon = CONFIG.anchorjs.icon;
-    }
-    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-    var res = [];
-    for (var item of el) {
-      res.push('.markdown-body > ' + item.trim());
-    }
-    if (CONFIG.anchorjs.placement === 'left') {
-      window.anchors.options.class = 'anchorjs-link-left';
-    }
-    window.anchors.add(res.join(', '));
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('anchors' in window) {
-        anchors.removeAll();
-        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-        var res = [];
-        for (var item of el) {
-          res.push('.markdown-body > ' + item.trim());
-        }
-        if (CONFIG.anchorjs.placement === 'left') {
-          anchors.options.class = 'anchorjs-link-left';
-        }
-        anchors.add(res.join(', '));
-      }
-    });
-  });
-</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
-    Fluid.plugins.fancyBox();
-  });
-</script>
-
-
-  <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
-  
-
-  <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
-  </noscript>
 </body>
 </html>

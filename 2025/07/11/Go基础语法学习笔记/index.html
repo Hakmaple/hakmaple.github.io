@@ -1,408 +1,221 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
+<html lang=en>
 <head>
-  <meta charset="UTF-8">
-
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/SecureNexusLab.png">
-  <link rel="icon" href="/img/SecureNexusLab.png">
-  
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="zer0ptr">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="Tips: 新手向文章，其中涉及的代码你可以在 Https:&#x2F;&#x2F;github.com&#x2F;fishcanf1y&#x2F;Programming&#x3D;Learning&#x2F;Golang&#x2F; 中找到 Hello World： package main   import &quot;fmt&quot;      func main() &#123;       fmt.Printf(&quot;Hello World\n&amp;q">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Tips: 新手向文章，其中涉及的代码你可以在 Https:&#x2F;&#x2F;github.com&#x2F;fishcanf1y&#x2F;Programming&#x3D;Learning&#x2F;Golang&#x2F; 中找到 Hello World：1234567package main  import &quot;fmt&quot;    func main() &#123;      fmt.Printf(&quot;Hello World\n">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Go基础语法学习笔记">
 <meta property="og:url" content="https://zer0ptr.github.io/2025/07/11/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="zer0ptr&#39;s Blog">
-<meta property="og:description" content="Tips: 新手向文章，其中涉及的代码你可以在 Https:&#x2F;&#x2F;github.com&#x2F;fishcanf1y&#x2F;Programming&#x3D;Learning&#x2F;Golang&#x2F; 中找到 Hello World： package main   import &quot;fmt&quot;      func main() &#123;       fmt.Printf(&quot;Hello World\n&amp;q">
-<meta property="og:locale" content="zh_CN">
+<meta property="og:description" content="Tips: 新手向文章，其中涉及的代码你可以在 Https:&#x2F;&#x2F;github.com&#x2F;fishcanf1y&#x2F;Programming&#x3D;Learning&#x2F;Golang&#x2F; 中找到 Hello World：1234567package main  import &quot;fmt&quot;    func main() &#123;      fmt.Printf(&quot;Hello World\n">
+<meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-07-11T01:13:16.000Z">
 <meta property="article:modified_time" content="2025-07-12T11:18:01.981Z">
 <meta property="article:author" content="zer0ptr">
 <meta property="article:tag" content="Coding">
-<meta name="twitter:card" content="summary_large_image">
-  
-  
-  
-  <title>Go基础语法学习笔记 - zer0ptr&#39;s Blog</title>
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-
-
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/cat.png">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/cat.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/cat.png">
+        
+      
+    
+    <!-- title -->
+    <title>Go基础语法学习笔记</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
 
 
-<link  rel="stylesheet" href="/css/main.css" />
+    <!-- Umami Analytics -->
 
 
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
 
-
-
-  
-<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.7.0/style.min.css">
-
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"zer0ptr.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
-    }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
-
-
-  
-  <script src="/js/sakura.js"></script>
-  <script src="/js/love.js"></script>
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
 <meta name="generator" content="Hexo 7.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
 
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/zer0ptr">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2025/07/11/md5verifier-20250711/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/07/10/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-%E4%BA%86%E4%B8%8D%E8%B5%B7%E7%9A%84%E7%9B%96%E8%8C%A8%E6%AF%94/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://zer0ptr.github.io/2025/07/11/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://zer0ptr.github.io/2025/07/11/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&text=Go基础语法学习笔记"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://zer0ptr.github.io/2025/07/11/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=Go基础语法学习笔记"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zer0ptr.github.io/2025/07/11/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&is_video=false&description=Go基础语法学习笔记"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Go基础语法学习笔记&body=Check out this article: https://zer0ptr.github.io/2025/07/11/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://zer0ptr.github.io/2025/07/11/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=Go基础语法学习笔记"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://zer0ptr.github.io/2025/07/11/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=Go基础语法学习笔记"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://zer0ptr.github.io/2025/07/11/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=Go基础语法学习笔记"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://zer0ptr.github.io/2025/07/11/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=Go基础语法学习笔记"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://zer0ptr.github.io/2025/07/11/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&name=Go基础语法学习笔记&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://zer0ptr.github.io/2025/07/11/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&t=Go基础语法学习笔记"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
 
-<body>
-  
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Hello-World%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">Hello World：</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E5%8C%85%EF%BC%9A"><span class="toc-number">1.1.</span> <span class="toc-text">关于包：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%EF%BC%9A"><span class="toc-number">1.1.1.</span> <span class="toc-text">测试：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Go%E6%A0%87%E8%AE%B0"><span class="toc-number">2.</span> <span class="toc-text">Go标记</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A1%8C%E5%88%86%E9%9A%94%E7%AC%A6"><span class="toc-number">3.</span> <span class="toc-text">行分隔符</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B3%A8%E9%87%8A"><span class="toc-number">4.</span> <span class="toc-text">注释</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%87%E8%AF%86%E7%AC%A6"><span class="toc-number">5.</span> <span class="toc-text">标识符</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%93%BE%E6%8E%A5"><span class="toc-number">6.</span> <span class="toc-text">字符串链接</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-number">7.</span> <span class="toc-text">关键字</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E7%A9%BA%E6%A0%BC"><span class="toc-number">8.</span> <span class="toc-text">Go语言中的空格</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">9.</span> <span class="toc-text">格式化字符串</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
 
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Go基础语法学习笔记
+    </h1>
 
-<div class="header-inner" style="height: 70vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>zer0ptr&#39;s blog</strong>
-    </a>
 
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
 
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/" target="_self">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/" target="_self">
-                <i class="iconfont icon-archive-fill"></i>
-                <span>归档</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/" target="_self">
-                <i class="iconfont icon-category-fill"></i>
-                <span>分类</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/" target="_self">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/" target="_self">
-                <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/" target="_self">
-                <i class="iconfont icon-link-fill"></i>
-                <span>友链</span>
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-  
-
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/background.PNG') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="Go基础语法学习笔记"></span>
-          
-        </div>
-
-        
-          
-  <div class="mt-3">
-    
-    
-      <span class="post-meta">
-        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-07-11 09:13" pubdate>
-          2025年7月11日 上午
-        </time>
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">zer0ptr</span>
       </span>
-    
-  </div>
-
-  <div class="mt-1">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-chart"></i>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-07-11T01:13:16.000Z" class="dt-published" itemprop="datePublished">2025-07-11</time>
         
-          1.8k 字
+        (Updated: <time datetime="2025-07-12T11:18:01.981Z" class="dt-updated" itemprop="dateModified">2025-07-12</time>)
         
-      </span>
-    
-
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-clock-fill"></i>
-        
-        
-        
-          15 分钟
-        
-      </span>
-    
-
-    
-    
-  </div>
-
-
-        
-      </div>
-
       
     </div>
-  </div>
-</div>
 
-</div>
 
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/Coding/">Coding</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/Coding/" rel="tag">Coding</a>
+    </div>
+
+
+    </div>
   </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">Go基础语法学习笔记</h1>
-            
-            
-              <div class="markdown-body">
-                
-                <p><strong>Tips:</strong> 新手向文章，其中涉及的代码你可以在 <em><a href="Https://github.com/fishcanf1y/Programming=Learning/Golang/">Https://github.com/fishcanf1y/Programming=Learning/Golang/</a></em> 中找到</p>
-<h1>Hello World：</h1>
-<div class="code-wrapper"><pre><code class="hljs Golang"><span class="hljs-keyword">package</span> main  
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>  
   
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;  
-    fmt.Printf(<span class="hljs-string">&quot;Hello World\n&quot;</span>)  
-    <span class="hljs-comment">// go run hello.go</span>
-&#125;</code></pre></div>
+
+  <div class="content e-content" itemprop="articleBody">
+    <p><strong>Tips:</strong> 新手向文章，其中涉及的代码你可以在 <em><a target="_blank" rel="noopener" href="https://github.com/fishcanf1y/Programming=Learning/Golang/">Https://github.com/fishcanf1y/Programming=Learning/Golang/</a></em> 中找到</p>
+<h1 id="Hello-World："><a href="#Hello-World：" class="headerlink" title="Hello World："></a>Hello World：</h1><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main  </span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span>  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;  </span><br><span class="line">    fmt.Printf(<span class="string">&quot;Hello World\n&quot;</span>)  </span><br><span class="line">    <span class="comment">// go run hello.go</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 <p>在第一行代码中 <code>package main</code> 定义了包名。你必须在源文件中非注释的第一行指明这个文件属于哪个包，如：<code>package main</code>。 <code>package main</code>表示一个可独立执行的程序，每个 <code>Go</code> 应用程序都包含一个名为 <code>main</code> 的包。</p>
 <p>下一行 <code>import &quot;fmt&quot;</code> 告诉 Go 编译器这个程序需要使用 <code>fmt</code> 包（的函数，或其他元素），<code>fmt</code> 包实现了格式化 <code>IO(输入/输出)</code>的函数。</p>
 <p>下一行 <code>func main()</code> 是程序开始执行的函数。<code>main</code> 函数是每一个可执行程序所必须包含的，一般来说都是在启动后第一个执行的函数（如果有 <code>init()</code> 函数则会先执行该函数）。</p>
-<p>下一行 <code>fmt.Println(...)</code> 可以将字符串输出到控制台，并在最后自动增加换行字符 <code>\n</code>。<br>
-使用 <code>fmt.Print(&quot;hello, world\n&quot;)</code> 可以得到相同的结果。<br>
-<code>Print</code> 和 <code>Println</code> 这两个函数也支持使用变量，如：<code>fmt.Println(arr)</code>。如果没有特别指定，它们会以默认的打印格式将变量 <code>arr</code> 输出到控制台。</p>
+<p>下一行 <code>fmt.Println(...)</code> 可以将字符串输出到控制台，并在最后自动增加换行字符 <code>\n</code>。<br>使用 <code>fmt.Print(&quot;hello, world\n&quot;)</code> 可以得到相同的结果。<br><code>Print</code> 和 <code>Println</code> 这两个函数也支持使用变量，如：<code>fmt.Println(arr)</code>。如果没有特别指定，它们会以默认的打印格式将变量 <code>arr</code> 输出到控制台。</p>
 <p>当标识符（包括常量、变量、类型、函数名、结构字段等等）以一个大写字母开头，如：Group1，那么使用这种形式的标识符的对象就可以被外部包的代码所使用（客户端程序需要先导入这个包），这被称为导出（像面向对象语言中的 public）；标识符如果以小写字母开头，则对包外是不可见的，但是他们在整个包的内部是可见并且可用的（像面向对象语言中的 protected ）。</p>
 <p><em>Attention:<code>&#123;</code>不能单独放在一行，所以以下代码在运行时会产生错误：</em></p>
-<div class="code-wrapper"><pre><code class="hljs Golang"><span class="hljs-keyword">package</span> main
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>  </span><br><span class="line">&#123;  <span class="comment">// 错误，&#123; 不能在单独的行上</span></span><br><span class="line">    fmt.Println(<span class="string">&quot;Hello, World!&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>  
-&#123;  <span class="hljs-comment">// 错误，&#123; 不能在单独的行上</span>
-    fmt.Println(<span class="hljs-string">&quot;Hello, World!&quot;</span>)
-&#125;</code></pre></div>
-<h2 id="关于包：">关于包：</h2>
-<p>关于包，在本地测试得到以下几点</p>
+<h2 id="关于包："><a href="#关于包：" class="headerlink" title="关于包："></a>关于包：</h2><p>关于包，在本地测试得到以下几点</p>
 <ul>
 <li>文件名与包名没有直接关系，不一定要将文件名与包名定成同一个。</li>
 <li>同一个文件夹下的文件只能有一个包名，否则编译报错。</li>
 </ul>
-<h3 id="测试：">测试：</h3>
-<p><strong>文件结构：</strong></p>
-<div class="code-wrapper"><pre><code class="hljs Golang">Test
---helloworld.<span class="hljs-keyword">go</span>
-
-myMath
---myMath1.<span class="hljs-keyword">go</span>
---myMath2.<span class="hljs-keyword">go</span></code></pre></div>
+<h3 id="测试："><a href="#测试：" class="headerlink" title="测试："></a>测试：</h3><p><strong>文件结构：</strong></p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Test</span><br><span class="line">--helloworld.<span class="keyword">go</span></span><br><span class="line"></span><br><span class="line">myMath</span><br><span class="line">--myMath1.<span class="keyword">go</span></span><br><span class="line">--myMath2.<span class="keyword">go</span></span><br></pre></td></tr></table></figure>
 <p><strong>测试代码：</strong></p>
-<div class="code-wrapper"><pre><code class="hljs Golang"><span class="hljs-comment">// helloworld.go</span>
-<span class="hljs-keyword">package</span> main
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// helloworld.go</span></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;./myMath&quot;</span></span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;Hello World!&quot;</span>)</span><br><span class="line">	fmt.Println(mathClass.Add(<span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">	fmt.Println(mathClass.Sub(<span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// myMath1.go</span></span><br><span class="line"><span class="keyword">package</span> mathClass</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Add</span><span class="params">(x <span class="type">int</span>, y <span class="type">int</span>)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// myMath2.go</span></span><br><span class="line"><span class="keyword">package</span> mathClass</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Sub</span><span class="params">(x <span class="type">int</span>, y <span class="type">int</span>)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> x - y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<span class="hljs-keyword">import</span> (
-	<span class="hljs-string">&quot;./myMath&quot;</span>
-	<span class="hljs-string">&quot;fmt&quot;</span>
-)
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
-	fmt.Println(<span class="hljs-string">&quot;Hello World!&quot;</span>)
-	fmt.Println(mathClass.Add(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>))
-	fmt.Println(mathClass.Sub(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>))
-&#125;</code></pre></div>
-<div class="code-wrapper"><pre><code class="hljs Golang"><span class="hljs-comment">// myMath1.go</span>
-<span class="hljs-keyword">package</span> mathClass
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Add</span><span class="hljs-params">(x <span class="hljs-type">int</span>, y <span class="hljs-type">int</span>)</span></span> <span class="hljs-type">int</span> &#123;
-	<span class="hljs-keyword">return</span> x + y
-&#125;</code></pre></div>
-<div class="code-wrapper"><pre><code class="hljs Golang"><span class="hljs-comment">// myMath2.go</span>
-<span class="hljs-keyword">package</span> mathClass
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Sub</span><span class="hljs-params">(x <span class="hljs-type">int</span>, y <span class="hljs-type">int</span>)</span></span> <span class="hljs-type">int</span> &#123;
-	<span class="hljs-keyword">return</span> x - y
-&#125;</code></pre></div>
-<h1>Go标记</h1>
-<p>Go程序可以由多个标记组成，可以是关键字、标识符、常量、字符串和符号等。如以下程序由6个标记组成：</p>
-<div class="code-wrapper"><pre><code class="hljs Golang">fmt.Printf(<span class="hljs-string">&quot;Hello World!&quot;</span>)</code></pre></div>
+<h1 id="Go标记"><a href="#Go标记" class="headerlink" title="Go标记"></a>Go标记</h1><p>Go程序可以由多个标记组成，可以是关键字、标识符、常量、字符串和符号等。如以下程序由6个标记组成：</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fmt.Printf(<span class="string">&quot;Hello World!&quot;</span>)</span><br></pre></td></tr></table></figure>
 <p>6个标记分别是这些</p>
-<div class="code-wrapper"><pre><code class="hljs Golang"><span class="hljs-number">1.</span> .fmt
-<span class="hljs-number">2.</span> .
-<span class="hljs-number">3.</span> Printf
-<span class="hljs-number">4.</span> (
-<span class="hljs-number">5.</span> <span class="hljs-string">&quot;Hello World!&quot;</span>
-<span class="hljs-number">6.</span> )</code></pre></div>
-<h1>行分隔符</h1>
-<p>在Go程序中，一行代表一个语句结束，每一个语句不需要像C家族的语言中添加分号，如果打算将多个语句写在同一行，它们则必须使用 <code>;</code> 以人为区分，实际开发中并不鼓励这种做法。</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> .fmt</span><br><span class="line"><span class="number">2.</span> .</span><br><span class="line"><span class="number">3.</span> Printf</span><br><span class="line"><span class="number">4.</span> (</span><br><span class="line"><span class="number">5.</span> <span class="string">&quot;Hello World!&quot;</span></span><br><span class="line"><span class="number">6.</span> )</span><br></pre></td></tr></table></figure>
+
+<h1 id="行分隔符"><a href="#行分隔符" class="headerlink" title="行分隔符"></a>行分隔符</h1><p>在Go程序中，一行代表一个语句结束，每一个语句不需要像C家族的语言中添加分号，如果打算将多个语句写在同一行，它们则必须使用 <code>;</code> 以人为区分，实际开发中并不鼓励这种做法。</p>
 <p><em>This is am example:</em></p>
-<div class="code-wrapper"><pre><code class="hljs Golang">fmt.Println(<span class="hljs-string">&quot;Hello, World!&quot;</span>)
-fmt.Println(<span class="hljs-string">&quot;Hello, Golang!&quot;</span>)</code></pre></div>
-<h1>注释</h1>
-<p>注释的内容不会被编译，单行注释是最常见的注释形式，你可以在任何地方使用以 <code>//</code> 开头的单行注释。多行注释也叫块注释，均已以 <code>/*</code> 开头，并以 <code>*/</code> 结尾。如：</p>
-<div class="code-wrapper"><pre><code class="hljs Golang"><span class="hljs-comment">// 单行注释</span>
-<span class="hljs-comment">/*</span>
-<span class="hljs-comment"> Author by fishcanf1y</span>
-<span class="hljs-comment"> 我是多行注释</span>
-<span class="hljs-comment"> */</span></code></pre></div>
-<h1>标识符</h1>
-<p>标识符用来命名变量、类型等程序实体。一个标识符实际上就是一个或是多个字母(A~Z和a~z)数字(0~9)、下划线_组成的序列，但是第一个字符必须是字母或下划线而不能是数字。</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fmt.Println(<span class="string">&quot;Hello, World!&quot;</span>)</span><br><span class="line">fmt.Println(<span class="string">&quot;Hello, Golang!&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h1><p>注释的内容不会被编译，单行注释是最常见的注释形式，你可以在任何地方使用以 <code>//</code> 开头的单行注释。多行注释也叫块注释，均已以 <code>/*</code> 开头，并以 <code>*/</code> 结尾。如：</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 单行注释</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> Author by fishcanf1y</span></span><br><span class="line"><span class="comment"> 我是多行注释</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h1><p>标识符用来命名变量、类型等程序实体。一个标识符实际上就是一个或是多个字母(A<del>Z和a</del>z)数字(0~9)、下划线_组成的序列，但是第一个字符必须是字母或下划线而不能是数字。</p>
 <p>以下是有效的标识符：</p>
-<div class="code-wrapper"><pre><code class="hljs Golang">mahesh   kumar   abc   move_name   a_123
-myname50   _temp   j   a23b9   retVal</code></pre></div>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mahesh   kumar   abc   move_name   a_123</span><br><span class="line">myname50   _temp   j   a23b9   retVal</span><br></pre></td></tr></table></figure>
 <p>以下是无效的标识符：</p>
 <ul>
 <li>1ab（以数字开头）</li>
 <li>case（Go 语言的关键字）</li>
 <li>a+b（运算符是不允许的）</li>
 </ul>
-<h1>字符串链接</h1>
-<p>Go语言的字符串连接可以通过<code>+</code>来实现：</p>
-<div class="code-wrapper"><pre><code class="hljs Golang"><span class="hljs-keyword">package</span> main
+<h1 id="字符串链接"><a href="#字符串链接" class="headerlink" title="字符串链接"></a>字符串链接</h1><p>Go语言的字符串连接可以通过<code>+</code>来实现：</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;Hello&quot;</span> + <span class="string">&quot;Google&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
-	fmt.Println(<span class="hljs-string">&quot;Hello&quot;</span> + <span class="hljs-string">&quot;Google&quot;</span>)
-&#125;</code></pre></div>
-<h1>关键字</h1>
-<p>以下列举Go代码中会使用到的25个关键字或保留字：</p>
+<h1 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h1><p>以下列举Go代码中会使用到的25个关键字或保留字：</p>
 <table>
 <thead>
 <tr>
@@ -410,8 +223,7 @@ myname50   _temp   j   a23b9   retVal</code></pre></div>
 <th>Description</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>break</td>
 <td>终止最内层的for或switch语句</td>
 </tr>
@@ -511,8 +323,7 @@ myname50   _temp   j   a23b9   retVal</code></pre></div>
 <td>var</td>
 <td>变量声明</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>除以上所介绍的关键字，Go语言还有36个预定义标识符：</p>
 <table>
 <thead>
@@ -521,8 +332,7 @@ myname50   _temp   j   a23b9   retVal</code></pre></div>
 <th>Description</th>
 </tr>
 </thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td>append</td>
 <td>添加元素到切片</td>
 </tr>
@@ -666,60 +476,32 @@ myname50   _temp   j   a23b9   retVal</code></pre></div>
 <td>uintptr</td>
 <td>无符号指针类型</td>
 </tr>
-</tbody>
-</table>
-<h1>Go语言中的空格</h1>
-<p>在 Go 语言中，空格通常用于分隔标识符、关键字、运算符和表达式，以提高代码的可读性。<br>
-Go 语言中变量的声明必须使用空格隔开，如：</p>
-<div class="code-wrapper"><pre><code class="hljs Golang"><span class="hljs-keyword">var</span> x <span class="hljs-type">int</span>
-<span class="hljs-keyword">const</span> Pi <span class="hljs-type">float64</span> = <span class="hljs-number">3.14159265358979323846</span></code></pre></div>
+</tbody></table>
+<h1 id="Go语言中的空格"><a href="#Go语言中的空格" class="headerlink" title="Go语言中的空格"></a>Go语言中的空格</h1><p>在 Go 语言中，空格通常用于分隔标识符、关键字、运算符和表达式，以提高代码的可读性。<br>Go 语言中变量的声明必须使用空格隔开，如：</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x <span class="type">int</span></span><br><span class="line"><span class="keyword">const</span> Pi <span class="type">float64</span> = <span class="number">3.14159265358979323846</span></span><br></pre></td></tr></table></figure>
 <p>在运算符和操作数之间要使用空格能让程序更易阅读</p>
 <p>无空格：</p>
-<div class="code-wrapper"><pre><code class="hljs Golang">fruit=apples+oranges;</code></pre></div>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fruit=apples+oranges;</span><br></pre></td></tr></table></figure>
 <p>在关键字和表达式之间要使用空格。</p>
 <p>例如：</p>
-<div class="code-wrapper"><pre><code class="hljs golang"><span class="hljs-keyword">if</span> x &gt; <span class="hljs-number">0</span> &#123;
-    <span class="hljs-comment">// do something</span>
-&#125;</code></pre></div>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> x &gt; <span class="number">0</span> &#123;</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>在函数调用时，函数名和左边等号之间要使用空格，参数之间也要使用空格。</p>
 <p>例如：</p>
-<div class="code-wrapper"><pre><code class="hljs Golang">result := add(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>)</code></pre></div>
-<h1>格式化字符串</h1>
-<p>Go 语言中使用 <code>fmt.Sprintf</code> 或 <code>fmt.Printf</code> 格式化字符串并赋值给新串：</p>
-<p><code>Sprintf</code> 根据格式化参数生成格式化的字符串并返回该字符串。<br>
-<code>Printf</code> 根据格式化参数生成格式化的字符串并写入标准输出。</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result := add(<span class="number">2</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="格式化字符串"><a href="#格式化字符串" class="headerlink" title="格式化字符串"></a>格式化字符串</h1><p>Go 语言中使用 <code>fmt.Sprintf</code> 或 <code>fmt.Printf</code> 格式化字符串并赋值给新串：</p>
+<p><code>Sprintf</code> 根据格式化参数生成格式化的字符串并返回该字符串。<br><code>Printf</code> 根据格式化参数生成格式化的字符串并写入标准输出。</p>
 <p><em>Sprintf示例：</em></p>
-<div class="code-wrapper"><pre><code class="hljs Golang"><span class="hljs-keyword">package</span> main
-
-<span class="hljs-keyword">import</span> (
-    <span class="hljs-string">&quot;fmt&quot;</span>
-)
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
-   <span class="hljs-comment">// %d 表示整型数字，%s 表示字符串</span>
-    <span class="hljs-keyword">var</span> stockcode=<span class="hljs-number">123</span>
-    <span class="hljs-keyword">var</span> enddate=<span class="hljs-string">&quot;2025-07-11&quot;</span>
-    <span class="hljs-keyword">var</span> url=<span class="hljs-string">&quot;Code=%d&amp;endDate=%s&quot;</span>
-    <span class="hljs-keyword">var</span> target_url=fmt.Sprintf(url,stockcode,enddate)
-    fmt.Println(target_url)
-&#125;</code></pre></div>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="comment">// %d 表示整型数字，%s 表示字符串</span></span><br><span class="line">    <span class="keyword">var</span> stockcode=<span class="number">123</span></span><br><span class="line">    <span class="keyword">var</span> enddate=<span class="string">&quot;2025-07-11&quot;</span></span><br><span class="line">    <span class="keyword">var</span> url=<span class="string">&quot;Code=%d&amp;endDate=%s&quot;</span></span><br><span class="line">    <span class="keyword">var</span> target_url=fmt.Sprintf(url,stockcode,enddate)</span><br><span class="line">    fmt.Println(target_url)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>输出结果为：</p>
-<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">Code</span>=<span class="hljs-number">123</span>&amp;endDate=<span class="hljs-number">2025</span>-<span class="hljs-number">07</span>-<span class="hljs-number">11</span></code></pre></div>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Code=123&amp;endDate=2025-07-11</span><br></pre></td></tr></table></figure>
+
 <p><em>Printf示例：</em></p>
-<div class="code-wrapper"><pre><code class="hljs Golang"><span class="hljs-keyword">package</span> main
-
-<span class="hljs-keyword">import</span> (
-	<span class="hljs-string">&quot;fmt&quot;</span>
-)
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;
-	<span class="hljs-keyword">var</span> stockcode = <span class="hljs-number">123</span>
-	<span class="hljs-keyword">var</span> enddate = <span class="hljs-string">&quot;2025-07-11&quot;</span>
-	<span class="hljs-keyword">var</span> url = <span class="hljs-string">&quot;Code=%d&amp;endDate=%s&quot;</span>
-	fmt.Printf(url, stockcode, enddate)
-&#125;</code></pre></div>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> stockcode = <span class="number">123</span></span><br><span class="line">	<span class="keyword">var</span> enddate = <span class="string">&quot;2025-07-11&quot;</span></span><br><span class="line">	<span class="keyword">var</span> url = <span class="string">&quot;Code=%d&amp;endDate=%s&quot;</span></span><br><span class="line">	fmt.Printf(url, stockcode, enddate)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>输出结果为：</p>
-<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">Code</span>=<span class="hljs-number">123</span>&amp;endDate=<span class="hljs-number">2025</span>-<span class="hljs-number">07</span>-<span class="hljs-number">11</span></code></pre></div>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Code=123&amp;endDate=2025-07-11</span><br></pre></td></tr></table></figure>
+
 <script src="https://giscus.app/client.js"
         data-repo="fishcanf1y/fishcanf1y.github.io"
         data-repo-id="R_kgDONzaTTQ"
@@ -735,429 +517,143 @@ Go 语言中变量的声明必须使用空格隔开，如：</p>
         crossorigin="anonymous"
         async>
 </script>
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
+  </div>
+</article>
 
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
+
+
         
-  <a href="/categories/Coding/" class="category-chain-item">Coding</a>
-  
-  
+          <div id="footer-post-container">
+  <div id="footer-post">
 
-      </span>
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="http://github.com/zer0ptr">Projects</a></li>
+        
+      </ul>
+    </div>
+
     
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Coding/" class="print-no-link">#Coding</a>
-      
-    </div>
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>Go基础语法学习笔记</div>
-      <div>https://zer0ptr.github.io/2025/07/11/Go基础语法学习笔记/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>zer0ptr</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2025年7月11日</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>许可协议</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-cc-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2025/07/11/md5verifier-20250711/" title="How to design an MD5 verifier">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">How to design an MD5 verifier</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2025/07/10/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-%E4%BA%86%E4%B8%8D%E8%B5%B7%E7%9A%84%E7%9B%96%E8%8C%A8%E6%AF%94/" title="攻防世界Crypto-了不起的盖茨比">
-                        <span class="hidden-mobile">攻防世界Crypto-了不起的盖茨比</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-  
-  
-    <article id="comments" lazyload>
-      
-
-    </article>
-  
-
-
-          </article>
-        </div>
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Hello-World%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">Hello World：</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E5%8C%85%EF%BC%9A"><span class="toc-number">1.1.</span> <span class="toc-text">关于包：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%EF%BC%9A"><span class="toc-number">1.1.1.</span> <span class="toc-text">测试：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Go%E6%A0%87%E8%AE%B0"><span class="toc-number">2.</span> <span class="toc-text">Go标记</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A1%8C%E5%88%86%E9%9A%94%E7%AC%A6"><span class="toc-number">3.</span> <span class="toc-text">行分隔符</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B3%A8%E9%87%8A"><span class="toc-number">4.</span> <span class="toc-text">注释</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%87%E8%AF%86%E7%AC%A6"><span class="toc-number">5.</span> <span class="toc-text">标识符</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%93%BE%E6%8E%A5"><span class="toc-number">6.</span> <span class="toc-text">字符串链接</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-number">7.</span> <span class="toc-text">关键字</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Go%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%9A%84%E7%A9%BA%E6%A0%BC"><span class="toc-number">8.</span> <span class="toc-text">Go语言中的空格</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">9.</span> <span class="toc-text">格式化字符串</span></a></li></ol>
       </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://zer0ptr.github.io/2025/07/11/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://zer0ptr.github.io/2025/07/11/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&text=Go基础语法学习笔记"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://zer0ptr.github.io/2025/07/11/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=Go基础语法学习笔记"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zer0ptr.github.io/2025/07/11/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&is_video=false&description=Go基础语法学习笔记"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Go基础语法学习笔记&body=Check out this article: https://zer0ptr.github.io/2025/07/11/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://zer0ptr.github.io/2025/07/11/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=Go基础语法学习笔记"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://zer0ptr.github.io/2025/07/11/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=Go基础语法学习笔记"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://zer0ptr.github.io/2025/07/11/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=Go基础语法学习笔记"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://zer0ptr.github.io/2025/07/11/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=Go基础语法学习笔记"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://zer0ptr.github.io/2025/07/11/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&name=Go基础语法学习笔记&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://zer0ptr.github.io/2025/07/11/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&t=Go基础语法学习笔记"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
     </div>
 
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-
-
-  </aside>
-
-
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
     </div>
+
   </div>
 </div>
 
-
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-  
-  
-
-
-
-
-
-
-
-
-
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
     
-
     
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
+    2025
+    zer0ptr
   </div>
-</div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/zer0ptr">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
 
-    
-
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
     </div>
-  
-  
-  
-</div>
+    <!-- styles -->
 
-  </footer>
 
-  <!-- Scripts -->
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
   
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
     })
+  })
   </script>
 
 
-<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
+<script src="/js/main.js"></script>
 
+<!-- search -->
 
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
+<!-- Baidu Analytics -->
 
+<!-- Cloudflare Analytics -->
 
+<!-- Disqus Comments -->
 
+<!-- utterances Comments -->
 
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
-    var toc = jQuery('#toc');
-    if (toc.length === 0 || !window.tocbot) { return; }
-    var boardCtn = jQuery('#board-ctn');
-    var boardTop = boardCtn.offset().top;
-
-    window.tocbot.init(Object.assign({
-      tocSelector     : '#toc-body',
-      contentSelector : '.markdown-body',
-      linkClass       : 'tocbot-link',
-      activeLinkClass : 'tocbot-active-link',
-      listClass       : 'tocbot-list',
-      isCollapsedClass: 'tocbot-is-collapsed',
-      collapsibleClass: 'tocbot-is-collapsible',
-      scrollSmooth    : true,
-      includeTitleTags: true,
-      headingsOffset  : -boardTop,
-    }, CONFIG.toc));
-    if (toc.find('.toc-list-item').length > 0) {
-      toc.css('visibility', 'visible');
-    }
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('tocbot' in window) {
-        tocbot.refresh();
-        var toc = jQuery('#toc');
-        if (toc.length === 0 || !tocbot) {
-          return;
-        }
-        if (toc.find('.toc-list-item').length > 0) {
-          toc.css('visibility', 'visible');
-        }
-      }
-    });
-  });
-</script>
-
-
-  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
-
-  <script>Fluid.plugins.codeWidget();</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
-    window.anchors.options = {
-      placement: CONFIG.anchorjs.placement,
-      visible  : CONFIG.anchorjs.visible
-    };
-    if (CONFIG.anchorjs.icon) {
-      window.anchors.options.icon = CONFIG.anchorjs.icon;
-    }
-    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-    var res = [];
-    for (var item of el) {
-      res.push('.markdown-body > ' + item.trim());
-    }
-    if (CONFIG.anchorjs.placement === 'left') {
-      window.anchors.options.class = 'anchorjs-link-left';
-    }
-    window.anchors.add(res.join(', '));
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('anchors' in window) {
-        anchors.removeAll();
-        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-        var res = [];
-        for (var item of el) {
-          res.push('.markdown-body > ' + item.trim());
-        }
-        if (CONFIG.anchorjs.placement === 'left') {
-          anchors.options.class = 'anchorjs-link-left';
-        }
-        anchors.add(res.join(', '));
-      }
-    });
-  });
-</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
-    Fluid.plugins.fancyBox();
-  });
-</script>
-
-
-  <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
-  
-
-  <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
-  </noscript>
 </body>
 </html>

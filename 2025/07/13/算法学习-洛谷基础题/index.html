@@ -1,319 +1,176 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
+<html lang=en>
 <head>
-  <meta charset="UTF-8">
-
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/SecureNexusLab.png">
-  <link rel="icon" href="/img/SecureNexusLab.png">
-  
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="zer0ptr">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="三角形面积 关键：海伦公式 #include &lt;stdio.h&gt; #include &lt;math.h&gt;  double cacu(double a,double b,double c)&#123;     double p&#x3D;0;     p&#x3D;0.5*(a+b+c);     return (sqrt(p*(p-a)*(p-b)*(p-c))); &#125; int main">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="三角形面积 关键：海伦公式 1234567891011121314151617#include &lt;stdio.h&gt;#include &lt;math.h&gt;double cacu(double a,double b,double c)&#123;    double p&#x3D;0;    p&#x3D;0.5*(a+b+c);    return (sqrt(p*(p-a)*(p-b)*(p-c)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="算法学习-洛谷基础题">
 <meta property="og:url" content="https://zer0ptr.github.io/2025/07/13/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%B4%9B%E8%B0%B7%E5%9F%BA%E7%A1%80%E9%A2%98/index.html">
 <meta property="og:site_name" content="zer0ptr&#39;s Blog">
-<meta property="og:description" content="三角形面积 关键：海伦公式 #include &lt;stdio.h&gt; #include &lt;math.h&gt;  double cacu(double a,double b,double c)&#123;     double p&#x3D;0;     p&#x3D;0.5*(a+b+c);     return (sqrt(p*(p-a)*(p-b)*(p-c))); &#125; int main">
-<meta property="og:locale" content="zh_CN">
+<meta property="og:description" content="三角形面积 关键：海伦公式 1234567891011121314151617#include &lt;stdio.h&gt;#include &lt;math.h&gt;double cacu(double a,double b,double c)&#123;    double p&#x3D;0;    p&#x3D;0.5*(a+b+c);    return (sqrt(p*(p-a)*(p-b)*(p-c)">
+<meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-07-13T05:33:22.000Z">
 <meta property="article:modified_time" content="2025-07-24T04:38:14.538Z">
 <meta property="article:author" content="zer0ptr">
 <meta property="article:tag" content="Coding">
-<meta name="twitter:card" content="summary_large_image">
-  
-  
-  
-  <title>算法学习-洛谷基础题 - zer0ptr&#39;s Blog</title>
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-
-
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/cat.png">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/cat.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/cat.png">
+        
+      
+    
+    <!-- title -->
+    <title>算法学习-洛谷基础题</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
 
 
-<link  rel="stylesheet" href="/css/main.css" />
+    <!-- Umami Analytics -->
 
 
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
 
-
-
-  
-<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.7.0/style.min.css">
-
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"zer0ptr.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
-    }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
-
-
-  
-  <script src="/js/sakura.js"></script>
-  <script src="/js/love.js"></script>
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
 <meta name="generator" content="Hexo 7.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
 
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/zer0ptr">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/07/12/Web%E5%BA%B7%E5%A4%8D%E8%AE%AD%E7%BB%83-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CWeb2/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://zer0ptr.github.io/2025/07/13/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%B4%9B%E8%B0%B7%E5%9F%BA%E7%A1%80%E9%A2%98/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://zer0ptr.github.io/2025/07/13/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%B4%9B%E8%B0%B7%E5%9F%BA%E7%A1%80%E9%A2%98/&text=算法学习-洛谷基础题"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://zer0ptr.github.io/2025/07/13/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%B4%9B%E8%B0%B7%E5%9F%BA%E7%A1%80%E9%A2%98/&title=算法学习-洛谷基础题"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zer0ptr.github.io/2025/07/13/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%B4%9B%E8%B0%B7%E5%9F%BA%E7%A1%80%E9%A2%98/&is_video=false&description=算法学习-洛谷基础题"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=算法学习-洛谷基础题&body=Check out this article: https://zer0ptr.github.io/2025/07/13/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%B4%9B%E8%B0%B7%E5%9F%BA%E7%A1%80%E9%A2%98/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://zer0ptr.github.io/2025/07/13/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%B4%9B%E8%B0%B7%E5%9F%BA%E7%A1%80%E9%A2%98/&title=算法学习-洛谷基础题"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://zer0ptr.github.io/2025/07/13/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%B4%9B%E8%B0%B7%E5%9F%BA%E7%A1%80%E9%A2%98/&title=算法学习-洛谷基础题"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://zer0ptr.github.io/2025/07/13/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%B4%9B%E8%B0%B7%E5%9F%BA%E7%A1%80%E9%A2%98/&title=算法学习-洛谷基础题"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://zer0ptr.github.io/2025/07/13/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%B4%9B%E8%B0%B7%E5%9F%BA%E7%A1%80%E9%A2%98/&title=算法学习-洛谷基础题"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://zer0ptr.github.io/2025/07/13/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%B4%9B%E8%B0%B7%E5%9F%BA%E7%A1%80%E9%A2%98/&name=算法学习-洛谷基础题&description=&lt;p&gt;&lt;strong&gt;三角形面积&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;关键：海伦公式&lt;/p&gt;
+&lt;figure class=&#34;highlight c&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;#&lt;span class=&#34;keyword&#34;&gt;include&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;#&lt;span class=&#34;keyword&#34;&gt;include&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;&amp;lt;math.h&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;type&#34;&gt;double&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;cacu&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(&lt;span class=&#34;type&#34;&gt;double&lt;/span&gt; a,&lt;span class=&#34;type&#34;&gt;double&lt;/span&gt; b,&lt;span class=&#34;type&#34;&gt;double&lt;/span&gt; c)&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;type&#34;&gt;double&lt;/span&gt; p=&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    p=&lt;span class=&#34;number&#34;&gt;0.5&lt;/span&gt;*(a+b+c);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; (&lt;span class=&#34;built_in&#34;&gt;sqrt&lt;/span&gt;(p*(p-a)*(p-b)*(p-c)));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;type&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(&lt;span class=&#34;type&#34;&gt;void&lt;/span&gt;)&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;type&#34;&gt;double&lt;/span&gt; a=&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;,b=&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;,c=&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;,S=&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;built_in&#34;&gt;scanf&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;%lf %lf %lf&amp;quot;&lt;/span&gt;,&amp;amp;a,&amp;amp;b,&amp;amp;c);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    S=cacu(a,b,c);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;built_in&#34;&gt;printf&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;%.1lf&amp;quot;&lt;/span&gt;,S);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;// gcc 三角形面积.c -lm -o 三角形面积&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://zer0ptr.github.io/2025/07/13/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%B4%9B%E8%B0%B7%E5%9F%BA%E7%A1%80%E9%A2%98/&t=算法学习-洛谷基础题"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
 
-<body>
-  
+    </div>
+    
+    
+  </span>
+</div>
 
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     
+    <h1 class="posttitle p-name" itemprop="name headline">
+        算法学习-洛谷基础题
+    </h1>
 
-<div class="header-inner" style="height: 70vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>zer0ptr&#39;s blog</strong>
-    </a>
 
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
 
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">zer0ptr</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-07-13T05:33:22.000Z" class="dt-published" itemprop="datePublished">2025-07-13</time>
         
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/" target="_self">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
+        (Updated: <time datetime="2025-07-24T04:38:14.538Z" class="dt-updated" itemprop="dateModified">2025-07-24</time>)
         
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/" target="_self">
-                <i class="iconfont icon-archive-fill"></i>
-                <span>归档</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/" target="_self">
-                <i class="iconfont icon-category-fill"></i>
-                <span>分类</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/" target="_self">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/" target="_self">
-                <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/" target="_self">
-                <i class="iconfont icon-link-fill"></i>
-                <span>友链</span>
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
-      </ul>
+      
     </div>
-  </div>
-</nav>
 
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/Coding/">Coding</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/Coding/" rel="tag">Coding</a>
+    </div>
+
+
+    </div>
+  </header>
   
 
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/background.PNG') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="算法学习-洛谷基础题"></span>
-          
-        </div>
-
-        
-          
-  <div class="mt-3">
-    
-    
-      <span class="post-meta">
-        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-07-13 13:33" pubdate>
-          2025年7月13日 下午
-        </time>
-      </span>
-    
-  </div>
-
-  <div class="mt-1">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-chart"></i>
-        
-          2.2k 字
-        
-      </span>
-    
-
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-clock-fill"></i>
-        
-        
-        
-          19 分钟
-        
-      </span>
-    
-
-    
-    
-  </div>
-
-
-        
-      </div>
-
-      
-    </div>
-  </div>
-</div>
-
-</div>
-
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">算法学习-洛谷基础题</h1>
-            
-            
-              <div class="markdown-body">
-                
-                <p><strong>三角形面积</strong></p>
+  <div class="content e-content" itemprop="articleBody">
+    <p><strong>三角形面积</strong></p>
 <p>关键：海伦公式</p>
-<div class="code-wrapper"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;math.h&gt;</span></span>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;math.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">double</span> <span class="title function_">cacu</span><span class="params">(<span class="type">double</span> a,<span class="type">double</span> b,<span class="type">double</span> c)</span>&#123;</span><br><span class="line">    <span class="type">double</span> p=<span class="number">0</span>;</span><br><span class="line">    p=<span class="number">0.5</span>*(a+b+c);</span><br><span class="line">    <span class="keyword">return</span> (<span class="built_in">sqrt</span>(p*(p-a)*(p-b)*(p-c)));</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">    <span class="type">double</span> a=<span class="number">0</span>,b=<span class="number">0</span>,c=<span class="number">0</span>,S=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%lf %lf %lf&quot;</span>,&amp;a,&amp;b,&amp;c);</span><br><span class="line">    S=cacu(a,b,c);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%.1lf&quot;</span>,S);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// gcc 三角形面积.c -lm -o 三角形面积</span></span><br></pre></td></tr></table></figure>
 
-<span class="hljs-type">double</span> <span class="hljs-title function_">cacu</span><span class="hljs-params">(<span class="hljs-type">double</span> a,<span class="hljs-type">double</span> b,<span class="hljs-type">double</span> c)</span>&#123;
-    <span class="hljs-type">double</span> p=<span class="hljs-number">0</span>;
-    p=<span class="hljs-number">0.5</span>*(a+b+c);
-    <span class="hljs-keyword">return</span> (<span class="hljs-built_in">sqrt</span>(p*(p-a)*(p-b)*(p-c)));
-&#125;
-<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>&#123;
-    <span class="hljs-type">double</span> a=<span class="hljs-number">0</span>,b=<span class="hljs-number">0</span>,c=<span class="hljs-number">0</span>,S=<span class="hljs-number">0</span>;
-    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%lf %lf %lf&quot;</span>,&amp;a,&amp;b,&amp;c);
-    S=cacu(a,b,c);
-    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%.1lf&quot;</span>,S);
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;
-
-<span class="hljs-comment">// gcc 三角形面积.c -lm -o 三角形面积</span></code></pre></div>
 <span id="more"></span>
+
 <p><strong>对角线</strong></p>
 <blockquote>
 <p>两条对角线其实确定了四个点（可以这么理解）</p>
@@ -324,794 +181,179 @@
 <blockquote>
 <p>所以每个顶点由一个四边形造成</p>
 </blockquote>
-<div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
-<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>&#123;
-    <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> <span class="hljs-type">long</span> a=<span class="hljs-number">0</span>,b=<span class="hljs-number">0</span>;
-    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%lld&quot;</span>,&amp;a);
-    b=a*(a<span class="hljs-number">-1</span>)/<span class="hljs-number">2</span>*(a<span class="hljs-number">-2</span>)/<span class="hljs-number">3</span>*(a<span class="hljs-number">-3</span>)/<span class="hljs-number">4</span>;
-    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%lld&quot;</span>,b);
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre></div>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> a=<span class="number">0</span>,b=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%lld&quot;</span>,&amp;a);</span><br><span class="line">    b=a*(a<span class="number">-1</span>)/<span class="number">2</span>*(a<span class="number">-2</span>)/<span class="number">3</span>*(a<span class="number">-3</span>)/<span class="number">4</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%lld&quot;</span>,b);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><em>小技巧 <code>b=a*(a-1)*(a-2)*(a-3)/24;</code> 改成 <code>b=a*(a-1)/2*(a-2)/3*(a-3)/4;</code></em></p>
 <p><strong>数的性质</strong></p>
 <p>一些数字可能拥有以下的性质：</p>
-<p>性质 1：是偶数；<br>
-性质 2：大于 4 且不大于 12。<br>
-小A 喜欢这两个性质同时成立的数字；Uim 喜欢这至少符合其中一种性质的数字；八尾勇喜欢刚好有符合其中一个性质的数字；正妹喜欢不符合这两个性质的数字。</p>
-<div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;math.h&gt;</span></span>
+<p>性质 1：是偶数；<br>性质 2：大于 4 且不大于 12。<br>小A 喜欢这两个性质同时成立的数字；Uim 喜欢这至少符合其中一种性质的数字；八尾勇喜欢刚好有符合其中一个性质的数字；正妹喜欢不符合这两个性质的数字。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;math.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">judge</span><span class="params">(<span class="type">int</span> num)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(num%<span class="number">2</span>==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(num&gt;<span class="number">4</span>&amp;&amp;num&lt;=<span class="number">12</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">4</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(num&gt;<span class="number">4</span>&amp;&amp;num&lt;=<span class="number">12</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">    <span class="type">int</span> a=<span class="number">0</span>,choice;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;a);</span><br><span class="line">    choice=judge(a);</span><br><span class="line">    <span class="keyword">switch</span>(choice)&#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">4</span>:<span class="built_in">printf</span>(<span class="string">&quot;1 1 0 0&quot;</span>); <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">3</span>:<span class="built_in">printf</span>(<span class="string">&quot;0 1 1 0&quot;</span>); <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;0 0 0 1&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<span class="hljs-type">int</span> <span class="hljs-title function_">judge</span><span class="hljs-params">(<span class="hljs-type">int</span> num)</span>&#123;
-    <span class="hljs-keyword">if</span>(num%<span class="hljs-number">2</span>==<span class="hljs-number">0</span>)&#123;
-        <span class="hljs-keyword">if</span>(num&gt;<span class="hljs-number">4</span>&amp;&amp;num&lt;=<span class="hljs-number">12</span>)&#123;
-            <span class="hljs-keyword">return</span> <span class="hljs-number">4</span>;
-        &#125;
-        <span class="hljs-keyword">return</span> <span class="hljs-number">3</span>;
-    &#125;
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(num&gt;<span class="hljs-number">4</span>&amp;&amp;num&lt;=<span class="hljs-number">12</span>)&#123;
-        <span class="hljs-keyword">return</span> <span class="hljs-number">3</span>;
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>;
-&#125;
+<p><strong>闰年判断</strong><br>输入一个年份（大于 1582 的整数 ），判断这一年是否是闰年，如果是输出 1，否则输出 0。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;math.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">judge</span><span class="params">(<span class="type">int</span> num)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(num%<span class="number">4</span>==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(num%<span class="number">400</span>==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(num%<span class="number">100</span>==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">    <span class="type">int</span> a=<span class="number">0</span>,choice;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;a);</span><br><span class="line">    choice=judge(a);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,choice);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>&#123;
-    <span class="hljs-type">int</span> a=<span class="hljs-number">0</span>,choice;
-    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>,&amp;a);
-    choice=judge(a);
-    <span class="hljs-keyword">switch</span>(choice)&#123;
-        <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;1 1 0 0&quot;</span>); <span class="hljs-keyword">break</span>;
-        <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;0 1 1 0&quot;</span>); <span class="hljs-keyword">break</span>;
-        <span class="hljs-keyword">default</span>:
-            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;0 0 0 1&quot;</span>);
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre></div>
-<p><strong>闰年判断</strong><br>
-输入一个年份（大于 1582 的整数 ），判断这一年是否是闰年，如果是输出 1，否则输出 0。</p>
-<div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;math.h&gt;</span></span>
-
-<span class="hljs-type">int</span> <span class="hljs-title function_">judge</span><span class="hljs-params">(<span class="hljs-type">int</span> num)</span>&#123;
-    <span class="hljs-keyword">if</span>(num%<span class="hljs-number">4</span>==<span class="hljs-number">0</span>)&#123;
-        <span class="hljs-keyword">if</span>(num%<span class="hljs-number">400</span>==<span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
-    &#125;
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(num%<span class="hljs-number">100</span>==<span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;
-
-<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>&#123;
-    <span class="hljs-type">int</span> a=<span class="hljs-number">0</span>,choice;
-    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>,&amp;a);
-    choice=judge(a);
-    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d&quot;</span>,choice);
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre></div>
 <p><strong>洛谷团队系统</strong></p>
-<div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
-<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>&#123;
-    <span class="hljs-type">int</span> a=<span class="hljs-number">0</span>,local,luogu;
-    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>,&amp;a);
-    local=a*<span class="hljs-number">5</span>;
-    luogu=<span class="hljs-number">11</span>+<span class="hljs-number">3</span>*a;
-    <span class="hljs-keyword">if</span>(local&lt;=luogu) <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Local&quot;</span>);
-    <span class="hljs-keyword">else</span> <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Luogu&quot;</span>);
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre></div>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">    <span class="type">int</span> a=<span class="number">0</span>,local,luogu;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;a);</span><br><span class="line">    local=a*<span class="number">5</span>;</span><br><span class="line">    luogu=<span class="number">11</span>+<span class="number">3</span>*a;</span><br><span class="line">    <span class="keyword">if</span>(local&lt;=luogu) <span class="built_in">printf</span>(<span class="string">&quot;Local&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;Luogu&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p><strong>肥胖问题</strong></p>
-<div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">    <span class="type">double</span> m,h,BMI;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%lf %lf&quot;</span>,&amp;m,&amp;h);</span><br><span class="line">    BMI=m/(h*h);</span><br><span class="line">    <span class="keyword">if</span>(BMI&lt;<span class="number">18.5</span>) <span class="built_in">printf</span>(<span class="string">&quot;Underweight&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(BMI&gt;=<span class="number">18.5</span>&amp;&amp;BMI&lt;<span class="number">24</span>) <span class="built_in">printf</span>(<span class="string">&quot;Normal&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%.6g\n&quot;</span>,BMI);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Overweight&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>&#123;
-    <span class="hljs-type">double</span> m,h,BMI;
-    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%lf %lf&quot;</span>,&amp;m,&amp;h);
-    BMI=m/(h*h);
-    <span class="hljs-keyword">if</span>(BMI&lt;<span class="hljs-number">18.5</span>) <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Underweight&quot;</span>);
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(BMI&gt;=<span class="hljs-number">18.5</span>&amp;&amp;BMI&lt;<span class="hljs-number">24</span>) <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Normal&quot;</span>);
-    <span class="hljs-keyword">else</span>&#123;
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%.6g\n&quot;</span>,BMI);
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Overweight&quot;</span>);
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre></div>
-<p><strong>三位数排序</strong><br>
-给出三个整数 a,b,c(0&lt;=a,b,c&lt;=100)a,b,c(0≤a,b,c≤100)，要求把这三位整数从小到大排序。</p>
-<div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<p><strong>三位数排序</strong><br>给出三个整数 a,b,c(0&lt;&#x3D;a,b,c&lt;&#x3D;100)a,b,c(0≤a,b,c≤100)，要求把这三位整数从小到大排序。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">    <span class="type">int</span> m,h,n;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d %d&quot;</span>,&amp;m,&amp;h,&amp;n);</span><br><span class="line">    <span class="keyword">if</span> (m&gt;=h&amp;&amp;m&gt;=n&amp;&amp;h&gt;=n)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d %d %d&quot;</span>,n,h,m);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (m&gt;=h&amp;&amp;m&gt;=n&amp;&amp;n&gt;=h)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d %d %d&quot;</span>,h,n,m);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (h&gt;=m&amp;&amp;m&gt;=n&amp;&amp;h&gt;=n)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d %d %d&quot;</span>,n,m,h);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (n&gt;=m&amp;&amp;m&gt;h&amp;&amp;n&gt;=h)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d %d %d&quot;</span>,h,m,n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (h&gt;=m&amp;&amp;n&gt;m&amp;&amp;n&gt;=h)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d %d %d&quot;</span>,m,h,n);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d %d %d&quot;</span>,m,n,h);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>&#123;
-    <span class="hljs-type">int</span> m,h,n;
-    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d %d %d&quot;</span>,&amp;m,&amp;h,&amp;n);
-    <span class="hljs-keyword">if</span> (m&gt;=h&amp;&amp;m&gt;=n&amp;&amp;h&gt;=n)&#123;
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d %d %d&quot;</span>,n,h,m);
-    &#125;
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (m&gt;=h&amp;&amp;m&gt;=n&amp;&amp;n&gt;=h)&#123;
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d %d %d&quot;</span>,h,n,m);
-    &#125;
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (h&gt;=m&amp;&amp;m&gt;=n&amp;&amp;h&gt;=n)&#123;
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d %d %d&quot;</span>,n,m,h);
-    &#125;
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (n&gt;=m&amp;&amp;m&gt;h&amp;&amp;n&gt;=h)&#123;
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d %d %d&quot;</span>,h,m,n);
-    &#125;
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (h&gt;=m&amp;&amp;n&gt;m&amp;&amp;n&gt;=h)&#123;
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d %d %d&quot;</span>,m,h,n);
-    &#125;
-    <span class="hljs-keyword">else</span>&#123;
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d %d %d&quot;</span>,m,n,h);
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre></div>
-<p><strong>月份天数</strong><br>
-输入年份和月份，输出这一年的这一月有多少天。需要考虑闰年</p>
-<div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<p><strong>月份天数</strong><br>输入年份和月份，输出这一年的这一月有多少天。需要考虑闰年</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">judge</span><span class="params">(<span class="type">int</span> a)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(a==<span class="number">1</span>||a==<span class="number">3</span>||a==<span class="number">5</span>||a==<span class="number">7</span>||a==<span class="number">8</span>|a==<span class="number">10</span>||a==<span class="number">12</span>) <span class="built_in">printf</span>(<span class="string">&quot;31&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;30&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">judge_run</span><span class="params">(<span class="type">int</span> num)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(num%<span class="number">4</span>==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(num%<span class="number">400</span>==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(num%<span class="number">100</span>==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">int</span> year,month,day;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>,&amp;year,&amp;month);</span><br><span class="line">    <span class="keyword">if</span>(month==<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(judge_run(year))&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;29&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;28&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    judge(month);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<span class="hljs-type">int</span> <span class="hljs-title function_">judge</span><span class="hljs-params">(<span class="hljs-type">int</span> a)</span>&#123;
-    <span class="hljs-keyword">if</span>(a==<span class="hljs-number">1</span>||a==<span class="hljs-number">3</span>||a==<span class="hljs-number">5</span>||a==<span class="hljs-number">7</span>||a==<span class="hljs-number">8</span>|a==<span class="hljs-number">10</span>||a==<span class="hljs-number">12</span>) <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;31&quot;</span>);
-    <span class="hljs-keyword">else</span> <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;30&quot;</span>);
-&#125;
-
-<span class="hljs-type">int</span> <span class="hljs-title function_">judge_run</span><span class="hljs-params">(<span class="hljs-type">int</span> num)</span>&#123;
-    <span class="hljs-keyword">if</span>(num%<span class="hljs-number">4</span>==<span class="hljs-number">0</span>)&#123;
-        <span class="hljs-keyword">if</span>(num%<span class="hljs-number">400</span>==<span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
-        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(num%<span class="hljs-number">100</span>==<span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;
-
-<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>&#123;
-    <span class="hljs-type">int</span> year,month,day;
-    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d %d&quot;</span>,&amp;year,&amp;month);
-    <span class="hljs-keyword">if</span>(month==<span class="hljs-number">2</span>)&#123;
-        <span class="hljs-keyword">if</span>(judge_run(year))&#123;
-            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;29&quot;</span>);
-        &#125;
-        <span class="hljs-keyword">else</span> <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;28&quot;</span>);
-        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-    &#125;
-    judge(month);
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre></div>
-<p><strong>ISBN号码</strong><br>
-每一本正式出版的图书都有一个ISBN号码与之对应，ISBN码包括9位数字、1位识别码和3位分隔符，其规定格式如<code>x-xxx-xxxxx-x</code>，其中符号<code>-</code>就是分隔符（键盘上的减号），最后一位是识别码，例如<code>0-670-82162-4</code>就是一个标准的ISBN码。ISBN码的首位数字表示书籍的出版语言，例如0代表英语；第一个分隔符-之后的三位数字代表出版社，例如670代表维京出版社；第二个分隔符后的五位数字代表该书在该出版社的编号；最后一位为识别码。</p>
+<p><strong>ISBN号码</strong><br>每一本正式出版的图书都有一个ISBN号码与之对应，ISBN码包括9位数字、1位识别码和3位分隔符，其规定格式如<code>x-xxx-xxxxx-x</code>，其中符号<code>-</code>就是分隔符（键盘上的减号），最后一位是识别码，例如<code>0-670-82162-4</code>就是一个标准的ISBN码。ISBN码的首位数字表示书籍的出版语言，例如0代表英语；第一个分隔符-之后的三位数字代表出版社，例如670代表维京出版社；第二个分隔符后的五位数字代表该书在该出版社的编号；最后一位为识别码。</p>
 <p>识别码的计算方法如下：</p>
-<p>首位数字乘以11加上次位数字乘以22……以此类推，用所得的结果mod11，所得的余数即为识别码，如果余数为10，则识别码为大写字母XX。例如ISBN号码0-670-82162-4中的识别码4是这样得到的：对067082162这9个数字，从左至右，分别乘以1,2,…,9再求和，即0×1+6×2+……+2×9=158然后取158mod11的结果4作为识别码。</p>
+<p>首位数字乘以11加上次位数字乘以22……以此类推，用所得的结果mod11，所得的余数即为识别码，如果余数为10，则识别码为大写字母XX。例如ISBN号码0-670-82162-4中的识别码4是这样得到的：对067082162这9个数字，从左至右，分别乘以1,2,…,9再求和，即0×1+6×2+……+2×9&#x3D;158然后取158mod11的结果4作为识别码。</p>
 <p>你的任务是编写程序判断输入的ISBN号码中识别码是否正确，如果正确，则仅输出Right；如果错误，则输出你认为是正确的ISBN号码。</p>
-<p>字符串转数字<br>
-需要库函数#include&lt;stdlib.h&gt;</p>
-<p>● atof()：将字符串转换为双精度浮点型值。<br>
-● atoi()：将字符串转换为整型值。<br>
-● atol()：将字符串转换为长整型值。<br>
-● strtod()：将字符串转换为双精度浮点型值，并报告不能被转换的所有剩余数字。<br>
-● strtol()：将字符串转换为长整值，并报告不能被转换的所有剩余数字。<br>
-● strtoul()：将字符串转换为无符号长整型值，并报告不能被转换的所有剩余数字。</p>
-<p>数字转字符串<br>
-● itoa()：将整型值转换为字符串。<br>
-● ltoa()：将长整型值转换为字符串。<br>
-● ultoa()：将无符号长整型值转换为字符串。<br>
-● gcvt()：将浮点型数转换为字符串，取四舍五入。<br>
-● ecvt()：将双精度浮点型值转换为字符串，转换结果中不包含十进制小数点。<br>
-● fcvt()：指定位数为转换精度，其余同ecvt()。</p>
-<div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span>
+<p>字符串转数字<br>需要库函数#include&lt;stdlib.h&gt;</p>
+<p>● atof()：将字符串转换为双精度浮点型值。<br>● atoi()：将字符串转换为整型值。<br>● atol()：将字符串转换为长整型值。<br>● strtod()：将字符串转换为双精度浮点型值，并报告不能被转换的所有剩余数字。<br>● strtol()：将字符串转换为长整值，并报告不能被转换的所有剩余数字。<br>● strtoul()：将字符串转换为无符号长整型值，并报告不能被转换的所有剩余数字。</p>
+<p>数字转字符串<br>● itoa()：将整型值转换为字符串。<br>● ltoa()：将长整型值转换为字符串。<br>● ultoa()：将无符号长整型值转换为字符串。<br>● gcvt()：将浮点型数转换为字符串，取四舍五入。<br>● ecvt()：将双精度浮点型值转换为字符串，转换结果中不包含十进制小数点。<br>● fcvt()：指定位数为转换精度，其余同ecvt()。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">    <span class="type">char</span> s[<span class="number">100</span>];</span><br><span class="line">    <span class="type">int</span> num[<span class="number">100</span>];</span><br><span class="line">    <span class="type">int</span> all=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> len;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>,&amp;s);</span><br><span class="line">    len=<span class="built_in">strlen</span>(s);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;len;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(s[i]==<span class="string">&#x27;-&#x27;</span>)</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;len-i;j++)&#123;</span><br><span class="line">                s[i+j]=s[i+j+<span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    len=<span class="built_in">strlen</span>(s);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;len;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(s[i]==<span class="string">&#x27;X&#x27;</span>)&#123;</span><br><span class="line">            num[i]=<span class="number">10</span>;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">char</span> m=s[i];</span><br><span class="line">        num[i]=atoi(&amp;m);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;len<span class="number">-1</span>;i++)&#123;</span><br><span class="line">        all+=(i+<span class="number">1</span>)*num[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(all%<span class="number">11</span>==num[len<span class="number">-1</span>])</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;right&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;len<span class="number">-1</span>;i++)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,num[i]);</span><br><span class="line">            <span class="keyword">if</span>(i==<span class="number">0</span>||i==<span class="number">3</span>||i==<span class="number">8</span>)&#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;-&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(all%<span class="number">11</span>==<span class="number">10</span>)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;X&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,all%<span class="number">11</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>&#123;
-    <span class="hljs-type">char</span> s[<span class="hljs-number">100</span>];
-    <span class="hljs-type">int</span> num[<span class="hljs-number">100</span>];
-    <span class="hljs-type">int</span> all=<span class="hljs-number">0</span>;
-    <span class="hljs-type">int</span> len;
-    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%s&quot;</span>,&amp;s);
-    len=<span class="hljs-built_in">strlen</span>(s);
-    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;len;i++)&#123;
-        <span class="hljs-keyword">if</span>(s[i]==<span class="hljs-string">&#x27;-&#x27;</span>)
-            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;len-i;j++)&#123;
-                s[i+j]=s[i+j+<span class="hljs-number">1</span>];
-            &#125;
-    &#125;
-    len=<span class="hljs-built_in">strlen</span>(s);
-    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;len;i++)&#123;
-        <span class="hljs-keyword">if</span>(s[i]==<span class="hljs-string">&#x27;X&#x27;</span>)&#123;
-            num[i]=<span class="hljs-number">10</span>;
-            <span class="hljs-keyword">continue</span>;
-        &#125;
-        <span class="hljs-type">char</span> m=s[i];
-        num[i]=atoi(&amp;m);
-    &#125;
-    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;len<span class="hljs-number">-1</span>;i++)&#123;
-        all+=(i+<span class="hljs-number">1</span>)*num[i];
-    &#125;
-    <span class="hljs-keyword">if</span>(all%<span class="hljs-number">11</span>==num[len<span class="hljs-number">-1</span>])
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;right&quot;</span>);
-    <span class="hljs-keyword">else</span>&#123;
-        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;len<span class="hljs-number">-1</span>;i++)&#123;
-            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d&quot;</span>,num[i]);
-            <span class="hljs-keyword">if</span>(i==<span class="hljs-number">0</span>||i==<span class="hljs-number">3</span>||i==<span class="hljs-number">8</span>)&#123;
-                <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;-&quot;</span>);
-            &#125;
-        &#125;
-        <span class="hljs-keyword">if</span>(all%<span class="hljs-number">11</span>==<span class="hljs-number">10</span>)&#123;
-            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;X&quot;</span>);
-        &#125;
-        <span class="hljs-keyword">else</span>&#123;
-            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d&quot;</span>,all%<span class="hljs-number">11</span>);
-        &#125;
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre></div>
 <p><strong>小鱼的航程</strong></p>
-<div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
-<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>
-&#123;
-  <span class="hljs-type">long</span> <span class="hljs-type">int</span> a1,b1,c;
-  <span class="hljs-type">int</span> a2,b2;
-  <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>,&amp;a2);
-  <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%ld&quot;</span>,&amp;a1);
-  b1=a1/<span class="hljs-number">7</span>;
-  b2=a1%<span class="hljs-number">7</span>;
-  c=b1*<span class="hljs-number">250</span>*<span class="hljs-number">5</span>;
-  <span class="hljs-keyword">if</span>((b2+a2)==<span class="hljs-number">6</span>)
-  &#123;
-  	c=c+(b2<span class="hljs-number">-1</span>)*<span class="hljs-number">250</span>;
-  	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%ld&quot;</span>,c+<span class="hljs-number">250</span>);
-  &#125;
-  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>((b2+a2)&gt;<span class="hljs-number">6</span>)
-  &#123;
-  	c=c+(b2<span class="hljs-number">-2</span>)*<span class="hljs-number">250</span>;
-  	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%ld&quot;</span>,c+<span class="hljs-number">250</span>);
-  &#125;
-  <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(b1==<span class="hljs-number">0</span>&amp;&amp;(((b2<span class="hljs-number">-1</span>)+a2)&gt;=<span class="hljs-number">6</span>)&amp;&amp;((b2<span class="hljs-number">-1</span>)+a2)&lt;=<span class="hljs-number">7</span>)
-  &#123;<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%ld&quot;</span>,c+<span class="hljs-number">250</span>);&#125;
-  <span class="hljs-keyword">else</span>&#123;
-  	c=c+(b2)*<span class="hljs-number">250</span>;
-  	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%ld&quot;</span>,c);
-  &#125;
-  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre></div>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">long</span> <span class="type">int</span> a1,b1,c;</span><br><span class="line">  <span class="type">int</span> a2,b2;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;a2);</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%ld&quot;</span>,&amp;a1);</span><br><span class="line">  b1=a1/<span class="number">7</span>;</span><br><span class="line">  b2=a1%<span class="number">7</span>;</span><br><span class="line">  c=b1*<span class="number">250</span>*<span class="number">5</span>;</span><br><span class="line">  <span class="keyword">if</span>((b2+a2)==<span class="number">6</span>)</span><br><span class="line">  &#123;</span><br><span class="line">  	c=c+(b2<span class="number">-1</span>)*<span class="number">250</span>;</span><br><span class="line">  	<span class="built_in">printf</span>(<span class="string">&quot;%ld&quot;</span>,c+<span class="number">250</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span>((b2+a2)&gt;<span class="number">6</span>)</span><br><span class="line">  &#123;</span><br><span class="line">  	c=c+(b2<span class="number">-2</span>)*<span class="number">250</span>;</span><br><span class="line">  	<span class="built_in">printf</span>(<span class="string">&quot;%ld&quot;</span>,c+<span class="number">250</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span>(b1==<span class="number">0</span>&amp;&amp;(((b2<span class="number">-1</span>)+a2)&gt;=<span class="number">6</span>)&amp;&amp;((b2<span class="number">-1</span>)+a2)&lt;=<span class="number">7</span>)</span><br><span class="line">  &#123;<span class="built_in">printf</span>(<span class="string">&quot;%ld&quot;</span>,c+<span class="number">250</span>);&#125;</span><br><span class="line">  <span class="keyword">else</span>&#123;</span><br><span class="line">  	c=c+(b2)*<span class="number">250</span>;</span><br><span class="line">  	<span class="built_in">printf</span>(<span class="string">&quot;%ld&quot;</span>,c);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p><strong>三角形分类</strong></p>
-<div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;math.h&gt;</span></span>
-<span class="hljs-type">int</span> a,b,c,a1,b1,c1;
-<span class="hljs-type">void</span> <span class="hljs-title function_">sorting</span><span class="hljs-params">()</span>&#123;
-    <span class="hljs-keyword">if</span>(a&gt;=b&amp;&amp;a&gt;=c)&#123;
-        a1=a;
-        <span class="hljs-keyword">if</span>(b&gt;=c)&#123;
-            b1=b;
-            c1=c;
-        &#125;
-        <span class="hljs-keyword">else</span>&#123;
-            b1=c;
-            c1=b;
-        &#125;
-    &#125;
-    <span class="hljs-keyword">if</span>(c&gt;=b&amp;&amp;c&gt;=a)&#123;
-        a1=c;
-        <span class="hljs-keyword">if</span>(b&gt;=a)&#123;
-            b1=b;
-            c1=b;
-        &#125;
-        <span class="hljs-keyword">else</span>&#123;
-            b1=a;
-            c1=a;
-        &#125;
-    &#125;
-&#125;
-<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>&#123;
-    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d %d %d&quot;</span>,&amp;a,&amp;b,&amp;c);
-    sorting(a,b,c,a1,b1,c1);
-    <span class="hljs-keyword">if</span>(c1+b1&lt;a1||c1==<span class="hljs-number">0</span>)&#123;
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Not triangle&quot;</span>);
-    &#125;
-    <span class="hljs-keyword">else</span>&#123;
-        <span class="hljs-keyword">if</span>((c1*c1+b1*b1)==a1*a1)&#123;
-            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Right triangle\n&quot;</span>);
-        &#125;
-        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>((c1*c1+b1*b1)&lt;a1*a1)&#123;
-            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Obtuse triangle\n&quot;</span>);
-        &#125;
-        <span class="hljs-keyword">else</span>&#123;
-            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Acute triangle\n&quot;</span>);
-        &#125;
-        <span class="hljs-keyword">if</span>(c1==b1||b1==a1)&#123;
-            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Isosceles triangle\n&quot;</span>);
-        &#125;
-        <span class="hljs-keyword">if</span>(c1==b1&amp;&amp;b1==a1)&#123;
-            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Equ;ateral triangle\n&quot;</span>);
-        &#125;
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre></div>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;math.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> a,b,c,a1,b1,c1;</span><br><span class="line"><span class="type">void</span> <span class="title function_">sorting</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(a&gt;=b&amp;&amp;a&gt;=c)&#123;</span><br><span class="line">        a1=a;</span><br><span class="line">        <span class="keyword">if</span>(b&gt;=c)&#123;</span><br><span class="line">            b1=b;</span><br><span class="line">            c1=c;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            b1=c;</span><br><span class="line">            c1=b;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(c&gt;=b&amp;&amp;c&gt;=a)&#123;</span><br><span class="line">        a1=c;</span><br><span class="line">        <span class="keyword">if</span>(b&gt;=a)&#123;</span><br><span class="line">            b1=b;</span><br><span class="line">            c1=b;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            b1=a;</span><br><span class="line">            c1=a;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d %d&quot;</span>,&amp;a,&amp;b,&amp;c);</span><br><span class="line">    sorting(a,b,c,a1,b1,c1);</span><br><span class="line">    <span class="keyword">if</span>(c1+b1&lt;a1||c1==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Not triangle&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>((c1*c1+b1*b1)==a1*a1)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;Right triangle\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>((c1*c1+b1*b1)&lt;a1*a1)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;Obtuse triangle\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;Acute triangle\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(c1==b1||b1==a1)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;Isosceles triangle\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(c1==b1&amp;&amp;b1==a1)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;Equ;ateral triangle\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p><strong>ABC</strong></p>
-<div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;math.h&gt;</span></span>
-<span class="hljs-type">int</span> a,b,c,a1,b1,c1;
-<span class="hljs-type">void</span> <span class="hljs-title function_">sorting</span><span class="hljs-params">()</span>&#123;
-    <span class="hljs-keyword">if</span>(a&gt;=b&amp;&amp;a&gt;=c)&#123;
-        a1=a;
-        <span class="hljs-keyword">if</span>(b&gt;=c)&#123;
-            b1=b;
-            c1=c;
-        &#125; <span class="hljs-keyword">else</span>&#123;
-            b1=c;
-            c1=b;
-        &#125;
-    &#125;
-    <span class="hljs-keyword">if</span>(b&gt;=a&amp;&amp;b&gt;=c)&#123;
-        a1=b;
-        <span class="hljs-keyword">if</span>(a&gt;=c)&#123;
-            b1=a;
-            c1=c;
-        &#125; <span class="hljs-keyword">else</span>&#123;
-            b1=c;
-            c1=a;
-        &#125;
-    &#125;
-    <span class="hljs-keyword">if</span>(c&gt;=b&amp;&amp;c&gt;=a)&#123;
-        a1=c;
-        <span class="hljs-keyword">if</span>(b&gt;=a)&#123;
-            b1=b;
-            c1=a;
-        &#125; <span class="hljs-keyword">else</span>&#123;
-            b1=a;
-            c1=b;
-        &#125;
-    &#125;
-&#125;
-<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>&#123;
-<span class="hljs-type">char</span> n,m,l;
-    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d %d %d&quot;</span>,&amp;a,&amp;b,&amp;c);
-    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%c %c %c&quot;</span>,&amp;m,&amp;n,&amp;l);
-    sorting();
-   <span class="hljs-comment">// printf(&quot;%c-%c-%c-&quot;,m,n,l);</span>
-    <span class="hljs-comment">//printf(&quot;%d %d %d&quot;,a1,b1,c1);</span>
-    <span class="hljs-keyword">if</span>(m==<span class="hljs-string">&#x27;A&#x27;</span>)&#123;
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d &quot;</span>,c1);
-    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(m==<span class="hljs-string">&#x27;B&#x27;</span>)&#123;
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d &quot;</span>,b1);
-    &#125; <span class="hljs-keyword">else</span>&#123;
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d &quot;</span>,a1);
-    &#125;
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;math.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> a,b,c,a1,b1,c1;</span><br><span class="line"><span class="type">void</span> <span class="title function_">sorting</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(a&gt;=b&amp;&amp;a&gt;=c)&#123;</span><br><span class="line">        a1=a;</span><br><span class="line">        <span class="keyword">if</span>(b&gt;=c)&#123;</span><br><span class="line">            b1=b;</span><br><span class="line">            c1=c;</span><br><span class="line">        &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">            b1=c;</span><br><span class="line">            c1=b;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(b&gt;=a&amp;&amp;b&gt;=c)&#123;</span><br><span class="line">        a1=b;</span><br><span class="line">        <span class="keyword">if</span>(a&gt;=c)&#123;</span><br><span class="line">            b1=a;</span><br><span class="line">            c1=c;</span><br><span class="line">        &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">            b1=c;</span><br><span class="line">            c1=a;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(c&gt;=b&amp;&amp;c&gt;=a)&#123;</span><br><span class="line">        a1=c;</span><br><span class="line">        <span class="keyword">if</span>(b&gt;=a)&#123;</span><br><span class="line">            b1=b;</span><br><span class="line">            c1=a;</span><br><span class="line">        &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">            b1=a;</span><br><span class="line">            c1=b;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line"><span class="type">char</span> n,m,l;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d %d&quot;</span>,&amp;a,&amp;b,&amp;c);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%c %c %c&quot;</span>,&amp;m,&amp;n,&amp;l);</span><br><span class="line">    sorting();</span><br><span class="line">   <span class="comment">// printf(&quot;%c-%c-%c-&quot;,m,n,l);</span></span><br><span class="line">    <span class="comment">//printf(&quot;%d %d %d&quot;,a1,b1,c1);</span></span><br><span class="line">    <span class="keyword">if</span>(m==<span class="string">&#x27;A&#x27;</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,c1);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(m==<span class="string">&#x27;B&#x27;</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,b1);</span><br><span class="line">    &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,a1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(n==<span class="string">&#x27;A&#x27;</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,c1);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(n==<span class="string">&#x27;B&#x27;</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,b1);</span><br><span class="line">    &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,a1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(l==<span class="string">&#x27;A&#x27;</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,c1);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(l==<span class="string">&#x27;B&#x27;</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,b1);</span><br><span class="line">    &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>,a1);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    <span class="hljs-keyword">if</span>(n==<span class="hljs-string">&#x27;A&#x27;</span>)&#123;
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d &quot;</span>,c1);
-    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(n==<span class="hljs-string">&#x27;B&#x27;</span>)&#123;
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d &quot;</span>,b1);
-    &#125; <span class="hljs-keyword">else</span>&#123;
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d &quot;</span>,a1);
-    &#125;
+  </div>
+</article>
 
-    <span class="hljs-keyword">if</span>(l==<span class="hljs-string">&#x27;A&#x27;</span>)&#123;
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d &quot;</span>,c1);
-    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(l==<span class="hljs-string">&#x27;B&#x27;</span>)&#123;
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d &quot;</span>,b1);
-    &#125; <span class="hljs-keyword">else</span>&#123;
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d &quot;</span>,a1);
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre></div>
 
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
 
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
         
-  <a href="/categories/Coding/" class="category-chain-item">Coding</a>
-  
-  
+          <div id="footer-post-container">
+  <div id="footer-post">
 
-      </span>
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="http://github.com/zer0ptr">Projects</a></li>
+        
+      </ul>
+    </div>
+
     
-  
-</span>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://zer0ptr.github.io/2025/07/13/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%B4%9B%E8%B0%B7%E5%9F%BA%E7%A1%80%E9%A2%98/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://zer0ptr.github.io/2025/07/13/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%B4%9B%E8%B0%B7%E5%9F%BA%E7%A1%80%E9%A2%98/&text=算法学习-洛谷基础题"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://zer0ptr.github.io/2025/07/13/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%B4%9B%E8%B0%B7%E5%9F%BA%E7%A1%80%E9%A2%98/&title=算法学习-洛谷基础题"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zer0ptr.github.io/2025/07/13/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%B4%9B%E8%B0%B7%E5%9F%BA%E7%A1%80%E9%A2%98/&is_video=false&description=算法学习-洛谷基础题"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=算法学习-洛谷基础题&body=Check out this article: https://zer0ptr.github.io/2025/07/13/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%B4%9B%E8%B0%B7%E5%9F%BA%E7%A1%80%E9%A2%98/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://zer0ptr.github.io/2025/07/13/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%B4%9B%E8%B0%B7%E5%9F%BA%E7%A1%80%E9%A2%98/&title=算法学习-洛谷基础题"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://zer0ptr.github.io/2025/07/13/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%B4%9B%E8%B0%B7%E5%9F%BA%E7%A1%80%E9%A2%98/&title=算法学习-洛谷基础题"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://zer0ptr.github.io/2025/07/13/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%B4%9B%E8%B0%B7%E5%9F%BA%E7%A1%80%E9%A2%98/&title=算法学习-洛谷基础题"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://zer0ptr.github.io/2025/07/13/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%B4%9B%E8%B0%B7%E5%9F%BA%E7%A1%80%E9%A2%98/&title=算法学习-洛谷基础题"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://zer0ptr.github.io/2025/07/13/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%B4%9B%E8%B0%B7%E5%9F%BA%E7%A1%80%E9%A2%98/&name=算法学习-洛谷基础题&description=&lt;p&gt;&lt;strong&gt;三角形面积&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;关键：海伦公式&lt;/p&gt;
+&lt;figure class=&#34;highlight c&#34;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&#34;gutter&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;17&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&#34;code&#34;&gt;&lt;pre&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;#&lt;span class=&#34;keyword&#34;&gt;include&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;meta&#34;&gt;#&lt;span class=&#34;keyword&#34;&gt;include&lt;/span&gt; &lt;span class=&#34;string&#34;&gt;&amp;lt;math.h&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;type&#34;&gt;double&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;cacu&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(&lt;span class=&#34;type&#34;&gt;double&lt;/span&gt; a,&lt;span class=&#34;type&#34;&gt;double&lt;/span&gt; b,&lt;span class=&#34;type&#34;&gt;double&lt;/span&gt; c)&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;type&#34;&gt;double&lt;/span&gt; p=&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    p=&lt;span class=&#34;number&#34;&gt;0.5&lt;/span&gt;*(a+b+c);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; (&lt;span class=&#34;built_in&#34;&gt;sqrt&lt;/span&gt;(p*(p-a)*(p-b)*(p-c)));&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;type&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;title function_&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;params&#34;&gt;(&lt;span class=&#34;type&#34;&gt;void&lt;/span&gt;)&lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;type&#34;&gt;double&lt;/span&gt; a=&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;,b=&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;,c=&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;,S=&lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;built_in&#34;&gt;scanf&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;%lf %lf %lf&amp;quot;&lt;/span&gt;,&amp;amp;a,&amp;amp;b,&amp;amp;c);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    S=cacu(a,b,c);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;built_in&#34;&gt;printf&lt;/span&gt;(&lt;span class=&#34;string&#34;&gt;&amp;quot;%.1lf&amp;quot;&lt;/span&gt;,S);&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;    &lt;span class=&#34;keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;number&#34;&gt;0&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;comment&#34;&gt;// gcc 三角形面积.c -lm -o 三角形面积&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://zer0ptr.github.io/2025/07/13/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%B4%9B%E8%B0%B7%E5%9F%BA%E7%A1%80%E9%A2%98/&t=算法学习-洛谷基础题"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
 
     </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Coding/" class="print-no-link">#Coding</a>
-      
-    </div>
-  
-</div>
 
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>算法学习-洛谷基础题</div>
-      <div>https://zer0ptr.github.io/2025/07/13/算法学习-洛谷基础题/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>zer0ptr</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2025年7月13日</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>许可协议</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-cc-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/" title="爱企查无法使用F12问题">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">爱企查无法使用F12问题</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2025/07/12/Web%E5%BA%B7%E5%A4%8D%E8%AE%AD%E7%BB%83-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CWeb2/" title="Web康复训练-攻防世界Web2">
-                        <span class="hidden-mobile">Web康复训练-攻防世界Web2</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-  
-  
-    <article id="comments" lazyload>
-      
-
-    </article>
-  
-
-
-          </article>
-        </div>
-      </div>
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
     </div>
 
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-
-
-  </aside>
-
-
-    </div>
   </div>
 </div>
 
-
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-  
-  
-
-
-
-
-
-
-
-
-
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
     
-
     
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
+    2025
+    zer0ptr
   </div>
-</div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/zer0ptr">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
 
-    
-
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
     </div>
-  
-  
-  
-</div>
+    <!-- styles -->
 
-  </footer>
 
-  <!-- Scripts -->
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
   
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
     })
+  })
   </script>
 
 
-<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
+<script src="/js/main.js"></script>
 
+<!-- search -->
 
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
+<!-- Baidu Analytics -->
 
+<!-- Cloudflare Analytics -->
 
+<!-- Disqus Comments -->
 
+<!-- utterances Comments -->
 
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
-    var toc = jQuery('#toc');
-    if (toc.length === 0 || !window.tocbot) { return; }
-    var boardCtn = jQuery('#board-ctn');
-    var boardTop = boardCtn.offset().top;
-
-    window.tocbot.init(Object.assign({
-      tocSelector     : '#toc-body',
-      contentSelector : '.markdown-body',
-      linkClass       : 'tocbot-link',
-      activeLinkClass : 'tocbot-active-link',
-      listClass       : 'tocbot-list',
-      isCollapsedClass: 'tocbot-is-collapsed',
-      collapsibleClass: 'tocbot-is-collapsible',
-      scrollSmooth    : true,
-      includeTitleTags: true,
-      headingsOffset  : -boardTop,
-    }, CONFIG.toc));
-    if (toc.find('.toc-list-item').length > 0) {
-      toc.css('visibility', 'visible');
-    }
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('tocbot' in window) {
-        tocbot.refresh();
-        var toc = jQuery('#toc');
-        if (toc.length === 0 || !tocbot) {
-          return;
-        }
-        if (toc.find('.toc-list-item').length > 0) {
-          toc.css('visibility', 'visible');
-        }
-      }
-    });
-  });
-</script>
-
-
-  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
-
-  <script>Fluid.plugins.codeWidget();</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
-    window.anchors.options = {
-      placement: CONFIG.anchorjs.placement,
-      visible  : CONFIG.anchorjs.visible
-    };
-    if (CONFIG.anchorjs.icon) {
-      window.anchors.options.icon = CONFIG.anchorjs.icon;
-    }
-    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-    var res = [];
-    for (var item of el) {
-      res.push('.markdown-body > ' + item.trim());
-    }
-    if (CONFIG.anchorjs.placement === 'left') {
-      window.anchors.options.class = 'anchorjs-link-left';
-    }
-    window.anchors.add(res.join(', '));
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('anchors' in window) {
-        anchors.removeAll();
-        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-        var res = [];
-        for (var item of el) {
-          res.push('.markdown-body > ' + item.trim());
-        }
-        if (CONFIG.anchorjs.placement === 'left') {
-          anchors.options.class = 'anchorjs-link-left';
-        }
-        anchors.add(res.join(', '));
-      }
-    });
-  });
-</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
-    Fluid.plugins.fancyBox();
-  });
-</script>
-
-
-  <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
-  
-
-  <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
-  </noscript>
 </body>
 </html>
