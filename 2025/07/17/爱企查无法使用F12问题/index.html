@@ -8,8 +8,8 @@
 <head>
   <meta charset="UTF-8">
 
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.jpg">
-  <link rel="icon" href="/img/icon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/SecureNexusLab.png">
+  <link rel="icon" href="/img/SecureNexusLab.png">
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
@@ -22,20 +22,20 @@
     <meta name="description" content="起因最近突然需要找一下自己爱企查的账号cookie，于是上来一个F12结果发现半天按不出来(刚开始在想是不是键盘的F12坏了，但是换了其他的页面就是正常的) 在B站看到了id为”无名的Coder”大佬的视频在此做个学习记录 Hyperlink: js逆向-爱企查：F12检测绕过，头部参数加密_哔哩哔哩_bilibili  开搞先打开F12（不用管是否正常显示，当然正常显示你就不用继续看了） 之后">
 <meta property="og:type" content="article">
 <meta property="og:title" content="爱企查无法使用F12问题">
-<meta property="og:url" content="https://carvinozheng.github.io/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:url" content="https://zer0ptr.github.io/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="zer0ptr&#39;s Blog">
 <meta property="og:description" content="起因最近突然需要找一下自己爱企查的账号cookie，于是上来一个F12结果发现半天按不出来(刚开始在想是不是键盘的F12坏了，但是换了其他的页面就是正常的) 在B站看到了id为”无名的Coder”大佬的视频在此做个学习记录 Hyperlink: js逆向-爱企查：F12检测绕过，头部参数加密_哔哩哔哩_bilibili  开搞先打开F12（不用管是否正常显示，当然正常显示你就不用继续看了） 之后">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://carvinozheng.github.io/images/aiqicha-js-1.png">
-<meta property="og:image" content="https://carvinozheng.github.io/images/aiqicha-js-2.PNG">
-<meta property="og:image" content="https://carvinozheng.github.io/images/aiqicha-js-3.PNG">
-<meta property="og:image" content="https://carvinozheng.github.io/images/aiqicha-js-3.PNG">
+<meta property="og:image" content="https://zer0ptr.github.io/images/aiqicha-js-1.png">
+<meta property="og:image" content="https://zer0ptr.github.io/images/aiqicha-js-2.PNG">
+<meta property="og:image" content="https://zer0ptr.github.io/images/aiqicha-js-3.PNG">
+<meta property="og:image" content="https://zer0ptr.github.io/images/aiqicha-js-3.PNG">
 <meta property="article:published_time" content="2025-07-17T11:02:28.000Z">
 <meta property="article:modified_time" content="2025-07-24T04:38:23.720Z">
 <meta property="article:author" content="zer0ptr">
 <meta property="article:tag" content="Web安全">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://carvinozheng.github.io/images/aiqicha-js-1.png">
+<meta name="twitter:image" content="https://zer0ptr.github.io/images/aiqicha-js-1.png">
   
   
   
@@ -81,7 +81,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"carvinozheng.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"zer0ptr.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -492,7 +492,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>爱企查无法使用F12问题</div>
-      <div>https://carvinozheng.github.io/2025/07/17/爱企查无法使用F12问题/</div>
+      <div>https://zer0ptr.github.io/2025/07/17/爱企查无法使用F12问题/</div>
     </div>
     <div class="license-meta">
       

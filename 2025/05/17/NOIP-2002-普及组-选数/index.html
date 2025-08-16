@@ -8,8 +8,8 @@
 <head>
   <meta charset="UTF-8">
 
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.jpg">
-  <link rel="icon" href="/img/icon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/SecureNexusLab.png">
+  <link rel="icon" href="/img/SecureNexusLab.png">
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
@@ -22,7 +22,7 @@
     <meta name="description" content="[NOIP 2002 普及组] 选数感觉过于标题的意思了，其实是由这道题来引出深度优先搜索(DFS) 首先看看题目描述：题目描述已知 $\large n$ 个整数 $x_1,x_2,\cdots,x_n$，以及$1$个整数$k$($k&lt;n$)。从$n$ 个整数中任选 $k$个整数相加，可分别得到一系列的和。例如当$n&#x3D;4$，$k&#x3D;3$，$4$ 个整数分别为 $3,7,12">
 <meta property="og:type" content="article">
 <meta property="og:title" content="由一道题引发对DFS的思考">
-<meta property="og:url" content="https://carvinozheng.github.io/2025/05/17/NOIP-2002-%E6%99%AE%E5%8F%8A%E7%BB%84-%E9%80%89%E6%95%B0/index.html">
+<meta property="og:url" content="https://zer0ptr.github.io/2025/05/17/NOIP-2002-%E6%99%AE%E5%8F%8A%E7%BB%84-%E9%80%89%E6%95%B0/index.html">
 <meta property="og:site_name" content="zer0ptr&#39;s Blog">
 <meta property="og:description" content="[NOIP 2002 普及组] 选数感觉过于标题的意思了，其实是由这道题来引出深度优先搜索(DFS) 首先看看题目描述：题目描述已知 $\large n$ 个整数 $x_1,x_2,\cdots,x_n$，以及$1$个整数$k$($k&lt;n$)。从$n$ 个整数中任选 $k$个整数相加，可分别得到一系列的和。例如当$n&#x3D;4$，$k&#x3D;3$，$4$ 个整数分别为 $3,7,12">
 <meta property="og:locale" content="zh_CN">
@@ -76,7 +76,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"carvinozheng.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"zer0ptr.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -689,7 +689,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>由一道题引发对DFS的思考</div>
-      <div>https://carvinozheng.github.io/2025/05/17/NOIP-2002-普及组-选数/</div>
+      <div>https://zer0ptr.github.io/2025/05/17/NOIP-2002-普及组-选数/</div>
     </div>
     <div class="license-meta">
       
