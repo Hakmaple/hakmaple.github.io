@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="起因最近突然需要找一下自己爱企查的账号cookie，于是上来一个F12结果发现半天按不出来(刚开始在想是不是键盘的F12坏了，但是换了其他的页面就是正常的) 在B站看到了id为”无名的Coder”大佬的视频在此做个学习记录 Hyperlink: js逆向-爱企查：F12检测绕过，头部参数加密_哔哩哔哩_bilibili  开搞先打开F12（不用管是否正常显示，当然正常显示你就不用继续看了） 之后">
+    <meta name="description" content="起因 最近突然需要找一下自己爱企查的账号cookie，于是上来一个F12结果发现半天按不出来(刚开始在想是不是键盘的F12坏了，但是换了其他的页面就是正常的) 在B站看到了id为&quot;无名的Coder&quot;大佬的视频在此做个学习记录 Hyperlink: js逆向-爱企查：F12检测绕过，头部参数加密_哔哩哔哩_bilibili  开搞 先打开F12（不用管是否正常显示，当然正常显示你">
 <meta property="og:type" content="article">
 <meta property="og:title" content="爱企查无法使用F12问题">
 <meta property="og:url" content="https://zer0ptr.github.io/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="zer0ptr&#39;s Blog">
-<meta property="og:description" content="起因最近突然需要找一下自己爱企查的账号cookie，于是上来一个F12结果发现半天按不出来(刚开始在想是不是键盘的F12坏了，但是换了其他的页面就是正常的) 在B站看到了id为”无名的Coder”大佬的视频在此做个学习记录 Hyperlink: js逆向-爱企查：F12检测绕过，头部参数加密_哔哩哔哩_bilibili  开搞先打开F12（不用管是否正常显示，当然正常显示你就不用继续看了） 之后">
+<meta property="og:description" content="起因 最近突然需要找一下自己爱企查的账号cookie，于是上来一个F12结果发现半天按不出来(刚开始在想是不是键盘的F12坏了，但是换了其他的页面就是正常的) 在B站看到了id为&quot;无名的Coder&quot;大佬的视频在此做个学习记录 Hyperlink: js逆向-爱企查：F12检测绕过，头部参数加密_哔哩哔哩_bilibili  开搞 先打开F12（不用管是否正常显示，当然正常显示你">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://zer0ptr.github.io/images/aiqicha-js-1.png">
 <meta property="og:image" content="https://zer0ptr.github.io/images/aiqicha-js-2.PNG">
@@ -60,6 +60,16 @@
     
     
 	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
 	
 <meta name="generator" content="Hexo 7.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
 
@@ -172,24 +182,26 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>最近突然需要找一下自己爱企查的账号cookie，于是上来一个F12结果发现半天按不出来(刚开始在想是不是键盘的F12坏了，但是换了其他的页面就是正常的) 在B站看到了id为”无名的Coder”大佬的视频在此做个学习记录</p>
+    <h2 id="起因">起因</h2>
+<p>最近突然需要找一下自己爱企查的账号cookie，于是上来一个F12结果发现半天按不出来(刚开始在想是不是键盘的F12坏了，但是换了其他的页面就是正常的) 在B站看到了id为&quot;无名的Coder&quot;大佬的视频在此做个学习记录</p>
 <p>Hyperlink: <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1KLjBzyEfp/?vd_source=302a892bb778bc77294aa18fcca329b7">js逆向-爱企查：F12检测绕过，头部参数加密_哔哩哔哩_bilibili</a></p>
 <p><img src="/images/aiqicha-js-1.png" alt="图一展示了符合问题描述的实况"></p>
-<h2 id="开搞"><a href="#开搞" class="headerlink" title="开搞"></a>开搞</h2><p>先打开F12（不用管是否正常显示，当然正常显示你就不用继续看了）</p>
-<p>之后 <code>Sources</code> -&gt; <code>Event Listeners Breakprints</code> -&gt; ‘Script’ 国语的话应该是 ‘’源代码’’ -&gt; ‘’事件监听器断点’’ -&gt; ‘’脚本’’</p>
+<h2 id="开搞">开搞</h2>
+<p>先打开F12（不用管是否正常显示，当然正常显示你就不用继续看了）</p>
+<p>之后 <code>Sources</code> -&gt; <code>Event Listeners Breakprints</code> -&gt; ‘Script’ 国语的话应该是 ‘‘源代码’’ -&gt; ‘‘事件监听器断点’’ -&gt; ‘‘脚本’’</p>
 <p><img src="/images/aiqicha-js-2.PNG" alt="图二展示了开始调试的操作步骤"></p>
 <p>之后尝试调试</p>
 <p><img src="/images/aiqicha-js-3.PNG" alt="图三展示了在开发者工具中调试以匹配关键代码"></p>
 <p>然后我们把它复制下来，放到VSCode（个人习惯，自己选择）看看具体是在哪个地方</p>
 <p><img src="/images/aiqicha-js-3.PNG" alt="图四展示了查找关键功能代码所在位置"></p>
 <p>以下介绍两个方法：</p>
-<h3 id="01-导入替换代码"><a href="#01-导入替换代码" class="headerlink" title="01. 导入替换代码"></a>01. 导入替换代码</h3><p>以下是限制功能的代码</p>
+<h3 id="01-导入替换代码">01. 导入替换代码</h3>
+<p>以下是限制功能的代码</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> t = &#123;</span><br><span class="line">    <span class="attr">md5</span>: <span class="string">&quot;65878341e691a6ec&quot;</span>,</span><br><span class="line">    <span class="attr">disableMenu</span>: !<span class="number">1</span>,</span><br><span class="line">    <span class="attr">tkName</span>: <span class="string">&quot;dtk&quot;</span>,</span><br><span class="line">    <span class="attr">rewriteHTML</span>: <span class="string">&quot;&lt;h3&gt;请关闭浏览器的调试窗口再访问页面！&lt;/h3&gt;&quot;</span>,</span><br><span class="line">    <span class="attr">clearIntervalWhenDevOpenTrigger</span>: !<span class="number">0</span>,</span><br><span class="line">    <span class="attr">ondevtoolopen</span>: <span class="keyword">function</span>(<span class="params">t, e</span>) &#123;</span><br><span class="line">        <span class="title function_">e</span>(),</span><br><span class="line">            <span class="built_in">setTimeout</span>((<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">            <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span> = <span class="string">&quot;about:blank&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        ), <span class="number">3e3</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">ignore</span>: <span class="keyword">function</span>(<span class="params">t</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;open&quot;</span> === <span class="variable language_">localStorage</span>.<span class="title function_">getItem</span>(<span class="string">&quot;devtool&quot;</span>) || location.<span class="property">search</span>.<span class="title function_">includes</span>(<span class="string">&quot;qf=monster&quot;</span>) || navigator.<span class="property">userAgent</span>.<span class="title function_">includes</span>(<span class="string">&quot;QQBrowser&quot;</span>) || [<span class="regexp">/localhost/</span>, <span class="regexp">/172\./</span>, <span class="regexp">/127\.0\.0\.1/</span>].<span class="title function_">some</span>((<span class="keyword">function</span>(<span class="params">t</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> location.<span class="property">hostname</span>.<span class="title function_">match</span>(t)</span><br><span class="line">        &#125;</span><br><span class="line">        ))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
 <p>解读：</p>
 <p>首先其中定义了一个对象 <code>t</code> ，它包含了一些属性和方法，用于检测并防止开发者工具被打开</p>
-<h3 id="ondevtoolopen方法"><a href="#ondevtoolopen方法" class="headerlink" title="ondevtoolopen方法"></a><strong>ondevtoolopen方法</strong></h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">ondevtoolopen</span>: <span class="keyword">function</span>(<span class="params">t, e</span>) &#123;</span><br><span class="line">    <span class="title function_">e</span>(),</span><br><span class="line">        <span class="built_in">setTimeout</span>((<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span> = <span class="string">&quot;about:blank&quot;</span></span><br><span class="line">    &#125;), <span class="number">3e3</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<h3 id="ondevtoolopen方法"><strong>ondevtoolopen方法</strong></h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">ondevtoolopen</span>: <span class="keyword">function</span>(<span class="params">t, e</span>) &#123;</span><br><span class="line">    <span class="title function_">e</span>(),</span><br><span class="line">        <span class="built_in">setTimeout</span>((<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span> = <span class="string">&quot;about:blank&quot;</span></span><br><span class="line">    &#125;), <span class="number">3e3</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这是一个回调函数，当检测到出发开发者工具时触发：</p>
 <ul>
 <li>调用 <code>e()</code>（可能是一个清理或回调函数）</li>
@@ -197,40 +209,50 @@
 </ul>
 <p><strong>ignore方法</strong></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">ignore</span>: <span class="keyword">function</span>(<span class="params">t</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;open&quot;</span> === <span class="variable language_">localStorage</span>.<span class="title function_">getItem</span>(<span class="string">&quot;devtool&quot;</span>) || </span><br><span class="line">           location.<span class="property">search</span>.<span class="title function_">includes</span>(<span class="string">&quot;qf=monster&quot;</span>) || </span><br><span class="line">           navigator.<span class="property">userAgent</span>.<span class="title function_">includes</span>(<span class="string">&quot;QQBrowser&quot;</span>) || </span><br><span class="line">           [<span class="regexp">/localhost/</span>, <span class="regexp">/172\./</span>, <span class="regexp">/127\.0\.0\.1/</span>].<span class="title function_">some</span>((<span class="keyword">function</span>(<span class="params">t</span>) &#123;</span><br><span class="line">               <span class="keyword">return</span> location.<span class="property">hostname</span>.<span class="title function_">match</span>(t)</span><br><span class="line">           &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>这是一个条件判断函数，用于在某些情况下忽略开发者工具的检测：</p>
 <ul>
 <li>如果 <code>localStorage</code> 中 <code>devtool</code> 的值为 <code>&quot;open&quot;</code>。</li>
 <li>如果 URL 的查询参数中包含 <code>qf=monster</code>。</li>
 <li>如果用户代理（<code>navigator.userAgent</code>）</li>
-<li>如果当前主机名（<code>location.hostname</code>）匹配以下任意一个正则表达式：<ul>
+<li>如果当前主机名（<code>location.hostname</code>）匹配以下任意一个正则表达式：
+<ul>
 <li><code>localhost</code></li>
 <li>以 <code>127.</code> 开头的 IP 地址（内网 IP）</li>
 <li><code>127.0.0.1</code>（本地回环地址）</li>
 </ul>
 </li>
 </ul>
-<p>对此有两种解决方法（以下代码是ai生成的，因为不是很懂Javascript）<br>     <strong>一、自己写脚本并进行替换（未经测试）</strong></p>
+<p>对此有两种解决方法（以下代码是ai生成的，因为不是很懂Javascript）<br>
+<strong>一、自己写脚本并进行替换（未经测试）</strong></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 覆盖检测函数</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(<span class="variable language_">window</span>, <span class="string">&#x27;devtool&#x27;</span>, &#123;</span><br><span class="line">  <span class="attr">get</span>: <span class="function">() =&gt;</span> <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">configurable</span>: <span class="literal">false</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 阻止检测脚本执行</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;devtoolschange&#x27;</span>, <span class="function"><span class="params">e</span> =&gt;</span> e.<span class="title function_">stopImmediatePropagation</span>(), <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置本地存储标记（如果检测依赖localStorage）</span></span><br><span class="line"><span class="variable language_">localStorage</span>.<span class="title function_">setItem</span>(<span class="string">&#x27;devtool&#x27;</span>, <span class="string">&#x27;open&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 重写检测对象</span></span><br><span class="line"><span class="keyword">if</span> (<span class="variable language_">window</span>.<span class="property">_devt</span>) &#123;</span><br><span class="line">  <span class="variable language_">window</span>.<span class="property">_devt</span>.<span class="property">ignore</span> = <span class="function">() =&gt;</span> <span class="literal">true</span>;</span><br><span class="line">  <span class="variable language_">window</span>.<span class="property">_devt</span>.<span class="property">ondevtoolopen</span> = <span class="function">() =&gt;</span> &#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>将原先的代码替换为以上脚本<br><strong>二、使用油猴脚本</strong></p>
+<p>将原先的代码替换为以上脚本<br>
+<strong>二、使用油猴脚本</strong></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ==UserScript==</span></span><br><span class="line"><span class="comment">// @name         Disable DevTools Detection</span></span><br><span class="line"><span class="comment">// @namespace    http://tampermonkey.net/</span></span><br><span class="line"><span class="comment">// @version      0.1</span></span><br><span class="line"><span class="comment">// @description  禁用开发者工具检测</span></span><br><span class="line"><span class="comment">// @author       You</span></span><br><span class="line"><span class="comment">// @match        *://目标网站.com/*</span></span><br><span class="line"><span class="comment">// @grant        none</span></span><br><span class="line"><span class="comment">// ==/UserScript==</span></span><br><span class="line"></span><br><span class="line">(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="string">&#x27;use strict&#x27;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 阻止原始检测脚本加载</span></span><br><span class="line">    <span class="keyword">const</span> oldCreateElement = <span class="variable language_">document</span>.<span class="property">createElement</span>;</span><br><span class="line">    <span class="variable language_">document</span>.<span class="property">createElement</span> = <span class="keyword">function</span>(<span class="params">tagName</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> el = oldCreateElement.<span class="title function_">call</span>(<span class="variable language_">document</span>, tagName);</span><br><span class="line">        <span class="keyword">if</span> (tagName === <span class="string">&#x27;script&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">const</span> oldSrc = <span class="title class_">Object</span>.<span class="title function_">getOwnPropertyDescriptor</span>(el, <span class="string">&#x27;src&#x27;</span>);</span><br><span class="line">            <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(el, <span class="string">&#x27;src&#x27;</span>, &#123;</span><br><span class="line">                <span class="attr">get</span>: <span class="function">() =&gt;</span> oldSrc?.<span class="property">get</span>.<span class="title function_">call</span>(el),</span><br><span class="line">                <span class="attr">set</span>: <span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (!value.<span class="title function_">includes</span>(<span class="string">&#x27;devtool-detector&#x27;</span>)) &#123;</span><br><span class="line">                        oldSrc?.<span class="property">set</span>.<span class="title function_">call</span>(el, value);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> el;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 覆盖检测函数</span></span><br><span class="line">    <span class="variable language_">window</span>.<span class="property">devtool</span> = &#123; <span class="attr">isOpen</span>: <span class="literal">false</span> &#125;;</span><br><span class="line">    <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(<span class="variable language_">window</span>, <span class="string">&#x27;devtool&#x27;</span>, &#123;</span><br><span class="line">        <span class="attr">get</span>: <span class="function">() =&gt;</span> (&#123; <span class="attr">isOpen</span>: <span class="literal">false</span> &#125;)</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置本地存储标记</span></span><br><span class="line">    <span class="variable language_">localStorage</span>.<span class="title function_">setItem</span>(<span class="string">&#x27;devtool&#x27;</span>, <span class="string">&#x27;open&#x27;</span>);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
-<p><strong>三、一种一劳永逸的方法，但对所有网站失效，可能面临一定的安全风险</strong><br>在<code>console</code>中输入：</p>
+<p><strong>三、一种一劳永逸的方法，但对所有网站失效，可能面临一定的安全风险</strong><br>
+在<code>console</code>中输入：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">localStorage.setItem(&#x27;devtool&#x27;,&#x27;open&#x27;)</span><br></pre></td></tr></table></figure>
 <p>以上方法的原理为：</p>
 <ul>
-<li><p>JavaScript的动态性：允许运行时修改对象属性和函数行为。</p>
+<li>
+<p>JavaScript的动态性：允许运行时修改对象属性和函数行为。</p>
 </li>
-<li><p>浏览器沙箱环境：网页脚本无法直接检测扩展或用户手动执行的代码。</p>
+<li>
+<p>浏览器沙箱环境：网页脚本无法直接检测扩展或用户手动执行的代码。</p>
 </li>
-<li><p>检测逻辑的单向依赖：检测脚本通常依赖特定的全局变量或事件，破坏这些依赖即可绕过。</p>
+<li>
+<p>检测逻辑的单向依赖：检测脚本通常依赖特定的全局变量或事件，破坏这些依赖即可绕过。</p>
 </li>
 </ul>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
-<li><p>这些方法可能随着检测技术升级而失效（如最新的基于 Performance API 的检测）。</p>
+<h3 id="注意事项">注意事项</h3>
+<ul>
+<li>
+<p>这些方法可能随着检测技术升级而失效（如最新的基于 Performance API 的检测）。</p>
 </li>
-<li><p>部分网站会结合服务端验证（如接口返回加密数据，需前端解密），单纯绕过前端检测可能导致功能异常。</p>
+<li>
+<p>部分网站会结合服务端验证（如接口返回加密数据，需前端解密），单纯绕过前端检测可能导致功能异常。</p>
 </li>
-<li><p>仅供学习浏览器安全原理使用，实际应用需遵守网站规则。</p>
+<li>
+<p>仅供学习浏览器安全原理使用，实际应用需遵守网站规则。</p>
 </li>
 </ul>
 
