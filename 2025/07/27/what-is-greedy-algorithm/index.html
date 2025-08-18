@@ -19,12 +19,12 @@
   <meta name="author" content="zer0ptr">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Description: A greedy algorithm is any algorithm that follows the problem-solving heuristic of making the locally optimal choice at each stage.[1] In many problems, a greedy strategy does not produce">
+    <meta name="description" content="Description:A greedy algorithm is any algorithm that follows the problem-solving heuristic of making the locally optimal choice at each stage.[1] In many problems, a greedy strategy does not produce a">
 <meta property="og:type" content="article">
 <meta property="og:title" content="What Is Greedy Algorithm">
 <meta property="og:url" content="https://zer0ptr.github.io/2025/07/27/what-is-greedy-algorithm/index.html">
 <meta property="og:site_name" content="zer0ptr&#39;s Blog">
-<meta property="og:description" content="Description: A greedy algorithm is any algorithm that follows the problem-solving heuristic of making the locally optimal choice at each stage.[1] In many problems, a greedy strategy does not produce">
+<meta property="og:description" content="Description:A greedy algorithm is any algorithm that follows the problem-solving heuristic of making the locally optimal choice at each stage.[1] In many problems, a greedy strategy does not produce a">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://zer0ptr.github.io/images/Greedy-Algorithm/Dij.png">
 <meta property="article:published_time" content="2025-07-26T16:00:00.000Z">
@@ -243,7 +243,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          615 words
+          617 words
         
       </span>
     
@@ -296,8 +296,7 @@
             
               <div class="markdown-body">
                 
-                <h2 id="description">Description:</h2>
-<p>A greedy algorithm is any <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Algorithm">algorithm</a> that follows the problem-solving <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Heuristic_(computer_science)">heuristic</a> of making the locally optimal choice at each stage.[1] In many problems, a greedy strategy does not produce an optimal solution, but a greedy heuristic can yield locally optimal solutions that approximate a globally optimal solution in a reasonable amount of time.[2]</p>
+                <h2 id="Description"><a href="#Description" class="headerlink" title="Description:"></a>Description:</h2><p>A greedy algorithm is any <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Algorithm">algorithm</a> that follows the problem-solving <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Heuristic_(computer_science)">heuristic</a> of making the locally optimal choice at each stage.[1] In many problems, a greedy strategy does not produce an optimal solution, but a greedy heuristic can yield locally optimal solutions that approximate a globally optimal solution in a reasonable amount of time.[2]</p>
 <p>For example, a greedy strategy for the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Travelling_salesman_problem">travelling salesman problem</a> (which is of high <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Computational_complexity">computational complexity</a>) is the following heuristic: “At each step of the journey, visit the nearest unvisited city.” This heuristic does not intend to find the best solution, but it terminates in a reasonable number of steps; finding an optimal solution to such a complex problem typically requires unreasonably many steps.[3]</p>
 <p>In <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Mathematical_optimization">mathematical optimization</a>, greedy algorithms optimally solve <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Combinatorics">combinatorial</a> problems having the properties of <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Matroid">matroids</a> and give constant-factor approximations to optimization problems with the submodular structure.</p>
 <p><em>Key: The greedy algorithm does not always provide the optimal solution for every problem; the key lies in the choice of the greedy strategy.</em></p>
@@ -308,38 +307,28 @@
 <li>Solve each sub-problem to obtain the local optimal solution of the sub-problems.</li>
 <li>Combine the local optimal solutions of the sub-problems to form a solution to the original problems.</li>
 </ul>
-<h2 id="specifics">Specifics</h2>
-<h3 id="property">Property</h3>
-<p>The key feature that defines a greedy algorithm is its ability to make locally optimal choices at each step without reconsidering previous decisions. This property guarantees that:</p>
+<h2 id="Specifics"><a href="#Specifics" class="headerlink" title="Specifics"></a>Specifics</h2><h3 id="Property"><a href="#Property" class="headerlink" title="Property"></a>Property</h3><p>The key feature that defines a greedy algorithm is its ability to make locally optimal choices at each step without reconsidering previous decisions. This property guarantees that:</p>
 <ul>
-<li>
-<p><strong>Local decisions lead to global optimum</strong>: The best choice at the current stage will be part of the overall optimal solution.</p>
+<li><p><strong>Local decisions lead to global optimum</strong>: The best choice at the current stage will be part of the overall optimal solution.</p>
 </li>
-<li>
-<p><strong>No backtracking</strong>: Once a decision is made, it is never revoked.</p>
+<li><p><strong>No backtracking</strong>: Once a decision is made, it is never revoked.</p>
 </li>
 </ul>
 <p><strong>Example</strong>: <em>In the Fractional Knapsack Problem, always selecting the item with the highest value-to-weight ratio at each step yields the globally optimal solution.</em></p>
-<h3 id="optimal-substructure">Optimal Substructure</h3>
-<p>A problem must have an optimal substructure for greedy algorithms to work:</p>
+<h3 id="Optimal-Substructure"><a href="#Optimal-Substructure" class="headerlink" title="Optimal Substructure"></a>Optimal Substructure</h3><p>A problem must have an optimal substructure for greedy algorithms to work:</p>
 <ul>
-<li>
-<p>The optimal solution to the entire problem can be constructed from optimal solutions to its subproblems.</p>
+<li><p>The optimal solution to the entire problem can be constructed from optimal solutions to its subproblems.</p>
 </li>
-<li>
-<p>This property overlaps with dynamic programming but differs in that greedy algorithms don’t revisit subproblems.</p>
+<li><p>This property overlaps with dynamic programming but differs in that greedy algorithms don’t revisit subproblems.</p>
 </li>
 </ul>
 <p><strong>Example</strong>: In Dijkstra’s Algorithm, the shortest path from node A to C via B combines the shortest path (A→B) with the optimal local choice (B→C).</p>
-<h3 id="correctness-proofs">Correctness Proofs</h3>
-<p>There are two ways to prove the greedy algorithm: <u>proof by contradiction and induction</u></p>
+<h3 id="Correctness-Proofs"><a href="#Correctness-Proofs" class="headerlink" title="Correctness Proofs"></a>Correctness Proofs</h3><p>There are two ways to prove the greedy algorithm: <u>proof by contradiction and induction</u></p>
 <p><em>Generally, only one of these methods will be used to prove a problem.</em></p>
-<p><strong>Proof by Contradiction:</strong> If the answer does not get better after exchanging any two elements / two adjacent elements in the solution, then it can be inferred that the current solution is the optimal solution.</p>
-<p><strong>Proof by Induction:</strong> First calculate the optimal solution <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">F_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> for the boundary case (for example, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">n = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>), and then prove that for each <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span>, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>n</mi></msub><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">F_n + 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> can be derived from <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>F</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">F_n</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">n</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>.</p>
-<h3 id="example">Example</h3>
-<h4 id="1-change-making-problem">1. Change-making Problem</h4>
-<p>This problem is quit common in our daily lives, suppose we have c0, c1, c2, c3, c4, c5, c6 pieces of currently notes of 1dollar, 2dollars, 5dollars, 10dollars, 50dollars and 100dollars respectively. Now, we need to pay K dollars with this money; What is the minimum number of paper money required?</p>
-<p>Using the idea of the greedy algorithm, it’s obvious that at each step we should use the largest denomination of currency possible.</p>
+<p><strong>Proof by Contradiction:</strong> If the answer does not get better after exchanging any two elements &#x2F; two adjacent elements in the solution, then it can be inferred that the current solution is the optimal solution.</p>
+<p><strong>Proof by Induction:</strong> First calculate the optimal solution $F_1$ for the boundary case (for example, $n &#x3D; 1$), and then prove that for each $n$, $F_n + 1$ can be derived from $F_n$.</p>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><h4 id="1-Change-making-Problem"><a href="#1-Change-making-Problem" class="headerlink" title="1. Change-making Problem"></a>1. Change-making Problem</h4><p>This problem is quit common in our daily lives, suppose we have c0, c1, c2, c3, c4, c5, c6 pieces of currently notes of 1dollar, 2dollars, 5dollars, 10dollars, 50dollars and 100dollars respectively. Now, we need to pay K dollars with this money; What is the minimum number of paper money required?</p>
+<p>Using the idea of the greedy algorithm, it’s obvious that at each step we should use the largest denomination of currency possible. </p>
 <p>In our daily life, we naturally do this as well.</p>
 <div class="code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;algorithm&gt;</span> </span>
@@ -380,13 +369,13 @@
     &#125;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
-<h4 id="2-djikstra-algorithm">2. Djikstra Algorithm</h4>
-<p>Dijkstra is a typical shortest path algorithm, an algorithm and idea for calculating the shortest path from a starting node to all other nodes in the path. It is introduced in some professional courses such as <code>data structure</code>, <code>graph theory</code>, and <code>operations research</code>. Its idea is a basic algorithm for finding the <u>shortest path</u>. By changing the basic idea, many complex problems can be solved, such as navigation routes, dynamic programming, etc.</p>
+
+<h4 id="2-Djikstra-Algorithm"><a href="#2-Djikstra-Algorithm" class="headerlink" title="2. Djikstra Algorithm"></a>2. Djikstra Algorithm</h4><p>Dijkstra is a typical shortest path algorithm, an algorithm and idea for calculating the shortest path from a starting node to all other nodes in the path. It is introduced in some professional courses such as <code>data structure</code>, <code>graph theory</code>, and <code>operations research</code>. Its idea is a basic algorithm for finding the <u>shortest path</u>. By changing the basic idea, many complex problems can be solved, such as navigation routes, dynamic programming, etc.</p>
 <p><em>Tips: But, a greedy algorithm never reconsiders its choices. This is the main difference from dynamic programming, which is exhaustive and is guaranteed to find the solution. After every stage, dynamic programming makes decisions based on all the decisions made in the previous stage and may reconsider the previous stage’s algorithmic path to the solution.</em></p>
 <p>The following picture is a multi-node, multi-path graph. The following uses this graph as an example to explain the process of Dijkstra’s algorithm to find the shortest path.</p>
 <p><img src="/images/Greedy-Algorithm/Dij.png" srcset="/img/loading.gif" lazyload alt="images"></p>
 <p>Take point A as the starting point, find the shortest path from point A to the other 5 points B C D E F, and finally get the shortest path from A to the other points.</p>
-<p>Because the shortest distance from A to the other 5 points is required, an array is constructed to record the path distance from A to the 5 points B C D E F.</p>
+<p>Because the shortest distance from A to the other 5 points is required, an array is constructed to record the path distance from A to the 5 points B C D E F. </p>
 <p>Here is a convention:</p>
 <ul>
 <li>If A can reach the node directly, the path length, i.e. the weight, is used as its distance</li>
@@ -397,25 +386,23 @@
 <table>
 <thead>
 <tr>
-<th style="text-align:center">A</th>
-<th style="text-align:center">B</th>
-<th style="text-align:center">C</th>
-<th style="text-align:center">D</th>
-<th style="text-align:center">E</th>
-<th style="text-align:center">F</th>
+<th align="center">A</th>
+<th align="center">B</th>
+<th align="center">C</th>
+<th align="center">D</th>
+<th align="center">E</th>
+<th align="center">F</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td style="text-align:center">0</td>
-<td style="text-align:center">10</td>
-<td style="text-align:center">∞</td>
-<td style="text-align:center">4</td>
-<td style="text-align:center">∞</td>
-<td style="text-align:center">∞</td>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">10</td>
+<td align="center">∞</td>
+<td align="center">4</td>
+<td align="center">∞</td>
+<td align="center">∞</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>The idea of Dijkstra’s algorithm is to select the nearest point from the above shortest distance array each time, use it as the next point, and then recalculated the distance from the starting point through this point to all other points, and update the shortest distance data. The point that have been selected are the points that determine the shortest path and will not participate in the next calculation.</p>
 <div class="code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;climits&gt;</span></span>
@@ -491,8 +478,10 @@
     cout &lt;&lt; endl;
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
-<h2 id="references">References</h2>
-<p>[1].  Black, Paul E. (2 February 2005). <a target="_blank" rel="noopener" href="http://xlinux.nist.gov/dads//HTML/greedyalgo.html">“greedy algorithm”</a>. <em>Dictionary of Algorithms and Data Structures</em>. <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/National_Institute_of_Standards_and_Technology">U.S. National Institute of Standards and Technology</a> (NIST). Retrieved 17 August 2012.</p>
+
+
+
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p>[1].  Black, Paul E. (2 February 2005). <a target="_blank" rel="noopener" href="http://xlinux.nist.gov/dads//HTML/greedyalgo.html">“greedy algorithm”</a>. <em>Dictionary of Algorithms and Data Structures</em>. <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/National_Institute_of_Standards_and_Technology">U.S. National Institute of Standards and Technology</a> (NIST). Retrieved 17 August 2012.</p>
 <p>[2]  van Melkebeek, Dieter. <a target="_blank" rel="noopener" href="https://pages.cs.wisc.edu/~dieter/Courses/2004F-CS787/Scribes/greedy-approx.pdf">“Greedy Approximations”</a> (PDF). <em>University of Wisconsin–Madison</em>. Retrieved 2025-07-25.</p>
 <p>[3]  Frieze, Alan; Pegden, Wesley (2023-10-05). <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2310.03222">“The bright side of simple heuristics for the TSP”</a>. <em>arXiv preprint</em>. arXiv:2310.03222. Retrieved 2025-07-25.</p>
 

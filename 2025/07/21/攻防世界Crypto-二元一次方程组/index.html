@@ -19,12 +19,12 @@
   <meta name="author" content="zer0ptr">
   <meta name="keywords" content="">
   
-    <meta name="description" content="分析： import libnum from Crypto.Util import number from secret import flag   size &#x3D; 256 e &#x3D; 65537 p &#x3D; number.getPrime(size) q &#x3D; number.getPrime(size) avg &#x3D; (p+q)&#x2F;2 n &#x3D; p*q  m &#x3D; libnum.s2n(flag) c &#x3D; pow(">
+    <meta name="description" content="分析：import libnum from Crypto.Util import number from secret import flag   size &#x3D; 256 e &#x3D; 65537 p &#x3D; number.getPrime(size) q &#x3D; number.getPrime(size) avg &#x3D; (p+q)&#x2F;2 n &#x3D; p*q  m &#x3D; libnum.s2n(flag) c &#x3D; pow(m">
 <meta property="og:type" content="article">
 <meta property="og:title" content="攻防世界Crypto-二元一次方程组">
 <meta property="og:url" content="https://zer0ptr.github.io/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-%E4%BA%8C%E5%85%83%E4%B8%80%E6%AC%A1%E6%96%B9%E7%A8%8B%E7%BB%84/index.html">
 <meta property="og:site_name" content="zer0ptr&#39;s Blog">
-<meta property="og:description" content="分析： import libnum from Crypto.Util import number from secret import flag   size &#x3D; 256 e &#x3D; 65537 p &#x3D; number.getPrime(size) q &#x3D; number.getPrime(size) avg &#x3D; (p+q)&#x2F;2 n &#x3D; p*q  m &#x3D; libnum.s2n(flag) c &#x3D; pow(">
+<meta property="og:description" content="分析：import libnum from Crypto.Util import number from secret import flag   size &#x3D; 256 e &#x3D; 65537 p &#x3D; number.getPrime(size) q &#x3D; number.getPrime(size) avg &#x3D; (p+q)&#x2F;2 n &#x3D; p*q  m &#x3D; libnum.s2n(flag) c &#x3D; pow(m">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-07-21T01:46:37.000Z">
 <meta property="article:modified_time" content="2025-07-28T04:58:30.723Z">
@@ -242,7 +242,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          341 words
+          332 words
         
       </span>
     
@@ -295,8 +295,7 @@
             
               <div class="markdown-body">
                 
-                <h2 id="分析：">分析：</h2>
-<div class="code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">import</span> libnum
+                <h2 id="分析："><a href="#分析：" class="headerlink" title="分析："></a>分析：</h2><div class="code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">import</span> libnum
 <span class="hljs-keyword">from</span> Crypto.Util <span class="hljs-keyword">import</span> number
 <span class="hljs-keyword">from</span> secret <span class="hljs-keyword">import</span> flag
 
@@ -315,34 +314,33 @@ c = <span class="hljs-built_in">pow</span>(m, e, n)
 <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;avg = %d&#x27;</span> % avg)
 <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;c = %d&#x27;</span> % c)
 </code></pre></div>
+
 <p>看上述代码感觉老朋友了，详情可以看上一篇的<code>baigeiRSA</code></p>
 <div class="code-wrapper"><pre><code class="hljs python">size = <span class="hljs-number">256</span>
 e = <span class="hljs-number">65537</span></code></pre></div>
+
 <p><code>size=256</code>定义了生成的素数<code>p</code>和<code>q</code>的比特长度</p>
 <p><code>e=65537</code>是RSA公钥指数，是一个固定的值</p>
 <div class="code-wrapper"><pre><code class="hljs python">p = number.getPrime(size)
 q = number.getPrime(size)
 avg = (p+q)/<span class="hljs-number">2</span>
 n = p*q</code></pre></div>
+
 <p>生成 RSA密钥</p>
 <p>其中设计两个公式：</p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>v</mi><mi>g</mi><mo>=</mo><mfrac><mrow><mi>p</mi><mo>+</mo><mi>q</mi></mrow><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">avg = \frac{p+q} {2}
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.9463300000000001em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.2603300000000002em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">2</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">p</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mi>p</mi><mo>∗</mo><mi>q</mi></mrow><annotation encoding="application/x-tex">n=p*q
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.6597200000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span></span></p>
+<p>$$avg &#x3D; \frac{p+q} {2}$$</p>
+<p>$$n&#x3D;p*q$$</p>
 <div class="code-wrapper"><pre><code class="hljs ini"><span class="hljs-attr">m</span> = libnum.s2n(flag)
 <span class="hljs-attr">c</span> = pow(m, e, n)</code></pre></div>
+
 <p><code>libnum.s2n(flag)</code>：将<code>flag</code>字符串转换为一个大整数<code>m</code>（<code>s2n</code>表示“string to number”）。</p>
 <p><code>c = pow(m, e, n)</code>：计算密文<code>c</code>，即<code>m^e mod n</code>（RSA加密的核心操作）。</p>
 <p>之后两个<code>print</code>即输出结果</p>
 <p>我们回到上面的两个公式，再结合题目名称，将第一个公式的分母移至左边，加上公式2可以得到</p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>+</mo><mi>q</mi><mo>=</mo><mn>2</mn><mi>a</mi><mi>v</mi><mi>g</mi></mrow><annotation encoding="application/x-tex">p + q = 2avg
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7777700000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">2</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span></span></span></span></span></p>
-<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>∗</mo><mi>q</mi><mo>=</mo><mi>n</mi></mrow><annotation encoding="application/x-tex">p * q = n
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6597200000000001em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">p</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">n</span></span></span></span></span></p>
+<p>$$p + q &#x3D; 2avg$$</p>
+<p>$$p * q &#x3D; n$$</p>
 <p>于是这题可以使用韦达定理来解体</p>
-<h2 id="exploit：">Exploit：</h2>
-<div class="code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">import</span> libnum
+<h2 id="Exploit："><a href="#Exploit：" class="headerlink" title="Exploit："></a>Exploit：</h2><div class="code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">import</span> libnum
 
 <span class="hljs-keyword">def</span> <span class="hljs-title function_">egcd</span>(<span class="hljs-params">a, b</span>):
     <span class="hljs-keyword">if</span> a == <span class="hljs-number">0</span>:
@@ -367,6 +365,7 @@ phi_n = n - <span class="hljs-number">2</span> * avg + <span class="hljs-number"
 d = modinv(e, phi_n)  <span class="hljs-comment"># de = 1 mod phi_n, d = e^-1 mod phi_n</span>
 m = <span class="hljs-built_in">pow</span>(c, d, n)
 <span class="hljs-built_in">print</span>(libnum.n2s(m))</code></pre></div>
+
 
                 
               </div>
