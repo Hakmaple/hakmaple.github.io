@@ -1,149 +1,300 @@
-<!DOCTYPE HTML>
-<html>
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="pragma" content="no-cache">
-  <meta http-equiv="cache-control" content="no-cache">
-  <meta http-equiv="expires" content="0">
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/SecureNexusLab.png">
+  <link rel="icon" href="/img/SecureNexusLab.png">
   
-  <title>Many Time Pad Attack | zer0ptr&#39;s Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
   <meta name="author" content="zer0ptr">
+  <meta name="keywords" content="">
   
-  <meta name="description" content="一些基础知识符号：
-⊕ 代表异或
-C1 代表密文
-M1 代表明文
-性质：
-
-交换律
-结合律 (a ⊕ b ) ⊕ c &amp;#x3D; a⊕ ( b ⊕ c)
-任何数x x ⊕ x &amp;#x3D; 0 x ⊕ 0 &amp;#x3D; X
-自反性 x ⊕ b ⊕ b &amp;#x3D; x ⊕ 0 &amp;#x3D; x
-
-DescriptionMany-Time-Pad (多时间垫) 攻击是一种针对多次使用相同密钥的流密码（如一次性密码本，One-Time Pad）的密码分析技术。其核心原理是利用密钥重用导致的明文信息泄露，通过数学和统计方法恢复部分或全部明文。以下是其核心原理和步骤：
-1. 一次性密码本（OTP）的安全前提OTP的安全性是建立在："> 
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-  <meta property="og:title" content="Many Time Pad Attack"/>
-  <meta property="og:site_name" content="zer0ptr&#39;s Blog"/>
-
-  
-    <meta property="og:image" content=""/>
-  
-
-  
-    <link rel="alternative" href="/atom.xml" title="zer0ptr&#39;s Blog" type="application/atom+xml">
+    <meta name="description" content="一些基础知识符号： ⊕ 代表异或 C1 代表密文 M1 代表明文 性质：  交换律 结合律 (a ⊕ b ) ⊕ c &#x3D; a⊕ ( b ⊕ c) 任何数x x ⊕ x &#x3D; 0 x ⊕ 0 &#x3D; X 自反性 x ⊕ b ⊕ b &#x3D; x ⊕ 0 &#x3D; x  DescriptionMany-Time-Pad (多时间垫) 攻击是一种针对多次使用相同密钥的流密">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Many Time Pad Attack">
+<meta property="og:url" content="https://zer0ptr.github.io/2025/06/22/Many-Time-Pad-Attack/index.html">
+<meta property="og:site_name" content="zer0ptr&#39;s Blog">
+<meta property="og:description" content="一些基础知识符号： ⊕ 代表异或 C1 代表密文 M1 代表明文 性质：  交换律 结合律 (a ⊕ b ) ⊕ c &#x3D; a⊕ ( b ⊕ c) 任何数x x ⊕ x &#x3D; 0 x ⊕ 0 &#x3D; X 自反性 x ⊕ b ⊕ b &#x3D; x ⊕ 0 &#x3D; x  DescriptionMany-Time-Pad (多时间垫) 攻击是一种针对多次使用相同密钥的流密">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-06-22T03:37:00.000Z">
+<meta property="article:modified_time" content="2025-07-14T04:57:34.374Z">
+<meta property="article:author" content="zer0ptr">
+<meta property="article:tag" content="Crypto">
+<meta name="twitter:card" content="summary_large_image">
   
   
-    <link href="/favicon.png" rel="icon">
   
+  <title>Many Time Pad Attack - zer0ptr&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
   
-  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
-  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-
-  <script src="/js/jquery-2.0.3.min.js"></script>
-
-  <!-- analytics -->
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70812759-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-70812759-1');
-</script>
 
 
 
+  
+<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.7.0/style.min.css">
 
 
 
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zer0ptr.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+  <script src="/js/sakura.js"></script>
+  <script src="/js/love.js"></script>
 <meta name="generator" content="Hexo 7.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
 
- <body>  
-  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-		<span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-	  <a class="navbar-brand" href="/">zer0ptr&#39;s Blog</a>
-      <div class="collapse navbar-collapse nav-menu">
-		<ul class="nav navbar-nav">
-		  
-		  <li>
-			<a href="/archives" title="All the articles.">
-			  <i class=""></i>Archives
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/categories" title="All the categories.">
-			  <i class=""></i>Categories
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/tags" title="All the tags.">
-			  <i class=""></i>Tags
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/about" title="About me.">
-			  <i class=""></i>About
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/atom.xml" title="Subscribe me.">
-			  <i class=""></i>RSS
-			</a>
-		  </li>
-		  
-		</ul>
-      </div>
-    </div> <!-- container -->
-</nav>
-<div class="clearfix"></div>
 
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-  	<div class="content">
-    	 
+    <a class="navbar-brand" href="/">
+      <strong>zer0ptr&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>Links</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/background.PNG') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Many Time Pad Attack"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-06-22 11:37" pubdate>
+          June 22, 2025 am
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.4k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
 
 
-	
-		<div class="page-header">
-			<h1> Many Time Pad Attack</h1>
-		</div>
-	
+        
+      </div>
 
+      
+    </div>
+  </div>
+</div>
 
+</div>
 
-<div class="row post">
-	<!-- cols -->
-	
-	<div id="top_meta"></div>
-	<div class="col-md-9">
-	
+  </header>
 
-	<!-- content -->
-	<div class="mypage">		
-	  		
+  <main>
+    
+      
 
-	  <h2 id="一些基础知识"><a href="#一些基础知识" class="headerlink" title="一些基础知识"></a>一些基础知识</h2><p><strong>符号：</strong></p>
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Many Time Pad Attack</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="一些基础知识"><a href="#一些基础知识" class="headerlink" title="一些基础知识"></a>一些基础知识</h2><p><strong>符号：</strong></p>
 <p>⊕ 代表异或</p>
 <p>C1 代表密文</p>
 <p>M1 代表明文</p>
@@ -163,7 +314,8 @@ DescriptionMany-Time-Pad (多时间垫) 攻击是一种针对多次使用相同�
 </ul>
 <p><strong>2. 攻击原理：密钥重用的漏洞</strong><br>当同一密钥 K 加密多个明文时，密文之间的异或（⊕）等价于明文之间的异或：</p>
 <p>$C₁ ⊕ C₂ &#x3D; (P₁ ⊕ K) ⊕ (P₂ ⊕ K) &#x3D; P₁ ⊕ P₂$<br>形象一点可以表达成这样：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">密文 = 明文 ⊕ 密钥</span><br><span class="line">密文1 ⊕ 密文2 = 明文1 ⊕ 明文2 ⊕ 密钥1 ⊕ 密钥2</span><br></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs abnf">密文 <span class="hljs-operator">=</span> 明文 ⊕ 密钥
+密文<span class="hljs-number">1</span> ⊕ 密文<span class="hljs-number">2</span> <span class="hljs-operator">=</span> 明文<span class="hljs-number">1</span> ⊕ 明文<span class="hljs-number">2</span> ⊕ 密钥<span class="hljs-number">1</span> ⊕ 密钥<span class="hljs-number">2</span></code></pre></div>
 <p>此时，攻击者获得了 P₁ ⊕ P₂（即明文的异或结果），而无需知道密钥 K。</p>
 <p><strong>3. 利用明文冗余恢复信息</strong><br>通过分析 P₁ ⊕ P₂，攻击者可以利用自然语言的统计特性（如字母频率、空格、常见词）逐步推测明文。例如：</p>
 <ul>
@@ -172,15 +324,69 @@ DescriptionMany-Time-Pad (多时间垫) 攻击是一种针对多次使用相同�
 <li><p>词频分析：对 P₁ ⊕ P₂ 的局部进行猜测，若某段异或结果符合常见词的统计特征（如英文中的”the”、”and”），则可反推明文片段。</p>
 </li>
 </ul>
-<h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><h3 id="BUUCTF-AFCTF2018"><a href="#BUUCTF-AFCTF2018" class="headerlink" title="BUUCTF: [AFCTF2018]"></a>BUUCTF: [AFCTF2018]</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">25030206463d3d393131555f7f1d061d4052111a19544e2e5d54</span><br><span class="line">0f020606150f203f307f5c0a7f24070747130e16545000035d54</span><br><span class="line">1203075429152a7020365c167f390f1013170b1006481e13144e</span><br><span class="line">0f4610170e1e2235787f7853372c0f065752111b15454e0e0901</span><br><span class="line">081543000e1e6f3f3a3348533a270d064a02111a1b5f4e0a1855</span><br><span class="line">0909075412132e247436425332281a1c561f04071d520f0b1158</span><br><span class="line">4116111b101e2170203011113a69001b47520601155205021901</span><br><span class="line">041006064612297020375453342c17545a01451811411a470e44</span><br><span class="line">021311114a5b0335207f7c167f22001b44520c15544801125d40</span><br><span class="line">06140611460c26243c7f5c167f3d015446010053005907145d44</span><br><span class="line">0f05110d160f263f3a7f4210372c03111313090415481d49530f</span><br></pre></td></tr></table></figure>
+<h2 id="实践"><a href="#实践" class="headerlink" title="实践"></a>实践</h2><h3 id="BUUCTF-AFCTF2018"><a href="#BUUCTF-AFCTF2018" class="headerlink" title="BUUCTF: [AFCTF2018]"></a>BUUCTF: [AFCTF2018]</h3><div class="code-wrapper"><pre><code class="hljs dns"><span class="hljs-number">25030206463d</span>3d393131555f7f1d061d4052111a195<span class="hljs-number">44e2e5d54</span>
+<span class="hljs-number">0</span>f020606150f203f307f5c0a7f24070747130e165<span class="hljs-number">45000035d54</span>
+<span class="hljs-number">1203075429152</span>a7020365c167f390f1013170b1006481e13144e
+<span class="hljs-number">0</span>f4610170e1e2235787f7853372c0f065752111b154<span class="hljs-number">54e0e0901</span>
+<span class="hljs-number">081543000</span>e1e6f3f3a3348533a270d064a02111a1b5f<span class="hljs-number">4e0a1855</span>
+<span class="hljs-number">0909075412132</span>e247436425332281a1c561f04071d5<span class="hljs-number">20f0b1158</span>
+<span class="hljs-number">4116111</span>b101e2170203011113a69001b4752060<span class="hljs-number">1155205021901</span>
+<span class="hljs-number">041006064612297020375453342</span>c17545a014518114<span class="hljs-number">11a470e44</span>
+<span class="hljs-number">021311114</span>a5b0335207f7c167f22001b44520c15<span class="hljs-number">544801125d40</span>
+<span class="hljs-number">06140611460</span>c26243c7f5c167f3d015446010053<span class="hljs-number">005907145d44</span>
+<span class="hljs-number">0</span>f05110d160f263f3a7f4210372c03111313090415481d49530f</code></pre></div>
 <p>设每一个字符串（密文）为$C_i$,都是某个<code>key</code>异或上明文 $M_i$ 得到的.我们的目标是获取到这个key,已知明文是英文句子.</p>
 <p>$C_1 ⨁ C_2 &#x3D;(M_1 ⨁ key) ⨁ (M_2 ⨁ key) &#x3D; M_1 ⨁ M_2$</p>
 <p>因此两个密文异或得到两个明文</p>
 <p>我们使用$C_1$异或上其他的密文</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"></span><br><span class="line">loca = string.ascii_lowercase + string.ascii_uppercase</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hextostr</span>(<span class="params">hexstr</span>):</span><br><span class="line">    <span class="built_in">hex</span> = hexstr.encode(<span class="string">&quot;utf-8&quot;</span>)</span><br><span class="line">    str_bin = binascii.unhexlify(<span class="built_in">hex</span>)</span><br><span class="line">    <span class="keyword">return</span> str_bin.decode(<span class="string">&quot;utf-8&quot;</span>)</span><br><span class="line"></span><br><span class="line">c1 = <span class="string">&quot;25030206463d3d393131555f7f1d061d4052111a19544e2e5d&quot;</span></span><br><span class="line">c2 = <span class="string">&#x27;0f020606150f203f307f5c0a7f24070747130e16545000035d&#x27;</span></span><br><span class="line">c3 = <span class="string">&#x27;1203075429152a7020365c167f390f1013170b1006481e1314&#x27;</span></span><br><span class="line">c4 = <span class="string">&#x27;0f4610170e1e2235787f7853372c0f065752111b15454e0e09&#x27;</span></span><br><span class="line">c5 = <span class="string">&#x27;081543000e1e6f3f3a3348533a270d064a02111a1b5f4e0a18&#x27;</span></span><br><span class="line">c6 = <span class="string">&#x27;0909075412132e247436425332281a1c561f04071d520f0b11&#x27;</span></span><br><span class="line">c7 = <span class="string">&#x27;4116111b101e2170203011113a69001b475206011552050219&#x27;</span></span><br><span class="line">c8 = <span class="string">&#x27;041006064612297020375453342c17545a01451811411a470e&#x27;</span></span><br><span class="line">c9 = <span class="string">&#x27;021311114a5b0335207f7c167f22001b44520c15544801125d&#x27;</span></span><br><span class="line">c10 = <span class="string">&#x27;06140611460c26243c7f5c167f3d015446010053005907145d&#x27;</span></span><br><span class="line">c11 = <span class="string">&#x27;0f05110d160f263f3a7f4210372c03111313090415481d49&#x27;</span></span><br><span class="line">chiphers =[c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11]</span><br><span class="line"></span><br><span class="line">s2 = hextostr(c2)</span><br><span class="line">sc1 = hextostr(c1)</span><br><span class="line"><span class="keyword">for</span> chipher <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(chiphers)):</span><br><span class="line">    <span class="keyword">if</span> chipher == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(sc1)):</span><br><span class="line">        asc =<span class="built_in">chr</span>(<span class="built_in">ord</span>(sc1[i]) ^ <span class="built_in">ord</span>(hextostr(chiphers[chipher])[i]))</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> asc:</span><br><span class="line">            <span class="keyword">if</span> i <span class="keyword">in</span> loca:</span><br><span class="line">                <span class="built_in">print</span>(i,end=<span class="string">&quot;&quot;</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;.&quot;</span>,end=<span class="string">&quot;&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>()</span><br></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">import</span> binascii
+<span class="hljs-keyword">import</span> string
+
+loca = string.ascii_lowercase + string.ascii_uppercase
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">hextostr</span>(<span class="hljs-params">hexstr</span>):
+    <span class="hljs-built_in">hex</span> = hexstr.encode(<span class="hljs-string">&quot;utf-8&quot;</span>)
+    str_bin = binascii.unhexlify(<span class="hljs-built_in">hex</span>)
+    <span class="hljs-keyword">return</span> str_bin.decode(<span class="hljs-string">&quot;utf-8&quot;</span>)
+
+c1 = <span class="hljs-string">&quot;25030206463d3d393131555f7f1d061d4052111a19544e2e5d&quot;</span>
+c2 = <span class="hljs-string">&#x27;0f020606150f203f307f5c0a7f24070747130e16545000035d&#x27;</span>
+c3 = <span class="hljs-string">&#x27;1203075429152a7020365c167f390f1013170b1006481e1314&#x27;</span>
+c4 = <span class="hljs-string">&#x27;0f4610170e1e2235787f7853372c0f065752111b15454e0e09&#x27;</span>
+c5 = <span class="hljs-string">&#x27;081543000e1e6f3f3a3348533a270d064a02111a1b5f4e0a18&#x27;</span>
+c6 = <span class="hljs-string">&#x27;0909075412132e247436425332281a1c561f04071d520f0b11&#x27;</span>
+c7 = <span class="hljs-string">&#x27;4116111b101e2170203011113a69001b475206011552050219&#x27;</span>
+c8 = <span class="hljs-string">&#x27;041006064612297020375453342c17545a01451811411a470e&#x27;</span>
+c9 = <span class="hljs-string">&#x27;021311114a5b0335207f7c167f22001b44520c15544801125d&#x27;</span>
+c10 = <span class="hljs-string">&#x27;06140611460c26243c7f5c167f3d015446010053005907145d&#x27;</span>
+c11 = <span class="hljs-string">&#x27;0f05110d160f263f3a7f4210372c03111313090415481d49&#x27;</span>
+chiphers =[c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11]
+
+s2 = hextostr(c2)
+sc1 = hextostr(c1)
+<span class="hljs-keyword">for</span> chipher <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(chiphers)):
+    <span class="hljs-keyword">if</span> chipher == <span class="hljs-number">0</span>:
+        <span class="hljs-keyword">continue</span>
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(sc1)):
+        asc =<span class="hljs-built_in">chr</span>(<span class="hljs-built_in">ord</span>(sc1[i]) ^ <span class="hljs-built_in">ord</span>(hextostr(chiphers[chipher])[i]))
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> asc:
+            <span class="hljs-keyword">if</span> i <span class="hljs-keyword">in</span> loca:
+                <span class="hljs-built_in">print</span>(i,end=<span class="hljs-string">&quot;&quot;</span>)
+            <span class="hljs-keyword">else</span>:
+                <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;.&quot;</span>,end=<span class="hljs-string">&quot;&quot;</span>)
+    <span class="hljs-built_in">print</span>()</code></pre></div>
 
 <p>得到的内容如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">....S....N.U.....A..M.N..</span><br><span class="line">...Ro..I...I....SE....P.I</span><br><span class="line">.E..H...IN..H...........T</span><br><span class="line">..A.H.R.....E....P......E</span><br><span class="line">...RT...E...M....M....A.L</span><br><span class="line">d...V..I..DNEt........K.D</span><br><span class="line">.......I....K..I.ST...TiS</span><br><span class="line">.....f...N.I........M.O..</span><br><span class="line">.........N.I...I.S.I..I..</span><br><span class="line">....P....N.OH...SA....Sg..</span><br></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs stylus">...<span class="hljs-selector-class">.S</span>...<span class="hljs-selector-class">.N</span><span class="hljs-selector-class">.U</span>....<span class="hljs-selector-class">.A</span>.<span class="hljs-selector-class">.M</span><span class="hljs-selector-class">.N</span>..
+..<span class="hljs-selector-class">.Ro</span>.<span class="hljs-selector-class">.I</span>..<span class="hljs-selector-class">.I</span>...<span class="hljs-selector-class">.SE</span>...<span class="hljs-selector-class">.P</span><span class="hljs-selector-class">.I</span>
+<span class="hljs-selector-class">.E</span>.<span class="hljs-selector-class">.H</span>..<span class="hljs-selector-class">.IN</span>.<span class="hljs-selector-class">.H</span>..........<span class="hljs-selector-class">.T</span>
+.<span class="hljs-selector-class">.A</span><span class="hljs-selector-class">.H</span><span class="hljs-selector-class">.R</span>....<span class="hljs-selector-class">.E</span>...<span class="hljs-selector-class">.P</span>.....<span class="hljs-selector-class">.E</span>
+..<span class="hljs-selector-class">.RT</span>..<span class="hljs-selector-class">.E</span>..<span class="hljs-selector-class">.M</span>...<span class="hljs-selector-class">.M</span>...<span class="hljs-selector-class">.A</span><span class="hljs-selector-class">.L</span>
+d..<span class="hljs-selector-class">.V</span>.<span class="hljs-selector-class">.I</span>.<span class="hljs-selector-class">.DNEt</span>.......<span class="hljs-selector-class">.K</span><span class="hljs-selector-class">.D</span>
+......<span class="hljs-selector-class">.I</span>...<span class="hljs-selector-class">.K</span>.<span class="hljs-selector-class">.I</span><span class="hljs-selector-class">.ST</span>..<span class="hljs-selector-class">.TiS</span>
+....<span class="hljs-selector-class">.f</span>..<span class="hljs-selector-class">.N</span><span class="hljs-selector-class">.I</span>.......<span class="hljs-selector-class">.M</span><span class="hljs-selector-class">.O</span>..
+........<span class="hljs-selector-class">.N</span><span class="hljs-selector-class">.I</span>..<span class="hljs-selector-class">.I</span><span class="hljs-selector-class">.S</span><span class="hljs-selector-class">.I</span>.<span class="hljs-selector-class">.I</span>..
+...<span class="hljs-selector-class">.P</span>...<span class="hljs-selector-class">.N</span><span class="hljs-selector-class">.OH</span>..<span class="hljs-selector-class">.SA</span>...<span class="hljs-selector-class">.Sg</span>..</code></pre></div>
 
 <p>可以观察到，有些列上有大量的英文字符，有些列一个英文字符都没有。这是偶然现象吗？</p>
 <h3 id="ascii表"><a href="#ascii表" class="headerlink" title="ascii表"></a>ascii表</h3><p>ascii 码表在 Linux 下可以通过 man ascii 指令查看。它的性质有：</p>
@@ -192,10 +398,71 @@ DescriptionMany-Time-Pad (多时间垫) 攻击是一种针对多次使用相同�
 <p>我们可以注意到一个至关重要的规律：小写字母 xor 空格，会得到对应的大写字母；大写字母 xor 空格，会得到小写字母！所以，如果 <code>x ⨁ y</code> 得到一个英文字母，那么x和y之中有一个很大概率可能是空格，那么来看 C1 ⊕ 其他密文也就是M1 ⊕ 其他明文的表，如果第<code>col</code>列存在大量英文字母,我们可以猜测 <code>M1[col]</code> 是一个空格 知道M1的col位是空格有什么用呢？别忘了异或运算下，<code>x</code>的逆元是其自身。所以</p>
 <p><strong>$M_i[col] &#x3D; M_1[col] ⨁ M_i[col] &#x3D; M_1[col] ⨁ M_i[col] ⨁ 0x20$</strong></p>
 <p>代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Crypto.Util.strxor <span class="keyword">as</span> xo</span><br><span class="line"><span class="keyword">import</span> libnum, codecs, numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">isChr</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">ord</span>(<span class="string">&#x27;a&#x27;</span>) &lt;= x <span class="keyword">and</span> x &lt;= <span class="built_in">ord</span>(<span class="string">&#x27;z&#x27;</span>): <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">ord</span>(<span class="string">&#x27;A&#x27;</span>) &lt;= x <span class="keyword">and</span> x &lt;= <span class="built_in">ord</span>(<span class="string">&#x27;Z&#x27;</span>): <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">infer</span>(<span class="params">index, pos</span>):</span><br><span class="line">    <span class="keyword">if</span> msg[index, pos] != <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    msg[index, pos] = <span class="built_in">ord</span>(<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(c)):</span><br><span class="line">        <span class="keyword">if</span> x != index:</span><br><span class="line">            msg[x][pos] = xo.strxor(c[x], c[index])[pos] ^ <span class="built_in">ord</span>(<span class="string">&#x27; &#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">know</span>(<span class="params">index, pos, ch</span>):</span><br><span class="line">    msg[index, pos] = <span class="built_in">ord</span>(ch)</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(c)):</span><br><span class="line">        <span class="keyword">if</span> x != index:</span><br><span class="line">            msg[x][pos] = xo.strxor(c[x], c[index])[pos] ^ <span class="built_in">ord</span>(ch)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">dat = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">getSpace</span>():</span><br><span class="line">    <span class="keyword">for</span> index, x <span class="keyword">in</span> <span class="built_in">enumerate</span>(c):</span><br><span class="line">        res = [xo.strxor(x, y) <span class="keyword">for</span> y <span class="keyword">in</span> c <span class="keyword">if</span> x!=y]</span><br><span class="line">        f = <span class="keyword">lambda</span> pos: <span class="built_in">len</span>(<span class="built_in">list</span>(<span class="built_in">filter</span>(isChr, [s[pos] <span class="keyword">for</span> s <span class="keyword">in</span> res])))</span><br><span class="line">        cnt = [f(pos) <span class="keyword">for</span> pos <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(x))]</span><br><span class="line">        <span class="keyword">for</span> pos <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(x)):</span><br><span class="line">            dat.append((f(pos), index, pos))</span><br><span class="line"></span><br><span class="line">c = [codecs.decode(x.strip().encode(), <span class="string">&#x27;hex&#x27;</span>) <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">open</span>(<span class="string">&#x27;Problem.txt&#x27;</span>, <span class="string">&#x27;r&#x27;</span>).readlines()]</span><br><span class="line"></span><br><span class="line">msg = np.zeros([<span class="built_in">len</span>(c), <span class="built_in">len</span>(c[<span class="number">0</span>])], dtype=<span class="built_in">int</span>)</span><br><span class="line"></span><br><span class="line">getSpace()</span><br><span class="line"></span><br><span class="line">dat = <span class="built_in">sorted</span>(dat)[::-<span class="number">1</span>]</span><br><span class="line"><span class="keyword">for</span> w, index, pos <span class="keyword">in</span> dat:</span><br><span class="line">    infer(index, pos)</span><br><span class="line"></span><br><span class="line">know(<span class="number">10</span>, <span class="number">21</span>, <span class="string">&#x27;y&#x27;</span>)</span><br><span class="line">know(<span class="number">8</span>, <span class="number">14</span>, <span class="string">&#x27;n&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span>.join([<span class="string">&#x27;&#x27;</span>.join([<span class="built_in">chr</span>(c) <span class="keyword">for</span> c <span class="keyword">in</span> x]) <span class="keyword">for</span> x <span class="keyword">in</span> msg]))</span><br><span class="line"></span><br><span class="line">key = xo.strxor(c[<span class="number">0</span>], <span class="string">&#x27;&#x27;</span>.join([<span class="built_in">chr</span>(c) <span class="keyword">for</span> c <span class="keyword">in</span> msg[<span class="number">0</span>]]).encode())</span><br><span class="line"><span class="built_in">print</span>(key)</span><br></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">import</span> Crypto.Util.strxor <span class="hljs-keyword">as</span> xo
+<span class="hljs-keyword">import</span> libnum, codecs, numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">isChr</span>(<span class="hljs-params">x</span>):
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">ord</span>(<span class="hljs-string">&#x27;a&#x27;</span>) &lt;= x <span class="hljs-keyword">and</span> x &lt;= <span class="hljs-built_in">ord</span>(<span class="hljs-string">&#x27;z&#x27;</span>): <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">ord</span>(<span class="hljs-string">&#x27;A&#x27;</span>) &lt;= x <span class="hljs-keyword">and</span> x &lt;= <span class="hljs-built_in">ord</span>(<span class="hljs-string">&#x27;Z&#x27;</span>): <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">infer</span>(<span class="hljs-params">index, pos</span>):
+    <span class="hljs-keyword">if</span> msg[index, pos] != <span class="hljs-number">0</span>:
+        <span class="hljs-keyword">return</span>
+    msg[index, pos] = <span class="hljs-built_in">ord</span>(<span class="hljs-string">&#x27; &#x27;</span>)
+    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(c)):
+        <span class="hljs-keyword">if</span> x != index:
+            msg[x][pos] = xo.strxor(c[x], c[index])[pos] ^ <span class="hljs-built_in">ord</span>(<span class="hljs-string">&#x27; &#x27;</span>)
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">know</span>(<span class="hljs-params">index, pos, ch</span>):
+    msg[index, pos] = <span class="hljs-built_in">ord</span>(ch)
+    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(c)):
+        <span class="hljs-keyword">if</span> x != index:
+            msg[x][pos] = xo.strxor(c[x], c[index])[pos] ^ <span class="hljs-built_in">ord</span>(ch)
+
+
+dat = []
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">getSpace</span>():
+    <span class="hljs-keyword">for</span> index, x <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(c):
+        res = [xo.strxor(x, y) <span class="hljs-keyword">for</span> y <span class="hljs-keyword">in</span> c <span class="hljs-keyword">if</span> x!=y]
+        f = <span class="hljs-keyword">lambda</span> pos: <span class="hljs-built_in">len</span>(<span class="hljs-built_in">list</span>(<span class="hljs-built_in">filter</span>(isChr, [s[pos] <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> res])))
+        cnt = [f(pos) <span class="hljs-keyword">for</span> pos <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(x))]
+        <span class="hljs-keyword">for</span> pos <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(x)):
+            dat.append((f(pos), index, pos))
+
+c = [codecs.decode(x.strip().encode(), <span class="hljs-string">&#x27;hex&#x27;</span>) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;Problem.txt&#x27;</span>, <span class="hljs-string">&#x27;r&#x27;</span>).readlines()]
+
+msg = np.zeros([<span class="hljs-built_in">len</span>(c), <span class="hljs-built_in">len</span>(c[<span class="hljs-number">0</span>])], dtype=<span class="hljs-built_in">int</span>)
+
+getSpace()
+
+dat = <span class="hljs-built_in">sorted</span>(dat)[::-<span class="hljs-number">1</span>]
+<span class="hljs-keyword">for</span> w, index, pos <span class="hljs-keyword">in</span> dat:
+    infer(index, pos)
+
+know(<span class="hljs-number">10</span>, <span class="hljs-number">21</span>, <span class="hljs-string">&#x27;y&#x27;</span>)
+know(<span class="hljs-number">8</span>, <span class="hljs-number">14</span>, <span class="hljs-string">&#x27;n&#x27;</span>)
+
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;\n&#x27;</span>.join([<span class="hljs-string">&#x27;&#x27;</span>.join([<span class="hljs-built_in">chr</span>(c) <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> x]) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> msg]))
+
+key = xo.strxor(c[<span class="hljs-number">0</span>], <span class="hljs-string">&#x27;&#x27;</span>.join([<span class="hljs-built_in">chr</span>(c) <span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> msg[<span class="hljs-number">0</span>]]).encode())
+<span class="hljs-built_in">print</span>(key)</code></pre></div>
 
 <p>输出：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Dear Friend, This time I u</span><br><span class="line">nderstood my mistake and u</span><br><span class="line">sed One time pad encryptio</span><br><span class="line">n scheme, I heard that it </span><br><span class="line">is the only encryption met</span><br><span class="line">hod that is mathematically</span><br><span class="line"> proven to be not cracked </span><br><span class="line">ever if the key is kept se</span><br><span class="line">cure, Let Me know if you a</span><br><span class="line">gree with me to use this e</span><br><span class="line">ncryption scheme always...</span><br><span class="line">b&#x27;afctf&#123;OPT_1s_Int3rest1ng&#125;!&#x27;</span><br></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs applescript">Dear Friend, This <span class="hljs-built_in">time</span> I u
+nderstood <span class="hljs-keyword">my</span> mistake <span class="hljs-keyword">and</span> u
+sed One <span class="hljs-built_in">time</span> pad encryptio
+n scheme, I heard <span class="hljs-keyword">that</span> <span class="hljs-keyword">it</span> 
+<span class="hljs-keyword">is</span> <span class="hljs-keyword">the</span> only encryption met
+hod <span class="hljs-keyword">that</span> <span class="hljs-keyword">is</span> mathematically
+ proven <span class="hljs-keyword">to</span> be <span class="hljs-keyword">not</span> cracked 
+ever <span class="hljs-keyword">if</span> <span class="hljs-keyword">the</span> key <span class="hljs-keyword">is</span> kept se
+cure, Let Me know <span class="hljs-keyword">if</span> you a
+gree <span class="hljs-keyword">with</span> <span class="hljs-keyword">me</span> <span class="hljs-keyword">to</span> use this e
+ncryption scheme always...
+b&#x27;afctf&#123;OPT_1s_Int3rest1ng&#125;!&#x27;</code></pre></div>
 
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Many-Time-Pad攻击利用了密钥重用导致明文信息线性泄漏的特性，结合自然语言的冗余性，通过统计分析恢复明文。这再次验证了OTP的核心安全准则：密钥绝对不可重用。<br>Many-Time-Pad 是不安全的。我们这一次的攻击，条件稍微有点苛刻：明文必须是英文句子、截获到的密文必须足够多。但是只要攻击者有足够的耐心进行词频分析、监听大量密文，还是能够发起极具威胁性的攻击。如果铁了心要用直接xor来加密信息，应当采用一次一密(One-Time-Pad)</p>
 <p>参考：</p>
@@ -207,157 +474,429 @@ DescriptionMany-Time-Pad (多时间垫) 攻击是一种针对多次使用相同�
 <li><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/10.5555/829513.830504">ACM Digital Library</a></li>
 </ol>
 
-	  <div class="article-footer-copyright">
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
 
-    本博客采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议(CC BY-NC-SA 4.0) 发布.</a>
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Crypto/" class="category-chain-item">Crypto</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Crypto/" class="print-no-link">#Crypto</a>
+      
+    </div>
+  
 </div>
 
-	</div>
 
-	
-	
-	<div>
-  	<center>
+              
+  
 
-	<div class="pagination">
-
-    
-    
-    <a href="/2025/07/10/攻防世界Crypto-了不起的盖茨比/" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> Prev</a>
-    
-
-    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
-    
-    <a href="/2025/06/22/攻防世界Crypto-cat's gift/" type="button" class="btn btn-default ">Next<i
-                class="fa fa-arrow-circle-o-right"></i></a>
-    
-
-    
-</div>
-
-
-    </center>
-	</div>
-	
-	<!-- comment -->
-	<!--
-<section id="comment">
-    <h2 class="title">Comments</h2>
-
-    
-</section>
-
--->
-	
-	
-	
-	</div> <!-- col-md-9/col-md-12 -->
-
-
-	
-	<div id="side_meta">
-		<div class="col-md-3" id="post_meta"> 
-
-	<!-- date -->
-	
-	<div class="meta-widget">
-	<i class="fa fa-clock-o"></i>
-	2025-06-22 
-	</div>
-	
-
-	<!-- categories -->
-    
-	<div class="meta-widget">
-	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
-    <ul id="categorys" class="tag_box list-unstyled collapse in">
-          
-  <li>
-    <li><a href="/categories/Crypto/">Crypto<span>1</span></a></li>
-  </li>
-
-    </ul>
-	</div>
-	
-
-	<!-- tags -->
-	
-	<div class="meta-widget">
-	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
-    <ul id="tags" class="tag_box list-unstyled collapse in">	  
-	    
-  <li><a href="/tags/Crypto/">Crypto<span>6</span></a></li>
-    </ul>
-	</div>
-		
-
-	<!-- toc -->
-	<div class="meta-widget">
-	
-	</div>
-	
-    <hr>
-	
-</div><!-- col-md-3 -->
-
-		
-
-	</div>
-	
-		
-
-</div><!-- row -->
-
-<!--
- -->
-
-
-
-	</div>
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Many Time Pad Attack</div>
+      <div>https://zer0ptr.github.io/2025/06/22/Many-Time-Pad-Attack/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>zer0ptr</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>June 22, 2025</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
   </div>
-  <div class="container-narrow">
-  <footer> <p>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/07/10/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-%E4%BA%86%E4%B8%8D%E8%B5%B7%E7%9A%84%E7%9B%96%E8%8C%A8%E6%AF%94/" title="攻防世界Crypto-了不起的盖茨比">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">攻防世界Crypto-了不起的盖茨比</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/06/22/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-cat&#39;s%20gift/" title="攻防世界Crypto-cat&#39;s gift">
+                        <span class="hidden-mobile">攻防世界Crypto-cat&#39;s gift</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
   
-  &copy; 2025 zer0ptr's Blog
   
-      powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.Theme <a href="https://github.com/Ares-X/hexo-theme-freemind.bithack" target="_blank">freemind.bithack</a>  
-</p>
- </footer>
-</div> <!-- container-narrow -->
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
   
 
 
   
-<a id="gotop" href="#">   
-  <span>⬆︎TOP</span>
-</a>
-
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+  
 
 
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
 </script>
 
 
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
 
-   <script type="text/javascript">      
-     var search_path = "search.xml";
-	 if (search_path.length == 0) {
-	 	search_path = "search.xml";
-	 }
-	 var path = "/" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
-   </script>
+  <script>Fluid.plugins.codeWidget();</script>
 
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
 </body>
-   </html>
+</html>

@@ -1,718 +1,987 @@
-<!DOCTYPE HTML>
-<html>
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="pragma" content="no-cache">
-  <meta http-equiv="cache-control" content="no-cache">
-  <meta http-equiv="expires" content="0">
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/SecureNexusLab.png">
+  <link rel="icon" href="/img/SecureNexusLab.png">
   
-  <title>Page 2 | zer0ptr&#39;s Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
   <meta name="author" content="zer0ptr">
+  <meta name="keywords" content="">
+  
+    <meta property="og:type" content="website">
+<meta property="og:title" content="zer0ptr&#39;s Blog">
+<meta property="og:url" content="https://zer0ptr.github.io/page/2/index.html">
+<meta property="og:site_name" content="zer0ptr&#39;s Blog">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="zer0ptr">
+<meta name="twitter:card" content="summary_large_image">
   
   
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>zer0ptr&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
 
   
-  <meta property="og:site_name" content="zer0ptr&#39;s Blog"/>
+<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.7.0/style.min.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zer0ptr.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
 
   
-    <meta property="og:image" content=""/>
-  
-
-  
-    <link rel="alternative" href="/atom.xml" title="zer0ptr&#39;s Blog" type="application/atom+xml">
-  
-  
-    <link href="/favicon.png" rel="icon">
-  
-  
-  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
-  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-
-  <script src="/js/jquery-2.0.3.min.js"></script>
-
-  <!-- analytics -->
-  
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70812759-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-70812759-1');
-</script>
-
-
-
-
-
-
+  <script src="/js/sakura.js"></script>
+  <script src="/js/love.js"></script>
 <meta name="generator" content="Hexo 7.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
 
- <body>  
-  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-		<span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-	  <a class="navbar-brand" href="/">zer0ptr&#39;s Blog</a>
-      <div class="collapse navbar-collapse nav-menu">
-		<ul class="nav navbar-nav">
-		  
-		  <li>
-			<a href="/archives" title="All the articles.">
-			  <i class=""></i>Archives
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/categories" title="All the categories.">
-			  <i class=""></i>Categories
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/tags" title="All the tags.">
-			  <i class=""></i>Tags
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/about" title="About me.">
-			  <i class=""></i>About
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/atom.xml" title="Subscribe me.">
-			  <i class=""></i>RSS
-			</a>
-		  </li>
-		  
-		</ul>
-      </div>
-    </div> <!-- container -->
-</nav>
-<div class="clearfix"></div>
 
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-  	<div class="content">
-    	 <div class="page-header logo">
-  <h1>zer0ptr&#39;s Blog<span class="blink-fast">|</span></h1>
-</div>
+    <a class="navbar-brand" href="/">
+      <strong>zer0ptr&#39;s blog</strong>
+    </a>
 
-<div class="row page">
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
 
-	
-	<div class="col-md-9">
-	
-
-		<div class="slogan">
-
-
-		<i class="fa fa-heart blink-slow"></i>
-
-		wubba lubba dub dub.
-
-</div>    
-
-		<div id="top_search"></div>
-		<div class="mypage">
-		
-		<!-- title and entry -->
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2025/07/21/攻防世界Crypto-babyFibo/" >攻防世界Crypto-babyFibo</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2025-07-21  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>附件内容：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> libnum</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fibo</span>(<span class="params">n</span>):</span><br><span class="line">    <span class="keyword">assert</span> n &gt;= <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> n &lt; <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> n</span><br><span class="line">    <span class="keyword">return</span> fibo(n-<span class="number">1</span>) + fibo(n-<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">s = fibo(<span class="number">1000</span>)</span><br><span class="line">m = libnum.s2n(flag+os.urandom((<span class="built_in">len</span>(<span class="built_in">bin</span>(s))-<span class="number">2</span>)//<span class="number">8</span>-<span class="built_in">len</span>(flag)))</span><br><span class="line">c = m^s</span><br><span class="line"><span class="built_in">print</span>(c)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>s是斐波那契数的第1000个数</li>
-<li>m&#x3D;flag+随机数字然后再(String to Number)转为一个超大数字</li>
-<li>c&#x3D;m^s</li>
-</ul>
-<p>那解题思路就是将其中设计的步骤反着来一遍</p>
-<h2 id="开搞"><a href="#开搞" class="headerlink" title="开搞"></a>开搞</h2><h3 id="计算fibo-1000"><a href="#计算fibo-1000" class="headerlink" title="计算fibo(1000)"></a>计算fibo(1000)</h3><p>以下由三种方法计算fibo(1000) </p>
-<p>由于直接递归1000不可行</p>
-<h4 id="方法一：动态规划："><a href="#方法一：动态规划：" class="headerlink" title="方法一：动态规划："></a>方法一：动态规划：</h4>
-	
-	</div>
-  <a type="button" href="/2025/07/21/攻防世界Crypto-babyFibo/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2025/07/21/攻防世界Crypto-初识RSA/" >攻防世界Crypto-初识RSA</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2025-07-21  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>附件内容：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> bytes_to_long,inverse,getPrime</span><br><span class="line"><span class="keyword">from</span> flag <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line">m = bytes_to_long(flag)</span><br><span class="line"></span><br><span class="line">p = getPrime(<span class="number">1024</span>)</span><br><span class="line">q = getPrime(<span class="number">1024</span>)</span><br><span class="line">n = p*q</span><br><span class="line"><span class="built_in">print</span>(n)</span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line"></span><br><span class="line">c = <span class="built_in">pow</span>(m,e,n)</span><br><span class="line"></span><br><span class="line">pq = p*(q-<span class="number">1</span>)</span><br><span class="line">qp = q*(p-<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;c=&quot;</span>,c)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;n=&quot;</span>,n)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;pq=&quot;</span>,pq)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;qp=&quot;</span>,qp)</span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">c= 8722269075970644434253339592758512788160408912707387632591552130175707843950684315083250494010055435391879036285103810263591951437829414438640307561645721347859659807138051841516634704123100270651976676182059252251162982609391666023674158274992400910869692389001622774140191223807887675081808561012755545464977015973615407965906513878979919700065923364884766974187303774330319143647840846354404070430118235352622445115153298578370521811697710289716188726587743282814946239856766713516166990341116198180068191759095913957606379780234116317390622824096667107736103270907349927467971817639795094030622157581511033950777</span></span><br><span class="line"><span class="string">n= 10466186506773626671397261081802640650185744558208505628349249045496105597268556020207175016523119333667851114848452038431498926527983706092607207796937431312520131882751891731564121558651246025754915145600686076505962750195353958781726515647847167067621799990588328894365930423844435964506372428647802381074584935050067254029262890188260006596141011807724688556673520261743199388391094490191001701011230322653422314758778116196105077883955436582364267530633358016652912054880813710531145973799193443828969535902856467548523653920307742364119002349899553478815101092655897400295925170383678499125295006364960124859003</span></span><br><span class="line"><span class="string">pq= 10466186506773626671397261081802640650185744558208505628349249045496105597268556020207175016523119333667851114848452038431498926527983706092607207796937431312520131882751891731564121558651246025754915145600686076505962750195353958781726515647847167067621799990588328894365930423844435964506372428647802381074488896197029704465200125337817646702009123916866455067019234171839614862660036737875747177391796376553159880972782837853473250804807544086701088829096838316550146794766718580877976153967582795248676367265069623900208276878140709691073369415161936376086988069213820933152601453587292943483693378833664901178324</span></span><br><span class="line"><span class="string">qp= 10466186506773626671397261081802640650185744558208505628349249045496105597268556020207175016523119333667851114848452038431498926527983706092607207796937431312520131882751891731564121558651246025754915145600686076505962750195353958781726515647847167067621799990588328894365930423844435964506372428647802381074475956379708898904933143429835002718457573266164923043251954374464149976302585916538814746811455883837138715445492053610047383292461097590195481556557381952895539341802954749542143253491617052100969586396996063822508764438280468492894012685918249843558593322831683872737943676955669923498182824352081785243246</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<p>既然题目已经提醒了是<code>RSA</code>的相关内容那就直接开搞即可</p>
-<p>关键点：各个参数的值(即公钥 密钥)、欧拉定理：通用$phi&#x3D;(p−1)(q−1)$</p>
-<h2 id="Exploit"><a href="#Exploit" class="headerlink" title="Exploit:"></a>Exploit:</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line"></span><br><span class="line">c= <span class="number">8722269075970644434253339592758512788160408912707387632591552130175707843950684315083250494010055435391879036285103810263591951437829414438640307561645721347859659807138051841516634704123100270651976676182059252251162982609391666023674158274992400910869692389001622774140191223807887675081808561012755545464977015973615407965906513878979919700065923364884766974187303774330319143647840846354404070430118235352622445115153298578370521811697710289716188726587743282814946239856766713516166990341116198180068191759095913957606379780234116317390622824096667107736103270907349927467971817639795094030622157581511033950777</span></span><br><span class="line">n= <span class="number">10466186506773626671397261081802640650185744558208505628349249045496105597268556020207175016523119333667851114848452038431498926527983706092607207796937431312520131882751891731564121558651246025754915145600686076505962750195353958781726515647847167067621799990588328894365930423844435964506372428647802381074584935050067254029262890188260006596141011807724688556673520261743199388391094490191001701011230322653422314758778116196105077883955436582364267530633358016652912054880813710531145973799193443828969535902856467548523653920307742364119002349899553478815101092655897400295925170383678499125295006364960124859003</span></span><br><span class="line">pq= <span class="number">10466186506773626671397261081802640650185744558208505628349249045496105597268556020207175016523119333667851114848452038431498926527983706092607207796937431312520131882751891731564121558651246025754915145600686076505962750195353958781726515647847167067621799990588328894365930423844435964506372428647802381074488896197029704465200125337817646702009123916866455067019234171839614862660036737875747177391796376553159880972782837853473250804807544086701088829096838316550146794766718580877976153967582795248676367265069623900208276878140709691073369415161936376086988069213820933152601453587292943483693378833664901178324</span></span><br><span class="line">qp= <span class="number">10466186506773626671397261081802640650185744558208505628349249045496105597268556020207175016523119333667851114848452038431498926527983706092607207796937431312520131882751891731564121558651246025754915145600686076505962750195353958781726515647847167067621799990588328894365930423844435964506372428647802381074475956379708898904933143429835002718457573266164923043251954374464149976302585916538814746811455883837138715445492053610047383292461097590195481556557381952895539341802954749542143253491617052100969586396996063822508764438280468492894012685918249843558593322831683872737943676955669923498182824352081785243246</span></span><br><span class="line"></span><br><span class="line">phi = pq * qp // n</span><br><span class="line"></span><br><span class="line">d = gmpy2.invert(e, phi)</span><br><span class="line"></span><br><span class="line">m = <span class="built_in">pow</span>(c, d, n)</span><br><span class="line"></span><br><span class="line">flag = long_to_bytes(m)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
-	
-	</div>
-  <a type="button" href="/2025/07/21/攻防世界Crypto-初识RSA/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2025/07/21/攻防世界Crypto-二元一次方程组/" >攻防世界Crypto-二元一次方程组</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2025-07-21  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="分析："><a href="#分析：" class="headerlink" title="分析："></a>分析：</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> libnum</span><br><span class="line"><span class="keyword">from</span> Crypto.Util <span class="keyword">import</span> number</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">size = <span class="number">256</span></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">p = number.getPrime(size)</span><br><span class="line">q = number.getPrime(size)</span><br><span class="line">avg = (p+q)/<span class="number">2</span></span><br><span class="line">n = p*q</span><br><span class="line"></span><br><span class="line">m = libnum.s2n(flag)</span><br><span class="line">c = <span class="built_in">pow</span>(m, e, n)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;n = %d&#x27;</span> % n)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;avg = %d&#x27;</span> % avg)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;c = %d&#x27;</span> % c)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>看上述代码感觉老朋友了，详情可以看上一篇的<code>baigeiRSA</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">size = <span class="number">256</span></span><br><span class="line">e = <span class="number">65537</span></span><br></pre></td></tr></table></figure>
-
-<p><code>size=256</code>定义了生成的素数<code>p</code>和<code>q</code>的比特长度</p>
-<p><code>e=65537</code>是RSA公钥指数，是一个固定的值</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">p = number.getPrime(size)</span><br><span class="line">q = number.getPrime(size)</span><br><span class="line">avg = (p+q)/<span class="number">2</span></span><br><span class="line">n = p*q</span><br></pre></td></tr></table></figure>
-
-<p>生成 RSA密钥</p>
-<p>其中设计两个公式：</p>
-<p>$$avg &#x3D; \frac{p+q} {2}$$</p>
-	
-	</div>
-  <a type="button" href="/2025/07/21/攻防世界Crypto-二元一次方程组/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2025/07/21/攻防世界Crypto-baigeiRSA/" >攻防世界Crypto-baigeiRSA</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2025-07-21  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="拿到附件后查看内容"><a href="#拿到附件后查看内容" class="headerlink" title="拿到附件后查看内容"></a>拿到附件后查看内容</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> libnum</span><br><span class="line"><span class="keyword">from</span> Crypto.Util <span class="keyword">import</span> number</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line">size = <span class="number">128</span></span><br><span class="line">e = <span class="number">65537</span></span><br><span class="line">p = number.getPrime(size)</span><br><span class="line">q = number.getPrime(size)</span><br><span class="line">n = p*q</span><br><span class="line"></span><br><span class="line">m = libnum.s2n(flag)</span><br><span class="line">c = <span class="built_in">pow</span>(m, e, n)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;n = %d&#x27;</span> % n)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;c = %d&#x27;</span> % c)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="参数设置"><a href="#参数设置" class="headerlink" title="参数设置"></a>参数设置</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">size = <span class="number">128</span></span><br><span class="line">e = <span class="number">65537</span></span><br></pre></td></tr></table></figure>
-
-<p><code>size</code>处设置了生成的素数<code>p</code>和<code>q</code>的比特长度</p>
-<p><code>e=65537</code>：RSA的公钥指数，这是一个常用的固定值</p>
-<h3 id="生成RSA密钥"><a href="#生成RSA密钥" class="headerlink" title="生成RSA密钥"></a>生成RSA密钥</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p = number.getPrime(size)</span><br><span class="line">q = number.getPrime(size)</span><br><span class="line">n = p*q</span><br></pre></td></tr></table></figure>
-
-<p><code>number.getPrime(size)</code>生成一个<code>size</code>比特的随机素数</p>
-	
-	</div>
-  <a type="button" href="/2025/07/21/攻防世界Crypto-baigeiRSA/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2025/07/19/深度学习-从头构建神经网络/" >深度学习：从头构建神经网络</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2025-07-19  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>本文旨在使用PyTorch构建并训练一个最简单的神经网络，无需添加任何花哨的层或依赖包。</p>
-<p>该模型将足够简单，大家都能使用CPU或GPU来构建和训练。</p>
-<p>这个模型虽然简单，但包含了当前诸如LLM和Stable Diffusions等大型模型所拥有的所有基本元素。</p>
-<h2 id="准备数据"><a href="#准备数据" class="headerlink" title="准备数据"></a>准备数据</h2><p>假设我们要训练一个具有四个权重并能输出一个数字结果的模型，如下所示：</p>
-<p>$ y &#x3D; w_1 * x_1 + w_2 * x_2 + w_3 * x_3 + w_4 * x_4 $</p>
-<p>我们先生成以下训练数据，假设权重值为 [2,3,4,7]</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">w_list = np.array([<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">7</span>])</span><br></pre></td></tr></table></figure>
-
-<p>我们的模型将会用于预测权重列表，因此再生成一些训练数据后我们假装我们不知道这些权重的值</p>
-	
-	</div>
-  <a type="button" href="/2025/07/19/深度学习-从头构建神经网络/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2025/07/18/动手学深度学习系列01-楔子/" >动手学深度学习系列01-楔子</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2025-07-18  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>大模型建议先从主流开源的Qwen3、Llama3.1上⼿，先快速体验提示词⼯程，然后再学习 LLM模型架构，尝试RAG，跑LoRA微调脚本。</p>
-<p>进一步学习目标：</p>
-<ul>
-<li><p>学习如何从零训练大模型（1B左右规模，预训练+SFT+DPO）</p>
-</li>
-<li><p>钻研SFT</p>
-<p>• 1）专有任务如Code⽣成、NL2SQL或通⽤NLP的NER、分类、抽取、摘要模型 </p>
-<p>• 2）场景领域微调，⾦融任务LLM、法律LLM、医学LLM、电商LLM </p>
-	
-	</div>
-  <a type="button" href="/2025/07/18/动手学深度学习系列01-楔子/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2025/07/17/爱企查无法使用F12问题/" >爱企查无法使用F12问题</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2025-07-17  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h2><p>最近突然需要找一下自己爱企查的账号cookie，于是上来一个F12结果发现半天按不出来(刚开始在想是不是键盘的F12坏了，但是换了其他的页面就是正常的) 在B站看到了id为”无名的Coder”大佬的视频在此做个学习记录</p>
-<p>Hyperlink: <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1KLjBzyEfp/?vd_source=302a892bb778bc77294aa18fcca329b7">js逆向-爱企查：F12检测绕过，头部参数加密_哔哩哔哩_bilibili</a></p>
-<p><img src="/images/aiqicha-js-1.png" alt="图一展示了符合问题描述的实况"></p>
-<h2 id="开搞"><a href="#开搞" class="headerlink" title="开搞"></a>开搞</h2><p>先打开F12（不用管是否正常显示，当然正常显示你就不用继续看了）</p>
-<p>之后 <code>Sources</code> -&gt; <code>Event Listeners Breakprints</code> -&gt; ‘Script’ 国语的话应该是 ‘’源代码’’ -&gt; ‘’事件监听器断点’’ -&gt; ‘’脚本’’</p>
-<p><img src="/images/aiqicha-js-2.PNG" alt="图二展示了开始调试的操作步骤"></p>
-<p>之后尝试调试</p>
-<p><img src="/images/aiqicha-js-3.PNG" alt="图三展示了在开发者工具中调试以匹配关键代码"></p>
-	
-	</div>
-  <a type="button" href="/2025/07/17/爱企查无法使用F12问题/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2025/07/13/算法学习-洛谷基础题/" >算法学习-洛谷基础题</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2025-07-13  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p><strong>三角形面积</strong></p>
-<p>关键：海伦公式</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;math.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">double</span> <span class="title function_">cacu</span><span class="params">(<span class="type">double</span> a,<span class="type">double</span> b,<span class="type">double</span> c)</span>&#123;</span><br><span class="line">    <span class="type">double</span> p=<span class="number">0</span>;</span><br><span class="line">    p=<span class="number">0.5</span>*(a+b+c);</span><br><span class="line">    <span class="keyword">return</span> (<span class="built_in">sqrt</span>(p*(p-a)*(p-b)*(p-c)));</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">    <span class="type">double</span> a=<span class="number">0</span>,b=<span class="number">0</span>,c=<span class="number">0</span>,S=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%lf %lf %lf&quot;</span>,&amp;a,&amp;b,&amp;c);</span><br><span class="line">    S=cacu(a,b,c);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%.1lf&quot;</span>,S);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// gcc 三角形面积.c -lm -o 三角形面积</span></span><br></pre></td></tr></table></figure>
-	
-	</div>
-  <a type="button" href="/2025/07/13/算法学习-洛谷基础题/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2025/07/12/Web康复训练-攻防世界Web2/" >Web康复训练-攻防世界Web2</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2025-07-12  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p>打开题目，给了以下代码：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$miwen</span>=<span class="string">&quot;a1zLbgQsCESEIqRLwuQAyMwLyq2L5VwBxqGA3RQAyumZ0tmMvSGM2ZwB4tws&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">encode</span>(<span class="params"><span class="variable">$str</span></span>)</span>&#123;</span><br><span class="line">    <span class="variable">$_o</span>=<span class="title function_ invoke__">strrev</span>(<span class="variable">$str</span>);</span><br><span class="line">    <span class="comment">// echo $_o;</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">for</span>(<span class="variable">$_0</span>=<span class="number">0</span>;<span class="variable">$_0</span>&lt;<span class="title function_ invoke__">strlen</span>(<span class="variable">$_o</span>);<span class="variable">$_0</span>++)&#123;</span><br><span class="line">       </span><br><span class="line">        <span class="variable">$_c</span>=<span class="title function_ invoke__">substr</span>(<span class="variable">$_o</span>,<span class="variable">$_0</span>,<span class="number">1</span>);</span><br><span class="line">        <span class="variable">$__</span>=<span class="title function_ invoke__">ord</span>(<span class="variable">$_c</span>)+<span class="number">1</span>;</span><br><span class="line">        <span class="variable">$_c</span>=<span class="title function_ invoke__">chr</span>(<span class="variable">$__</span>);</span><br><span class="line">        <span class="variable">$_</span>=<span class="variable">$_</span>.<span class="variable">$_c</span>;   </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">return</span> <span class="title function_ invoke__">str_rot13</span>(<span class="title function_ invoke__">strrev</span>(<span class="title function_ invoke__">base64_encode</span>(<span class="variable">$_</span>)));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">   逆向加密算法，解密$miwen就是flag</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><strong>分析：</strong></p>
-<ul>
-<li><p><code>strlen()</code> 函数返回字符串的长度</p>
-</li>
-<li><p><code>strrev()</code>  反转字符串顺序</p>
-</li>
-</ul>
-<p><em>This is an example:</em></p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">strrev</span>(<span class="string">&quot;Hello World!&quot;</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-<p>输出反转字符串 “!dlroW olleH”：</p>
-<ul>
-<li><p><code>substr()</code> 函数返回字符串的一部分。<code>substr(string,start,length)</code></p>
-<p>tips：如果 start 参数是负数且 length 小于或等于 start，则 length 为 0。</p>
-</li>
-<li><p><code>&lt;?php echo substr(&quot;Hello world&quot;,6); ?&gt;</code>从字符串中返回 “world”：</p>
-</li>
-<li><p><code>ord()</code> 函数返回字符串中第一个字符的 ASCII 值。</p>
-</li>
-<li><p><code>chr()</code> 函数从指定 ASCII 值返回字符。并可以指定ASCII是十进制或是十六进制或是八进制。</p>
-</li>
-<li><p>“.” 是字符运算符，作用是把两个字符串连接起来，其使用方法：首先创建一个PHP示例文件；然后定义两个变量；最后通过“$result.$result”方式将两个变量连接起来即可</p>
-</li>
-<li><p><code>str_rot13()</code> 函数对字符串执行 ROT13 编码。</p>
-<p>ROT13 编码是把每一个字母在字母表中向前移动 13 个字母得到。数字和非字母字符保持不变。</p>
-</li>
-</ul>
-<p>综上，题目提示我们逆向加密算法，也就是说第一步加密变为最后一步，以此类推，那可以构造出逆向后的代码</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$miwen</span>=<span class="string">&quot;a1zLbgQsCESEIqRLwuQAyMwLyq2L5VwBxqGA3RQAyumZ0tmMvSGM2ZwB4tws&quot;</span>;</span><br><span class="line"><span class="variable">$a</span> = <span class="title function_ invoke__">base64_decode</span>(<span class="title function_ invoke__">strrev</span>(<span class="title function_ invoke__">str_rot13</span>(<span class="variable">$miwen</span>)));</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">for</span>(<span class="variable">$i</span>=<span class="number">0</span>;<span class="variable">$i</span>&lt;<span class="title function_ invoke__">strlen</span>(<span class="variable">$a</span>);<span class="variable">$i</span>++)&#123;</span><br><span class="line">	<span class="variable">$_c</span>=<span class="title function_ invoke__">substr</span>(<span class="variable">$a</span>,<span class="variable">$i</span>,<span class="number">1</span>);</span><br><span class="line">	<span class="variable">$d</span>=<span class="title function_ invoke__">ord</span>(<span class="variable">$_c</span>)-<span class="number">1</span>;</span><br><span class="line">	<span class="variable">$_c</span>=<span class="title function_ invoke__">chr</span>(<span class="variable">$d</span>); </span><br><span class="line">	<span class="variable">$b</span>=<span class="variable">$b</span>.<span class="variable">$_c</span>;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$p</span>= <span class="title function_ invoke__">strrev</span>(<span class="variable">$b</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$p</span>;</span><br><span class="line"><span class="meta">?&gt;</span> </span><br></pre></td></tr></table></figure>
-	
-	</div>
-  <a type="button" href="/2025/07/12/Web康复训练-攻防世界Web2/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2025/07/12/关于Python打包成EXE的那些事/" >关于Python打包成EXE的那些事</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2025-07-12  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="一、为咩要打包Python程序？"><a href="#一、为咩要打包Python程序？" class="headerlink" title="一、为咩要打包Python程序？"></a>一、为咩要打包Python程序？</h2><p>设想下，你是一位Python开发者，而且你经常将你开发的各类工具分享给你的好朋友们使用，但是你的好朋友可能并不一定是学计算坤的，所以对方可能会没有Python环境也在情理之中，这时候就需要将.py文件打包成.exe可执行文件。常见的应用场景包括：</p>
-<ul>
-<li>给非技术人员使用的小工具</li>
-<li>需要保密的商业软件</li>
-<li>方便分发的应用程序</li>
-</ul>
-<p>于是在此我将介绍5种打包方式，具体选择哪一种可以根据你的喜好。</p>
-<h2 id="各类打包方式过程和对比"><a href="#各类打包方式过程和对比" class="headerlink" title="各类打包方式过程和对比"></a>各类打包方式过程和对比</h2><h3 id="方法1：PyInstaller"><a href="#方法1：PyInstaller" class="headerlink" title="方法1：PyInstaller"></a>方法1：PyInstaller</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装</span></span><br><span class="line">pip install pyinstaller</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打包命令（基础版）</span></span><br><span class="line">pyinstaller -F -w your-python-program.py</span><br><span class="line"></span><br><span class="line"><span class="comment"># 高级版（添加图标）</span></span><br><span class="line">pyinstaller -F -w -i app.ico your-python-program.py</span><br></pre></td></tr></table></figure>
-
-
-
-<ul>
-<li><code>-F</code>：打包成单个exe文件</li>
-<li><code>-w</code>：隐藏控制台窗口（GUI程序专用）</li>
-<li><code>-i</code>：设置程序图标</li>
-</ul>
-<h3 id="方法2：cx-Freeze"><a href="#方法2：cx-Freeze" class="headerlink" title="方法2：cx_Freeze"></a>方法2：cx_Freeze</h3><p>创建setup.py文件：</p>
-	
-	</div>
-  <a type="button" href="/2025/07/12/关于Python打包成EXE的那些事/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-
-		</div>
-
-		<!-- pagination -->
-		<div>
-  		<center>
-		<div class="pagination">
-
-   
-    
-     <a href="/" type="button" class="btn btn-default"><i class="fa fa-arrow-circle-o-left"></i> Prev</a>
-      
-
-        <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
- 
-       <a href="/page/3/" type="button" class="btn btn-default ">Next<i class="fa fa-arrow-circle-o-right"></i></a>     
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>Links</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
 
   
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/background.PNG') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Welcome to my site and hope you have fun."></span>
+          
+        </div>
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
 </div>
 
-  		</center>
-		</div>
+</div>
 
-		
-		
-	</div> <!-- col-md-9 -->
+  </header>
 
-	
-		<div class="col-md-3">
-	<div id="sidebar">
-	
-			
-  <div id="site_search">
-   <div class="form-group">
-    <input type="text" id="local-search-input" name="q" results="0" placeholder="Search" class="st-search-input st-default-search-input form-control"/>
-   </div>  
-  <div id="local-search-result"></div>
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div id="board"
+          style="margin-top: 0">
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-babyFibo/" target="_self">
+          攻防世界Crypto-babyFibo
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-babyFibo/" target="_self">
+        <div>
+          分析附件内容： import os import libnum from secret import flag  def fibo(n):     assert n &gt;= 0     if n &lt; 2:         return n     return fibo(n-1) + fibo(n-2)  s = fibo(1000) m = libnum.s2n(flag+os.ura
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-21 10:52" pubdate>
+              2025-07-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Crypto/">#Crypto</a>
+            
+              <a href="/tags/CTF/">#CTF</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-%E5%88%9D%E8%AF%86RSA/" target="_self">
+          攻防世界Crypto-初识RSA
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-%E5%88%9D%E8%AF%86RSA/" target="_self">
+        <div>
+          分析附件内容： from Crypto.Util.number import bytes_to_long,inverse,getPrime from flag import flag  m = bytes_to_long(flag)  p = getPrime(1024) q = getPrime(1024) n = p*q print(n) e = 65537  c = pow(m,e,n)
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-21 09:58" pubdate>
+              2025-07-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Crypto/">#Crypto</a>
+            
+              <a href="/tags/CTF/">#CTF</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-%E4%BA%8C%E5%85%83%E4%B8%80%E6%AC%A1%E6%96%B9%E7%A8%8B%E7%BB%84/" target="_self">
+          攻防世界Crypto-二元一次方程组
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-%E4%BA%8C%E5%85%83%E4%B8%80%E6%AC%A1%E6%96%B9%E7%A8%8B%E7%BB%84/" target="_self">
+        <div>
+          分析：import libnum from Crypto.Util import number from secret import flag   size = 256 e = 65537 p = number.getPrime(size) q = number.getPrime(size) avg = (p+q)/2 n = p*q  m = libnum.s2n(flag) c = pow(m
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-21 09:46" pubdate>
+              2025-07-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Crypto/">#Crypto</a>
+            
+              <a href="/tags/CTF/">#CTF</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/" target="_self">
+          攻防世界Crypto-baigeiRSA
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-baigeiRSA/" target="_self">
+        <div>
+          拿到附件后查看内容import libnum from Crypto.Util import number from secret import flag  size = 128 e = 65537 p = number.getPrime(size) q = number.getPrime(size) n = p*q  m = libnum.s2n(flag) c = pow(m, e, n)
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-21 09:29" pubdate>
+              2025-07-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Crypto/">#Crypto</a>
+            
+              <a href="/tags/CTF/">#CTF</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/07/19/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E4%BB%8E%E5%A4%B4%E6%9E%84%E5%BB%BA%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" target="_self">
+          深度学习：从头构建神经网络
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/19/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E4%BB%8E%E5%A4%B4%E6%9E%84%E5%BB%BA%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" target="_self">
+        <div>
+          Description本文旨在使用PyTorch构建并训练一个最简单的神经网络，无需添加任何花哨的层或依赖包。 该模型将足够简单，大家都能使用CPU或GPU来构建和训练。 这个模型虽然简单，但包含了当前诸如LLM和Stable Diffusions等大型模型所拥有的所有基本元素。 准备数据假设我们要训练一个具有四个权重并能输出一个数字结果的模型，如下所示： $ y &#x3D; w_1 * x_1
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-19 17:46" pubdate>
+              2025-07-19
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/AI/" class="category-chain-item">AI</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/AI/">#AI</a>
+            
+              <a href="/tags/Deep-Learning/">#Deep Learning</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/07/18/%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%9701-%E6%A5%94%E5%AD%90/" target="_self">
+          动手学深度学习系列01-楔子
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/18/%E5%8A%A8%E6%89%8B%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%9701-%E6%A5%94%E5%AD%90/" target="_self">
+        <div>
+          前言大模型建议先从主流开源的Qwen3、Llama3.1上⼿，先快速体验提示词⼯程，然后再学习 LLM模型架构，尝试RAG，跑LoRA微调脚本。 进一步学习目标：  学习如何从零训练大模型（1B左右规模，预训练+SFT+DPO）  钻研SFT • 1）专有任务如Code⽣成、NL2SQL或通⽤NLP的NER、分类、抽取、摘要模型  • 2）场景领域微调，⾦融任务LLM、法律LLM、医学LLM、电商
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-18 18:44" pubdate>
+              2025-07-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/AI/" class="category-chain-item">AI</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/AI/">#AI</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/" target="_self">
+          爱企查无法使用F12问题
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/17/%E7%88%B1%E4%BC%81%E6%9F%A5%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8F12%E9%97%AE%E9%A2%98/" target="_self">
+        <div>
+          起因最近突然需要找一下自己爱企查的账号cookie，于是上来一个F12结果发现半天按不出来(刚开始在想是不是键盘的F12坏了，但是换了其他的页面就是正常的) 在B站看到了id为”无名的Coder”大佬的视频在此做个学习记录 Hyperlink: js逆向-爱企查：F12检测绕过，头部参数加密_哔哩哔哩_bilibili  开搞先打开F12（不用管是否正常显示，当然正常显示你就不用继续看了） 之后
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-17 19:02" pubdate>
+              2025-07-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web%E5%AE%89%E5%85%A8/" class="category-chain-item">Web安全</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Web%E5%AE%89%E5%85%A8/">#Web安全</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/07/13/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%B4%9B%E8%B0%B7%E5%9F%BA%E7%A1%80%E9%A2%98/" target="_self">
+          算法学习-洛谷基础题
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/13/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E6%B4%9B%E8%B0%B7%E5%9F%BA%E7%A1%80%E9%A2%98/" target="_self">
+        <div>
+          三角形面积 关键：海伦公式 #include &lt;stdio.h&gt; #include &lt;math.h&gt;  double cacu(double a,double b,double c)&#123;     double p=0;     p=0.5*(a+b+c);     return (sqrt(p*(p-a)*(p-b)*(p-c))); &#125; int main
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-13 13:33" pubdate>
+              2025-07-13
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Coding/" class="category-chain-item">Coding</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Coding/">#Coding</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/07/12/Web%E5%BA%B7%E5%A4%8D%E8%AE%AD%E7%BB%83-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CWeb2/" target="_self">
+          Web康复训练-攻防世界Web2
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/12/Web%E5%BA%B7%E5%A4%8D%E8%AE%AD%E7%BB%83-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CWeb2/" target="_self">
+        <div>
+          打开题目，给了以下代码： &lt;?php $miwen=&quot;a1zLbgQsCESEIqRLwuQAyMwLyq2L5VwBxqGA3RQAyumZ0tmMvSGM2ZwB4tws&quot;;  function encode($str)&#123;     $_o=strrev($str);     // echo $_o;              for($_0=0;$_0&lt
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-12 22:17" pubdate>
+              2025-07-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web%E5%AE%89%E5%85%A8/" class="category-chain-item">Web安全</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Web%E5%AE%89%E5%85%A8/">#Web安全</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/07/12/%E5%85%B3%E4%BA%8EPython%E6%89%93%E5%8C%85%E6%88%90EXE%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/" target="_self">
+          关于Python打包成EXE的那些事
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/12/%E5%85%B3%E4%BA%8EPython%E6%89%93%E5%8C%85%E6%88%90EXE%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/" target="_self">
+        <div>
+          一、为咩要打包Python程序？设想下，你是一位Python开发者，而且你经常将你开发的各类工具分享给你的好朋友们使用，但是你的好朋友可能并不一定是学计算坤的，所以对方可能会没有Python环境也在情理之中，这时候就需要将.py文件打包成.exe可执行文件。常见的应用场景包括：  给非技术人员使用的小工具 需要保密的商业软件 方便分发的应用程序  于是在此我将介绍5种打包方式，具体选择哪一种可以根
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-12 21:25" pubdate>
+              2025-07-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Coding/" class="category-chain-item">Coding</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Coding/">#Coding</a>
+            
+          </div>
+        
+      </div>
+    </article>
   </div>
 
 
-		
-			
-	<div class="widget">
-		<h4>Categories</h4>
-		<ul class="tag_box inline list-unstyled">
-		
-			<li><a href="/categories/AI/">AI<span>3</span></a></li>
-		
-			<li><a href="/categories/CTF/">CTF<span>7</span></a></li>
-		
-			<li><a href="/categories/Coding/">Coding<span>9</span></a></li>
-		
-			<li><a href="/categories/Crypto/">Crypto<span>1</span></a></li>
-		
-			<li><a href="/categories/Pwn/">Pwn<span>1</span></a></li>
-		
-			<li><a href="/categories/Web安全/">Web安全<span>4</span></a></li>
-		
-			<li><a href="/categories/misc/">misc<span>2</span></a></li>
-		
-			<li><a href="/categories/vuln-analysis/">vuln analysis<span>1</span></a></li>
-		
-			<li><a href="/categories/底层/">底层<span>1</span></a></li>
-		
-			<li><a href="/categories/算法/">算法<span>3</span></a></li>
-		
-		</ul>
-	</div>
 
-		
-			
-	<div class="widget">
-		<h4>Tag Cloud</h4>
-		<ul class="tag_box inline list-unstyled">		
-		
-			<li><a href="/tags/vuln-analysis/">vuln analysis<span>1</span></a></li>
-		
-			<li><a href="/tags/misc/">misc<span>2</span></a></li>
-		
-			<li><a href="/tags/Coding/">Coding<span>7</span></a></li>
-		
-			<li><a href="/tags/Pwn/">Pwn<span>2</span></a></li>
-		
-			<li><a href="/tags/ctf/">ctf<span>2</span></a></li>
-		
-			<li><a href="/tags/asm/">asm<span>1</span></a></li>
-		
-			<li><a href="/tags/算法/">算法<span>4</span></a></li>
-		
-			<li><a href="/tags/algorithm/">algorithm<span>4</span></a></li>
-		
-			<li><a href="/tags/Deep-Learning/">Deep Learning<span>1</span></a></li>
-		
-			<li><a href="/tags/Web安全/">Web安全<span>4</span></a></li>
-		
-			<li><a href="/tags/Web/">Web<span>1</span></a></li>
-		
-			<li><a href="/tags/CTF/">CTF<span>7</span></a></li>
-		
-			<li><a href="/tags/AI/">AI<span>3</span></a></li>
-		
-			<li><a href="/tags/ML/">ML<span>1</span></a></li>
-		
-			<li><a href="/tags/Crypto/">Crypto<span>6</span></a></li>
-		
-			<li><a href="/tags/Attention/">Attention<span>1</span></a></li>
-		
-		 
-		</ul>
-	</div>
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
 
 
-		
-			
-<div class="widget">
-  <h4>Recent Posts</h4>
-  <ul class="entry list-unstyled">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     
-      <li>
-        <a href="/2025/08/12/adworld-Misc-Jump-Cat-miao/" ><i class="fa fa-file-o"></i>攻防世界Misc-Cat_Jump-Miao合集</a>
-      </li>
-    
-      <li>
-        <a href="/2025/08/12/adworld-misc-yangjianti/" ><i class="fa fa-file-o"></i>攻防世界Misc-真是阳间题</a>
-      </li>
-    
-      <li>
-        <a href="/2025/08/11/聊聊算法中的时间复杂度/" ><i class="fa fa-file-o"></i>聊聊算法中的时间复杂度</a>
-      </li>
-    
-      <li>
-        <a href="/2025/08/06/luogu-p2089/" ><i class="fa fa-file-o"></i>P2089 烤鸡</a>
-      </li>
-    
-      <li>
-        <a href="/2025/08/05/CVE-2025-24813-Tomcat-RCE/" ><i class="fa fa-file-o"></i>Tomcat RCE漏洞CVE-2025-24813复现</a>
-      </li>
-    
-  </ul>
-</div>
 
-		
-			
-<div class="widget">
-	<h4>Links</h4>
-	<ul class="blogroll list-unstyled">
-	
-		<li><i class="false"></i><a href="https://github.com/Ares-X/hexo-theme-freemind.bithack" title="" target="_blank"]);">hexo-theme-bithack</a></li>
-	
-	</ul>
-</div>
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-
-		
-	</div> <!-- sidebar -->
-</div> <!-- col-md-3 -->
-
-	
-	
-</div> <!-- row-fluid -->
-	</div>
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
   </div>
-  <div class="container-narrow">
-  <footer> <p>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
   
-  &copy; 2025 zer0ptr's Blog
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
   
-      powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.Theme <a href="https://github.com/Ares-X/hexo-theme-freemind.bithack" target="_blank">freemind.bithack</a>  
-</p>
- </footer>
-</div> <!-- container-narrow -->
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
   
 
 
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
   
-<a id="gotop" href="#">   
-  <span>⬆︎TOP</span>
-</a>
 
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
-
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
-
-
-
-   <script type="text/javascript">      
-     var search_path = "search.xml";
-	 if (search_path.length == 0) {
-	 	search_path = "search.xml";
-	 }
-	 var path = "/" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
-   </script>
-
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
 </body>
-   </html>
+</html>

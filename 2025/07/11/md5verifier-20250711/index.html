@@ -1,160 +1,303 @@
-<!DOCTYPE HTML>
-<html>
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="pragma" content="no-cache">
-  <meta http-equiv="cache-control" content="no-cache">
-  <meta http-equiv="expires" content="0">
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/SecureNexusLab.png">
+  <link rel="icon" href="/img/SecureNexusLab.png">
   
-  <title>How to design an MD5 verifier | zer0ptr&#39;s Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
   <meta name="author" content="zer0ptr">
+  <meta name="keywords" content="">
   
-  <meta name="description" content="项目地址：https://github.com/fishcanf1y/MD5-Checker
-Description:MD5 校验器用于验证数据完整性和检测数据是否被篡改，常用于文件下载、软件更新、密码存储等场景。它可以快速生成文件的“数字指纹”——MD5 值，然后将该值与原始值进行比较，以确保文件在传输或存储过程中没有发生变化。﻿
-以下是MD5 校验器的主要用途和优势：
-
-文件完整性验证:
-当下载文件时，网站通常会提供文件的MD5 值。下载完成后，用户可以使用MD5 校验器计算下载文件的MD5 值，并与提供的MD5 值进行比较。如果两者一致，则表示文件没有损坏或被篡改；如果不一致，则表示文件可能损坏或被恶意修改，需要重新下载。﻿
-
-数据一致性验证:
-在数据传输和存储过程中，可能会出现错误或干扰导致数据损坏。通过对数据进行MD5 校验，可以确保数据在不同节点之间的一致性，防止数据丢失或损坏。﻿
-
-安全性保护:
-MD5 校验可以用于检测恶意篡改。如果文件在传输过程中被恶意篡改，其MD5 值会发生变化，从而可以及时发现并阻止恶意行为。﻿
-
-文件识别和重复性检测:
-每个文件都有一个唯一的MD5 值，可以用于快速识别文件，避免存储和传输重复文件，节省存储空间和带宽。﻿
-
-密码存储:
-虽然MD5 算法不再被推荐用于直接存储密码，但它仍然被广泛用于存储密码的哈希值。这样即使数据库泄露，攻击者也无法直接获取用户的明文密码。
-
-
-﻿
-总而言之，MD5 校验器在保证数据安全和完整性方面发挥着重要作用，尤其是在文件传输、数据存储和密码管理等场景中。﻿
-How To Do?以下我将梳理大致思路并列举一些代码片段来说明其作用
-一、核心目标"> 
+    <meta name="description" content="项目地址：https:&#x2F;&#x2F;github.com&#x2F;fishcanf1y&#x2F;MD5-Checker Description:MD5 校验器用于验证数据完整性和检测数据是否被篡改，常用于文件下载、软件更新、密码存储等场景。它可以快速生成文件的“数字指纹”——MD5 值，然后将该值与原始值进行比较，以确保文件在传输或存储过程中没有发生变化。﻿ 以下是MD5 校验器的主要用途和优势：  文件完整性验证: 当下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to design an MD5 verifier">
+<meta property="og:url" content="https://zer0ptr.github.io/2025/07/11/md5verifier-20250711/index.html">
+<meta property="og:site_name" content="zer0ptr&#39;s Blog">
+<meta property="og:description" content="项目地址：https:&#x2F;&#x2F;github.com&#x2F;fishcanf1y&#x2F;MD5-Checker Description:MD5 校验器用于验证数据完整性和检测数据是否被篡改，常用于文件下载、软件更新、密码存储等场景。它可以快速生成文件的“数字指纹”——MD5 值，然后将该值与原始值进行比较，以确保文件在传输或存储过程中没有发生变化。﻿ 以下是MD5 校验器的主要用途和优势：  文件完整性验证: 当下">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://zer0ptr.github.io/images/verifier_1_20250712.png">
+<meta property="og:image" content="https://zer0ptr.github.io/images/verifier_2_20250712.png">
+<meta property="article:published_time" content="2025-07-11T07:09:03.000Z">
+<meta property="article:modified_time" content="2025-07-12T13:23:56.295Z">
+<meta property="article:author" content="zer0ptr">
+<meta property="article:tag" content="Coding">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://zer0ptr.github.io/images/verifier_1_20250712.png">
   
   
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>How to design an MD5 verifier - zer0ptr&#39;s Blog</title>
 
-  <meta property="og:title" content="How to design an MD5 verifier"/>
-  <meta property="og:site_name" content="zer0ptr&#39;s Blog"/>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
 
   
-    <meta property="og:image" content=""/>
+<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.7.0/style.min.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zer0ptr.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
   
 
+
   
-    <link rel="alternative" href="/atom.xml" title="zer0ptr&#39;s Blog" type="application/atom+xml">
-  
-  
-    <link href="/favicon.png" rel="icon">
-  
-  
-  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
-  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
-  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-
-  <script src="/js/jquery-2.0.3.min.js"></script>
-
-  <!-- analytics -->
-  
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70812759-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-70812759-1');
-</script>
-
-
-
-
-
-
+  <script src="/js/sakura.js"></script>
+  <script src="/js/love.js"></script>
 <meta name="generator" content="Hexo 7.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
 
- <body>  
-  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-		<span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-	  <a class="navbar-brand" href="/">zer0ptr&#39;s Blog</a>
-      <div class="collapse navbar-collapse nav-menu">
-		<ul class="nav navbar-nav">
-		  
-		  <li>
-			<a href="/archives" title="All the articles.">
-			  <i class=""></i>Archives
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/categories" title="All the categories.">
-			  <i class=""></i>Categories
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/tags" title="All the tags.">
-			  <i class=""></i>Tags
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/about" title="About me.">
-			  <i class=""></i>About
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/atom.xml" title="Subscribe me.">
-			  <i class=""></i>RSS
-			</a>
-		  </li>
-		  
-		</ul>
-      </div>
-    </div> <!-- container -->
-</nav>
-<div class="clearfix"></div>
 
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-  	<div class="content">
-    	 
+    <a class="navbar-brand" href="/">
+      <strong>zer0ptr&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>Links</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/background.PNG') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="How to design an MD5 verifier"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-07-11 15:09" pubdate>
+          July 11, 2025 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.1k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
 
 
-	
-		<div class="page-header">
-			<h1> How to design an MD5 verifier</h1>
-		</div>
-	
+        
+      </div>
 
+      
+    </div>
+  </div>
+</div>
 
+</div>
 
-<div class="row post">
-	<!-- cols -->
-	
-	<div id="top_meta"></div>
-	<div class="col-md-9">
-	
+  </header>
 
-	<!-- content -->
-	<div class="mypage">		
-	  		
+  <main>
+    
+      
 
-	  <p>项目地址：<em><a target="_blank" rel="noopener" href="https://github.com/fishcanf1y/MD5-Checker">https://github.com/fishcanf1y/MD5-Checker</a></em></p>
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">How to design an MD5 verifier</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>项目地址：<em><a target="_blank" rel="noopener" href="https://github.com/fishcanf1y/MD5-Checker">https://github.com/fishcanf1y/MD5-Checker</a></em></p>
 <h2 id="Description"><a href="#Description" class="headerlink" title="Description:"></a>Description:</h2><p>MD5 校验器用于验证数据完整性和检测数据是否被篡改，常用于文件下载、软件更新、密码存储等场景。它可以快速生成文件的“数字指纹”——MD5 值，然后将该值与原始值进行比较，以确保文件在传输或存储过程中没有发生变化。﻿</p>
 <p>以下是MD5 校验器的主要用途和优势：</p>
 <ul>
@@ -195,7 +338,12 @@ How To Do?以下我将梳理大致思路并列举一些代码片段来说明其�
 <ul>
 <li><strong>分块处理</strong>：避免内存溢出</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calculate_md5</span>(<span class="params">file_path, block_size=<span class="number">65536</span></span>):</span><br><span class="line">    md5 = hashlib.md5()</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        <span class="keyword">for</span> block <span class="keyword">in</span> <span class="built_in">iter</span>(<span class="keyword">lambda</span>: f.read(block_size), <span class="string">b&#x27;&#x27;</span>):</span><br><span class="line">            md5.update(block)  <span class="comment"># 增量更新哈希</span></span><br><span class="line">    <span class="keyword">return</span> md5.hexdigest()</span><br></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs Python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_md5</span>(<span class="hljs-params">file_path, block_size=<span class="hljs-number">65536</span></span>):
+    md5 = hashlib.md5()
+    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(file_path, <span class="hljs-string">&#x27;rb&#x27;</span>) <span class="hljs-keyword">as</span> f:
+        <span class="hljs-keyword">for</span> block <span class="hljs-keyword">in</span> <span class="hljs-built_in">iter</span>(<span class="hljs-keyword">lambda</span>: f.read(block_size), <span class="hljs-string">b&#x27;&#x27;</span>):
+            md5.update(block)  <span class="hljs-comment"># 增量更新哈希</span>
+    <span class="hljs-keyword">return</span> md5.hexdigest()</code></pre></div>
 
 <ul>
 <li><p>使用生成器模式逐块读取（<code>iter+lambda</code>技巧）</p>
@@ -213,7 +361,7 @@ How To Do?以下我将梳理大致思路并列举一些代码片段来说明其�
 <ul>
 <li><strong>大小写不敏感</strong>：<code>.lower()</code>处理用户输入</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> actual_md5.lower() == expected_md5.lower()</span><br></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs Python"><span class="hljs-keyword">if</span> actual_md5.lower() == expected_md5.lower()</code></pre></div>
 
 <ul>
 <li><p><strong>明确输出</strong>：格式化显示预期&#x2F;实际值对比</p>
@@ -222,23 +370,30 @@ How To Do?以下我将梳理大致思路并列举一些代码片段来说明其�
 </li>
 </ul>
 <h4 id="3-批量处理"><a href="#3-批量处理" class="headerlink" title="3. 批量处理"></a>3. 批量处理</h4><p><strong>递归目录处理</strong>：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> root, _, files <span class="keyword">in</span> os.walk(directory):</span><br><span class="line">    <span class="keyword">for</span> filename <span class="keyword">in</span> files:</span><br><span class="line">        file_path = os.path.join(root, filename)</span><br><span class="line">        relative_path = os.path.relpath(file_path, directory)</span><br></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs Python"><span class="hljs-keyword">for</span> root, _, files <span class="hljs-keyword">in</span> os.walk(directory):
+    <span class="hljs-keyword">for</span> filename <span class="hljs-keyword">in</span> files:
+        file_path = os.path.join(root, filename)
+        relative_path = os.path.relpath(file_path, directory)</code></pre></div>
 
 <ul>
 <li>使用<code>os.walk</code>实现深度优先遍历</li>
 <li><code>os.path.relpath</code>生成相对路径保证校验文件可移植性</li>
 </ul>
 <h4 id="4-命令行接口"><a href="#4-命令行接口" class="headerlink" title="4. 命令行接口"></a>4. 命令行接口</h4><p><strong>子命令模式</strong>：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">subparsers = parser.add_subparsers(dest=<span class="string">&#x27;command&#x27;</span>)</span><br><span class="line">calc_parser = subparsers.add_parser(<span class="string">&#x27;calc&#x27;</span>)</span><br><span class="line">verify_parser = subparsers.add_parser(<span class="string">&#x27;verify&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<div class="code-wrapper"><pre><code class="hljs python">subparsers = parser.add_subparsers(dest=<span class="hljs-string">&#x27;command&#x27;</span>)
+calc_parser = subparsers.add_parser(<span class="hljs-string">&#x27;calc&#x27;</span>)
+verify_parser = subparsers.add_parser(<span class="hljs-string">&#x27;verify&#x27;</span>)</code></pre></div>
 
 <ul>
 <li>分离<code>calc</code>和<code>verify</code>逻辑</li>
 <li>自动生成帮助信息（<code>-h</code>）</li>
 </ul>
 <hr>
-<h3 id="三、典型工作流程"><a href="#三、典型工作流程" class="headerlink" title="三、典型工作流程"></a>三、典型工作流程</h3><h4 id="场景1：单文件验证"><a href="#场景1：单文件验证" class="headerlink" title="场景1：单文件验证"></a>场景1：单文件验证</h4><p><img src="/images/verifier_1_20250712.png" alt="单文件验证"></p>
-<h4 id="场景2：生成验证文件"><a href="#场景2：生成验证文件" class="headerlink" title="场景2：生成验证文件"></a>场景2：生成验证文件</h4><p><img src="/images/verifier_2_20250712.png" alt="生成验证文件"></p>
-<h3 id="四、扩展设计思路"><a href="#四、扩展设计思路" class="headerlink" title="四、扩展设计思路"></a>四、扩展设计思路</h3><h4 id="1-算法扩展点"><a href="#1-算法扩展点" class="headerlink" title="1. 算法扩展点"></a>1. 算法扩展点</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calculate_hash</span>(<span class="params">file_path, algorithm=<span class="string">&#x27;md5&#x27;</span>, block_size=<span class="number">65536</span></span>):</span><br><span class="line">    hasher = hashlib.new(algorithm)  <span class="comment"># 动态选择算法</span></span><br><span class="line">    <span class="comment"># ...相同处理逻辑...</span></span><br></pre></td></tr></table></figure>
+<h3 id="三、典型工作流程"><a href="#三、典型工作流程" class="headerlink" title="三、典型工作流程"></a>三、典型工作流程</h3><h4 id="场景1：单文件验证"><a href="#场景1：单文件验证" class="headerlink" title="场景1：单文件验证"></a>场景1：单文件验证</h4><p><img src="/images/verifier_1_20250712.png" srcset="/img/loading.gif" lazyload alt="单文件验证"></p>
+<h4 id="场景2：生成验证文件"><a href="#场景2：生成验证文件" class="headerlink" title="场景2：生成验证文件"></a>场景2：生成验证文件</h4><p><img src="/images/verifier_2_20250712.png" srcset="/img/loading.gif" lazyload alt="生成验证文件"></p>
+<h3 id="四、扩展设计思路"><a href="#四、扩展设计思路" class="headerlink" title="四、扩展设计思路"></a>四、扩展设计思路</h3><h4 id="1-算法扩展点"><a href="#1-算法扩展点" class="headerlink" title="1. 算法扩展点"></a>1. 算法扩展点</h4><div class="code-wrapper"><pre><code class="hljs Python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_hash</span>(<span class="hljs-params">file_path, algorithm=<span class="hljs-string">&#x27;md5&#x27;</span>, block_size=<span class="hljs-number">65536</span></span>):
+    hasher = hashlib.new(algorithm)  <span class="hljs-comment"># 动态选择算法</span>
+    <span class="hljs-comment"># ...相同处理逻辑...</span></code></pre></div>
 
 <h4 id="2-性能优化方向"><a href="#2-性能优化方向" class="headerlink" title="2. 性能优化方向"></a>2. 性能优化方向</h4><ul>
 <li><strong>并行计算</strong>：使用<code>concurrent.futures</code>加速批量处理</li>
@@ -270,7 +425,197 @@ How To Do?以下我将梳理大致思路并列举一些代码片段来说明其�
 </ul>
 </li>
 </ol>
-<h3 id="六、最终代码呈现"><a href="#六、最终代码呈现" class="headerlink" title="六、最终代码呈现"></a>六、最终代码呈现</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Dict</span>, <span class="type">List</span>, <span class="type">Optional</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 常量定义</span></span><br><span class="line">DEFAULT_BLOCK_SIZE = <span class="number">65536</span>  <span class="comment"># 64KB块大小</span></span><br><span class="line">MD5_FILE_EXTENSION = <span class="string">&#x27;.md5&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">calculate_md5</span>(<span class="params">file_path: <span class="built_in">str</span>, block_size: <span class="built_in">int</span> = DEFAULT_BLOCK_SIZE</span>) -&gt; <span class="type">Optional</span>[<span class="built_in">str</span>]:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    计算文件的MD5哈希值</span></span><br><span class="line"><span class="string">    :param file_path: 文件路径</span></span><br><span class="line"><span class="string">    :param block_size: 读取块大小(字节)</span></span><br><span class="line"><span class="string">    :return: MD5字符串(失败返回None)</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.isfile(file_path):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;错误: 文件不存在 - <span class="subst">&#123;file_path&#125;</span>&quot;</span>, file=sys.stderr)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    md5 = hashlib.md5()</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(file_path, <span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            <span class="keyword">for</span> block <span class="keyword">in</span> <span class="built_in">iter</span>(<span class="keyword">lambda</span>: f.read(block_size), <span class="string">b&#x27;&#x27;</span>):</span><br><span class="line">                md5.update(block)</span><br><span class="line">        <span class="keyword">return</span> md5.hexdigest()</span><br><span class="line">    <span class="keyword">except</span> (IOError, PermissionError) <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;错误: 无法读取文件 <span class="subst">&#123;file_path&#125;</span> - <span class="subst">&#123;<span class="built_in">str</span>(e)&#125;</span>&quot;</span>, file=sys.stderr)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">batch_calculate_md5</span>(<span class="params">file_list: <span class="type">List</span>[<span class="built_in">str</span>]</span>) -&gt; <span class="type">Dict</span>[<span class="built_in">str</span>, <span class="type">Optional</span>[<span class="built_in">str</span>]]:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    批量计算MD5值</span></span><br><span class="line"><span class="string">    :param file_list: 文件路径列表</span></span><br><span class="line"><span class="string">    :return: 字典&#123;文件路径: MD5值&#125;</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> &#123;file_path: calculate_md5(file_path) <span class="keyword">for</span> file_path <span class="keyword">in</span> file_list&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">verify_md5</span>(<span class="params">file_path: <span class="built_in">str</span>, expected_md5: <span class="built_in">str</span></span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    验证文件MD5值</span></span><br><span class="line"><span class="string">    :param file_path: 文件路径</span></span><br><span class="line"><span class="string">    :param expected_md5: 预期MD5值</span></span><br><span class="line"><span class="string">    :return: 是否匹配</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    actual_md5 = calculate_md5(file_path)</span><br><span class="line">    <span class="keyword">if</span> actual_md5 <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    is_match = actual_md5.lower() == expected_md5.lower()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;文件: <span class="subst">&#123;os.path.abspath(file_path)&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;预期MD5: <span class="subst">&#123;expected_md5.lower()&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;实际MD5: <span class="subst">&#123;actual_md5.lower()&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;验证结果: <span class="subst">&#123;<span class="string">&#x27;匹配&#x27;</span> <span class="keyword">if</span> is_match <span class="keyword">else</span> <span class="string">&#x27;不匹配&#x27;</span>&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> is_match</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">generate_md5_file</span>(<span class="params">directory: <span class="built_in">str</span>, output_file: <span class="built_in">str</span> = <span class="literal">None</span></span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    生成目录的MD5校验文件</span></span><br><span class="line"><span class="string">    :param directory: 目录路径</span></span><br><span class="line"><span class="string">    :param output_file: 输出文件路径(默认: 目录名.md5)</span></span><br><span class="line"><span class="string">    :return: 是否成功</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.isdir(directory):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;错误: 目录不存在 - <span class="subst">&#123;directory&#125;</span>&quot;</span>, file=sys.stderr)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> output_file <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        output_file = os.path.basename(directory.rstrip(<span class="string">&#x27;/\\&#x27;</span>)) + MD5_FILE_EXTENSION</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(output_file, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f_out:</span><br><span class="line">            <span class="keyword">for</span> root, _, files <span class="keyword">in</span> os.walk(directory):</span><br><span class="line">                <span class="keyword">for</span> filename <span class="keyword">in</span> files:</span><br><span class="line">                    file_path = os.path.join(root, filename)</span><br><span class="line">                    md5 = calculate_md5(file_path)</span><br><span class="line">                    <span class="keyword">if</span> md5:</span><br><span class="line">                        relative_path = os.path.relpath(file_path, directory)</span><br><span class="line">                        f_out.write(<span class="string">f&quot;<span class="subst">&#123;md5&#125;</span> *<span class="subst">&#123;relative_path&#125;</span>\n&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;成功生成校验文件: <span class="subst">&#123;os.path.abspath(output_file)&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">except</span> IOError <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;错误: 无法写入校验文件 - <span class="subst">&#123;<span class="built_in">str</span>(e)&#125;</span>&quot;</span>, file=sys.stderr)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">verify_md5_file</span>(<span class="params">md5_file: <span class="built_in">str</span></span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    验证MD5校验文件中的所有条目</span></span><br><span class="line"><span class="string">    :param md5_file: 校验文件路径</span></span><br><span class="line"><span class="string">    :return: 是否全部验证通过</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.isfile(md5_file):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;错误: 校验文件不存在 - <span class="subst">&#123;md5_file&#125;</span>&quot;</span>, file=sys.stderr)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    all_passed = <span class="literal">True</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(md5_file, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            <span class="keyword">for</span> line_num, line <span class="keyword">in</span> <span class="built_in">enumerate</span>(f, <span class="number">1</span>):</span><br><span class="line">                line = line.strip()</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> line <span class="keyword">or</span> line.startswith(<span class="string">&#x27;#&#x27;</span>):</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">                <span class="comment"># 解析格式: MD5 *文件名 或 MD5 文件名</span></span><br><span class="line">                parts = line.split(maxsplit=<span class="number">1</span>)</span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">len</span>(parts) != <span class="number">2</span>:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">f&quot;警告: 第<span class="subst">&#123;line_num&#125;</span>行格式错误 - <span class="subst">&#123;line&#125;</span>&quot;</span>, file=sys.stderr)</span><br><span class="line">                    all_passed = <span class="literal">False</span></span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">                expected_md5, file_path = parts</span><br><span class="line">                <span class="keyword">if</span> file_path.startswith(<span class="string">&#x27;*&#x27;</span>):</span><br><span class="line">                    file_path = file_path[<span class="number">1</span>:]</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> verify_md5(file_path, expected_md5):</span><br><span class="line">                    all_passed = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">except</span> IOError <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;错误: 读取校验文件失败 - <span class="subst">&#123;<span class="built_in">str</span>(e)&#125;</span>&quot;</span>, file=sys.stderr)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> all_passed</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">setup_argparse</span>() -&gt; argparse.ArgumentParser:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;配置命令行参数解析&quot;&quot;&quot;</span></span><br><span class="line">    parser = argparse.ArgumentParser(</span><br><span class="line">        description=<span class="string">&#x27;MD5校验工具&#x27;</span>,</span><br><span class="line">        formatter_class=argparse.RawDescriptionHelpFormatter,</span><br><span class="line">        epilog=<span class="string">&quot;&quot;&quot;使用示例:</span></span><br><span class="line"><span class="string">  计算MD5:  %(prog)s calc file.txt</span></span><br><span class="line"><span class="string">  验证文件: %(prog)s verify file.txt d41d8cd98f00b204e9800998ecf8427e</span></span><br><span class="line"><span class="string">  生成校验: %(prog)s gen ./directory</span></span><br><span class="line"><span class="string">  验证校验: %(prog)s check checksums.md5&quot;&quot;&quot;</span></span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    subparsers = parser.add_subparsers(dest=<span class="string">&#x27;command&#x27;</span>, required=<span class="literal">True</span>, <span class="built_in">help</span>=<span class="string">&#x27;子命令&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># calc 子命令</span></span><br><span class="line">    calc_parser = subparsers.add_parser(<span class="string">&#x27;calc&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;计算文件MD5值&#x27;</span>)</span><br><span class="line">    calc_parser.add_argument(<span class="string">&#x27;file&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;目标文件路径&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># verify 子命令</span></span><br><span class="line">    verify_parser = subparsers.add_parser(<span class="string">&#x27;verify&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;验证文件MD5值&#x27;</span>)</span><br><span class="line">    verify_parser.add_argument(<span class="string">&#x27;file&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;要验证的文件路径&#x27;</span>)</span><br><span class="line">    verify_parser.add_argument(<span class="string">&#x27;md5&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;预期的MD5值&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># gen 子命令</span></span><br><span class="line">    gen_parser = subparsers.add_parser(<span class="string">&#x27;gen&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;生成目录的MD5校验文件&#x27;</span>)</span><br><span class="line">    gen_parser.add_argument(<span class="string">&#x27;directory&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;目标目录路径&#x27;</span>)</span><br><span class="line">    gen_parser.add_argument(<span class="string">&#x27;-o&#x27;</span>, <span class="string">&#x27;--output&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;输出文件路径&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># check 子命令</span></span><br><span class="line">    check_parser = subparsers.add_parser(<span class="string">&#x27;check&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;验证MD5校验文件&#x27;</span>)</span><br><span class="line">    check_parser.add_argument(<span class="string">&#x27;md5_file&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;MD5校验文件路径&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> parser</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    parser = setup_argparse()</span><br><span class="line">    args = parser.parse_args()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> args.command == <span class="string">&#x27;calc&#x27;</span>:</span><br><span class="line">        md5 = calculate_md5(args.file)</span><br><span class="line">        <span class="keyword">if</span> md5:</span><br><span class="line">            <span class="built_in">print</span>(md5)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">elif</span> args.command == <span class="string">&#x27;verify&#x27;</span>:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> verify_md5(args.file, args.md5):</span><br><span class="line">            sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">elif</span> args.command == <span class="string">&#x27;gen&#x27;</span>:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> generate_md5_file(args.directory, args.output):</span><br><span class="line">            sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">elif</span> args.command == <span class="string">&#x27;check&#x27;</span>:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> verify_md5_file(args.md5_file):</span><br><span class="line">            sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<h3 id="六、最终代码呈现"><a href="#六、最终代码呈现" class="headerlink" title="六、最终代码呈现"></a>六、最终代码呈现</h3><div class="code-wrapper"><pre><code class="hljs Python"><span class="hljs-comment">#!/usr/bin/env python3</span>
+<span class="hljs-keyword">import</span> hashlib
+<span class="hljs-keyword">import</span> argparse
+<span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> sys
+<span class="hljs-keyword">from</span> typing <span class="hljs-keyword">import</span> <span class="hljs-type">Dict</span>, <span class="hljs-type">List</span>, <span class="hljs-type">Optional</span>
+
+<span class="hljs-comment"># 常量定义</span>
+DEFAULT_BLOCK_SIZE = <span class="hljs-number">65536</span>  <span class="hljs-comment"># 64KB块大小</span>
+MD5_FILE_EXTENSION = <span class="hljs-string">&#x27;.md5&#x27;</span>
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_md5</span>(<span class="hljs-params">file_path: <span class="hljs-built_in">str</span>, block_size: <span class="hljs-built_in">int</span> = DEFAULT_BLOCK_SIZE</span>) -&gt; <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>]:
+    <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    计算文件的MD5哈希值</span>
+<span class="hljs-string">    :param file_path: 文件路径</span>
+<span class="hljs-string">    :param block_size: 读取块大小(字节)</span>
+<span class="hljs-string">    :return: MD5字符串(失败返回None)</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.isfile(file_path):
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;错误: 文件不存在 - <span class="hljs-subst">&#123;file_path&#125;</span>&quot;</span>, file=sys.stderr)
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
+
+    md5 = hashlib.md5()
+    <span class="hljs-keyword">try</span>:
+        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(file_path, <span class="hljs-string">&#x27;rb&#x27;</span>) <span class="hljs-keyword">as</span> f:
+            <span class="hljs-keyword">for</span> block <span class="hljs-keyword">in</span> <span class="hljs-built_in">iter</span>(<span class="hljs-keyword">lambda</span>: f.read(block_size), <span class="hljs-string">b&#x27;&#x27;</span>):
+                md5.update(block)
+        <span class="hljs-keyword">return</span> md5.hexdigest()
+    <span class="hljs-keyword">except</span> (IOError, PermissionError) <span class="hljs-keyword">as</span> e:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;错误: 无法读取文件 <span class="hljs-subst">&#123;file_path&#125;</span> - <span class="hljs-subst">&#123;<span class="hljs-built_in">str</span>(e)&#125;</span>&quot;</span>, file=sys.stderr)
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">None</span>
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">batch_calculate_md5</span>(<span class="hljs-params">file_list: <span class="hljs-type">List</span>[<span class="hljs-built_in">str</span>]</span>) -&gt; <span class="hljs-type">Dict</span>[<span class="hljs-built_in">str</span>, <span class="hljs-type">Optional</span>[<span class="hljs-built_in">str</span>]]:
+    <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    批量计算MD5值</span>
+<span class="hljs-string">    :param file_list: 文件路径列表</span>
+<span class="hljs-string">    :return: 字典&#123;文件路径: MD5值&#125;</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">return</span> &#123;file_path: calculate_md5(file_path) <span class="hljs-keyword">for</span> file_path <span class="hljs-keyword">in</span> file_list&#125;
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">verify_md5</span>(<span class="hljs-params">file_path: <span class="hljs-built_in">str</span>, expected_md5: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">bool</span>:
+    <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    验证文件MD5值</span>
+<span class="hljs-string">    :param file_path: 文件路径</span>
+<span class="hljs-string">    :param expected_md5: 预期MD5值</span>
+<span class="hljs-string">    :return: 是否匹配</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    actual_md5 = calculate_md5(file_path)
+    <span class="hljs-keyword">if</span> actual_md5 <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+
+    is_match = actual_md5.lower() == expected_md5.lower()
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;文件: <span class="hljs-subst">&#123;os.path.abspath(file_path)&#125;</span>&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;预期MD5: <span class="hljs-subst">&#123;expected_md5.lower()&#125;</span>&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;实际MD5: <span class="hljs-subst">&#123;actual_md5.lower()&#125;</span>&quot;</span>)
+    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;验证结果: <span class="hljs-subst">&#123;<span class="hljs-string">&#x27;匹配&#x27;</span> <span class="hljs-keyword">if</span> is_match <span class="hljs-keyword">else</span> <span class="hljs-string">&#x27;不匹配&#x27;</span>&#125;</span>&quot;</span>)
+    <span class="hljs-keyword">return</span> is_match
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">generate_md5_file</span>(<span class="hljs-params">directory: <span class="hljs-built_in">str</span>, output_file: <span class="hljs-built_in">str</span> = <span class="hljs-literal">None</span></span>) -&gt; <span class="hljs-built_in">bool</span>:
+    <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    生成目录的MD5校验文件</span>
+<span class="hljs-string">    :param directory: 目录路径</span>
+<span class="hljs-string">    :param output_file: 输出文件路径(默认: 目录名.md5)</span>
+<span class="hljs-string">    :return: 是否成功</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.isdir(directory):
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;错误: 目录不存在 - <span class="hljs-subst">&#123;directory&#125;</span>&quot;</span>, file=sys.stderr)
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+
+    <span class="hljs-keyword">if</span> output_file <span class="hljs-keyword">is</span> <span class="hljs-literal">None</span>:
+        output_file = os.path.basename(directory.rstrip(<span class="hljs-string">&#x27;/\\&#x27;</span>)) + MD5_FILE_EXTENSION
+
+    <span class="hljs-keyword">try</span>:
+        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(output_file, <span class="hljs-string">&#x27;w&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> f_out:
+            <span class="hljs-keyword">for</span> root, _, files <span class="hljs-keyword">in</span> os.walk(directory):
+                <span class="hljs-keyword">for</span> filename <span class="hljs-keyword">in</span> files:
+                    file_path = os.path.join(root, filename)
+                    md5 = calculate_md5(file_path)
+                    <span class="hljs-keyword">if</span> md5:
+                        relative_path = os.path.relpath(file_path, directory)
+                        f_out.write(<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;md5&#125;</span> *<span class="hljs-subst">&#123;relative_path&#125;</span>\n&quot;</span>)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;成功生成校验文件: <span class="hljs-subst">&#123;os.path.abspath(output_file)&#125;</span>&quot;</span>)
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span>
+    <span class="hljs-keyword">except</span> IOError <span class="hljs-keyword">as</span> e:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;错误: 无法写入校验文件 - <span class="hljs-subst">&#123;<span class="hljs-built_in">str</span>(e)&#125;</span>&quot;</span>, file=sys.stderr)
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">verify_md5_file</span>(<span class="hljs-params">md5_file: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">bool</span>:
+    <span class="hljs-string">&quot;&quot;&quot;</span>
+<span class="hljs-string">    验证MD5校验文件中的所有条目</span>
+<span class="hljs-string">    :param md5_file: 校验文件路径</span>
+<span class="hljs-string">    :return: 是否全部验证通过</span>
+<span class="hljs-string">    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.isfile(md5_file):
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;错误: 校验文件不存在 - <span class="hljs-subst">&#123;md5_file&#125;</span>&quot;</span>, file=sys.stderr)
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+
+    all_passed = <span class="hljs-literal">True</span>
+    <span class="hljs-keyword">try</span>:
+        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(md5_file, <span class="hljs-string">&#x27;r&#x27;</span>, encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">as</span> f:
+            <span class="hljs-keyword">for</span> line_num, line <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(f, <span class="hljs-number">1</span>):
+                line = line.strip()
+                <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> line <span class="hljs-keyword">or</span> line.startswith(<span class="hljs-string">&#x27;#&#x27;</span>):
+                    <span class="hljs-keyword">continue</span>
+
+                <span class="hljs-comment"># 解析格式: MD5 *文件名 或 MD5 文件名</span>
+                parts = line.split(maxsplit=<span class="hljs-number">1</span>)
+                <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(parts) != <span class="hljs-number">2</span>:
+                    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;警告: 第<span class="hljs-subst">&#123;line_num&#125;</span>行格式错误 - <span class="hljs-subst">&#123;line&#125;</span>&quot;</span>, file=sys.stderr)
+                    all_passed = <span class="hljs-literal">False</span>
+                    <span class="hljs-keyword">continue</span>
+
+                expected_md5, file_path = parts
+                <span class="hljs-keyword">if</span> file_path.startswith(<span class="hljs-string">&#x27;*&#x27;</span>):
+                    file_path = file_path[<span class="hljs-number">1</span>:]
+
+                <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> verify_md5(file_path, expected_md5):
+                    all_passed = <span class="hljs-literal">False</span>
+    <span class="hljs-keyword">except</span> IOError <span class="hljs-keyword">as</span> e:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;错误: 读取校验文件失败 - <span class="hljs-subst">&#123;<span class="hljs-built_in">str</span>(e)&#125;</span>&quot;</span>, file=sys.stderr)
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span>
+
+    <span class="hljs-keyword">return</span> all_passed
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">setup_argparse</span>() -&gt; argparse.ArgumentParser:
+    <span class="hljs-string">&quot;&quot;&quot;配置命令行参数解析&quot;&quot;&quot;</span>
+    parser = argparse.ArgumentParser(
+        description=<span class="hljs-string">&#x27;MD5校验工具&#x27;</span>,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=<span class="hljs-string">&quot;&quot;&quot;使用示例:</span>
+<span class="hljs-string">  计算MD5:  %(prog)s calc file.txt</span>
+<span class="hljs-string">  验证文件: %(prog)s verify file.txt d41d8cd98f00b204e9800998ecf8427e</span>
+<span class="hljs-string">  生成校验: %(prog)s gen ./directory</span>
+<span class="hljs-string">  验证校验: %(prog)s check checksums.md5&quot;&quot;&quot;</span>
+    )
+
+    subparsers = parser.add_subparsers(dest=<span class="hljs-string">&#x27;command&#x27;</span>, required=<span class="hljs-literal">True</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;子命令&#x27;</span>)
+
+    <span class="hljs-comment"># calc 子命令</span>
+    calc_parser = subparsers.add_parser(<span class="hljs-string">&#x27;calc&#x27;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;计算文件MD5值&#x27;</span>)
+    calc_parser.add_argument(<span class="hljs-string">&#x27;file&#x27;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;目标文件路径&#x27;</span>)
+
+    <span class="hljs-comment"># verify 子命令</span>
+    verify_parser = subparsers.add_parser(<span class="hljs-string">&#x27;verify&#x27;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;验证文件MD5值&#x27;</span>)
+    verify_parser.add_argument(<span class="hljs-string">&#x27;file&#x27;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;要验证的文件路径&#x27;</span>)
+    verify_parser.add_argument(<span class="hljs-string">&#x27;md5&#x27;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;预期的MD5值&#x27;</span>)
+
+    <span class="hljs-comment"># gen 子命令</span>
+    gen_parser = subparsers.add_parser(<span class="hljs-string">&#x27;gen&#x27;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;生成目录的MD5校验文件&#x27;</span>)
+    gen_parser.add_argument(<span class="hljs-string">&#x27;directory&#x27;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;目标目录路径&#x27;</span>)
+    gen_parser.add_argument(<span class="hljs-string">&#x27;-o&#x27;</span>, <span class="hljs-string">&#x27;--output&#x27;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;输出文件路径&#x27;</span>)
+
+    <span class="hljs-comment"># check 子命令</span>
+    check_parser = subparsers.add_parser(<span class="hljs-string">&#x27;check&#x27;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;验证MD5校验文件&#x27;</span>)
+    check_parser.add_argument(<span class="hljs-string">&#x27;md5_file&#x27;</span>, <span class="hljs-built_in">help</span>=<span class="hljs-string">&#x27;MD5校验文件路径&#x27;</span>)
+
+    <span class="hljs-keyword">return</span> parser
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():
+    parser = setup_argparse()
+    args = parser.parse_args()
+
+    <span class="hljs-keyword">if</span> args.command == <span class="hljs-string">&#x27;calc&#x27;</span>:
+        md5 = calculate_md5(args.file)
+        <span class="hljs-keyword">if</span> md5:
+            <span class="hljs-built_in">print</span>(md5)
+        <span class="hljs-keyword">else</span>:
+            sys.exit(<span class="hljs-number">1</span>)
+
+    <span class="hljs-keyword">elif</span> args.command == <span class="hljs-string">&#x27;verify&#x27;</span>:
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> verify_md5(args.file, args.md5):
+            sys.exit(<span class="hljs-number">1</span>)
+
+    <span class="hljs-keyword">elif</span> args.command == <span class="hljs-string">&#x27;gen&#x27;</span>:
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> generate_md5_file(args.directory, args.output):
+            sys.exit(<span class="hljs-number">1</span>)
+
+    <span class="hljs-keyword">elif</span> args.command == <span class="hljs-string">&#x27;check&#x27;</span>:
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> verify_md5_file(args.md5_file):
+            sys.exit(<span class="hljs-number">1</span>)
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
+    main()</code></pre></div>
 
 <p>参考文章：</p>
 <ol>
@@ -295,157 +640,429 @@ How To Do?以下我将梳理大致思路并列举一些代码片段来说明其�
         crossorigin="anonymous"
         async>
 </script>
-	  <div class="article-footer-copyright">
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
 
-    本博客采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议(CC BY-NC-SA 4.0) 发布.</a>
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Coding/" class="category-chain-item">Coding</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Coding/" class="print-no-link">#Coding</a>
+      
+    </div>
+  
 </div>
 
-	</div>
 
-	
-	
-	<div>
-  	<center>
+              
+  
 
-	<div class="pagination">
-
-    
-    
-    <a href="/2025/07/11/Linux下8086汇编语言环境搭建/" type="button" class="btn btn-default"><i
-                class="fa fa-arrow-circle-o-left"></i> Prev</a>
-    
-
-    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
-    
-    <a href="/2025/07/11/Go基础语法学习笔记/" type="button" class="btn btn-default ">Next<i
-                class="fa fa-arrow-circle-o-right"></i></a>
-    
-
-    
-</div>
-
-
-    </center>
-	</div>
-	
-	<!-- comment -->
-	<!--
-<section id="comment">
-    <h2 class="title">Comments</h2>
-
-    
-</section>
-
--->
-	
-	
-	
-	</div> <!-- col-md-9/col-md-12 -->
-
-
-	
-	<div id="side_meta">
-		<div class="col-md-3" id="post_meta"> 
-
-	<!-- date -->
-	
-	<div class="meta-widget">
-	<i class="fa fa-clock-o"></i>
-	2025-07-11 
-	</div>
-	
-
-	<!-- categories -->
-    
-	<div class="meta-widget">
-	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
-    <ul id="categorys" class="tag_box list-unstyled collapse in">
-          
-  <li>
-    <li><a href="/categories/Coding/">Coding<span>9</span></a></li>
-  </li>
-
-    </ul>
-	</div>
-	
-
-	<!-- tags -->
-	
-	<div class="meta-widget">
-	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
-    <ul id="tags" class="tag_box list-unstyled collapse in">	  
-	    
-  <li><a href="/tags/Coding/">Coding<span>7</span></a></li>
-    </ul>
-	</div>
-		
-
-	<!-- toc -->
-	<div class="meta-widget">
-	
-	</div>
-	
-    <hr>
-	
-</div><!-- col-md-3 -->
-
-		
-
-	</div>
-	
-		
-
-</div><!-- row -->
-
-<!--
- -->
-
-
-
-	</div>
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>How to design an MD5 verifier</div>
+      <div>https://zer0ptr.github.io/2025/07/11/md5verifier-20250711/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>zer0ptr</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>July 11, 2025</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
   </div>
-  <div class="container-narrow">
-  <footer> <p>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/07/11/Linux%E4%B8%8B8086%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" title="Linux下8086汇编语言环境搭建">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Linux下8086汇编语言环境搭建</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/07/11/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Go基础语法学习笔记">
+                        <span class="hidden-mobile">Go基础语法学习笔记</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
   
-  &copy; 2025 zer0ptr's Blog
   
-      powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.Theme <a href="https://github.com/Ares-X/hexo-theme-freemind.bithack" target="_blank">freemind.bithack</a>  
-</p>
- </footer>
-</div> <!-- container-narrow -->
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
   
 
 
   
-<a id="gotop" href="#">   
-  <span>⬆︎TOP</span>
-</a>
-
-<script src="/js/jquery.imagesloaded.min.js"></script>
-<script src="/js/gallery.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+  
 
 
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
 </script>
 
 
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
 
-   <script type="text/javascript">      
-     var search_path = "search.xml";
-	 if (search_path.length == 0) {
-	 	search_path = "search.xml";
-	 }
-	 var path = "/" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
-   </script>
+  <script>Fluid.plugins.codeWidget();</script>
 
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
 </body>
-   </html>
+</html>
