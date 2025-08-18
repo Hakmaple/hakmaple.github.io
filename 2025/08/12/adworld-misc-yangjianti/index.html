@@ -299,16 +299,13 @@
 <div class="code-wrapper"><pre><code class="hljs sqf">艾尔登法环正式发售在即，迫不及待的mjj身上好像有蚂蚁在爬，写下了一句谜语：
 <span class="hljs-number">3207357975641587136122466514425152961654613410728337142271750273124995105747053991640817066352343657398947248938255086358418100814441196784643527787764297</span>
 谜底就是<span class="hljs-built_in">flag</span>，也是他给所有新生的祝福，希望大家享受解码的过程。</code></pre></div>
-
 <p>先十进制转十六进制</p>
 <p><a target="_blank" rel="noopener" href="http://www.hiencode.com/jinzhi.html">CTF在线工具-ASCII与进制转换|任意进制转换|ASCII、2进制、8进制、10进制、16进制</a></p>
 <p>得到十六进制编码后的内容</p>
 <div class="code-wrapper"><pre><code class="hljs dns"><span class="hljs-number">3d</span>3d3d3d513642475354334f4859464d37435a415450424f4454344348324d4e37434e36565a414f5a3358474859344b374b354144474e5045535<span class="hljs-number">54355495a49</span></code></pre></div>
-
 <p>然后十六进制转字符串</p>
 <p><a target="_blank" rel="noopener" href="https://www.lddgo.net/string/hex">字符串HEX转换</a></p>
 <div class="code-wrapper"><pre><code class="hljs abnf"><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span>Q6BGST3OHYFM7CZATPBODT4CH2MN7CN6VZAOZ3XGHY4K7K5ADGNPESUCUIZI</code></pre></div>
-
 <p>字符串反转</p>
 <div class="code-wrapper"><pre><code class="hljs Python"><span class="hljs-comment">#!/usr/bin/env python3</span>
 <span class="hljs-comment"># -*- coding: utf-8 -*-</span>
@@ -335,13 +332,10 @@
 
 <span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
     main()</code></pre></div>
-
 <p>反转后结果：</p>
 <div class="code-wrapper"><pre><code class="hljs abnf"><span class="hljs-attribute">IZIUCUSEPNGDA5K7K4YHGX3ZOAZV6NC7NM2HC4TDOBPTAZC7MFYHO3TSGB6Q</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-operator">=</span></code></pre></div>
-
 <p>base32解码</p>
 <div class="code-wrapper"><pre><code class="hljs dust"><span class="language-xml">FQARD</span><span class="hljs-template-variable">&#123;L0u_W0s_yp3_4_k4qrcp_0d_apwnr0&#125;</span></code></pre></div>
-
 <p>凯撒以下，偏移量爆破</p>
 <div class="code-wrapper"><pre><code class="hljs Python"><span class="hljs-comment">#!/usr/bin/env python3</span>
 <span class="hljs-comment"># -*- coding: utf-8 -*-</span>
@@ -375,7 +369,6 @@
 
 <span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:
     main()</code></pre></div>
-
 <p>结果</p>
 <div class="code-wrapper"><pre><code class="hljs nestedtext"><span class="hljs-attribute">请输入要解密的文本</span><span class="hljs-punctuation">:</span> <span class="hljs-string">FQARD&#123;L0u_W0s_yp3_4_k4qrcp_0d_apwnr0&#125;</span>
 
@@ -405,7 +398,6 @@
 <span class="hljs-attribute">偏移量 23</span><span class="hljs-punctuation">:</span> <span class="hljs-string">ITDUG&#123;O0x_Z0v_bs3_4_n4tufs_0g_dszqu0&#125;</span>
 <span class="hljs-attribute">偏移量 24</span><span class="hljs-punctuation">:</span> <span class="hljs-string">HSCTF&#123;N0w_Y0u_ar3_4_m4ster_0f_crypt0&#125;</span>
 <span class="hljs-attribute">偏移量 25</span><span class="hljs-punctuation">:</span> <span class="hljs-string">GRBSE&#123;M0v_X0t_zq3_4_l4rsdq_0e_bqxos0&#125;</span></code></pre></div>
-
 <p>flag-&gt; <code>HSCTF&#123;N0w_Y0u_ar3_4_m4ster_0f_crypt0&#125;</code></p>
 
                 
