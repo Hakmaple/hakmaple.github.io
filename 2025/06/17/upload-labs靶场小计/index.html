@@ -1,186 +1,145 @@
-<!DOCTYPE html>
-<html lang=en>
+<!DOCTYPE HTML>
+<html>
 <head>
-    <!-- so meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="Introduction： Repo Address: https:&#x2F;&#x2F;github.com&#x2F;c0ny1&#x2F;upload-labs Description：upload-labs是一个使用php语言编写的，专门收集渗透测试和CTF中遇到的各种上传漏洞的靶场。旨在帮助大家对上传漏洞有一个全面的了解。目前一共20关，每一关都包含着不同上传方式。  正文开始Pass-01源码分析: 12345678910">
-<meta property="og:type" content="article">
-<meta property="og:title" content="upload-labs靶场小计">
-<meta property="og:url" content="https://zer0ptr.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/index.html">
-<meta property="og:site_name" content="zer0ptr&#39;s Blog">
-<meta property="og:description" content="Introduction： Repo Address: https:&#x2F;&#x2F;github.com&#x2F;c0ny1&#x2F;upload-labs Description：upload-labs是一个使用php语言编写的，专门收集渗透测试和CTF中遇到的各种上传漏洞的靶场。旨在帮助大家对上传漏洞有一个全面的了解。目前一共20关，每一关都包含着不同上传方式。  正文开始Pass-01源码分析: 12345678910">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://zer0ptr.github.io/images/upload-labs-1.PNG">
-<meta property="og:image" content="https://zer0ptr.github.io/images/upload-labs-2.PNG">
-<meta property="article:published_time" content="2025-06-17T14:11:09.000Z">
-<meta property="article:modified_time" content="2025-07-24T04:41:33.069Z">
-<meta property="article:author" content="zer0ptr">
-<meta property="article:tag" content="Web安全">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://zer0ptr.github.io/images/upload-labs-1.PNG">
-    
-    
-      
-        
-          <link rel="shortcut icon" href="/images/me.jpg">
-        
-      
-      
-        
-          <link rel="icon" type="image/png" href="/images/me.jpg" sizes="192x192">
-        
-      
-      
-        
-          <link rel="apple-touch-icon" sizes="180x180" href="/images/me.jpg">
-        
-      
-    
-    <!-- title -->
-    <title>upload-labs靶场小计</title>
-    <!-- async scripts -->
-    <!-- Google Analytics -->
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>upload-labs靶场小计 | zer0ptr&#39;s Blog</title>
+  <meta name="author" content="zer0ptr">
+  
+  <meta name="description" content="Introduction：
+Repo Address: https://github.com/c0ny1/upload-labs
+Description：upload-labs是一个使用php语言编写的，专门收集渗透测试和CTF中遇到的各种上传漏洞的靶场。旨在帮助大家对上传漏洞有一个全面的了解。目前一共20关，每一关都包含着不同上传方式。
 
+正文开始Pass-01源码分析:
+123456789101112131415161718function checkFile() &amp;#123;    var file = document.getElementsByName(&amp;#x27;upload_file&amp;#x27;)[0].value;    if (file == null || file == &amp;quot;&amp;quot;) &amp;#123;        alert(&amp;quot;请选择要上传的文件!&amp;quot;);        return false;    &amp;#125;    //定义允许上传的文件类型    var allow_ext = &amp;quot;.jpg|.png|.gif&amp;quot;;    //提取上传文件的类型    var ext_name = file.substring(file.lastIndexOf(&amp;quot;.&amp;quot;));    //判断上传文件类型是否允许上传    if (allow_ext.indexOf(ext_name + &amp;quot;|&amp;quot;) == -1) &amp;#123;        var errMsg = &amp;quot;该文件不允许上传，请上传&amp;quot; + allow_ext + &amp;quot;类型的文件,当前文件类型为：&amp;quot; + ext_name;        alert(errMsg);        return false;    &amp;#125;&amp;#125;
+在源码中我们可以看到其在客户端使用了js对不合法图片进行了检查，因此只需要在Firefox浏览器中禁用js即可绕过
+Pass-02源码分析:
+1234567891011121314151617181920$is_upload = false;$msg = null;if (isset($_POST[&amp;#x27;submit&amp;#x27;])) &amp;#123;    if (file_exists(UPLOAD_PATH)) &amp;#123;        if (($_FILES[&amp;#x27;upload_file&amp;#x27;][&amp;#x27;type&amp;#x27;] == &amp;#x27;image/jpeg&amp;#x27;) || ($_FILES[&amp;#x27;upload_file&amp;#x27;][&amp;#x27;type&amp;#x27;] == &amp;#x27;image/png&amp;#x27;) || ($_FILES[&amp;#x27;upload_file&amp;#x27;][&amp;#x27;type&amp;#x27;] == &amp;#x27;image/gif&amp;#x27;)) &amp;#123;            $temp_file = $_FILES[&amp;#x27;upload_file&amp;#x27;][&amp;#x27;tmp_name&amp;#x27;];            $img_path = UPLOAD_PATH . &amp;#x27;/&amp;#x27; . $_FILES[&amp;#x27;upload_file&amp;#x27;][&amp;#x27;name&amp;#x27;]                        if (move_uploaded_file($temp_file, $img_path)) &amp;#123;                $is_upload = true;            &amp;#125; else &amp;#123;                $msg = &amp;#x27;上传出错！&amp;#x27;;            &amp;#125;        &amp;#125; else &amp;#123;            $msg = &amp;#x27;文件类型不正确，请重新上传！&amp;#x27;;        &amp;#125;    &amp;#125; else &amp;#123;        $msg = UPLOAD_PATH.&amp;#x27;文件夹不存在,请手工创建！&amp;#x27;;    &amp;#125;&amp;#125;"> 
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <!-- Umami Analytics -->
+  <meta property="og:title" content="upload-labs靶场小计"/>
+  <meta property="og:site_name" content="zer0ptr&#39;s Blog"/>
 
-
-    <!-- styles -->
-    
-<link rel="stylesheet" href="/css/style.css">
-
-    <!-- persian styles -->
-    
-    <!-- rss -->
-    
-    
-	<!-- mathjax -->
-	
-		<script type="text/x-mathjax-config">
-		  MathJax.Hub.Config({
-			tex2jax: {
-			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-			  inlineMath: [['$','$']]
-			}
-		  });
-		</script>
-		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
-	
-<meta name="generator" content="Hexo 7.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
-
-<body class="max-width mx-auto px3 ltr">
-    
-      <div id="header-post">
-  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
-  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
-  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
-  <span id="menu">
-    <span id="nav">
-      <ul>
-        <!--
-       --><li><a href="/">Home</a></li><!--
-     --><!--
-       --><li><a href="/about/">About</a></li><!--
-     --><!--
-       --><li><a href="/archives/">Writing</a></li><!--
-     --><!--
-       --><li><a target="_blank" rel="noopener" href="http://github.com/zer0ptr">Projects</a></li><!--
-     -->
-      </ul>
-    </span>
-    <br/>
-    <span id="actions">
-      <ul>
-        
-        <li><a class="icon" aria-label="Previous post" href="/2025/06/22/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-cat's%20gift/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
-        
-        
-        <li><a class="icon" aria-label="Next post" href="/2025/05/17/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%B8%8EFibonacci%E6%96%97%E6%99%BA%E6%96%97%E5%8B%87/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
-        
-        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
-        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
-      </ul>
-      <span id="i-prev" class="info" style="display:none;">Previous post</span>
-      <span id="i-next" class="info" style="display:none;">Next post</span>
-      <span id="i-top" class="info" style="display:none;">Back to top</span>
-      <span id="i-share" class="info" style="display:none;">Share post</span>
-    </span>
-    <br/>
-    <div id="share" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://zer0ptr.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://zer0ptr.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/&text=upload-labs靶场小计"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://zer0ptr.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/&title=upload-labs靶场小计"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zer0ptr.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/&is_video=false&description=upload-labs靶场小计"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=upload-labs靶场小计&body=Check out this article: https://zer0ptr.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://zer0ptr.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/&title=upload-labs靶场小计"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://zer0ptr.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/&title=upload-labs靶场小计"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://zer0ptr.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/&title=upload-labs靶场小计"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://zer0ptr.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/&title=upload-labs靶场小计"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://zer0ptr.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/&name=upload-labs靶场小计&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://zer0ptr.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/&t=upload-labs靶场小计"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-    
-    
-      <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Introduction%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">Introduction：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AD%A3%E6%96%87%E5%BC%80%E5%A7%8B"><span class="toc-number">2.</span> <span class="toc-text">正文开始</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Pass-01"><span class="toc-number">2.1.</span> <span class="toc-text">Pass-01</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pass-02"><span class="toc-number">2.2.</span> <span class="toc-text">Pass-02</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pass-03"><span class="toc-number">2.3.</span> <span class="toc-text">Pass-03</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pass-04"><span class="toc-number">2.4.</span> <span class="toc-text">Pass-04</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pass-05"><span class="toc-number">2.5.</span> <span class="toc-text">Pass-05</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pass-06"><span class="toc-number">2.6.</span> <span class="toc-text">Pass-06</span></a></li></ol></li></ol>
-      </div>
-    
-  </span>
-</div>
-
-    
-    <div class="content index py4 ">
-        
-        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
-  <header>
-    
-    <h1 class="posttitle p-name" itemprop="name headline">
-        upload-labs靶场小计
-    </h1>
-
-
-
-    <div class="meta">
-      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span class="p-name" itemprop="name">zer0ptr</span>
-      </span>
-      
-    <div class="postdate">
-      
-        <time datetime="2025-06-17T14:11:09.000Z" class="dt-published" itemprop="datePublished">2025-06-17</time>
-        
-        (Updated: <time datetime="2025-07-24T04:41:33.069Z" class="dt-updated" itemprop="dateModified">2025-07-24</time>)
-        
-      
-    </div>
-
-
-      
-    <div class="article-category">
-        <i class="fa-solid fa-archive"></i>
-        <a class="category-link" href="/categories/Web%E5%AE%89%E5%85%A8/">Web安全</a>
-    </div>
-
-
-      
-    <div class="article-tag">
-        <i class="fa-solid fa-tag"></i>
-        <a class="p-category" href="/tags/Web%E5%AE%89%E5%85%A8/" rel="tag">Web安全</a>
-    </div>
-
-
-    </div>
-  </header>
+  
+    <meta property="og:image" content=""/>
   
 
-  <div class="content e-content" itemprop="articleBody">
-    <h1 id="Introduction："><a href="#Introduction：" class="headerlink" title="Introduction："></a>Introduction：</h1><ul>
+  
+    <link rel="alternative" href="/atom.xml" title="zer0ptr&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70812759-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70812759-1');
+</script>
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">zer0ptr&#39;s Blog</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> upload-labs靶场小计</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="Introduction："><a href="#Introduction：" class="headerlink" title="Introduction："></a>Introduction：</h1><ul>
 <li><strong>Repo Address</strong>: <a target="_blank" rel="noopener" href="https://github.com/c0ny1/upload-labs">https://github.com/c0ny1/upload-labs</a></li>
 <li><strong>Description</strong>：upload-labs是一个使用php语言编写的，专门收集渗透测试和CTF中遇到的各种上传漏洞的靶场。旨在帮助大家对上传漏洞有一个全面的了解。目前一共20关，每一关都包含着不同上传方式。</li>
 </ul>
@@ -223,143 +182,157 @@
 <p>这个文件的内容的意思是，所有的PHP都自动包含<code>666.jpg</code>文件，于是这样就构成了文件包含(file_include)漏洞，最终实现解析。</p>
 <p>这次小计的内容到此结束，通过以上和后面的剩余关卡，大致总结出的思路有：前端、多后缀&#x2F;后缀混淆、大小写、上传配置文件和各类图片马制作以构造文件包含漏洞实现解析，进一步getshell</p>
 
-  </div>
-</article>
+	  <div class="article-footer-copyright">
 
-
-
-        
-          <div id="footer-post-container">
-  <div id="footer-post">
-
-    <div id="nav-footer" style="display: none">
-      <ul>
-        
-          <li><a href="/">Home</a></li>
-        
-          <li><a href="/about/">About</a></li>
-        
-          <li><a href="/archives/">Writing</a></li>
-        
-          <li><a target="_blank" rel="noopener" href="http://github.com/zer0ptr">Projects</a></li>
-        
-      </ul>
-    </div>
-
-    
-    
-      <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Introduction%EF%BC%9A"><span class="toc-number">1.</span> <span class="toc-text">Introduction：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AD%A3%E6%96%87%E5%BC%80%E5%A7%8B"><span class="toc-number">2.</span> <span class="toc-text">正文开始</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Pass-01"><span class="toc-number">2.1.</span> <span class="toc-text">Pass-01</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pass-02"><span class="toc-number">2.2.</span> <span class="toc-text">Pass-02</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pass-03"><span class="toc-number">2.3.</span> <span class="toc-text">Pass-03</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pass-04"><span class="toc-number">2.4.</span> <span class="toc-text">Pass-04</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pass-05"><span class="toc-number">2.5.</span> <span class="toc-text">Pass-05</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pass-06"><span class="toc-number">2.6.</span> <span class="toc-text">Pass-06</span></a></li></ol></li></ol>
-      </div>
-    
-
-    <div id="share-footer" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://zer0ptr.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://zer0ptr.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/&text=upload-labs靶场小计"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://zer0ptr.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/&title=upload-labs靶场小计"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zer0ptr.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/&is_video=false&description=upload-labs靶场小计"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=upload-labs靶场小计&body=Check out this article: https://zer0ptr.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://zer0ptr.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/&title=upload-labs靶场小计"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://zer0ptr.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/&title=upload-labs靶场小计"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://zer0ptr.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/&title=upload-labs靶场小计"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://zer0ptr.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/&title=upload-labs靶场小计"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://zer0ptr.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/&name=upload-labs靶场小计&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://zer0ptr.github.io/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/&t=upload-labs靶场小计"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-
-    <div id="actions-footer">
-        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
-        
-          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
-        
-        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
-        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
-    </div>
-
-  </div>
+    本博客采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议(CC BY-NC-SA 4.0) 发布.</a>
 </div>
 
-        
-        <footer id="footer">
-  <div class="footer-left">
-    Copyright &copy;
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
     
     
-    2025
-    zer0ptr
+    <a href="/2025/06/22/攻防世界Crypto-cat's gift/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2025/05/17/记一次与Fibonacci斗智斗勇/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2025-06-17 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/Web安全/">Web安全<span>4</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/Web安全/">Web安全<span>4</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+		
+
+	</div>
+	
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
   </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-        <!--
-       --><li><a href="/">Home</a></li><!--
-     --><!--
-       --><li><a href="/about/">About</a></li><!--
-     --><!--
-       --><li><a href="/archives/">Writing</a></li><!--
-     --><!--
-       --><li><a target="_blank" rel="noopener" href="http://github.com/zer0ptr">Projects</a></li><!--
-     -->
-      </ul>
-    </nav>
-  </div>
-</footer>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 zer0ptr's Blog
+  
+      powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.Theme <a href="https://github.com/Ares-X/hexo-theme-freemind.bithack" target="_blank">freemind.bithack</a>  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
 
-    </div>
-    <!-- styles -->
-
-
-
-  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
-
-
-    <!-- jquery -->
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
-
-
-
-
-<!-- clipboard -->
 
   
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
-  
-  <script type="text/javascript">
-  $(function() {
-    // copy-btn HTML
-    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
-    btn += '<i class="fa-regular fa-clone"></i>';
-    btn += '</span>';
-    // mount it!
-    $(".highlight table").before(btn);
-    var clip = new ClipboardJS('.btn-copy', {
-      text: function(trigger) {
-        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
-      }
-    });
-    clip.on('success', function(e) {
-      e.trigger.setAttribute('aria-label', "Copied!");
-      e.clearSelection();
-    })
-  })
-  </script>
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
 
-
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
 
-<!-- search -->
 
-<!-- Baidu Analytics -->
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
 
-<!-- Cloudflare Analytics -->
 
-<!-- Disqus Comments -->
 
-<!-- utterances Comments -->
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
 
 </body>
-</html>
+   </html>
