@@ -1,302 +1,199 @@
-
-
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=auto>
-
-
-
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/SecureNexusLab.png">
-  <link rel="icon" href="/img/SecureNexusLab.png">
-  
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="zer0ptr">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="Description:A greedy algorithm is any algorithm that follows the problem-solving heuristic of making the locally optimal choice at each stage.[1] In many problems, a greedy strategy does not produce a">
-<meta property="og:type" content="article">
-<meta property="og:title" content="What Is Greedy Algorithm">
-<meta property="og:url" content="https://zer0ptr.github.io/2025/07/27/what-is-greedy-algorithm/index.html">
-<meta property="og:site_name" content="zer0ptr&#39;s Blog">
-<meta property="og:description" content="Description:A greedy algorithm is any algorithm that follows the problem-solving heuristic of making the locally optimal choice at each stage.[1] In many problems, a greedy strategy does not produce a">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://zer0ptr.github.io/images/Greedy-Algorithm/Dij.png">
-<meta property="article:published_time" content="2025-07-26T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-07-28T05:06:41.132Z">
-<meta property="article:author" content="zer0ptr">
-<meta property="article:tag" content="algorithm">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://zer0ptr.github.io/images/Greedy-Algorithm/Dij.png">
-  
-  
-  
-  <title>What Is Greedy Algorithm - zer0ptr&#39;s Blog</title>
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-
-
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
-
-
-
-  
-<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.7.0/style.min.css">
-
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"zer0ptr.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
-    }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
-
-
-  
-  <script src="/js/sakura.js"></script>
-  <script src="/js/love.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        
+            What Is Greedy Algorithm | zer0ptr&#39;s Blog
+        
+    </title>
+    
+    <!-- Meta tags -->
+    <meta name="description" content="">
+    <meta name="author" content="zer0ptr">
+    
+    <!-- 关键CSS内联 -->
+    <style>
+        /* 关键渲染路径CSS */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6; color: #333; background-color: #fff; font-size: 17px; overflow-x: hidden;
+        }
+        .container { max-width: 650px; margin: 0 auto; padding: 0 15px; }
+        .loading-indicator {
+            position: fixed; top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, #007acc, #4fc3f7);
+            transform: translateX(-100%); transition: transform 0.3s ease; z-index: 9999;
+        }
+        .loading-indicator.active { animation: loadingProgress 1s ease-in-out infinite; }
+        @keyframes loadingProgress {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(0%); }
+            100% { transform: translateX(100%); }
+        }
+    </style>
+    
+    <!-- 异步加载完整CSS -->
+    <link rel="preload" href="/css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+    
+    <!-- CSS加载polyfill -->
+    <script>
+        // 确保CSS异步加载在所有浏览器中正常工作
+        !function(e){"use strict";var t=function(t,n,r){function o(e){return i.body?e():void setTimeout(function(){o(e)})}function a(){d.addEventListener&&d.removeEventListener("load",a),d.media=r||"all"}var i=e.document,d=i.createElement("link");if(n)d.id=n;d.rel="stylesheet",d.href=t,d.media="only x",o(function(){i.head.appendChild(d)}),setTimeout(a);return d};e.loadCSS=t}(this);
+    </script>
+    
+    <!-- 预加载关键资源 -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    
+    <!-- 按需加载Highlight.js CSS -->
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    
+    
+    <!-- 按需加载MathJax -->
+    
+        <script>
+            window.MathJax = {
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                options: {
+                    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+                }
+            };
+        </script>
+        <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <!-- 预加载JavaScript -->
+    <link rel="preload" href="/js/search.js" as="script">
+    <link rel="preload" href="/js/script.js" as="script">
 <meta name="generator" content="Hexo 7.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
-
-
 <body>
-  
-
-  <header>
+    <!-- 加载指示器 -->
+    <div class="loading-indicator" id="loadingIndicator"></div>
+    <!-- Top Navigation Bar -->
     
-
-<div class="header-inner" style="height: 70vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>zer0ptr&#39;s blog</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/" target="_self">
-                <i class="iconfont icon-home-fill"></i>
-                <span>Home</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/" target="_self">
-                <i class="iconfont icon-archive-fill"></i>
-                <span>Archives</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/" target="_self">
-                <i class="iconfont icon-category-fill"></i>
-                <span>Categories</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/" target="_self">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>Tags</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/" target="_self">
-                <i class="iconfont icon-user-fill"></i>
-                <span>About</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/" target="_self">
-                <i class="iconfont icon-link-fill"></i>
-                <span>Links</span>
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-  
-
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/background.PNG') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="What Is Greedy Algorithm"></span>
-          
-        </div>
-
-        
-          
-  <div class="mt-3">
-    
-    
-      <span class="post-meta">
-        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-07-27 00:00" pubdate>
-          July 27, 2025 am
-        </time>
-      </span>
-    
-  </div>
-
-  <div class="mt-1">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-chart"></i>
-        
-          617 words
-        
-      </span>
-    
-
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-clock-fill"></i>
-        
-        
-        
-          6 mins
-        
-      </span>
-    
-
-    
-    
-  </div>
-
-
-        
-      </div>
-
-      
-    </div>
-  </div>
-</div>
-
-</div>
-
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">What Is Greedy Algorithm</h1>
-            
-            
-              <div class="markdown-body">
+    <nav class="top-navigation">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="/" class="nav-brand-link">
+                    zer0ptr&#39;s blog
+                </a>
+            </div>
+            <ul class="top-nav-list">
                 
-                <h2 id="Description"><a href="#Description" class="headerlink" title="Description:"></a>Description:</h2><p>A greedy algorithm is any <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Algorithm">algorithm</a> that follows the problem-solving <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Heuristic_(computer_science)">heuristic</a> of making the locally optimal choice at each stage.[1] In many problems, a greedy strategy does not produce an optimal solution, but a greedy heuristic can yield locally optimal solutions that approximate a globally optimal solution in a reasonable amount of time.[2]</p>
+                    <li class="top-nav-item">
+                        <a href="/archives" class="top-nav-link">
+                            Archives
+                        </a>
+                    </li>
+                
+                    <li class="top-nav-item">
+                        <a href="/categories" class="top-nav-link">
+                            Categories
+                        </a>
+                    </li>
+                
+                    <li class="top-nav-item">
+                        <a href="/tags" class="top-nav-link">
+                            Tags
+                        </a>
+                    </li>
+                
+                    <li class="top-nav-item">
+                        <a href="/about" class="top-nav-link">
+                            About
+                        </a>
+                    </li>
+                
+                <li class="top-nav-item">
+                    <a href="https://github.com" class="top-nav-link" target="_blank">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                        </svg>
+                    </a>
+                </li>
+                <li class="top-nav-item">
+                    <a href="#" class="top-nav-link search-toggle">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="site-title">
+                    <a href="/">
+                        zer0ptr&#39;s blog
+                    </a>
+                </h1>
+                
+                    <p class="site-subtitle">
+                        Walking on my way🧐.
+                    </p>
+                
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content page-transition" id="mainContent">
+            <article class="post">
+    <!-- Post Header -->
+    <header class="post-header">
+        
+            <div class="post-meta">
+                
+                    <a href="/categories/Coding/" class="category-link">
+                        Coding
+                    </a>
+                
+            </div>
+        
+        
+        <h1 class="post-title">What Is Greedy Algorithm</h1>
+        
+        <div class="post-info">
+            <time class="post-date" datetime="2025-07-26T16:00:00.000Z">
+                July 27, 2025
+            </time>
+            
+            
+            
+            
+        </div>
+        
+        
+            <div class="post-tags">
+                
+                    <a href="/tags/algorithm/" class="tag-link">
+                        #algorithm
+                    </a>
+                
+            </div>
+        
+    </header>
+    
+    <!-- Post Content -->
+    <div class="post-content">
+        <h2 id="Description"><a href="#Description" class="headerlink" title="Description:"></a>Description:</h2><p>A greedy algorithm is any <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Algorithm">algorithm</a> that follows the problem-solving <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Heuristic_(computer_science)">heuristic</a> of making the locally optimal choice at each stage.[1] In many problems, a greedy strategy does not produce an optimal solution, but a greedy heuristic can yield locally optimal solutions that approximate a globally optimal solution in a reasonable amount of time.[2]</p>
 <p>For example, a greedy strategy for the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Travelling_salesman_problem">travelling salesman problem</a> (which is of high <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Computational_complexity">computational complexity</a>) is the following heuristic: “At each step of the journey, visit the nearest unvisited city.” This heuristic does not intend to find the best solution, but it terminates in a reasonable number of steps; finding an optimal solution to such a complex problem typically requires unreasonably many steps.[3]</p>
 <p>In <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Mathematical_optimization">mathematical optimization</a>, greedy algorithms optimally solve <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Combinatorics">combinatorial</a> problems having the properties of <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Matroid">matroids</a> and give constant-factor approximations to optimization problems with the submodular structure.</p>
 <p><em>Key: The greedy algorithm does not always provide the optimal solution for every problem; the key lies in the choice of the greedy strategy.</em></p>
@@ -330,50 +227,12 @@
 <h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><h4 id="1-Change-making-Problem"><a href="#1-Change-making-Problem" class="headerlink" title="1. Change-making Problem"></a>1. Change-making Problem</h4><p>This problem is quit common in our daily lives, suppose we have c0, c1, c2, c3, c4, c5, c6 pieces of currently notes of 1dollar, 2dollars, 5dollars, 10dollars, 50dollars and 100dollars respectively. Now, we need to pay K dollars with this money; What is the minimum number of paper money required?</p>
 <p>Using the idea of the greedy algorithm, it’s obvious that at each step we should use the largest denomination of currency possible. </p>
 <p>In our daily life, we naturally do this as well.</p>
-<div class="code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;algorithm&gt;</span> </span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
-
-<span class="hljs-type">const</span> <span class="hljs-type">int</span> N = <span class="hljs-number">6</span>; 
-<span class="hljs-type">int</span> denominations[N] = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">10</span>, <span class="hljs-number">50</span>, <span class="hljs-number">100</span>&#125;; 
-<span class="hljs-type">int</span> available_bills[N] = &#123;<span class="hljs-number">2</span>, <span class="hljs-number">5</span>, <span class="hljs-number">10</span>, <span class="hljs-number">30</span>, <span class="hljs-number">4</span>, <span class="hljs-number">19</span>&#125;; 
-<span class="hljs-type">int</span> used_bills[N] = &#123;<span class="hljs-number">0</span>&#125;; 
-
-<span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">make_change</span><span class="hljs-params">(<span class="hljs-type">int</span> amount)</span> </span>&#123;
-    <span class="hljs-keyword">if</span>(amount &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-    
-    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = N<span class="hljs-number">-1</span>; i &gt;= <span class="hljs-number">0</span>; i--) &#123;
-        used_bills[i] = <span class="hljs-built_in">min</span>(available_bills[i], amount / denominations[i]);
-        amount -= used_bills[i] * denominations[i];
-    &#125;
-    <span class="hljs-keyword">return</span> amount == <span class="hljs-number">0</span>; 
-&#125;
-
-<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
-    <span class="hljs-type">int</span> amount;
-    cout &lt;&lt; <span class="hljs-string">&quot;Enter the amount to make change for: &quot;</span>;
-    cin &gt;&gt; amount;
-    
-    <span class="hljs-keyword">if</span>(<span class="hljs-built_in">make_change</span>(amount)) &#123;
-        cout &lt;&lt; <span class="hljs-string">&quot;Optimal change using greedy algorithm:&quot;</span> &lt;&lt; endl;
-        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j = N<span class="hljs-number">-1</span>; j &gt;= <span class="hljs-number">0</span>; j--) &#123;
-            <span class="hljs-keyword">if</span>(used_bills[j] &gt; <span class="hljs-number">0</span>) &#123; 
-                cout &lt;&lt; <span class="hljs-string">&quot;¥&quot;</span> &lt;&lt; denominations[j] &lt;&lt; <span class="hljs-string">&quot; bills: &quot;</span> &lt;&lt; used_bills[j] &lt;&lt; endl;
-            &#125;
-        &#125;
-    &#125; <span class="hljs-keyword">else</span> &#123;
-        cout &lt;&lt; <span class="hljs-string">&quot;Error: Cannot make exact change&quot;</span> &lt;&lt; endl;
-        <span class="hljs-keyword">if</span>(amount &gt; <span class="hljs-number">0</span>) &#123;
-            cout &lt;&lt; <span class="hljs-string">&quot;Remaining amount: ¥&quot;</span> &lt;&lt; amount &lt;&lt; endl;
-        &#125;
-    &#125;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre></div>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span> </span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">6</span>; </span><br><span class="line"><span class="type">int</span> denominations[N] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">10</span>, <span class="number">50</span>, <span class="number">100</span>&#125;; </span><br><span class="line"><span class="type">int</span> available_bills[N] = &#123;<span class="number">2</span>, <span class="number">5</span>, <span class="number">10</span>, <span class="number">30</span>, <span class="number">4</span>, <span class="number">19</span>&#125;; </span><br><span class="line"><span class="type">int</span> used_bills[N] = &#123;<span class="number">0</span>&#125;; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">make_change</span><span class="params">(<span class="type">int</span> amount)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(amount &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = N<span class="number">-1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        used_bills[i] = <span class="built_in">min</span>(available_bills[i], amount / denominations[i]);</span><br><span class="line">        amount -= used_bills[i] * denominations[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> amount == <span class="number">0</span>; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> amount;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Enter the amount to make change for: &quot;</span>;</span><br><span class="line">    cin &gt;&gt; amount;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">make_change</span>(amount)) &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Optimal change using greedy algorithm:&quot;</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = N<span class="number">-1</span>; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">            <span class="keyword">if</span>(used_bills[j] &gt; <span class="number">0</span>) &#123; </span><br><span class="line">                cout &lt;&lt; <span class="string">&quot;¥&quot;</span> &lt;&lt; denominations[j] &lt;&lt; <span class="string">&quot; bills: &quot;</span> &lt;&lt; used_bills[j] &lt;&lt; endl;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Error: Cannot make exact change&quot;</span> &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">if</span>(amount &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            cout &lt;&lt; <span class="string">&quot;Remaining amount: ¥&quot;</span> &lt;&lt; amount &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="2-Djikstra-Algorithm"><a href="#2-Djikstra-Algorithm" class="headerlink" title="2. Djikstra Algorithm"></a>2. Djikstra Algorithm</h4><p>Dijkstra is a typical shortest path algorithm, an algorithm and idea for calculating the shortest path from a starting node to all other nodes in the path. It is introduced in some professional courses such as <code>data structure</code>, <code>graph theory</code>, and <code>operations research</code>. Its idea is a basic algorithm for finding the <u>shortest path</u>. By changing the basic idea, many complex problems can be solved, such as navigation routes, dynamic programming, etc.</p>
 <p><em>Tips: But, a greedy algorithm never reconsiders its choices. This is the main difference from dynamic programming, which is exhaustive and is guaranteed to find the solution. After every stage, dynamic programming makes decisions based on all the decisions made in the previous stage and may reconsider the previous stage’s algorithmic path to the solution.</em></p>
 <p>The following picture is a multi-node, multi-path graph. The following uses this graph as an example to explain the process of Dijkstra’s algorithm to find the shortest path.</p>
-<p><img src="/images/Greedy-Algorithm/Dij.png" srcset="/img/loading.gif" lazyload alt="images"></p>
+<p><img src="/images/Greedy-Algorithm/Dij.png" alt="images"></p>
 <p>Take point A as the starting point, find the shortest path from point A to the other 5 points B C D E F, and finally get the shortest path from A to the other points.</p>
 <p>Because the shortest distance from A to the other 5 points is required, an array is constructed to record the path distance from A to the 5 points B C D E F. </p>
 <p>Here is a convention:</p>
@@ -404,80 +263,7 @@
 </tr>
 </tbody></table>
 <p>The idea of Dijkstra’s algorithm is to select the nearest point from the above shortest distance array each time, use it as the next point, and then recalculated the distance from the starting point through this point to all other points, and update the shortest distance data. The point that have been selected are the points that determine the shortest path and will not participate in the next calculation.</p>
-<div class="code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;climits&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;algorithm&gt;</span></span>
-
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
-
-<span class="hljs-type">const</span> <span class="hljs-type">int</span> MAX = INT_MAX;
-<span class="hljs-type">const</span> <span class="hljs-type">int</span> SIZE = <span class="hljs-number">6</span>; 
-
-<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">dijkstra</span><span class="hljs-params">(<span class="hljs-type">int</span> matrix[SIZE][SIZE], <span class="hljs-type">int</span> start_node, <span class="hljs-type">int</span> distance[SIZE])</span> </span>&#123;
-    <span class="hljs-type">bool</span> used_node[SIZE] = &#123;<span class="hljs-literal">false</span>&#125;;
-    
-    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; SIZE; i++) &#123;
-        distance[i] = MAX;
-    &#125;
-    distance[start_node] = <span class="hljs-number">0</span>;
-    
-    <span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;
-        <span class="hljs-type">int</span> min_value = MAX;
-        <span class="hljs-type">int</span> min_value_index = <span class="hljs-number">-1</span>;
-        <span class="hljs-type">bool</span> all_visited = <span class="hljs-literal">true</span>;
-        
-        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; SIZE; i++) &#123;
-            <span class="hljs-keyword">if</span> (!used_node[i] &amp;&amp; distance[i] &lt; min_value) &#123;
-                min_value = distance[i];
-                min_value_index = i;
-                all_visited = <span class="hljs-literal">false</span>;
-            &#125;
-        &#125;
-        
-        <span class="hljs-keyword">if</span> (all_visited || min_value == MAX) &#123;
-            <span class="hljs-keyword">break</span>; 
-        &#125;
-        
-        used_node[min_value_index] = <span class="hljs-literal">true</span>;
-        
-        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; SIZE; i++) &#123;
-            <span class="hljs-keyword">if</span> (matrix[min_value_index][i] != MAX) &#123; 
-                <span class="hljs-keyword">if</span> (distance[min_value_index] + matrix[min_value_index][i] &lt; distance[i]) &#123;
-                    distance[i] = distance[min_value_index] + matrix[min_value_index][i];
-                &#125;
-            &#125;
-        &#125;
-    &#125;
-&#125;
-
-<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
-    <span class="hljs-type">int</span> matrix[SIZE][SIZE] = &#123;
-        &#123;<span class="hljs-number">0</span>, <span class="hljs-number">10</span>, MAX, <span class="hljs-number">4</span>, MAX, MAX&#125;,
-        &#123;<span class="hljs-number">10</span>, <span class="hljs-number">0</span>, <span class="hljs-number">8</span>, <span class="hljs-number">2</span>, <span class="hljs-number">6</span>, MAX&#125;,
-        &#123;MAX, <span class="hljs-number">8</span>, <span class="hljs-number">10</span>, <span class="hljs-number">15</span>, <span class="hljs-number">1</span>, <span class="hljs-number">5</span>&#125;,
-        &#123;<span class="hljs-number">4</span>, <span class="hljs-number">2</span>, <span class="hljs-number">15</span>, <span class="hljs-number">0</span>, <span class="hljs-number">6</span>, MAX&#125;,
-        &#123;MAX, <span class="hljs-number">6</span>, <span class="hljs-number">1</span>, <span class="hljs-number">6</span>, <span class="hljs-number">0</span>, <span class="hljs-number">12</span>&#125;,
-        &#123;MAX, MAX, <span class="hljs-number">5</span>, MAX, <span class="hljs-number">12</span>, <span class="hljs-number">0</span>&#125;
-    &#125;;
-    
-    <span class="hljs-type">int</span> start_node;
-    cout &lt;&lt; <span class="hljs-string">&quot;Enter starting node (0-&quot;</span> &lt;&lt; SIZE<span class="hljs-number">-1</span> &lt;&lt; <span class="hljs-string">&quot;): &quot;</span>;
-    cin &gt;&gt; start_node;
-    
-    <span class="hljs-type">int</span> distances[SIZE];
-    <span class="hljs-built_in">dijkstra</span>(matrix, start_node, distances);
-    
-    cout &lt;&lt; <span class="hljs-string">&quot;Shortest distances from node &quot;</span> &lt;&lt; start_node &lt;&lt; <span class="hljs-string">&quot;: &quot;</span>;
-    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; SIZE; i++) &#123;
-        <span class="hljs-keyword">if</span> (distances[i] == MAX) &#123;
-            cout &lt;&lt; <span class="hljs-string">&quot;INF &quot;</span>;
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            cout &lt;&lt; distances[i] &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;
-        &#125;
-    &#125;
-    cout &lt;&lt; endl;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre></div>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;climits&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> MAX = INT_MAX;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> SIZE = <span class="number">6</span>; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dijkstra</span><span class="params">(<span class="type">int</span> matrix[SIZE][SIZE], <span class="type">int</span> start_node, <span class="type">int</span> distance[SIZE])</span> </span>&#123;</span><br><span class="line">    <span class="type">bool</span> used_node[SIZE] = &#123;<span class="literal">false</span>&#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; SIZE; i++) &#123;</span><br><span class="line">        distance[i] = MAX;</span><br><span class="line">    &#125;</span><br><span class="line">    distance[start_node] = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        <span class="type">int</span> min_value = MAX;</span><br><span class="line">        <span class="type">int</span> min_value_index = <span class="number">-1</span>;</span><br><span class="line">        <span class="type">bool</span> all_visited = <span class="literal">true</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; SIZE; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!used_node[i] &amp;&amp; distance[i] &lt; min_value) &#123;</span><br><span class="line">                min_value = distance[i];</span><br><span class="line">                min_value_index = i;</span><br><span class="line">                all_visited = <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (all_visited || min_value == MAX) &#123;</span><br><span class="line">            <span class="keyword">break</span>; </span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        used_node[min_value_index] = <span class="literal">true</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; SIZE; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (matrix[min_value_index][i] != MAX) &#123; </span><br><span class="line">                <span class="keyword">if</span> (distance[min_value_index] + matrix[min_value_index][i] &lt; distance[i]) &#123;</span><br><span class="line">                    distance[i] = distance[min_value_index] + matrix[min_value_index][i];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> matrix[SIZE][SIZE] = &#123;</span><br><span class="line">        &#123;<span class="number">0</span>, <span class="number">10</span>, MAX, <span class="number">4</span>, MAX, MAX&#125;,</span><br><span class="line">        &#123;<span class="number">10</span>, <span class="number">0</span>, <span class="number">8</span>, <span class="number">2</span>, <span class="number">6</span>, MAX&#125;,</span><br><span class="line">        &#123;MAX, <span class="number">8</span>, <span class="number">10</span>, <span class="number">15</span>, <span class="number">1</span>, <span class="number">5</span>&#125;,</span><br><span class="line">        &#123;<span class="number">4</span>, <span class="number">2</span>, <span class="number">15</span>, <span class="number">0</span>, <span class="number">6</span>, MAX&#125;,</span><br><span class="line">        &#123;MAX, <span class="number">6</span>, <span class="number">1</span>, <span class="number">6</span>, <span class="number">0</span>, <span class="number">12</span>&#125;,</span><br><span class="line">        &#123;MAX, MAX, <span class="number">5</span>, MAX, <span class="number">12</span>, <span class="number">0</span>&#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> start_node;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Enter starting node (0-&quot;</span> &lt;&lt; SIZE<span class="number">-1</span> &lt;&lt; <span class="string">&quot;): &quot;</span>;</span><br><span class="line">    cin &gt;&gt; start_node;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> distances[SIZE];</span><br><span class="line">    <span class="built_in">dijkstra</span>(matrix, start_node, distances);</span><br><span class="line">    </span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Shortest distances from node &quot;</span> &lt;&lt; start_node &lt;&lt; <span class="string">&quot;: &quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; SIZE; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (distances[i] == MAX) &#123;</span><br><span class="line">            cout &lt;&lt; <span class="string">&quot;INF &quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            cout &lt;&lt; distances[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
@@ -485,429 +271,77 @@
 <p>[2]  van Melkebeek, Dieter. <a target="_blank" rel="noopener" href="https://pages.cs.wisc.edu/~dieter/Courses/2004F-CS787/Scribes/greedy-approx.pdf">“Greedy Approximations”</a> (PDF). <em>University of Wisconsin–Madison</em>. Retrieved 2025-07-25.</p>
 <p>[3]  Frieze, Alan; Pegden, Wesley (2023-10-05). <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/2310.03222">“The bright side of simple heuristics for the TSP”</a>. <em>arXiv preprint</em>. arXiv:2310.03222. Retrieved 2025-07-25.</p>
 
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
+    </div>
     
-      <span class="category-chain">
+    <!-- Post Footer -->
+    <footer class="post-footer">
         
-  <a href="/categories/Coding/" class="category-chain-item">Coding</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/algorithm/" class="print-no-link">#algorithm</a>
-      
-    </div>
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>What Is Greedy Algorithm</div>
-      <div>https://zer0ptr.github.io/2025/07/27/what-is-greedy-algorithm/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>Author</div>
-          <div>zer0ptr</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>Posted on</div>
-          <div>July 27, 2025</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>Licensed under</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
-                    <i class="iconfont icon-cc-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2025/07/28/hello-world/" title="Hello World">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Hello World</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2025/07/21/SWPUCTF2021%E6%96%B0%E7%94%9F%E8%B5%9BWeb%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" title="SWPUCTF2021新生赛Web刷题记录">
-                        <span class="hidden-mobile">SWPUCTF2021新生赛Web刷题记录</span>
-                        <span class="visible-mobile">Next</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
+            <div class="post-updated">
+                <small>Last updated: July 28, 2025</small>
             </div>
-
+        
+        
+        <!-- Post Navigation -->
+        <nav class="post-nav">
             
-  
-  
-    <article id="comments" lazyload>
-      
+                <div class="post-nav-item post-nav-prev">
+                    <a href="/2025/07/28/hello-world/" class="post-nav-link">
+                        <span class="post-nav-label">← Previous</span>
+                        <span class="post-nav-title">Hello World</span>
+                    </a>
+                </div>
+            
+            
+            
+                <div class="post-nav-item post-nav-next">
+                    <a href="/2025/07/21/SWPUCTF2021%E6%96%B0%E7%94%9F%E8%B5%9BWeb%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" class="post-nav-link">
+                        <span class="post-nav-label">Next →</span>
+                        <span class="post-nav-title">SWPUCTF2021新生赛Web刷题记录</span>
+                    </a>
+                </div>
+            
+        </nav>
+    </footer>
+</article>
 
-    </article>
-  
+<!-- Comments Section -->
 
+        </main>
 
-          </article>
-        </div>
-      </div>
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 zer0ptr. All rights reserved.</p>
+                
+            </div>
+        </footer>
     </div>
 
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>Table of Contents</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-
-
-  </aside>
-
-
-    </div>
-  </div>
-</div>
-
-
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-  
-  
-
-
-
-
-
-
-
-
-
+    <!-- 按需加载Highlight.js JavaScript -->
     
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-    
-
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-    </div>
-  
-  
-  
-</div>
-
-  </footer>
-
-  <!-- Scripts -->
-  
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
-
-
-
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
-    var toc = jQuery('#toc');
-    if (toc.length === 0 || !window.tocbot) { return; }
-    var boardCtn = jQuery('#board-ctn');
-    var boardTop = boardCtn.offset().top;
-
-    window.tocbot.init(Object.assign({
-      tocSelector     : '#toc-body',
-      contentSelector : '.markdown-body',
-      linkClass       : 'tocbot-link',
-      activeLinkClass : 'tocbot-active-link',
-      listClass       : 'tocbot-list',
-      isCollapsedClass: 'tocbot-is-collapsed',
-      collapsibleClass: 'tocbot-is-collapsible',
-      scrollSmooth    : true,
-      includeTitleTags: true,
-      headingsOffset  : -boardTop,
-    }, CONFIG.toc));
-    if (toc.find('.toc-list-item').length > 0) {
-      toc.css('visibility', 'visible');
-    }
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('tocbot' in window) {
-        tocbot.refresh();
-        var toc = jQuery('#toc');
-        if (toc.length === 0 || !tocbot) {
-          return;
-        }
-        if (toc.find('.toc-list-item').length > 0) {
-          toc.css('visibility', 'visible');
-        }
-      }
-    });
-  });
-</script>
-
-
-  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
-
-  <script>Fluid.plugins.codeWidget();</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
-    window.anchors.options = {
-      placement: CONFIG.anchorjs.placement,
-      visible  : CONFIG.anchorjs.visible
-    };
-    if (CONFIG.anchorjs.icon) {
-      window.anchors.options.icon = CONFIG.anchorjs.icon;
-    }
-    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-    var res = [];
-    for (var item of el) {
-      res.push('.markdown-body > ' + item.trim());
-    }
-    if (CONFIG.anchorjs.placement === 'left') {
-      window.anchors.options.class = 'anchorjs-link-left';
-    }
-    window.anchors.add(res.join(', '));
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('anchors' in window) {
-        anchors.removeAll();
-        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-        var res = [];
-        for (var item of el) {
-          res.push('.markdown-body > ' + item.trim());
-        }
-        if (CONFIG.anchorjs.placement === 'left') {
-          anchors.options.class = 'anchorjs-link-left';
-        }
-        anchors.add(res.join(', '));
-      }
-    });
-  });
-</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
-    Fluid.plugins.fancyBox();
-  });
-</script>
-
-
-  <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>
+            // 延迟加载highlight.js以提高性能
+            function loadHighlight() {
+                if (typeof hljs !== 'undefined') {
+                    hljs.highlightAll();
+                } else {
+                    // 如果hljs还未加载，等待一段时间后重试
+                    setTimeout(loadHighlight, 100);
+                }
             }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
+            
+            document.addEventListener('DOMContentLoaded', loadHighlight);
+            
+            // 如果DOM已经加载完成，立即执行
+            if (document.readyState !== 'loading') {
+                loadHighlight();
+            }
+        </script>
     
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
-  
-
-  <noscript>
-    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
-  </noscript>
+    
+    <!-- JavaScript -->
+    <script defer src="/js/search.js"></script>
+    <script defer src="/js/script.js"></script>
 </body>
 </html>

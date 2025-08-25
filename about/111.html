@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        
+            zer0ptr&#39;s Blog
+            
+        
+    </title>
+    
+    <!-- Meta tags -->
+    <meta name="description" content="">
+    <meta name="author" content="zer0ptr">
+    
+    <!-- 关键CSS内联 -->
+    <style>
+        /* 关键渲染路径CSS */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6; color: #333; background-color: #fff; font-size: 17px; overflow-x: hidden;
+        }
+        .container { max-width: 650px; margin: 0 auto; padding: 0 15px; }
+        .loading-indicator {
+            position: fixed; top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, #007acc, #4fc3f7);
+            transform: translateX(-100%); transition: transform 0.3s ease; z-index: 9999;
+        }
+        .loading-indicator.active { animation: loadingProgress 1s ease-in-out infinite; }
+        @keyframes loadingProgress {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(0%); }
+            100% { transform: translateX(100%); }
+        }
+    </style>
+    
+    <!-- 异步加载完整CSS -->
+    <link rel="preload" href="/css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+    
+    <!-- CSS加载polyfill -->
+    <script>
+        // 确保CSS异步加载在所有浏览器中正常工作
+        !function(e){"use strict";var t=function(t,n,r){function o(e){return i.body?e():void setTimeout(function(){o(e)})}function a(){d.addEventListener&&d.removeEventListener("load",a),d.media=r||"all"}var i=e.document,d=i.createElement("link");if(n)d.id=n;d.rel="stylesheet",d.href=t,d.media="only x",o(function(){i.head.appendChild(d)}),setTimeout(a);return d};e.loadCSS=t}(this);
+    </script>
+    
+    <!-- 预加载关键资源 -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    
+    <!-- 按需加载Highlight.js CSS -->
+    
+    
+    <!-- 按需加载MathJax -->
+    
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <!-- 预加载JavaScript -->
+    <link rel="preload" href="/js/search.js" as="script">
+    <link rel="preload" href="/js/script.js" as="script">
+<meta name="generator" content="Hexo 7.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+<body>
+    <!-- 加载指示器 -->
+    <div class="loading-indicator" id="loadingIndicator"></div>
+    <!-- Top Navigation Bar -->
+    
+    <nav class="top-navigation">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="/" class="nav-brand-link">
+                    zer0ptr&#39;s blog
+                </a>
+            </div>
+            <ul class="top-nav-list">
+                
+                    <li class="top-nav-item">
+                        <a href="/archives" class="top-nav-link">
+                            Archives
+                        </a>
+                    </li>
+                
+                    <li class="top-nav-item">
+                        <a href="/categories" class="top-nav-link">
+                            Categories
+                        </a>
+                    </li>
+                
+                    <li class="top-nav-item">
+                        <a href="/tags" class="top-nav-link">
+                            Tags
+                        </a>
+                    </li>
+                
+                    <li class="top-nav-item">
+                        <a href="/about" class="top-nav-link">
+                            About
+                        </a>
+                    </li>
+                
+                <li class="top-nav-item">
+                    <a href="https://github.com" class="top-nav-link" target="_blank">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                        </svg>
+                    </a>
+                </li>
+                <li class="top-nav-item">
+                    <a href="#" class="top-nav-link search-toggle">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="site-title">
+                    <a href="/">
+                        zer0ptr&#39;s blog
+                    </a>
+                </h1>
+                
+                    <p class="site-subtitle">
+                        Walking on my way🧐.
+                    </p>
+                
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content page-transition" id="mainContent">
+            <article class="post">
+    <!-- Post Header -->
+    <header class="post-header">
+        
+        
+        <h1 class="post-title"></h1>
+        
+        <div class="post-info">
+            <time class="post-date" datetime="2025-08-25T05:06:02.254Z">
+                August 25, 2025
+            </time>
+            
+            
+            
+            
+        </div>
+        
+        
+    </header>
+    
+    <!-- Post Content -->
+    <div class="post-content">
+        <center>笔底星河夜未央，灯前思绪渐成行。偶得妙句如擒寇，久困谜题似探疆。</center>
+
+<hr>
+<p><strong>Security “Re-searcher” @SecureNexusLab</strong><br><strong>27’High school student at D.G.NO.13.HS</strong><br><strong>做梦都想CTFer at @r3kapig打Pwn2Own和DEFCON</strong><br><strong>会点Crypto、会点Misc、前只会密码和杂项的Web</strong></p>
+<p>垃圾分类：</p>
+<ul>
+<li>纯情男高|码代码猫本猫|努力成为大厂牛马</li>
+<li>汇编低手|C++神教中国分教徒|Python补刀师</li>
+<li>打OI到崩溃|梦想成为二进制糕手|互联网怨灵</li>
+</ul>
+<p>吾日三省吾身：</p>
+<ol>
+<li>如果总要有人当five，那为什么不能是我呢？</li>
+<li>只要我没有用，就不会被人利用。</li>
+<li>一切随缘。</li>
+</ol>
+<hr>
+<center>墨痕深浅藏机巧，纸业翻飞识短长。莫笑书生多癖好，一方天地自徜徉。<center>
+    </div>
+    
+    <!-- Post Footer -->
+    <footer class="post-footer">
+        
+            <div class="post-updated">
+                <small>Last updated: August 18, 2025</small>
+            </div>
+        
+        
+        <!-- Post Navigation -->
+        <nav class="post-nav">
+            
+            
+            
+        </nav>
+    </footer>
+</article>
+
+<!-- Comments Section -->
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 zer0ptr. All rights reserved.</p>
+                
+            </div>
+        </footer>
+    </div>
+
+    <!-- 按需加载Highlight.js JavaScript -->
+    
+    
+    <!-- JavaScript -->
+    <script defer src="/js/search.js"></script>
+    <script defer src="/js/script.js"></script>
+</body>
+</html>

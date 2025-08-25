@@ -1,308 +1,192 @@
-
-
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=auto>
-
-
-
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/SecureNexusLab.png">
-  <link rel="icon" href="/img/SecureNexusLab.png">
-  
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="zer0ptr">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="楔子：事必有因。近时方备战粤港澳信息学竞赛，适值主办方有其平台，故欲以其平台练题。然用之颇觉不堪，譬如一题所予提示甚少，题目分类未明，且大多无题解。此题吾亦屡试方解出，遂作此文，以便后学及自我温习。 那首先来看看这题目和出题人究竟时何方神圣 题目描述：LQ1005:入门训练Fibonacci数列知识点:简单递归 C++-运算符和表达式概念 Fibonacci数列的递推公式为:Fn&#x3D;Fn-">
-<meta property="og:type" content="article">
-<meta property="og:title" content="记一次与Fibonacci斗智斗勇">
-<meta property="og:url" content="https://zer0ptr.github.io/2025/05/17/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%B8%8EFibonacci%E6%96%97%E6%99%BA%E6%96%97%E5%8B%87/index.html">
-<meta property="og:site_name" content="zer0ptr&#39;s Blog">
-<meta property="og:description" content="楔子：事必有因。近时方备战粤港澳信息学竞赛，适值主办方有其平台，故欲以其平台练题。然用之颇觉不堪，譬如一题所予提示甚少，题目分类未明，且大多无题解。此题吾亦屡试方解出，遂作此文，以便后学及自我温习。 那首先来看看这题目和出题人究竟时何方神圣 题目描述：LQ1005:入门训练Fibonacci数列知识点:简单递归 C++-运算符和表达式概念 Fibonacci数列的递推公式为:Fn&#x3D;Fn-">
-<meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2025-05-17T07:29:48.000Z">
-<meta property="article:modified_time" content="2025-07-28T05:00:19.053Z">
-<meta property="article:author" content="zer0ptr">
-<meta property="article:tag" content="算法">
-<meta name="twitter:card" content="summary_large_image">
-  
-  
-  
-  <title>记一次与Fibonacci斗智斗勇 - zer0ptr&#39;s Blog</title>
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-
-
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
-
-
-
-  
-<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.7.0/style.min.css">
-
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"zer0ptr.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
-    }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
-
-
-  
-  <script src="/js/sakura.js"></script>
-  <script src="/js/love.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        
+            记一次与Fibonacci斗智斗勇 | zer0ptr&#39;s Blog
+        
+    </title>
+    
+    <!-- Meta tags -->
+    <meta name="description" content="">
+    <meta name="author" content="zer0ptr">
+    
+    <!-- 关键CSS内联 -->
+    <style>
+        /* 关键渲染路径CSS */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6; color: #333; background-color: #fff; font-size: 17px; overflow-x: hidden;
+        }
+        .container { max-width: 650px; margin: 0 auto; padding: 0 15px; }
+        .loading-indicator {
+            position: fixed; top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, #007acc, #4fc3f7);
+            transform: translateX(-100%); transition: transform 0.3s ease; z-index: 9999;
+        }
+        .loading-indicator.active { animation: loadingProgress 1s ease-in-out infinite; }
+        @keyframes loadingProgress {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(0%); }
+            100% { transform: translateX(100%); }
+        }
+    </style>
+    
+    <!-- 异步加载完整CSS -->
+    <link rel="preload" href="/css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+    
+    <!-- CSS加载polyfill -->
+    <script>
+        // 确保CSS异步加载在所有浏览器中正常工作
+        !function(e){"use strict";var t=function(t,n,r){function o(e){return i.body?e():void setTimeout(function(){o(e)})}function a(){d.addEventListener&&d.removeEventListener("load",a),d.media=r||"all"}var i=e.document,d=i.createElement("link");if(n)d.id=n;d.rel="stylesheet",d.href=t,d.media="only x",o(function(){i.head.appendChild(d)}),setTimeout(a);return d};e.loadCSS=t}(this);
+    </script>
+    
+    <!-- 预加载关键资源 -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    
+    <!-- 按需加载Highlight.js CSS -->
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    
+    
+    <!-- 按需加载MathJax -->
+    
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <!-- 预加载JavaScript -->
+    <link rel="preload" href="/js/search.js" as="script">
+    <link rel="preload" href="/js/script.js" as="script">
 <meta name="generator" content="Hexo 7.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
-
-
 <body>
-  
-
-  <header>
+    <!-- 加载指示器 -->
+    <div class="loading-indicator" id="loadingIndicator"></div>
+    <!-- Top Navigation Bar -->
     
-
-<div class="header-inner" style="height: 70vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>zer0ptr&#39;s blog</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/" target="_self">
-                <i class="iconfont icon-home-fill"></i>
-                <span>Home</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/" target="_self">
-                <i class="iconfont icon-archive-fill"></i>
-                <span>Archives</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/" target="_self">
-                <i class="iconfont icon-category-fill"></i>
-                <span>Categories</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/" target="_self">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>Tags</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/" target="_self">
-                <i class="iconfont icon-user-fill"></i>
-                <span>About</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/" target="_self">
-                <i class="iconfont icon-link-fill"></i>
-                <span>Links</span>
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-  
-
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/background.PNG') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="记一次与Fibonacci斗智斗勇"></span>
-          
-        </div>
-
-        
-          
-  <div class="mt-3">
-    
-    
-      <span class="post-meta">
-        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-05-17 15:29" pubdate>
-          May 17, 2025 pm
-        </time>
-      </span>
-    
-  </div>
-
-  <div class="mt-1">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-chart"></i>
-        
-          1.7k words
-        
-      </span>
-    
-
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-clock-fill"></i>
-        
-        
-        
-          15 mins
-        
-      </span>
-    
-
-    
-    
-  </div>
-
-
-        
-      </div>
-
-      
-    </div>
-  </div>
-</div>
-
-</div>
-
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">记一次与Fibonacci斗智斗勇</h1>
-            
-            
-              <div class="markdown-body">
+    <nav class="top-navigation">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="/" class="nav-brand-link">
+                    zer0ptr&#39;s blog
+                </a>
+            </div>
+            <ul class="top-nav-list">
                 
-                <h2 id="楔子："><a href="#楔子：" class="headerlink" title="楔子："></a>楔子：</h2><p>事必有因。近时方备战粤港澳信息学竞赛，适值主办方有其平台，故欲以其平台练题。然用之颇觉不堪，譬如一题所予提示甚少，题目分类未明，且大多无题解。此题吾亦屡试方解出，遂作此文，以便后学及自我温习。</p>
+                    <li class="top-nav-item">
+                        <a href="/archives" class="top-nav-link">
+                            Archives
+                        </a>
+                    </li>
+                
+                    <li class="top-nav-item">
+                        <a href="/categories" class="top-nav-link">
+                            Categories
+                        </a>
+                    </li>
+                
+                    <li class="top-nav-item">
+                        <a href="/tags" class="top-nav-link">
+                            Tags
+                        </a>
+                    </li>
+                
+                    <li class="top-nav-item">
+                        <a href="/about" class="top-nav-link">
+                            About
+                        </a>
+                    </li>
+                
+                <li class="top-nav-item">
+                    <a href="https://github.com" class="top-nav-link" target="_blank">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                        </svg>
+                    </a>
+                </li>
+                <li class="top-nav-item">
+                    <a href="#" class="top-nav-link search-toggle">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="site-title">
+                    <a href="/">
+                        zer0ptr&#39;s blog
+                    </a>
+                </h1>
+                
+                    <p class="site-subtitle">
+                        Walking on my way🧐.
+                    </p>
+                
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content page-transition" id="mainContent">
+            <article class="post">
+    <!-- Post Header -->
+    <header class="post-header">
+        
+            <div class="post-meta">
+                
+                    <a href="/categories/%E7%AE%97%E6%B3%95/" class="category-link">
+                        算法
+                    </a>
+                
+            </div>
+        
+        
+        <h1 class="post-title">记一次与Fibonacci斗智斗勇</h1>
+        
+        <div class="post-info">
+            <time class="post-date" datetime="2025-05-17T07:29:48.000Z">
+                May 17, 2025
+            </time>
+            
+            
+            
+            
+        </div>
+        
+        
+            <div class="post-tags">
+                
+                    <a href="/tags/%E7%AE%97%E6%B3%95/" class="tag-link">
+                        #算法
+                    </a>
+                
+            </div>
+        
+    </header>
+    
+    <!-- Post Content -->
+    <div class="post-content">
+        <h2 id="楔子："><a href="#楔子：" class="headerlink" title="楔子："></a>楔子：</h2><p>事必有因。近时方备战粤港澳信息学竞赛，适值主办方有其平台，故欲以其平台练题。然用之颇觉不堪，譬如一题所予提示甚少，题目分类未明，且大多无题解。此题吾亦屡试方解出，遂作此文，以便后学及自我温习。</p>
 <p>那首先来看看这题目和出题人究竟时何方神圣</p>
 <h2 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h2><h3 id="LQ1005-入门训练Fibonacci数列"><a href="#LQ1005-入门训练Fibonacci数列" class="headerlink" title="LQ1005:入门训练Fibonacci数列"></a>LQ1005:入门训练Fibonacci数列</h3><p>知识点:简单递归 C++-运算符和表达式概念</p>
 <p>Fibonacci数列的递推公式为:Fn&#x3D;Fn-1+Fn-2,其中F1&#x3D;F2&#x3D;1。<br>当n比较大时,Fn也非常大,现在我们想知道,Fn除以10007的余数是多少。</p>
 <h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p><strong>输入描述:</strong><br>输入包含一个整数<code>n</code>。<br>输入样例:</p>
-<div class="code-wrapper"><pre><code class="hljs">10</code></pre></div>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10</span><br></pre></td></tr></table></figure>
 <h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p><strong>输出描述:</strong><br>输出一行,包含一个整数,表示<code>Fn</code>除以10007的余数。</p>
 <p>说明:在本题中,答案是要求<code>Fn</code>除以10007的余数,因此我们只要能算出这个余数即可,<u>而不需要先计算出<code>Fn</code>的准确值,再将计算的结果除以10007取余</u> （记住这里后面要考）<br>数,直接计算余数往往比先算出原数再取余简单。<br>输出样例:</p>
-<div class="code-wrapper"><pre><code class="hljs">55</code></pre></div>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">55</span><br></pre></td></tr></table></figure>
 <p>【提升】<br>HINT:时间限制:1.0s 内存限制:256.0MB<br>1≤n ≤ 1,000,000.</p>
 <h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="初步分析"><a href="#初步分析" class="headerlink" title="初步分析"></a>初步分析</h3><p>我们从题目中可以得知，这道题要求我们实现以下两个部分</p>
 <ul>
@@ -310,40 +194,11 @@
 <li>再用所求出的数进行模10007后输出值</li>
 </ul>
 <p>那这样的话，我们的思路一般都是<del>一眼丁真</del> 一眼递归，那么我们可以写出如下代码：</p>
-<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
-
-<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">Fib</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;
-    <span class="hljs-keyword">if</span>(n == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">if</span>(n == <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> <span class="hljs-built_in">Fib</span>(n<span class="hljs-number">-1</span>)+<span class="hljs-built_in">Fib</span>(n<span class="hljs-number">-2</span>);
-&#125;
-
-<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
-    <span class="hljs-type">int</span> n;
-    cin &gt;&gt; n;
-    cout &lt;&lt; <span class="hljs-built_in">Fib</span>(n) &lt;&lt; endl;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre></div>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">Fib</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="built_in">Fib</span>(n<span class="number">-1</span>)+<span class="built_in">Fib</span>(n<span class="number">-2</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    cout &lt;&lt; <span class="built_in">Fib</span>(n) &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>之后我们对其进行补充，加上让它模掉<code>10007</code>就可以了，prefect~</p>
 <p>like this（在这里水一波字数）</p>
-<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
-
-<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">Fib</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;
-    <span class="hljs-keyword">if</span>(n == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">if</span>(n == <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> <span class="hljs-built_in">Fib</span>(n<span class="hljs-number">-1</span>)+<span class="hljs-built_in">Fib</span>(n<span class="hljs-number">-2</span>);
-&#125;
-
-<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
-    <span class="hljs-type">int</span> n;
-    cin &gt;&gt; n;
-    <span class="hljs-type">int</span> ans = <span class="hljs-built_in">Fib</span>(n)%<span class="hljs-number">10007</span>;
-    cout &lt;&lt; ans &lt;&lt; endl;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre></div>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">Fib</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="built_in">Fib</span>(n<span class="number">-1</span>)+<span class="built_in">Fib</span>(n<span class="number">-2</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="type">int</span> ans = <span class="built_in">Fib</span>(n)%<span class="number">10007</span>;</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>根据我们的值这道题没有问题，不用2分钟就AC了，然而事情真就如此吗？</p>
 <p>恰恰相反 实则不然 人之常情(bushi)</p>
@@ -351,105 +206,24 @@
 <p>爆零了</p>
 <p>！？</p>
 <h2 id="解剖开始"><a href="#解剖开始" class="headerlink" title="解剖开始"></a>解剖开始</h2><p>我们重新回到题目描述中，可以看到它的数据范围为1≤n ≤ 1,000,000，那如果我们直接输入1,000,000那就会。。。</p>
-<div class="code-wrapper"><pre><code class="hljs zsh">➜  p1706 git:(master) ✗ ./a.out
-1000000
-[1]    59990 segmentation fault (core dumped)  ./a.out</code></pre></div>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  p1706 git:(master) ✗ ./a.out</span><br><span class="line">1000000</span><br><span class="line">[1]    59990 segmentation fault (core dumped)  ./a.out</span><br></pre></td></tr></table></figure>
 
 <p>就会趋势</p>
 <p>那既然超出了数值范围，那我们改成longlong试试</p>
 <p>我们只得了300分。。。</p>
 <p>也就是说我们是没有完全AC的，看了扣分点提示我们TLE了，根据目前的代码想想是哪里出了问题呢？</p>
-<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
-
-<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
-    <span class="hljs-type">int</span> n;
-    cin &gt;&gt; n;
-    <span class="hljs-type">long</span> <span class="hljs-type">long</span> a = <span class="hljs-number">1</span>, b = <span class="hljs-number">1</span>, c;  
-    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">3</span>; i &lt;= n; i++) &#123;
-        c = a + b; 
-        a = b;
-        b = c;
-    &#125;
-    cout &lt;&lt; b % <span class="hljs-number">10007</span> &lt;&lt; endl;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre></div>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="type">long</span> <span class="type">long</span> a = <span class="number">1</span>, b = <span class="number">1</span>, c;  </span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">3</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        c = a + b; </span><br><span class="line">        a = b;</span><br><span class="line">        b = c;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; b % <span class="number">10007</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>输出内容是这样的</p>
-<div class="code-wrapper"><pre><code class="hljs zsh">➜  p1706 git:(master) ✗ ./a.out     
-1000000
--1044</code></pre></div>
+<figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  p1706 git:(master) ✗ ./a.out     </span><br><span class="line">1000000</span><br><span class="line">-1044</span><br></pre></td></tr></table></figure>
 
 <p>我们能明显的意识到它发生整数溢出了，是计算机中整数存储的典型表现：当数值超过数据类型能表示的最大正值时，会”环绕”到负值范围。但是明明我们都用上了<code>long long</code>了，但是为什么还发生了溢出？</p>
 <p>那我们加大剂量</p>
-<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
-<span class="hljs-type">const</span> <span class="hljs-type">int</span> MOD = <span class="hljs-number">1e9</span> <span class="hljs-number">+7</span>; <span class="hljs-comment">// 防止数值溢出</span>
-
-<span class="hljs-keyword">struct</span> <span class="hljs-title class_">Matrix</span> &#123;
-    <span class="hljs-type">long</span> <span class="hljs-type">long</span> mat[<span class="hljs-number">2</span>][<span class="hljs-number">2</span>];
-    <span class="hljs-built_in">Matrix</span>() &#123; mat[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]=mat[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>]=mat[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]=<span class="hljs-number">1</span>; mat[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>]=<span class="hljs-number">0</span>; &#125;
-&#125;;
-
-<span class="hljs-function">Matrix <span class="hljs-title">multiply</span><span class="hljs-params">(<span class="hljs-type">const</span> Matrix&amp; a, <span class="hljs-type">const</span> Matrix&amp; b)</span> </span>&#123;
-    Matrix res;
-    res.mat[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = (a.mat[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]*b.mat[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] + a.mat[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>]*b.mat[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]) % MOD;
-    res.mat[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>] = (a.mat[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]*b.mat[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>] + a.mat[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>]*b.mat[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>]) % MOD;
-    res.mat[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>] = (a.mat[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]*b.mat[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] + a.mat[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>]*b.mat[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]) % MOD;
-    res.mat[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] = (a.mat[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]*b.mat[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>] + a.mat[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>]*b.mat[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>]) % MOD;
-    <span class="hljs-keyword">return</span> res;
-&#125;
-
-<span class="hljs-function">Matrix <span class="hljs-title">matrix_pow</span><span class="hljs-params">(Matrix a, <span class="hljs-type">int</span> n)</span> </span>&#123;
-    Matrix res;
-    res.mat[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = res.mat[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] = <span class="hljs-number">1</span>; <span class="hljs-comment">// 初始化为单位矩阵</span>
-    res.mat[<span class="hljs-number">0</span>][<span class="hljs-number">1</span>] = res.mat[<span class="hljs-number">1</span>][<span class="hljs-number">0</span>] = <span class="hljs-number">0</span>;
-    
-    <span class="hljs-keyword">while</span>(n &gt; <span class="hljs-number">0</span>) &#123;
-        <span class="hljs-keyword">if</span>(n &amp; <span class="hljs-number">1</span>) res = <span class="hljs-built_in">multiply</span>(res, a);
-        a = <span class="hljs-built_in">multiply</span>(a, a);
-        n &gt;&gt;= <span class="hljs-number">1</span>;
-    &#125;
-    <span class="hljs-keyword">return</span> res;
-&#125;
-
-<span class="hljs-function"><span class="hljs-type">long</span> <span class="hljs-type">long</span> <span class="hljs-title">fib</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;
-    <span class="hljs-keyword">if</span>(n == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-    Matrix m;
-    m = <span class="hljs-built_in">matrix_pow</span>(m, n<span class="hljs-number">-1</span>);
-    <span class="hljs-keyword">return</span> m.mat[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>];
-&#125;
-
-<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
-    <span class="hljs-type">int</span> n;
-    cin &gt;&gt; n;
-    cout &lt;&lt; <span class="hljs-built_in">fib</span>(n)%<span class="hljs-number">10007</span> &lt;&lt; endl;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre></div>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> MOD = <span class="number">1e9</span> <span class="number">+7</span>; <span class="comment">// 防止数值溢出</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Matrix</span> &#123;</span><br><span class="line">    <span class="type">long</span> <span class="type">long</span> mat[<span class="number">2</span>][<span class="number">2</span>];</span><br><span class="line">    <span class="built_in">Matrix</span>() &#123; mat[<span class="number">0</span>][<span class="number">0</span>]=mat[<span class="number">0</span>][<span class="number">1</span>]=mat[<span class="number">1</span>][<span class="number">0</span>]=<span class="number">1</span>; mat[<span class="number">1</span>][<span class="number">1</span>]=<span class="number">0</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">Matrix <span class="title">multiply</span><span class="params">(<span class="type">const</span> Matrix&amp; a, <span class="type">const</span> Matrix&amp; b)</span> </span>&#123;</span><br><span class="line">    Matrix res;</span><br><span class="line">    res.mat[<span class="number">0</span>][<span class="number">0</span>] = (a.mat[<span class="number">0</span>][<span class="number">0</span>]*b.mat[<span class="number">0</span>][<span class="number">0</span>] + a.mat[<span class="number">0</span>][<span class="number">1</span>]*b.mat[<span class="number">1</span>][<span class="number">0</span>]) % MOD;</span><br><span class="line">    res.mat[<span class="number">0</span>][<span class="number">1</span>] = (a.mat[<span class="number">0</span>][<span class="number">0</span>]*b.mat[<span class="number">0</span>][<span class="number">1</span>] + a.mat[<span class="number">0</span>][<span class="number">1</span>]*b.mat[<span class="number">1</span>][<span class="number">1</span>]) % MOD;</span><br><span class="line">    res.mat[<span class="number">1</span>][<span class="number">0</span>] = (a.mat[<span class="number">1</span>][<span class="number">0</span>]*b.mat[<span class="number">0</span>][<span class="number">0</span>] + a.mat[<span class="number">1</span>][<span class="number">1</span>]*b.mat[<span class="number">1</span>][<span class="number">0</span>]) % MOD;</span><br><span class="line">    res.mat[<span class="number">1</span>][<span class="number">1</span>] = (a.mat[<span class="number">1</span>][<span class="number">0</span>]*b.mat[<span class="number">0</span>][<span class="number">1</span>] + a.mat[<span class="number">1</span>][<span class="number">1</span>]*b.mat[<span class="number">1</span>][<span class="number">1</span>]) % MOD;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Matrix <span class="title">matrix_pow</span><span class="params">(Matrix a, <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    Matrix res;</span><br><span class="line">    res.mat[<span class="number">0</span>][<span class="number">0</span>] = res.mat[<span class="number">1</span>][<span class="number">1</span>] = <span class="number">1</span>; <span class="comment">// 初始化为单位矩阵</span></span><br><span class="line">    res.mat[<span class="number">0</span>][<span class="number">1</span>] = res.mat[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(n &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span>(n &amp; <span class="number">1</span>) res = <span class="built_in">multiply</span>(res, a);</span><br><span class="line">        a = <span class="built_in">multiply</span>(a, a);</span><br><span class="line">        n &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">long</span> <span class="type">long</span> <span class="title">fib</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    Matrix m;</span><br><span class="line">    m = <span class="built_in">matrix_pow</span>(m, n<span class="number">-1</span>);</span><br><span class="line">    <span class="keyword">return</span> m.mat[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    cout &lt;&lt; <span class="built_in">fib</span>(n)%<span class="number">10007</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>然后还是300分，原因。。。<code> 0Wrong AnswerRead 3057, expect 2091.</code></p>
 <p>那我们再改改</p>
-<div class="code-wrapper"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
-
-<span class="hljs-function"><span class="hljs-type">long</span> <span class="hljs-type">long</span> <span class="hljs-title">fib</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;
-    <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-    <span class="hljs-type">long</span> <span class="hljs-type">long</span> a = <span class="hljs-number">0</span>, b = <span class="hljs-number">1</span>, c;
-    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">2</span>; i &lt;= n; i++) &#123;
-        c = a + b;
-        a = b;
-        b = c;
-    &#125;
-    <span class="hljs-keyword">return</span> b;
-&#125;
-
-<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
-    <span class="hljs-type">int</span> n;
-    cin &gt;&gt; n;
-    <span class="hljs-type">int</span> ans = <span class="hljs-built_in">fib</span>(n)%<span class="hljs-number">10007</span>;
-    cout &lt;&lt; ans &lt;&lt; endl;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre></div>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">long</span> <span class="type">long</span> <span class="title">fib</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">long</span> <span class="type">long</span> a = <span class="number">0</span>, b = <span class="number">1</span>, c;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        c = a + b;</span><br><span class="line">        a = b;</span><br><span class="line">        b = c;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="type">int</span> ans = <span class="built_in">fib</span>(n)%<span class="number">10007</span>;</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>好了，这次多了100分，看一眼报错<code>0Wrong Answer Read 4432, expect 6545.</code></p>
 <h2 id="再看看题目描述呢？"><a href="#再看看题目描述呢？" class="headerlink" title="再看看题目描述呢？"></a>再看看题目描述呢？</h2><h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p><strong>输出描述:</strong><br>输出一行,包含一个整数,表示<code>Fn</code>除以10007的余数。</p>
@@ -468,29 +242,7 @@
 <li><strong>模运算性质</strong>：由于我们只需要结果对10007的余数，可以在每一步计算时都对10007取模，利用模运算的性质（(a + b) mod m &#x3D; (a mod m + b mod m) mod m）防止数值溢出。</li>
 </ol>
 <p>那既然思路清楚了，我们可以给出真正的AC代码了！</p>
-<div class="code-wrapper"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
-
-<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">fibMod</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> </span>&#123;
-    <span class="hljs-type">const</span> <span class="hljs-type">int</span> MOD = <span class="hljs-number">10007</span>;
-    <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">if</span> (n == <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
-    
-    <span class="hljs-type">int</span> a = <span class="hljs-number">0</span>, b = <span class="hljs-number">1</span>, c;
-    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">2</span>; i &lt;= n; ++i) &#123;
-        c = (a + b) % MOD;  <span class="hljs-comment">// 每一步计算都取模防止溢出</span>
-        a = b;
-        b = c;
-    &#125;
-    <span class="hljs-keyword">return</span> b;
-&#125;
-
-<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
-    <span class="hljs-type">int</span> n;
-    cin &gt;&gt; n;
-    cout &lt;&lt; <span class="hljs-built_in">fibMod</span>(n)%<span class="hljs-number">10007</span> &lt;&lt; endl;
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre></div>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">fibMod</span><span class="params">(<span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">int</span> MOD = <span class="number">10007</span>;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> a = <span class="number">0</span>, b = <span class="number">1</span>, c;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">        c = (a + b) % MOD;  <span class="comment">// 每一步计算都取模防止溢出</span></span><br><span class="line">        a = b;</span><br><span class="line">        b = c;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    cout &lt;&lt; <span class="built_in">fibMod</span>(n)%<span class="number">10007</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
@@ -500,429 +252,77 @@
 <li>无需求出对应数而是每一步都进行取模</li>
 </ul>
 
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
+    </div>
     
-      <span class="category-chain">
+    <!-- Post Footer -->
+    <footer class="post-footer">
         
-  <a href="/categories/%E7%AE%97%E6%B3%95/" class="category-chain-item">算法</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/%E7%AE%97%E6%B3%95/" class="print-no-link">#算法</a>
-      
-    </div>
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>记一次与Fibonacci斗智斗勇</div>
-      <div>https://zer0ptr.github.io/2025/05/17/记一次与Fibonacci斗智斗勇/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>Author</div>
-          <div>zer0ptr</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>Posted on</div>
-          <div>May 17, 2025</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>Licensed under</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
-                    <i class="iconfont icon-cc-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/" title="upload-labs靶场小计">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">upload-labs靶场小计</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2025/05/17/NOIP-2002-%E6%99%AE%E5%8F%8A%E7%BB%84-%E9%80%89%E6%95%B0/" title="由一道题引发对DFS的思考">
-                        <span class="hidden-mobile">由一道题引发对DFS的思考</span>
-                        <span class="visible-mobile">Next</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
+            <div class="post-updated">
+                <small>Last updated: July 28, 2025</small>
             </div>
-
+        
+        
+        <!-- Post Navigation -->
+        <nav class="post-nav">
             
-  
-  
-    <article id="comments" lazyload>
-      
+                <div class="post-nav-item post-nav-prev">
+                    <a href="/2025/06/17/upload-labs%E9%9D%B6%E5%9C%BA%E5%B0%8F%E8%AE%A1/" class="post-nav-link">
+                        <span class="post-nav-label">← Previous</span>
+                        <span class="post-nav-title">upload-labs靶场小计</span>
+                    </a>
+                </div>
+            
+            
+            
+                <div class="post-nav-item post-nav-next">
+                    <a href="/2025/05/17/NOIP-2002-%E6%99%AE%E5%8F%8A%E7%BB%84-%E9%80%89%E6%95%B0/" class="post-nav-link">
+                        <span class="post-nav-label">Next →</span>
+                        <span class="post-nav-title">由一道题引发对DFS的思考</span>
+                    </a>
+                </div>
+            
+        </nav>
+    </footer>
+</article>
 
-    </article>
-  
+<!-- Comments Section -->
 
+        </main>
 
-          </article>
-        </div>
-      </div>
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 zer0ptr. All rights reserved.</p>
+                
+            </div>
+        </footer>
     </div>
 
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>Table of Contents</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-
-
-  </aside>
-
-
-    </div>
-  </div>
-</div>
-
-
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-  
-  
-
-
-
-
-
-
-
-
-
+    <!-- 按需加载Highlight.js JavaScript -->
     
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-    
-
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-    </div>
-  
-  
-  
-</div>
-
-  </footer>
-
-  <!-- Scripts -->
-  
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
-
-
-
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
-    var toc = jQuery('#toc');
-    if (toc.length === 0 || !window.tocbot) { return; }
-    var boardCtn = jQuery('#board-ctn');
-    var boardTop = boardCtn.offset().top;
-
-    window.tocbot.init(Object.assign({
-      tocSelector     : '#toc-body',
-      contentSelector : '.markdown-body',
-      linkClass       : 'tocbot-link',
-      activeLinkClass : 'tocbot-active-link',
-      listClass       : 'tocbot-list',
-      isCollapsedClass: 'tocbot-is-collapsed',
-      collapsibleClass: 'tocbot-is-collapsible',
-      scrollSmooth    : true,
-      includeTitleTags: true,
-      headingsOffset  : -boardTop,
-    }, CONFIG.toc));
-    if (toc.find('.toc-list-item').length > 0) {
-      toc.css('visibility', 'visible');
-    }
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('tocbot' in window) {
-        tocbot.refresh();
-        var toc = jQuery('#toc');
-        if (toc.length === 0 || !tocbot) {
-          return;
-        }
-        if (toc.find('.toc-list-item').length > 0) {
-          toc.css('visibility', 'visible');
-        }
-      }
-    });
-  });
-</script>
-
-
-  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
-
-  <script>Fluid.plugins.codeWidget();</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
-    window.anchors.options = {
-      placement: CONFIG.anchorjs.placement,
-      visible  : CONFIG.anchorjs.visible
-    };
-    if (CONFIG.anchorjs.icon) {
-      window.anchors.options.icon = CONFIG.anchorjs.icon;
-    }
-    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-    var res = [];
-    for (var item of el) {
-      res.push('.markdown-body > ' + item.trim());
-    }
-    if (CONFIG.anchorjs.placement === 'left') {
-      window.anchors.options.class = 'anchorjs-link-left';
-    }
-    window.anchors.add(res.join(', '));
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('anchors' in window) {
-        anchors.removeAll();
-        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-        var res = [];
-        for (var item of el) {
-          res.push('.markdown-body > ' + item.trim());
-        }
-        if (CONFIG.anchorjs.placement === 'left') {
-          anchors.options.class = 'anchorjs-link-left';
-        }
-        anchors.add(res.join(', '));
-      }
-    });
-  });
-</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
-    Fluid.plugins.fancyBox();
-  });
-</script>
-
-
-  <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>
+            // 延迟加载highlight.js以提高性能
+            function loadHighlight() {
+                if (typeof hljs !== 'undefined') {
+                    hljs.highlightAll();
+                } else {
+                    // 如果hljs还未加载，等待一段时间后重试
+                    setTimeout(loadHighlight, 100);
+                }
             }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
+            
+            document.addEventListener('DOMContentLoaded', loadHighlight);
+            
+            // 如果DOM已经加载完成，立即执行
+            if (document.readyState !== 'loading') {
+                loadHighlight();
+            }
+        </script>
     
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
-  
-
-  <noscript>
-    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
-  </noscript>
+    
+    <!-- JavaScript -->
+    <script defer src="/js/search.js"></script>
+    <script defer src="/js/script.js"></script>
 </body>
 </html>

