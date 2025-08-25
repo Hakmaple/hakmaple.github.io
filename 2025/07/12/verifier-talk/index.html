@@ -239,7 +239,7 @@
 <h4 id="2-代码考古学"><a href="#2-代码考古学" class="headerlink" title="2. 代码考古学"></a>2. <strong>代码考古学</strong></h4><ul>
 <li><p><strong>经典工具对比学习</strong>：</p>
 <p>bash</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 研究GNU coreutils的md5sum实现</span></span><br><span class="line">git <span class="keyword">clone</span> <span class="title">git</span>://git.sv.gnu.org/coreutils</span><br><span class="line">grep -r <span class="string">&quot;BLOCKSIZE&quot;</span> src/</span><br></pre></td></tr></table></figure>
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 研究GNU coreutils的md5sum实现</span></span><br><span class="line">git <span class="keyword">clone</span> <span class="title">git</span>://git.sv.gnu.org/coreutils</span><br><span class="line">grep -r <span class="string">&quot;BLOCKSIZE&quot;</span> src/</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>Python生态参考</strong>：</p>
 <ul>
@@ -250,11 +250,11 @@
 <h4 id="3-量化分析实践"><a href="#3-量化分析实践" class="headerlink" title="3. 量化分析实践"></a>3. <strong>量化分析实践</strong></h4><ul>
 <li><p><strong>性能基准测试</strong>：</p>
 <p>python</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">import</span> timeit</span><br><span class="line"><span class="attribute">timeit</span>.timeit(&#x27;calculate_md5(<span class="string">&quot;large_file.iso&quot;</span>, block_size=<span class="number">8192</span>)&#x27;, number=<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">import</span> timeit</span><br><span class="line"><span class="attribute">timeit</span>.timeit(&#x27;calculate_md5(<span class="string">&quot;large_file.iso&quot;</span>, block_size=<span class="number">8192</span>)&#x27;, number=<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>内存分析</strong>：</p>
 <p>bash</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">python</span> -<span class="keyword">m</span> memory_profiler md5_tool.<span class="keyword">py</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">python</span> -<span class="keyword">m</span> memory_profiler md5_tool.<span class="keyword">py</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h4 id="4-设计模式映射"><a href="#4-设计模式映射" class="headerlink" title="4. 设计模式映射"></a>4. <strong>设计模式映射</strong></h4><ul>
 <li><p><strong>识别模式应用</strong>：</p>
