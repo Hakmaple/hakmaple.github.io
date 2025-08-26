@@ -1,627 +1,976 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-default-color-scheme=auto>
+
+
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        
-            zer0ptr&#39;s Blog
-            
-        
-    </title>
-    
-    <!-- Meta tags -->
-    <meta name="description" content="">
-    <meta name="author" content="zer0ptr">
-    
-    <!-- 关键CSS内联 -->
-    <style>
-        /* 关键渲染路径CSS */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6; color: #333; background-color: #fff; font-size: 17px; overflow-x: hidden;
-        }
-        .container { max-width: 650px; margin: 0 auto; padding: 0 15px; }
-        .loading-indicator {
-            position: fixed; top: 0; left: 0; width: 100%; height: 3px;
-            background: linear-gradient(90deg, #007acc, #4fc3f7);
-            transform: translateX(-100%); transition: transform 0.3s ease; z-index: 9999;
-        }
-        .loading-indicator.active { animation: loadingProgress 1s ease-in-out infinite; }
-        @keyframes loadingProgress {
-            0% { transform: translateX(-100%); }
-            50% { transform: translateX(0%); }
-            100% { transform: translateX(100%); }
-        }
-    </style>
-    
-    <!-- 异步加载完整CSS -->
-    <link rel="preload" href="/css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
-    
-    <!-- CSS加载polyfill -->
-    <script>
-        // 确保CSS异步加载在所有浏览器中正常工作
-        !function(e){"use strict";var t=function(t,n,r){function o(e){return i.body?e():void setTimeout(function(){o(e)})}function a(){d.addEventListener&&d.removeEventListener("load",a),d.media=r||"all"}var i=e.document,d=i.createElement("link");if(n)d.id=n;d.rel="stylesheet",d.href=t,d.media="only x",o(function(){i.head.appendChild(d)}),setTimeout(a);return d};e.loadCSS=t}(this);
-    </script>
-    
-    <!-- 预加载关键资源 -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    
-    <!-- 按需加载Highlight.js CSS -->
-    
-    
-    <!-- 按需加载MathJax -->
-    
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    
-    <!-- 预加载JavaScript -->
-    <link rel="preload" href="/js/search.js" as="script">
-    <link rel="preload" href="/js/script.js" as="script">
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/SecureNexusLab.png">
+  <link rel="icon" href="/img/SecureNexusLab.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zer0ptr">
+  <meta name="keywords" content="">
+  
+    <meta property="og:type" content="website">
+<meta property="og:title" content="zer0ptr&#39;s Blog">
+<meta property="og:url" content="https://zer0ptr.github.io/index.html">
+<meta property="og:site_name" content="zer0ptr&#39;s Blog">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="zer0ptr">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>zer0ptr&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.7.0/style.min.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zer0ptr.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+  <script src="/js/sakura.js"></script>
+  <script src="/js/love.js"></script>
 <meta name="generator" content="Hexo 7.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+
 <body>
-    <!-- 加载指示器 -->
-    <div class="loading-indicator" id="loadingIndicator"></div>
-    <!-- Top Navigation Bar -->
+  
+
+  <header>
     
-    <nav class="top-navigation">
-        <div class="container">
-            <div class="nav-brand">
-                <a href="/" class="nav-brand-link">
-                    zer0ptr&#39;s blog
-                </a>
-            </div>
-            <ul class="top-nav-list">
-                
-                    <li class="top-nav-item">
-                        <a href="/archives" class="top-nav-link">
-                            Archives
-                        </a>
-                    </li>
-                
-                    <li class="top-nav-item">
-                        <a href="/categories" class="top-nav-link">
-                            Categories
-                        </a>
-                    </li>
-                
-                    <li class="top-nav-item">
-                        <a href="/tags" class="top-nav-link">
-                            Tags
-                        </a>
-                    </li>
-                
-                    <li class="top-nav-item">
-                        <a href="/about" class="top-nav-link">
-                            About
-                        </a>
-                    </li>
-                
-                <li class="top-nav-item">
-                    <a href="https://github.com" class="top-nav-link" target="_blank">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
-                        </svg>
-                    </a>
-                </li>
-                <li class="top-nav-item">
-                    <a href="#" class="top-nav-link search-toggle">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                        </svg>
-                    </a>
-                </li>
-            </ul>
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zer0ptr&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>Links</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/background.PNG') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Welcome to my site and hope you have fun."></span>
+          
         </div>
-    </nav>
-    
-    
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="header-content">
-                <h1 class="site-title">
-                    <a href="/">
-                        zer0ptr&#39;s blog
-                    </a>
-                </h1>
-                
-                    <p class="site-subtitle">
-                        Walking on my way🧐.
-                    </p>
-                
-            </div>
-        </header>
 
-        <!-- Main Content -->
-        <main class="main-content page-transition" id="mainContent">
-            <div class="posts-section">
-    <h2 class="section-title">Latest Posts</h2>
-    
-    <div class="posts-list">
         
-            <article class="post-item">
-                <div class="post-meta">
-                    
-                        <span class="post-category">
-                            
-                                <a href="/categories/misc/" class="category-link">
-                                    misc
-                                </a>
-                            
-                        </span>
-                    
-                </div>
-                
-                <h3 class="post-title">
-                    <a href="/2025/08/12/adworld-Misc-Jump-Cat-miao/" class="post-link">
-                        攻防世界Misc-Cat_Jump-Miao合集
-                    </a>
-                </h3>
-                
-                <div class="post-date">
-                    August 12, 2025
-                </div>
-                
-                
-                    <div class="post-excerpt">
-                        Cat_Jump直接用vscode打开搜索catctf&#123;
+      </div>
 
-Miao~附件内容是一张小猫的图片
-
-分析图片中隐含的内容，得到一个wav文件
-
-在Audacity中打开，查看频谱图，得到密码CatCTF 
-
-                        
-                            <a href="/2025/08/12/adworld-Misc-Jump-Cat-miao/" class="read-more">
-                                Read more →
-                            </a>
-                        
-                    </div>
-                
-            </article>
-        
-            <article class="post-item">
-                <div class="post-meta">
-                    
-                        <span class="post-category">
-                            
-                                <a href="/categories/misc/" class="category-link">
-                                    misc
-                                </a>
-                            
-                        </span>
-                    
-                </div>
-                
-                <h3 class="post-title">
-                    <a href="/2025/08/12/adworld-misc-yangjianti/" class="post-link">
-                        攻防世界Misc-真是阳间题
-                    </a>
-                </h3>
-                
-                <div class="post-date">
-                    August 12, 2025
-                </div>
-                
-                
-                    <div class="post-excerpt">
-                        附件内容：
-艾尔登法环正式发售在即，迫不及待的mjj身上好像有蚂蚁在爬，写下了一句谜语：3207357975641587136122466514425152961654613410728337142271750273124995105747053991640817066352343657398947248938255086358418100814441196784643527787764297谜底就是flag，也是他给所有新生的祝福，希望大家享受解码的过程。
-
-先十进制转十六进制
-CTF在线工具-ASCII与进制转换|任意进制转换|ASCII、2进制、8进制、10进制、16进制
-得到十六进制编码后的内容
-3d3d3d3d513642475354334f4859464d37435a415450424f4454344348324d4e37434e36565a414f5a3358474859344b374b354144474e504553554355495a49
-
-然后十六进制转字符串
-字符串HEX转换
-====Q6BGST3OHYFM7CZATPBODT4CH2MN7CN6VZAOZ3XGHY4K7K5ADGNPESUCUIZI
-
-字符串反转
-                        
-                            <a href="/2025/08/12/adworld-misc-yangjianti/" class="read-more">
-                                Read more →
-                            </a>
-                        
-                    </div>
-                
-            </article>
-        
-            <article class="post-item">
-                <div class="post-meta">
-                    
-                        <span class="post-category">
-                            
-                                <a href="/categories/Coding/" class="category-link">
-                                    Coding
-                                </a>
-                            
-                        </span>
-                    
-                </div>
-                
-                <h3 class="post-title">
-                    <a href="/2025/08/11/%E8%81%8A%E8%81%8A%E7%AE%97%E6%B3%95%E4%B8%AD%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/" class="post-link">
-                        聊聊算法中的时间复杂度
-                    </a>
-                </h3>
-                
-                <div class="post-date">
-                    August 11, 2025
-                </div>
-                
-                
-                    <div class="post-excerpt">
-                        1.什么是时间复杂度时间复杂度是算法复杂度的一个类别(另一个是空间复杂度)，时间复杂度是指执行算法所需要的计算工作量，空间复杂度指执行这个算法所需要的内存空间
-时间复杂度一个算法花费的时间与算法中语句的执行次数成正比例，哪个算法中语句执行次数多，它花费时间就多。一个算法中的语句执行次数称为语句频度或时间频度，记为$T(n)$
-一般情况下，算法中基本操作重复执行的次数是问题规模 $n$ 的某个函数，用 $T(n)$ 表示，若有某个辅助函数 $f(n)$ ，使得当 $n$ 趋近于无穷大时，$T(n)&#x2F;f(n)$ 的极限值为不等于零的常数，则称 $f(n)$ 是 $T(n)$ 的同数量级函数。记作 $T(n)&#x3D;O(f(n))$，称 $O(f(n))$ 为算法的渐进时间复杂度，简称时间复杂度
-
-时间复杂度分类
-算法完成工作最少需要多少基本操作叫做最优时间复杂度，是一种最乐观最理想的状态
-
-算法完成工作最多需要多少基本操作叫做最坏时间复杂度，是算法的一个保障
-
-算法完成工作平均需要多少基本操作叫做平均时间复杂度，它可以均匀全面的评价一个算法的好坏
-
-
-2.时间复杂度计算假设计算机运行一行基础代码需要执行一次运算，那么运行下边这个方法就需要执行 2 次运算
-                        
-                            <a href="/2025/08/11/%E8%81%8A%E8%81%8A%E7%AE%97%E6%B3%95%E4%B8%AD%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/" class="read-more">
-                                Read more →
-                            </a>
-                        
-                    </div>
-                
-            </article>
-        
-            <article class="post-item">
-                <div class="post-meta">
-                    
-                        <span class="post-category">
-                            
-                                <a href="/categories/Coding/" class="category-link">
-                                    Coding
-                                </a>
-                            
-                        </span>
-                    
-                </div>
-                
-                <h3 class="post-title">
-                    <a href="/2025/08/06/luogu-p2089/" class="post-link">
-                        P2089 烤鸡
-                    </a>
-                </h3>
-                
-                <div class="post-date">
-                    August 06, 2025
-                </div>
-                
-                
-                    <div class="post-excerpt">
-                        Description原题地址：P2089 烤鸡 - 洛谷
-思路：可直接暴力枚举，或者用深度优先搜索
-实现枚举只需要做两层嵌套循环即可：
-// 枚举题解#include&lt;iostream&gt;  using namespace std;  int main()  &#123;      int a,b,c,d,e,f,g,h,i,j,in,x=0;      cin&gt;&gt;in;      for (a=1;a&lt;=3;a++)&#123;          for (b=1;b&lt;=3;b++)&#123;              for (c=1;c&lt;=3;c++)&#123;                  for (d=1;d&lt;=3;d++)&#123;                      for (e=1;e&lt;=3;e++)&#123;                          for (f=1;f&lt;=3;f++)&#123;                              for (g=1;g&lt;=3;g++)&#123;                                  for(h=1;h&lt;=3;h++)&#123;                                      for (i=1;i&lt;=3;i++)&#123;                                          for (j=1;j&lt;=3;j++)&#123;                                              if (a+b+c+d+e+f+g+h+i+j==in) x++;                                           &#125;                                      &#125;                                  &#125;                              &#125;                          &#125;                      &#125;                  &#125;              &#125;          &#125;      &#125;      cout&lt;&lt;x&lt;&lt;endl;      for (a=1;a&lt;=3;a++)&#123;          for (b=1;b&lt;=3;b++)&#123;              for (c=1;c&lt;=3;c++)&#123;                  for (d=1;d&lt;=3;d++)&#123;                      for (e=1;e&lt;=3;e++)&#123;                          for (f=1;f&lt;=3;f++)&#123;                              for (g=1;g&lt;=3;g++)&#123;                                  for(h=1;h&lt;=3;h++)&#123;                                      for (i=1;i&lt;=3;i++)&#123;                                          for (j=1;j&lt;=3;j++)&#123;                                              if (a+b+c+d+e+f+g+h+i+j==in)&#123;                                                  cout&lt;&lt;a&lt;&lt;&quot; &quot;;                                                  cout&lt;&lt;b&lt;&lt;&quot; &quot;;                                                  cout&lt;&lt;c&lt;&lt;&quot; &quot;;                                                  cout&lt;&lt;d&lt;&lt;&quot; &quot;;                                                  cout&lt;&lt;e&lt;&lt;&quot; &quot;;                                                  cout&lt;&lt;f&lt;&lt;&quot; &quot;;                                                  cout&lt;&lt;g&lt;&lt;&quot; &quot;;                                                  cout&lt;&lt;h&lt;&lt;&quot; &quot;;                                                  cout&lt;&lt;i&lt;&lt;&quot; &quot;;                                                  cout&lt;&lt;j&lt;&lt;endl;                                              &#125;                                          &#125;                                      &#125;                                  &#125;                              &#125;                          &#125;                      &#125;                  &#125;              &#125;          &#125;      &#125;  &#125; 
-
-
-
-深度优先搜索大致的思路也是需要枚举一下(?)然后进行搜索
-#include&lt;bits/stdc++.h&gt;using namespace std;int a,n[11];int ans; // 存储答案void print_ans()&#123; // 输出10个配料的克数的函数    for(int i=1;i&lt;=10;++i)&#123;        printf(&quot;%d&quot;,a[i]);    &#125;    printf(&quot;\n&quot;);    return;&#125;void print_method(int cnt, int step)&#123; // 打印方案的函数，cnt表示当前美味程度，step表示放了几种配料    if(cnt&lt;0) return; // 如果美味程度为负数直接停止    if(step==10&amp;&amp;cnt!=0) return; //如果放完配料后cnt还有剩余也停止    if(step==10&amp;&amp;cnt==0)&#123; // 若放完配料后cnt无剩余直接输出配料方案        print_ans();        return;    &#125;    for(int i=1;i&lt;=3;i++)&#123;        a[step+1]=i; // 枚举出下一次配料加多少克        print_method(cnt-i, step+1); // 搜索开始    &#125;&#125;void count_ans(int cnt, int step)&#123; // 计算答案函数    if(cnt&lt;0) return;    if(step==10&amp;&amp;cnt!=0) return;    if(step==10&amp;&amp;cnt==0)&#123;        ans++;        return;    &#125;    for(int i=1;i&lt;=3;++i)&#123;        a[step+1]=i;        count_ans(cnt-i, step+1);    &#125;&#125;int main()&#123;    scanf(&quot;%d&quot;,&amp;n);    if(n&gt;30)&#123; // cnt最大值为3，十个值加起来就是30        printf(&quot;0&quot;);        return 0;    &#125;    count_ans(n,0); // 统计答案数    printf(&quot;%d\n&quot;, ans);    print_method(n,0);    return 0;&#125;
-                        
-                            <a href="/2025/08/06/luogu-p2089/" class="read-more">
-                                Read more →
-                            </a>
-                        
-                    </div>
-                
-            </article>
-        
-            <article class="post-item">
-                <div class="post-meta">
-                    
-                        <span class="post-category">
-                            
-                                <a href="/categories/vuln-analysis/" class="category-link">
-                                    vuln analysis
-                                </a>
-                            
-                        </span>
-                    
-                </div>
-                
-                <h3 class="post-title">
-                    <a href="/2025/08/05/CVE-2025-24813-Tomcat-RCE/" class="post-link">
-                        Tomcat RCE漏洞CVE-2025-24813复现
-                    </a>
-                </h3>
-                
-                <div class="post-date">
-                    August 05, 2025
-                </div>
-                
-                
-                    <div class="post-excerpt">
-                        前置知识JAVA序列化与反序列化简述JAVA序列化是JAVA语言内置的一种对象持久化的机制，它可以将JAVA对象转化为字节流，以便于在网络中进行传输，或者保存到本地进行持久化（类似于PHP序列化）。反序列化则是序列化的逆过程，将字节流转化回JAVA对象。
-序列化过程中，JAVA会将对象的类型、属性以及属性的值等信息一起保存下来，反序列化时，JAVA会根据这些信息重新构建出原来的对象。这就意味着，如果一个恶意用户能够控制序列化的字节流，那么他就有可能在反序列化时构造出含有恶意代码的对象，从而引发安全问题。
-JAVA反序列化漏洞的常见产生原因JAVA反序列化漏洞的产生，主要是因为在反序列化时，JAVA会自动调用对象的readObject()方法，而这个方法通常是开发者自定义的，如果开发者在这个方法中执行了不安全的操作，就可能产生安全漏洞。
-另一种常见的情况是，JAVA的某些内置类库，如Apache Commons Collections、JAVA RMI等，在反序列化时，会自动执行某些可以被恶意利用的方法。如果应用使用了这些类库，并且没有对反序列化的输入进行有效的限制，那么就可能产生反序列化漏洞。
-常规反序列化漏洞的发现与利用技术在实际的安全测试中，发现JAVA反序列化漏洞，通常需要通过静态代码分析、动态测试、模糊测试等手段。其中，静态代码分析是直接阅读和理解源代码，找出可能存在问题的地方；动态测试是在运行应用的过程中，对其进行观察和调试，寻找可能的漏洞；模糊测试是对应用的输入进行大量的随机化修改，试图触发未知的漏洞。
-利用JAVA反序列化漏洞，通常需要构造特殊的序列化字节流，这个字节流在反序列化时，会产生恶意的效果。这需要对JAVA序列化的格式有深入的理解，同时还需要对目标应用的具体情况有足够的了解。
-                        
-                            <a href="/2025/08/05/CVE-2025-24813-Tomcat-RCE/" class="read-more">
-                                Read more →
-                            </a>
-                        
-                    </div>
-                
-            </article>
-        
-            <article class="post-item">
-                <div class="post-meta">
-                    
-                        <span class="post-category">
-                            
-                                <a href="/categories/AI/" class="category-link">
-                                    AI
-                                </a>
-                            
-                        </span>
-                    
-                </div>
-                
-                <h3 class="post-title">
-                    <a href="/2025/08/01/What-is-Attention/" class="post-link">
-                        What is Attention?
-                    </a>
-                </h3>
-                
-                <div class="post-date">
-                    August 01, 2025
-                </div>
-                
-                
-                    <div class="post-excerpt">
-                        Attention注意力的来源或许是因为大数据，在大数据中什么样子的数据都有，对于重要的数据我们要使用，对于不太重要的数据我们需要暂时忽略。
-但是对于主流的卷积神经网络(Convolutional Neural Networks, CNN)或短期记忆递归神经网络(Long Short-Term Memory, LSTM)很难去决定什么重要，什么不重要。
-在2017年Google发布 Attention is All You Need 前就已经有人发现了如何在深度学习的模型上做注意力，再后来注意力就诞生了。
-人类的视觉注意力Attention翻译成注意力，从其的命名方式来看，很明显借鉴了人类的注意力机制，因此，我们首先介绍人类的注意力
-
-我们看到这张图，研究员发现，当一个人看到这张图时，他&#x2F;她的眼睛会聚焦到红色的区域。
-我们分解以下可以得到以下信息：
-
-人看脸
-文章看标题
-段落看开头
-
-                        
-                            <a href="/2025/08/01/What-is-Attention/" class="read-more">
-                                Read more →
-                            </a>
-                        
-                    </div>
-                
-            </article>
-        
-            <article class="post-item">
-                <div class="post-meta">
-                    
-                        <span class="post-category">
-                            
-                                <a href="/categories/Coding/" class="category-link">
-                                    Coding
-                                </a>
-                            
-                        </span>
-                    
-                </div>
-                
-                <h3 class="post-title">
-                    <a href="/2025/07/29/luogu-p1464-memo/" class="post-link">
-                        P1464与递归函数的记忆化搜索
-                    </a>
-                </h3>
-                
-                <div class="post-date">
-                    July 29, 2025
-                </div>
-                
-                
-                    <div class="post-excerpt">
-                        原题地址：https://www.luogu.com.cn/problem/P1464
-
-如果 $a≤0$ 或 $b≤0$ 或 $c≤0$ 就返回值 1
-
-如果 $a&gt;20$ 或 $b&gt;20$ 或 $c&gt;20$ 就返回 w(20,20,20)$
-
-如果 $a&lt;b$ 并且 $b&lt;c$ 就返回 $w(a,b,c−1)+w(a,b−1,c−1)−w(a,b−1,c)$
-
-else $w(a−1,b,c)+w(a−1,b−1,c)+w(a−1,b,c−1)−w(a−1,b−1,c−1)$
-
-
-注意：例如 $w(30,−1,0)$ 又满足条件 1 又满足条件 2，请按照最上面的条件来算，答案为 1。
-分析：本题考察递归的记忆化漏洞，记忆化不仅是递归的动态规划，更是对递归的优化，并非从底自上的动态规划填表法
-其他注意事项
-
-保证输入的数在 $[−9223372036854775808,9223372036854775807]$ 之间，并且是整数。
-
-保证不包括 $−1,−1,−1$ 的输入行数 $T$ 满足 $1≤T≤10^5$
-
-
-综上所述还需要开longlong防止爆掉
-AC Code
-#include &lt;iostream&gt;#include &lt;cstdio&gt;#include &lt;cstring&gt;#define ll long longusing namespace std;ll memo[21][21][21];ll w(ll a, ll b, ll c) &#123;    if(a&lt;=0 || b&lt;=0 || c&lt;=0) return 1;    if(a&gt;20 || b&gt;20 || c&gt;20) return w(20,20,20);    if (memo[a][b][c] != -1) &#123;        return memo[a][b][c];    &#125;    if (a&lt;b &amp;&amp; b&lt;c) &#123;        memo[a][b][c] = w(a,b,c-1) + w(a,b-1,c-1) - w(a,b-1,c);    &#125; else &#123;        memo[a][b][c] = w(a-1,b,c) + w(a-1,b-1,c) + w(a-1,b,c-1) - w(a-1,b-1,c-1);    &#125;    return memo[a][b][c];&#125;int main() &#123;    memset(memo, -1, sizeof(memo));    ll a,b,c;    while(cin&gt;&gt;a&gt;&gt;b&gt;&gt;c) &#123;        if(a==-1 &amp;&amp; b==-1 &amp;&amp;c==-1) break;        ll ans = w(a,b,c);        cout &lt;&lt; &quot;w(&quot; &lt;&lt; a &lt;&lt; &quot;, &quot; &lt;&lt; b &lt;&lt; &quot;, &quot; &lt;&lt; c &lt;&lt; &quot;) = &quot; &lt;&lt; ans &lt;&lt; endl;    &#125;    return 0;&#125;
-
-
-
-以下的QFA来自暂时can not fly的fish在做题中犯的一些错误
-                        
-                            <a href="/2025/07/29/luogu-p1464-memo/" class="read-more">
-                                Read more →
-                            </a>
-                        
-                    </div>
-                
-            </article>
-        
-            <article class="post-item">
-                <div class="post-meta">
-                    
-                </div>
-                
-                <h3 class="post-title">
-                    <a href="/2025/07/28/hello-world/" class="post-link">
-                        Hello World
-                    </a>
-                </h3>
-                
-                <div class="post-date">
-                    July 28, 2025
-                </div>
-                
-                
-                    <div class="post-excerpt">
-                        Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick Start
-                        
-                            <a href="/2025/07/28/hello-world/" class="read-more">
-                                Read more →
-                            </a>
-                        
-                    </div>
-                
-            </article>
-        
-            <article class="post-item">
-                <div class="post-meta">
-                    
-                        <span class="post-category">
-                            
-                                <a href="/categories/Coding/" class="category-link">
-                                    Coding
-                                </a>
-                            
-                        </span>
-                    
-                </div>
-                
-                <h3 class="post-title">
-                    <a href="/2025/07/27/what-is-greedy-algorithm/" class="post-link">
-                        What Is Greedy Algorithm
-                    </a>
-                </h3>
-                
-                <div class="post-date">
-                    July 27, 2025
-                </div>
-                
-                
-                    <div class="post-excerpt">
-                        Description:A greedy algorithm is any algorithm that follows the problem-solving heuristic of making the locally optimal choice at each stage.[1] In many problems, a greedy strategy does not produce an optimal solution, but a greedy heuristic can yield locally optimal solutions that approximate a globally optimal solution in a reasonable amount of time.[2]
-For example, a greedy strategy for the travelling salesman problem (which is of high computational complexity) is the following heuristic: “At each step of the journey, visit the nearest unvisited city.” This heuristic does not intend to find the best solution, but it terminates in a reasonable number of steps; finding an optimal solution to such a complex problem typically requires unreasonably many steps.[3]
-In mathematical optimization, greedy algorithms optimally solve combinatorial problems having the properties of matroids and give constant-factor approximations to optimization problems with the submodular structure.
-Key: The greedy algorithm does not always provide the optimal solution for every problem; the key lies in the choice of the greedy strategy.
-The greedy algorithm generally follows the steps below:
-
-Establish a mathematical model to describe the problem.
-Divide the problem to be solved into several sub-problems.
-Solve each sub-problem to obtain the local optimal solution of the sub-problems.
-Combine the local optimal solutions of the sub-problems to form a solution to the original problems.
-
-SpecificsPropertyThe key feature that defines a greedy algorithm is its ability to make locally optimal choices at each step without reconsidering previous decisions. This property guarantees that:
-                        
-                            <a href="/2025/07/27/what-is-greedy-algorithm/" class="read-more">
-                                Read more →
-                            </a>
-                        
-                    </div>
-                
-            </article>
-        
-            <article class="post-item">
-                <div class="post-meta">
-                    
-                        <span class="post-category">
-                            
-                                <a href="/categories/CTF/" class="category-link">
-                                    CTF
-                                </a>
-                            
-                        </span>
-                    
-                </div>
-                
-                <h3 class="post-title">
-                    <a href="/2025/07/21/SWPUCTF2021%E6%96%B0%E7%94%9F%E8%B5%9BWeb%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" class="post-link">
-                        SWPUCTF2021新生赛Web刷题记录
-                    </a>
-                </h3>
-                
-                <div class="post-date">
-                    July 21, 2025
-                </div>
-                
-                
-                    <div class="post-excerpt">
-                        [SWPUCTF 2021 新生赛]gift_F12Ctrl+U查看前端源码再Ctrl+F搜搜Flag即可
-[SWPUCTF 2021 新生赛]jicao&lt;?phphighlight_file(&#x27;index.php&#x27;);include(&quot;flag.php&quot;);$id=$_POST[&#x27;id&#x27;];$json=json_decode($_GET[&#x27;json&#x27;],true);if ($id==&quot;wllmNB&quot;&amp;&amp;$json[&#x27;x&#x27;]==&quot;wllm&quot;)&#123;echo $flag;&#125;?&gt;
-
-代码审计，以post方式传id=wllmNB和以get方式传json=&#123;&quot;x&quot;:&quot;wllm&quot;&#125;即可
-[SWPUCTF 2021 新生赛]easy_md5&lt;?php  highlight_file(__FILE__); include &#x27;flag2.php&#x27;; if (isset($_GET[&#x27;name&#x27;]) &amp;&amp; isset($_POST[&#x27;password&#x27;]))&#123;    $name = $_GET[&#x27;name&#x27;];    $password = $_POST[&#x27;password&#x27;];    if ($name != $password &amp;&amp; md5($name) == md5($password))&#123;        echo $flag;    &#125;    else &#123;        echo &quot;wrong!&quot;;    &#125; &#125;else &#123;    echo &#x27;wrong!&#x27;;&#125;?&gt;wrong!
-
-要求：name的值不等于password的值且其md5后相等
-两种方法：
-1.数组漏洞绕过
-                        
-                            <a href="/2025/07/21/SWPUCTF2021%E6%96%B0%E7%94%9F%E8%B5%9BWeb%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" class="read-more">
-                                Read more →
-                            </a>
-                        
-                    </div>
-                
-            </article>
-        
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
     </div>
-    
-    <!-- Pagination -->
-    
-        <nav class="pagination">
-            
-            
-            <span class="pagination-info">
-                Page 1 of 4
-            </span>
-            
-            
-                <a href="/page/2/" class="pagination-link next">
-                    Next →
-                </a>
-            
-        </nav>
-    
+  </div>
 </div>
-        </main>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-content">
-                <p>&copy; 2025 zer0ptr. All rights reserved.</p>
+</div>
+
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div id="board"
+          style="margin-top: 0">
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
                 
-            </div>
-        </footer>
-    </div>
 
-    <!-- 按需加载Highlight.js JavaScript -->
+
+  <div class="row mx-auto index-card">
     
     
-    <!-- JavaScript -->
-    <script defer src="/js/search.js"></script>
-    <script defer src="/js/script.js"></script>
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/08/26/CATCTF-RE-CatFly/" target="_self">
+          CATCTF-Reverse-CatFly Writeup
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/08/26/CATCTF-RE-CatFly/" target="_self">
+        <div>
+          Analysis查看文件类型 ~/CTF_Challenges/Reverse/CatFly$ file CatFly  CatFly: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-08-26 11:56" pubdate>
+              2025-08-26
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Reverse/" class="category-chain-item">Reverse</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Reverse/">#Reverse</a>
+            
+              <a href="/tags/CTF/">#CTF</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/08/26/adworld-easyRE/" target="_self">
+          easyRE1 Writeup
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/08/26/adworld-easyRE/" target="_self">
+        <div>
+          Analysis拿到附件用IDA打开F5出伪代码 int __cdecl main(int argc, const char **argv, const char **envp) &#123;   char s[256]; // [esp+1Ch] [ebp-10Ch] BYREF   unsigned int v5; // [esp+11Ch] [ebp-Ch]    v5 = __readgs
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-08-26 11:47" pubdate>
+              2025-08-26
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Reverse/" class="category-chain-item">Reverse</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Reverse/">#Reverse</a>
+            
+              <a href="/tags/CTF/">#CTF</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/08/26/adworld-reversing-x64Elf-100/" target="_self">
+          Reversing-x64Elf-100 Writeup
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/08/26/adworld-reversing-x64Elf-100/" target="_self">
+        <div>
+          Analysis拿到附件用file确定一下文件类型得知是64位ELF文件，用IDA分析： mian函数伪代码如下： __int64 __fastcall main(int a1, char **a2, char **a3) &#123;   char s[264]; // [rsp+0h] [rbp-110h] BYREF   unsigned __int64 v5; // [rsp+108h]
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-08-26 11:30" pubdate>
+              2025-08-26
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Reverse/">#Reverse</a>
+            
+              <a href="/tags/CTF/">#CTF</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/08/12/adworld-Misc-Jump-Cat-miao/" target="_self">
+          攻防世界Misc-Cat_Jump-Miao合集
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/08/12/adworld-Misc-Jump-Cat-miao/" target="_self">
+        <div>
+          Cat_Jump直接用vscode打开搜索catctf&#123;  Miao~附件内容是一张小猫的图片  分析图片中隐含的内容，得到一个wav文件  在Audacity中打开，查看频谱图，得到密码CatCTF
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-08-12 13:16" pubdate>
+              2025-08-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/misc/" class="category-chain-item">misc</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/misc/">#misc</a>
+            
+              <a href="/tags/ctf/">#ctf</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/08/12/adworld-misc-yangjianti/" target="_self">
+          攻防世界Misc-真是阳间题
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/08/12/adworld-misc-yangjianti/" target="_self">
+        <div>
+          附件内容： 艾尔登法环正式发售在即，迫不及待的mjj身上好像有蚂蚁在爬，写下了一句谜语： 3207357975641587136122466514425152961654613410728337142271750273124995105747053991640817066352343657398947248938255086358418100814441196784643527787764297
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-08-12 12:39" pubdate>
+              2025-08-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/misc/" class="category-chain-item">misc</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/misc/">#misc</a>
+            
+              <a href="/tags/ctf/">#ctf</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/08/11/%E8%81%8A%E8%81%8A%E7%AE%97%E6%B3%95%E4%B8%AD%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/" target="_self">
+          聊聊算法中的时间复杂度
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/08/11/%E8%81%8A%E8%81%8A%E7%AE%97%E6%B3%95%E4%B8%AD%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/" target="_self">
+        <div>
+          1.什么是时间复杂度时间复杂度是算法复杂度的一个类别(另一个是空间复杂度)，时间复杂度是指执行算法所需要的计算工作量，空间复杂度指执行这个算法所需要的内存空间 时间复杂度一个算法花费的时间与算法中语句的执行次数成正比例，哪个算法中语句执行次数多，它花费时间就多。一个算法中的语句执行次数称为语句频度或时间频度，记为$T(n)$ 一般情况下，算法中基本操作重复执行的次数是问题规模 $n$ 的某个函数，
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-08-11 09:50" pubdate>
+              2025-08-11
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Coding/" class="category-chain-item">Coding</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/algorithm/">#algorithm</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/08/06/luogu-p2089/" target="_self">
+          P2089 烤鸡
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/08/06/luogu-p2089/" target="_self">
+        <div>
+          Description原题地址：P2089 烤鸡 - 洛谷 思路：可直接暴力枚举，或者用深度优先搜索 实现枚举只需要做两层嵌套循环即可： // 枚举题解 #include&lt;iostream&gt;   using namespace std;   int main()   &#123;       int a,b,c,d,e,f,g,h,i,j,in,x=0;       cin&gt;&g
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-08-06 12:51" pubdate>
+              2025-08-06
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Coding/" class="category-chain-item">Coding</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Coding/">#Coding</a>
+            
+              <a href="/tags/algorithm/">#algorithm</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/08/05/CVE-2025-24813-Tomcat-RCE/" target="_self">
+          Tomcat RCE漏洞CVE-2025-24813复现
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/08/05/CVE-2025-24813-Tomcat-RCE/" target="_self">
+        <div>
+          前置知识JAVA序列化与反序列化简述JAVA序列化是JAVA语言内置的一种对象持久化的机制，它可以将JAVA对象转化为字节流，以便于在网络中进行传输，或者保存到本地进行持久化（类似于PHP序列化）。反序列化则是序列化的逆过程，将字节流转化回JAVA对象。 序列化过程中，JAVA会将对象的类型、属性以及属性的值等信息一起保存下来，反序列化时，JAVA会根据这些信息重新构建出原来的对象。这就意味着，如
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-08-05 18:07" pubdate>
+              2025-08-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/vuln-analysis/" class="category-chain-item">vuln analysis</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/vuln-analysis/">#vuln analysis</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/08/01/What-is-Attention/" target="_self">
+          What is Attention?
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/08/01/What-is-Attention/" target="_self">
+        <div>
+          Attention注意力的来源或许是因为大数据，在大数据中什么样子的数据都有，对于重要的数据我们要使用，对于不太重要的数据我们需要暂时忽略。 但是对于主流的卷积神经网络(Convolutional Neural Networks, CNN)或短期记忆递归神经网络(Long Short-Term Memory, LSTM)很难去决定什么重要，什么不重要。 在2017年Google发布 Attenti
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-08-01 13:23" pubdate>
+              2025-08-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/AI/" class="category-chain-item">AI</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/AI/">#AI</a>
+            
+              <a href="/tags/ML/">#ML</a>
+            
+              <a href="/tags/Attention/">#Attention</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/07/29/luogu-p1464-memo/" target="_self">
+          P1464与递归函数的记忆化搜索
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/07/29/luogu-p1464-memo/" target="_self">
+        <div>
+          原题地址：https://www.luogu.com.cn/problem/P1464  如果 $a≤0$ 或 $b≤0$ 或 $c≤0$ 就返回值 1  如果 $a&gt;20$ 或 $b&gt;20$ 或 $c&gt;20$ 就返回 w(20,20,20)$  如果 $a&lt;b$ 并且 $b&lt;c$ 就返回 $w(a,b,c−1)+w(a,b−1,c−1)−w(a,b−1,c)$  e
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-07-29 18:37" pubdate>
+              2025-07-29
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Coding/" class="category-chain-item">Coding</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Coding/">#Coding</a>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95/">#算法</a>
+            
+              <a href="/tags/algorithm/">#algorithm</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
 </body>
 </html>

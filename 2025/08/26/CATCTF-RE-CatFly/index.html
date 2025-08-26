@@ -1,0 +1,1455 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/SecureNexusLab.png">
+  <link rel="icon" href="/img/SecureNexusLab.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="zer0ptr">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Analysis查看文件类型 ~&#x2F;CTF_Challenges&#x2F;Reverse&#x2F;CatFly$ file CatFly  CatFly: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter &#x2F;lib64&#x2F;ld-linux-x86-64.so.2, BuildID[sha1]">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CATCTF-Reverse-CatFly Writeup">
+<meta property="og:url" content="https://zer0ptr.github.io/2025/08/26/CATCTF-RE-CatFly/index.html">
+<meta property="og:site_name" content="zer0ptr&#39;s Blog">
+<meta property="og:description" content="Analysis查看文件类型 ~&#x2F;CTF_Challenges&#x2F;Reverse&#x2F;CatFly$ file CatFly  CatFly: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter &#x2F;lib64&#x2F;ld-linux-x86-64.so.2, BuildID[sha1]">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-08-26T03:56:17.000Z">
+<meta property="article:modified_time" content="2025-08-26T06:52:22.129Z">
+<meta property="article:author" content="zer0ptr">
+<meta property="article:tag" content="Reverse">
+<meta property="article:tag" content="CTF">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>CATCTF-Reverse-CatFly Writeup - zer0ptr&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.7.0/style.min.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zer0ptr.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+  <script src="/js/sakura.js"></script>
+  <script src="/js/love.js"></script>
+<meta name="generator" content="Hexo 7.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zer0ptr&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>Links</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/background.PNG') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="CATCTF-Reverse-CatFly Writeup"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-08-26 11:56" pubdate>
+          August 26, 2025 am
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.5k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          21 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">CATCTF-Reverse-CatFly Writeup</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h1><p>查看文件类型</p>
+<div class="code-wrapper"><pre><code class="hljs bash">~/CTF_Challenges/Reverse/CatFly$ file CatFly 
+CatFly: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=d05baf98f7d937f503c87ced28e78998e8d3046b, <span class="hljs-keyword">for</span> GNU/Linux 3.2.0, stripped</code></pre></div>
+
+<p>main函数IDA伪代码如下：</p>
+<div class="code-wrapper"><pre><code class="hljs C">__int64 __fastcall <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> a1, <span class="hljs-type">char</span> **a2, <span class="hljs-type">char</span> **a3)</span>
+&#123;
+  <span class="hljs-type">size_t</span> v3; <span class="hljs-comment">// rbx</span>
+  _WORD v5[<span class="hljs-number">4</span>]; <span class="hljs-comment">// [rsp+10h] [rbp-4B0h] BYREF</span>
+  <span class="hljs-type">time_t</span> time1; <span class="hljs-comment">// [rsp+18h] [rbp-4A8h] BYREF</span>
+  <span class="hljs-type">time_t</span> timer; <span class="hljs-comment">// [rsp+20h] [rbp-4A0h] BYREF</span>
+  <span class="hljs-type">int</span> longind; <span class="hljs-comment">// [rsp+2Ch] [rbp-494h] BYREF</span>
+  _QWORD s[<span class="hljs-number">129</span>]; <span class="hljs-comment">// [rsp+30h] [rbp-490h] BYREF</span>
+  <span class="hljs-type">int</span> v10; <span class="hljs-comment">// [rsp+43Ch] [rbp-84h]</span>
+  <span class="hljs-type">double</span> v11; <span class="hljs-comment">// [rsp+440h] [rbp-80h]</span>
+  <span class="hljs-type">char</span> *v12; <span class="hljs-comment">// [rsp+448h] [rbp-78h]</span>
+  <span class="hljs-type">int</span> v13; <span class="hljs-comment">// [rsp+450h] [rbp-70h]</span>
+  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> v14; <span class="hljs-comment">// [rsp+454h] [rbp-6Ch]</span>
+  <span class="hljs-type">unsigned</span> __int8 v15; <span class="hljs-comment">// [rsp+45Ah] [rbp-66h]</span>
+  <span class="hljs-type">char</span> v16; <span class="hljs-comment">// [rsp+45Bh] [rbp-65h]</span>
+  <span class="hljs-type">int</span> n; <span class="hljs-comment">// [rsp+45Ch] [rbp-64h]</span>
+  <span class="hljs-type">int</span> v18; <span class="hljs-comment">// [rsp+460h] [rbp-60h]</span>
+  <span class="hljs-type">char</span> v19; <span class="hljs-comment">// [rsp+467h] [rbp-59h]</span>
+  <span class="hljs-type">int</span> m; <span class="hljs-comment">// [rsp+468h] [rbp-58h]</span>
+  <span class="hljs-type">int</span> k; <span class="hljs-comment">// [rsp+46Ch] [rbp-54h]</span>
+  <span class="hljs-type">char</span> v22; <span class="hljs-comment">// [rsp+473h] [rbp-4Dh]</span>
+  <span class="hljs-type">int</span> v23; <span class="hljs-comment">// [rsp+474h] [rbp-4Ch]</span>
+  <span class="hljs-type">unsigned</span> __int64 v24; <span class="hljs-comment">// [rsp+478h] [rbp-48h]</span>
+  <span class="hljs-type">int</span> v25; <span class="hljs-comment">// [rsp+484h] [rbp-3Ch]</span>
+  <span class="hljs-type">int</span> v26; <span class="hljs-comment">// [rsp+488h] [rbp-38h]</span>
+  <span class="hljs-type">int</span> v27; <span class="hljs-comment">// [rsp+48Ch] [rbp-34h]</span>
+  <span class="hljs-type">char</span> v28; <span class="hljs-comment">// [rsp+490h] [rbp-30h]</span>
+  <span class="hljs-type">bool</span> v29; <span class="hljs-comment">// [rsp+491h] [rbp-2Fh]</span>
+  <span class="hljs-type">unsigned</span> __int16 v30; <span class="hljs-comment">// [rsp+492h] [rbp-2Eh]</span>
+  <span class="hljs-type">int</span> v31; <span class="hljs-comment">// [rsp+494h] [rbp-2Ch]</span>
+  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> v32; <span class="hljs-comment">// [rsp+498h] [rbp-28h]</span>
+  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> i; <span class="hljs-comment">// [rsp+49Ch] [rbp-24h]</span>
+  <span class="hljs-type">int</span> v34; <span class="hljs-comment">// [rsp+4A0h] [rbp-20h]</span>
+  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> j; <span class="hljs-comment">// [rsp+4A4h] [rbp-1Ch]</span>
+  <span class="hljs-type">char</span> *haystack; <span class="hljs-comment">// [rsp+4A8h] [rbp-18h]</span>
+
+  haystack = <span class="hljs-number">0</span>;
+  i = <span class="hljs-number">0</span>;
+  v32 = <span class="hljs-number">0</span>;
+  v31 = <span class="hljs-number">0</span>;
+  <span class="hljs-built_in">memset</span>(s, <span class="hljs-number">0</span>, <span class="hljs-number">1024</span>);
+  v30 = <span class="hljs-number">0</span>;
+  v29 = <span class="hljs-number">0</span>;
+  v28 = <span class="hljs-number">0</span>;
+  v27 = <span class="hljs-number">90</span>;
+  <span class="hljs-keyword">while</span> ( <span class="hljs-number">1</span> )
+  &#123;
+    v26 = getopt_long(a1, a2, <span class="hljs-string">&quot;eshiItnd:f:r:R:c:C:W:H:&quot;</span>, &amp;longopts, &amp;longind);
+    <span class="hljs-keyword">if</span> ( v26 == <span class="hljs-number">-1</span> )
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">if</span> ( !v26 &amp;&amp; !*((_QWORD *)&amp;longopts.flag + <span class="hljs-number">4</span> * longind) )
+      v26 = *(&amp;longopts.val + <span class="hljs-number">8</span> * longind);
+    <span class="hljs-keyword">switch</span> ( v26 )
+    &#123;
+      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;C&#x27;</span>:
+        dword_E1F8 = atoi(optarg);
+        <span class="hljs-keyword">break</span>;
+      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;H&#x27;</span>:
+        dword_E1EC = (<span class="hljs-number">64</span> - atoi(optarg)) / <span class="hljs-number">2</span>;
+        dword_E1F0 = (atoi(optarg) + <span class="hljs-number">64</span>) / <span class="hljs-number">2</span>;
+        <span class="hljs-keyword">break</span>;
+      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;I&#x27;</span>:
+        v28 = <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">break</span>;
+      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;R&#x27;</span>:
+        dword_E1F0 = atoi(optarg);
+        <span class="hljs-keyword">break</span>;
+      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;W&#x27;</span>:
+        dword_E1F4 = (<span class="hljs-number">64</span> - atoi(optarg)) / <span class="hljs-number">2</span>;
+        dword_E1F8 = (atoi(optarg) + <span class="hljs-number">64</span>) / <span class="hljs-number">2</span>;
+        <span class="hljs-keyword">break</span>;
+      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;c&#x27;</span>:
+        dword_E1F4 = atoi(optarg);
+        <span class="hljs-keyword">break</span>;
+      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;d&#x27;</span>:
+        <span class="hljs-keyword">if</span> ( atoi(optarg) &gt; <span class="hljs-number">9</span> &amp;&amp; atoi(optarg) &lt;= <span class="hljs-number">1000</span> )
+          v27 = atoi(optarg);
+        <span class="hljs-keyword">break</span>;
+      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;e&#x27;</span>:
+        dword_E104 = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">break</span>;
+      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;f&#x27;</span>:
+        dword_104C4 = atoi(optarg);
+        <span class="hljs-keyword">break</span>;
+      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;h&#x27;</span>:
+        sub_67F0(a2);
+        <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);
+      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;i&#x27;</span>:
+        v29 = <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">break</span>;
+      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;r&#x27;</span>:
+        dword_E1EC = atoi(optarg);
+        <span class="hljs-keyword">break</span>;
+      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;s&#x27;</span>:
+        dword_E108 = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">break</span>;
+      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;t&#x27;</span>:
+        dword_104C0 = <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">break</span>;
+      <span class="hljs-keyword">default</span>:
+        <span class="hljs-keyword">continue</span>;
+    &#125;
+  &#125;
+  <span class="hljs-keyword">if</span> ( dword_104C0 )
+  &#123;
+    v29 = v28 == <span class="hljs-number">0</span>;
+    sub_6669();
+    <span class="hljs-keyword">for</span> ( i = <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">0xFF</span>; ++i )
+    &#123;
+      <span class="hljs-keyword">if</span> ( *((_BYTE *)&amp;unk_104E0 + i) )
+      &#123;
+        sub_66AF(*((<span class="hljs-type">unsigned</span> __int8 *)&amp;unk_104E0 + i), i);
+        fflush(<span class="hljs-built_in">stdout</span>);
+      &#125;
+    &#125;
+    <span class="hljs-keyword">for</span> ( i = <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">0xFF</span>; ++i )
+    &#123;
+      <span class="hljs-keyword">if</span> ( *((_BYTE *)&amp;unk_105E0 + i) )
+      &#123;
+        sub_66AF(*((<span class="hljs-type">unsigned</span> __int8 *)&amp;unk_105E0 + i), i);
+        fflush(<span class="hljs-built_in">stdout</span>);
+      &#125;
+    &#125;
+    signal(<span class="hljs-number">14</span>, sub_64C0);
+    <span class="hljs-keyword">if</span> ( !_setjmp(env) )
+    &#123;
+      alarm(<span class="hljs-number">1u</span>);
+      <span class="hljs-keyword">while</span> ( !feof(<span class="hljs-built_in">stdin</span>) &amp;&amp; v32 &lt;= <span class="hljs-number">1</span> )
+      &#123;
+        v16 = getchar();
+        v15 = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">if</span> ( v16 == <span class="hljs-number">-1</span> )
+        &#123;
+          v16 = getchar();
+          <span class="hljs-keyword">switch</span> ( v16 )
+          &#123;
+            <span class="hljs-keyword">case</span> <span class="hljs-number">-16</span>:
+              v31 = <span class="hljs-number">0</span>;
+              <span class="hljs-keyword">if</span> ( LOBYTE(s[<span class="hljs-number">0</span>]) == <span class="hljs-number">24</span> )
+              &#123;
+                alarm(<span class="hljs-number">2u</span>);
+                haystack = strndup((<span class="hljs-type">const</span> <span class="hljs-type">char</span> *)s + <span class="hljs-number">2</span>, <span class="hljs-number">0x3FEu</span>);
+                ++v32;
+              &#125;
+              <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( LOBYTE(s[<span class="hljs-number">0</span>]) == <span class="hljs-number">31</span> )
+              &#123;
+                alarm(<span class="hljs-number">2u</span>);
+                dword_E1FC = (BYTE1(s[<span class="hljs-number">0</span>]) &lt;&lt; <span class="hljs-number">8</span>) | BYTE2(s[<span class="hljs-number">0</span>]);
+                dword_E200 = (BYTE3(s[<span class="hljs-number">0</span>]) &lt;&lt; <span class="hljs-number">8</span>) | BYTE4(s[<span class="hljs-number">0</span>]);
+                ++v32;
+              &#125;
+              <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-number">-15</span>:
+              sub_66AF(<span class="hljs-number">241</span>, <span class="hljs-number">0</span>);
+              fflush(<span class="hljs-built_in">stdout</span>);
+              <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-number">-6</span>:
+              v31 = <span class="hljs-number">1</span>;
+              v30 = <span class="hljs-number">0</span>;
+              <span class="hljs-built_in">memset</span>(s, <span class="hljs-number">0</span>, <span class="hljs-number">0x400u</span>);
+              <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-number">-5</span>:
+            <span class="hljs-keyword">case</span> <span class="hljs-number">-4</span>:
+              v15 = getchar();
+              <span class="hljs-keyword">if</span> ( !*((_BYTE *)&amp;unk_105E0 + v15) )
+                *((_BYTE *)&amp;unk_105E0 + v15) = <span class="hljs-number">-4</span>;
+              sub_66AF(*((<span class="hljs-type">unsigned</span> __int8 *)&amp;unk_105E0 + v15), v15);
+              fflush(<span class="hljs-built_in">stdout</span>);
+              <span class="hljs-keyword">if</span> ( v16 == <span class="hljs-number">-5</span> &amp;&amp; v15 == <span class="hljs-number">24</span> )
+              &#123;
+                <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%c%c%c%c%c%c&quot;</span>, <span class="hljs-number">255</span>, <span class="hljs-number">250</span>, <span class="hljs-number">24</span>, <span class="hljs-number">1</span>, <span class="hljs-number">255</span>, <span class="hljs-number">240</span>);
+                fflush(<span class="hljs-built_in">stdout</span>);
+              &#125;
+              <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-number">-3</span>:
+            <span class="hljs-keyword">case</span> <span class="hljs-number">-2</span>:
+              v15 = getchar();
+              <span class="hljs-keyword">if</span> ( !*((_BYTE *)&amp;unk_104E0 + v15) )
+                *((_BYTE *)&amp;unk_104E0 + v15) = <span class="hljs-number">-2</span>;
+              sub_66AF(*((<span class="hljs-type">unsigned</span> __int8 *)&amp;unk_104E0 + v15), v15);
+              fflush(<span class="hljs-built_in">stdout</span>);
+              <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-number">-1</span>:
+              v32 = <span class="hljs-number">2</span>;
+              <span class="hljs-keyword">break</span>;
+            <span class="hljs-keyword">default</span>:
+              <span class="hljs-keyword">continue</span>;
+          &#125;
+        &#125;
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( v31 &amp;&amp; v30 &lt;= <span class="hljs-number">0x3FEu</span> )
+        &#123;
+          *((_BYTE *)s + v30++) = v16;
+        &#125;
+      &#125;
+    &#125;
+    alarm(<span class="hljs-number">0</span>);
+  &#125;
+  <span class="hljs-keyword">else</span>
+  &#123;
+    haystack = getenv(<span class="hljs-string">&quot;TERM&quot;</span>);
+    ioctl(<span class="hljs-number">0</span>, <span class="hljs-number">0x5413u</span>, v5);
+    dword_E1FC = v5[<span class="hljs-number">1</span>];
+    dword_E200 = v5[<span class="hljs-number">0</span>];
+  &#125;
+  v34 = <span class="hljs-number">2</span>;
+  <span class="hljs-keyword">if</span> ( haystack )
+  &#123;
+    <span class="hljs-keyword">for</span> ( j = <span class="hljs-number">0</span>; ; ++j )
+    &#123;
+      v3 = j;
+      <span class="hljs-keyword">if</span> ( v3 &gt;= <span class="hljs-built_in">strlen</span>(haystack) )
+        <span class="hljs-keyword">break</span>;
+      haystack[j] = <span class="hljs-built_in">tolower</span>(haystack[j]);
+    &#125;
+    <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strstr</span>(haystack, <span class="hljs-string">&quot;xterm&quot;</span>) )
+    &#123;
+      v34 = <span class="hljs-number">1</span>;
+    &#125;
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strstr</span>(haystack, <span class="hljs-string">&quot;toaru&quot;</span>) )
+    &#123;
+      v34 = <span class="hljs-number">1</span>;
+    &#125;
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strstr</span>(haystack, <span class="hljs-string">&quot;linux&quot;</span>) )
+    &#123;
+      v34 = <span class="hljs-number">3</span>;
+    &#125;
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strstr</span>(haystack, <span class="hljs-string">&quot;vtnt&quot;</span>) )
+    &#123;
+      v34 = <span class="hljs-number">5</span>;
+    &#125;
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strstr</span>(haystack, <span class="hljs-string">&quot;cygwin&quot;</span>) )
+    &#123;
+      v34 = <span class="hljs-number">5</span>;
+    &#125;
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strstr</span>(haystack, <span class="hljs-string">&quot;vt220&quot;</span>) )
+    &#123;
+      v34 = <span class="hljs-number">6</span>;
+    &#125;
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strstr</span>(haystack, <span class="hljs-string">&quot;fallback&quot;</span>) )
+    &#123;
+      v34 = <span class="hljs-number">4</span>;
+    &#125;
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strstr</span>(haystack, <span class="hljs-string">&quot;rxvt-256color&quot;</span>) )
+    &#123;
+      v34 = <span class="hljs-number">1</span>;
+    &#125;
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strstr</span>(haystack, <span class="hljs-string">&quot;rxvt&quot;</span>) )
+    &#123;
+      v34 = <span class="hljs-number">3</span>;
+    &#125;
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strstr</span>(haystack, <span class="hljs-string">&quot;vt100&quot;</span>) &amp;&amp; dword_E1FC == <span class="hljs-number">40</span> )
+    &#123;
+      v34 = <span class="hljs-number">7</span>;
+    &#125;
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( !<span class="hljs-built_in">strncmp</span>(haystack, <span class="hljs-string">&quot;st&quot;</span>, <span class="hljs-number">2u</span>) )
+    &#123;
+      v34 = <span class="hljs-number">1</span>;
+    &#125;
+  &#125;
+  v25 = <span class="hljs-number">0</span>;
+  signal(<span class="hljs-number">2</span>, sub_64A8);
+  signal(<span class="hljs-number">13</span>, sub_64E6);
+  <span class="hljs-keyword">if</span> ( !dword_104C0 )
+    signal(<span class="hljs-number">28</span>, handler);
+  <span class="hljs-keyword">switch</span> ( v34 )
+  &#123;
+    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:
+      qword_FE20 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;17m&quot;</span>;
+      qword_FE30 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;231m&quot;</span>;
+      qword_FDF8 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;16m&quot;</span>;
+      qword_FEC0 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;230m&quot;</span>;
+      qword_FDE0 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;175m&quot;</span>;
+      qword_FE28 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;162m&quot;</span>;
+      qword_FEB0 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;196m&quot;</span>;
+      qword_FDF0 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;214m&quot;</span>;
+      qword_FE18 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;226m&quot;</span>;
+      qword_FDD8 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;118m&quot;</span>;
+      qword_FEA8 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;33m&quot;</span>;
+      qword_FE98 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;19m&quot;</span>;
+      qword_FE10 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;240m&quot;</span>;
+      qword_FDE8 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;175m&quot;</span>;
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:
+      qword_FE20 = (__int64)<span class="hljs-string">&quot;\x1B[104m&quot;</span>;
+      qword_FE30 = (__int64)<span class="hljs-string">&quot;\x1B[107m&quot;</span>;
+      qword_FDF8 = (__int64)<span class="hljs-string">&quot;\x1B[40m&quot;</span>;
+      qword_FEC0 = (__int64)<span class="hljs-string">&quot;\x1B[47m&quot;</span>;
+      qword_FDE0 = (__int64)<span class="hljs-string">&quot;\x1B[105m&quot;</span>;
+      qword_FE28 = (__int64)<span class="hljs-string">&quot;\x1B[101m&quot;</span>;
+      qword_FEB0 = (__int64)<span class="hljs-string">&quot;\x1B[101m&quot;</span>;
+      qword_FDF0 = (__int64)<span class="hljs-string">&quot;\x1B[43m&quot;</span>;
+      qword_FE18 = (__int64)<span class="hljs-string">&quot;\x1B[103m&quot;</span>;
+      qword_FDD8 = (__int64)<span class="hljs-string">&quot;\x1B[102m&quot;</span>;
+      qword_FEA8 = (__int64)<span class="hljs-string">&quot;\x1B[104m&quot;</span>;
+      qword_FE98 = (__int64)<span class="hljs-string">&quot;\x1B[44m&quot;</span>;
+      qword_FE10 = (__int64)<span class="hljs-string">&quot;\x1B[100m&quot;</span>;
+      qword_FDE8 = (__int64)<span class="hljs-string">&quot;\x1B[105m&quot;</span>;
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:
+      qword_FE20 = (__int64)<span class="hljs-string">&quot;\x1B[25;44m&quot;</span>;
+      qword_FE30 = (__int64)<span class="hljs-string">&quot;\x1B[5;47m&quot;</span>;
+      qword_FDF8 = (__int64)<span class="hljs-string">&quot;\x1B[25;40m&quot;</span>;
+      qword_FEC0 = (__int64)<span class="hljs-string">&quot;\x1B[5;47m&quot;</span>;
+      qword_FDE0 = (__int64)<span class="hljs-string">&quot;\x1B[5;45m&quot;</span>;
+      qword_FE28 = (__int64)<span class="hljs-string">&quot;\x1B[5;41m&quot;</span>;
+      qword_FEB0 = (__int64)<span class="hljs-string">&quot;\x1B[5;41m&quot;</span>;
+      qword_FDF0 = (__int64)<span class="hljs-string">&quot;\x1B[25;43m&quot;</span>;
+      qword_FE18 = (__int64)<span class="hljs-string">&quot;\x1B[5;43m&quot;</span>;
+      qword_FDD8 = (__int64)<span class="hljs-string">&quot;\x1B[5;42m&quot;</span>;
+      qword_FEA8 = (__int64)<span class="hljs-string">&quot;\x1B[25;44m&quot;</span>;
+      qword_FE98 = (__int64)<span class="hljs-string">&quot;\x1B[5;44m&quot;</span>;
+      qword_FE10 = (__int64)<span class="hljs-string">&quot;\x1B[5;40m&quot;</span>;
+      qword_FDE8 = (__int64)<span class="hljs-string">&quot;\x1B[5;45m&quot;</span>;
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:
+      qword_FE20 = (__int64)<span class="hljs-string">&quot;\x1B[0;34;44m&quot;</span>;
+      qword_FE30 = (__int64)<span class="hljs-string">&quot;\x1B[1;37;47m&quot;</span>;
+      qword_FDF8 = (__int64)<span class="hljs-string">&quot;\x1B[0;30;40m&quot;</span>;
+      qword_FEC0 = (__int64)<span class="hljs-string">&quot;\x1B[1;37;47m&quot;</span>;
+      qword_FDE0 = (__int64)<span class="hljs-string">&quot;\x1B[1;35;45m&quot;</span>;
+      qword_FE28 = (__int64)<span class="hljs-string">&quot;\x1B[1;31;41m&quot;</span>;
+      qword_FEB0 = (__int64)<span class="hljs-string">&quot;\x1B[1;31;41m&quot;</span>;
+      qword_FDF0 = (__int64)<span class="hljs-string">&quot;\x1B[0;33;43m&quot;</span>;
+      qword_FE18 = (__int64)<span class="hljs-string">&quot;\x1B[1;33;43m&quot;</span>;
+      qword_FDD8 = (__int64)<span class="hljs-string">&quot;\x1B[1;32;42m&quot;</span>;
+      qword_FEA8 = (__int64)<span class="hljs-string">&quot;\x1B[1;34;44m&quot;</span>;
+      qword_FE98 = (__int64)<span class="hljs-string">&quot;\x1B[0;34;44m&quot;</span>;
+      qword_FE10 = (__int64)<span class="hljs-string">&quot;\x1B[1;30;40m&quot;</span>;
+      qword_FDE8 = (__int64)<span class="hljs-string">&quot;\x1B[1;35;45m&quot;</span>;
+      off_FA88 = (<span class="hljs-type">char</span> *)&amp;unk_BCFF;
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-number">5</span>:
+      qword_FE20 = (__int64)<span class="hljs-string">&quot;\x1B[0;34;44m&quot;</span>;
+      qword_FE30 = (__int64)<span class="hljs-string">&quot;\x1B[1;37;47m&quot;</span>;
+      qword_FDF8 = (__int64)<span class="hljs-string">&quot;\x1B[0;30;40m&quot;</span>;
+      qword_FEC0 = (__int64)<span class="hljs-string">&quot;\x1B[1;37;47m&quot;</span>;
+      qword_FDE0 = (__int64)<span class="hljs-string">&quot;\x1B[1;35;45m&quot;</span>;
+      qword_FE28 = (__int64)<span class="hljs-string">&quot;\x1B[1;31;41m&quot;</span>;
+      qword_FEB0 = (__int64)<span class="hljs-string">&quot;\x1B[1;31;41m&quot;</span>;
+      qword_FDF0 = (__int64)<span class="hljs-string">&quot;\x1B[0;33;43m&quot;</span>;
+      qword_FE18 = (__int64)<span class="hljs-string">&quot;\x1B[1;33;43m&quot;</span>;
+      qword_FDD8 = (__int64)<span class="hljs-string">&quot;\x1B[1;32;42m&quot;</span>;
+      qword_FEA8 = (__int64)<span class="hljs-string">&quot;\x1B[1;34;44m&quot;</span>;
+      qword_FE98 = (__int64)<span class="hljs-string">&quot;\x1B[0;34;44m&quot;</span>;
+      qword_FE10 = (__int64)<span class="hljs-string">&quot;\x1B[1;30;40m&quot;</span>;
+      qword_FDE8 = (__int64)<span class="hljs-string">&quot;\x1B[1;35;45m&quot;</span>;
+      off_FA88 = (<span class="hljs-type">char</span> *)&amp;unk_BD06;
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-number">6</span>:
+      qword_FE20 = (__int64)&amp;unk_BD09;
+      qword_FE30 = (__int64)&amp;unk_BD0C;
+      qword_FDF8 = (__int64)<span class="hljs-string">&quot;  &quot;</span>;
+      qword_FEC0 = (__int64)&amp;unk_BD0F;
+      qword_FDE0 = (__int64)&amp;unk_BD12;
+      qword_FE28 = (__int64)&amp;unk_BD15;
+      qword_FEB0 = (__int64)&amp;unk_BD0F;
+      qword_FDF0 = (__int64)&amp;unk_BD18;
+      qword_FE18 = (__int64)&amp;unk_BD1B;
+      qword_FDD8 = (__int64)&amp;unk_BD1E;
+      qword_FEA8 = (__int64)&amp;unk_BD21;
+      qword_FE98 = (__int64)&amp;unk_BD24;
+      qword_FE10 = (__int64)&amp;unk_BD27;
+      qword_FDE8 = (__int64)&amp;unk_BD2A;
+      v25 = <span class="hljs-number">1</span>;
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-number">7</span>:
+      qword_FE20 = (__int64)&amp;unk_BD2D;
+      qword_FE30 = (__int64)&amp;unk_BD2F;
+      qword_FDF8 = (__int64)&amp;unk_BD31;
+      qword_FEC0 = (__int64)&amp;unk_BD33;
+      qword_FDE0 = (__int64)&amp;unk_BD35;
+      qword_FE28 = (__int64)&amp;unk_BD37;
+      qword_FEB0 = (__int64)&amp;unk_BD33;
+      qword_FDF0 = (__int64)&amp;unk_BD39;
+      qword_FE18 = (__int64)&amp;unk_BD3B;
+      qword_FDD8 = (__int64)&amp;unk_BD3D;
+      qword_FEA8 = (__int64)&amp;unk_BD3F;
+      qword_FE98 = (__int64)&amp;unk_BD41;
+      qword_FE10 = (__int64)&amp;unk_BD43;
+      qword_FDE8 = (__int64)&amp;unk_BD45;
+      v25 = <span class="hljs-number">1</span>;
+      dword_E1FC = <span class="hljs-number">40</span>;
+      <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">default</span>:
+      <span class="hljs-keyword">break</span>;
+  &#125;
+  <span class="hljs-keyword">if</span> ( dword_E1F4 == dword_E1F8 )
+  &#123;
+    dword_E1F4 = (dword_E1FC / <span class="hljs-number">-2</span> + <span class="hljs-number">64</span>) / <span class="hljs-number">2</span>;
+    dword_E1F8 = (dword_E1FC / <span class="hljs-number">2</span> + <span class="hljs-number">64</span>) / <span class="hljs-number">2</span>;
+    byte_104CB = <span class="hljs-number">1</span>;
+  &#125;
+  <span class="hljs-keyword">if</span> ( dword_E1EC == dword_E1F0 )
+  &#123;
+    dword_E1EC = (<span class="hljs-number">65</span> - dword_E200) / <span class="hljs-number">2</span>;
+    dword_E1F0 = (dword_E200 + <span class="hljs-number">63</span>) / <span class="hljs-number">2</span>;
+    byte_104CC = <span class="hljs-number">1</span>;
+  &#125;
+  <span class="hljs-keyword">if</span> ( dword_E108 )
+  &#123;
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\x1BkNyanyanyanyanyanyanya...\x1B\\&quot;</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\x1B]1;Nyanyanyanyanyanyanya...\a&quot;</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\x1B]2;Nyanyanyanyanyanyanya...\a&quot;</span>);
+  &#125;
+  <span class="hljs-keyword">if</span> ( dword_E104 )
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\x1B[H\x1B[2J\x1B[?25l&quot;</span>);
+  <span class="hljs-keyword">else</span>
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\x1B[s&quot;</span>);
+  <span class="hljs-keyword">if</span> ( v29 )
+  &#123;
+    v14 = <span class="hljs-number">5</span>;
+    <span class="hljs-keyword">for</span> ( j = <span class="hljs-number">0</span>; j &lt; v14; ++j )
+    &#123;
+      sub_65E2(<span class="hljs-number">3</span>);
+      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;                             \x1B[1mNyancat Telnet Server\x1B[0m&quot;</span>);
+      sub_65E2(<span class="hljs-number">2</span>);
+      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;                   written and run by \x1B[1;32mK. Lange\x1B[1;34m @_klange\x1B[0m&quot;</span>);
+      sub_65E2(<span class="hljs-number">2</span>);
+      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;        If things don&#x27;t look right, try:&quot;</span>);
+      sub_65E2(<span class="hljs-number">1</span>);
+      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;                TERM=fallback telnet ...&quot;</span>);
+      sub_65E2(<span class="hljs-number">2</span>);
+      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;        Or on Windows:&quot;</span>);
+      sub_65E2(<span class="hljs-number">1</span>);
+      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;                telnet -t vtnt ...&quot;</span>);
+      sub_65E2(<span class="hljs-number">2</span>);
+      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;        Problems? Check the website:&quot;</span>);
+      sub_65E2(<span class="hljs-number">1</span>);
+      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;                \x1B[1;34mhttp://nyancat.dakko.us\x1B[0m&quot;</span>);
+      sub_65E2(<span class="hljs-number">2</span>);
+      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;        This is a telnet server, remember your escape keys!&quot;</span>);
+      sub_65E2(<span class="hljs-number">1</span>);
+      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;                \x1B[1;31m^]quit\x1B[0m to exit&quot;</span>);
+      sub_65E2(<span class="hljs-number">2</span>);
+      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;        Starting in %d...                \n&quot;</span>, v14 - j);
+      fflush(<span class="hljs-built_in">stdout</span>);
+      usleep(<span class="hljs-number">0x61A80u</span>);
+      <span class="hljs-keyword">if</span> ( dword_E104 )
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\x1B[H&quot;</span>);
+      <span class="hljs-keyword">else</span>
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\x1B[u&quot;</span>);
+    &#125;
+    <span class="hljs-keyword">if</span> ( dword_E104 )
+      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\x1B[H\x1B[2J\x1B[?25l&quot;</span>);
+  &#125;
+  time(&amp;timer);
+  v13 = <span class="hljs-number">1</span>;
+  v24 = <span class="hljs-number">0</span>;
+  v23 = <span class="hljs-number">0</span>;
+  v22 = <span class="hljs-number">0</span>;
+  v12 = off_FA88;
+  <span class="hljs-keyword">while</span> ( v13 )
+  &#123;
+    <span class="hljs-keyword">if</span> ( dword_E104 )
+      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\x1B[H&quot;</span>);
+    <span class="hljs-keyword">else</span>
+      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\x1B[u&quot;</span>);
+    <span class="hljs-keyword">for</span> ( k = dword_E1EC; k &lt; dword_E1F0; ++k )
+    &#123;
+      <span class="hljs-keyword">for</span> ( m = dword_E1F4; m &lt; dword_E1F8; ++m )
+      &#123;
+        <span class="hljs-keyword">if</span> ( k &lt;= <span class="hljs-number">23</span> || k &gt; <span class="hljs-number">42</span> || m &gt;= <span class="hljs-number">0</span> )
+        &#123;
+          <span class="hljs-keyword">if</span> ( m &gt;= <span class="hljs-number">0</span> &amp;&amp; (<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>)k &lt; <span class="hljs-number">0x40</span> &amp;&amp; m &lt;= <span class="hljs-number">63</span> )
+          &#123;
+            v19 = off_FA20[v24][k][m];
+            off_FA88 = (<span class="hljs-type">char</span> *)sub_6314((<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>)v24, (<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>)k, (<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>)m, v12);
+          &#125;
+          <span class="hljs-keyword">else</span>
+          &#123;
+            v19 = <span class="hljs-number">44</span>;
+          &#125;
+        &#125;
+        <span class="hljs-keyword">else</span>
+        &#123;
+          v18 = (<span class="hljs-number">2</span> - m) % <span class="hljs-number">16</span> / <span class="hljs-number">8</span>;
+          <span class="hljs-keyword">if</span> ( ((v24 &gt;&gt; <span class="hljs-number">1</span>) &amp; <span class="hljs-number">1</span>) != <span class="hljs-number">0</span> )
+            v18 = <span class="hljs-number">1</span> - v18;
+          s[<span class="hljs-number">128</span>] = <span class="hljs-string">&quot;,,&gt;&gt;&amp;&amp;&amp;+++###==;;;,,&quot;</span>;
+          v19 = asc_BFE3[v18 - <span class="hljs-number">23</span> + k];
+          <span class="hljs-keyword">if</span> ( !v19 )
+            v19 = <span class="hljs-number">44</span>;
+        &#125;
+        <span class="hljs-keyword">if</span> ( v25 )
+        &#123;
+          <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, *((<span class="hljs-type">const</span> <span class="hljs-type">char</span> **)&amp;unk_FCC0 + v19));
+        &#125;
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( v19 == v22 || !*((_QWORD *)&amp;unk_FCC0 + v19) )
+        &#123;
+          <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, off_FA88);
+        &#125;
+        <span class="hljs-keyword">else</span>
+        &#123;
+          v22 = v19;
+          <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s%s&quot;</span>, *((<span class="hljs-type">const</span> <span class="hljs-type">char</span> **)&amp;unk_FCC0 + v19), off_FA88);
+        &#125;
+      &#125;
+      sub_65E2(<span class="hljs-number">1</span>);
+    &#125;
+    <span class="hljs-keyword">if</span> ( dword_E100 )
+    &#123;
+      time(&amp;time1);
+      v11 = difftime(time1, timer);
+      v10 = sub_63FF((<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>)(<span class="hljs-type">int</span>)v11);
+      <span class="hljs-keyword">for</span> ( n = (dword_E1FC - <span class="hljs-number">29</span> - v10) / <span class="hljs-number">2</span>; n &gt; <span class="hljs-number">0</span>; --n )
+        <span class="hljs-built_in">putchar</span>(<span class="hljs-number">32</span>);
+      dword_E1E8 += <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\x1B[1;37mYou have nyaned for %d times!\x1B[J\x1B[0m&quot;</span>, ++dword_108E0);
+    &#125;
+    v22 = <span class="hljs-number">0</span>;
+    ++v23;
+    <span class="hljs-keyword">if</span> ( dword_104C4 &amp;&amp; v23 == dword_104C4 )
+      sub_6471();
+    <span class="hljs-keyword">if</span> ( !off_FA20[++v24] )
+      v24 = <span class="hljs-number">0</span>;
+    usleep(<span class="hljs-number">1000</span> * v27);
+  &#125;
+  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre></div>
+
+<p>注意到这一部分，<code>printf(&quot;%s&quot;, off_FA88);</code>这里我们进一步跟进 <code>off_FA88</code><br>看到了对它的赋值操作 <code>off_FA88 = sub_6314((unsigned int)v24, k, m, (__int64)v12);</code><br>此时我们查看<code>sub_6314</code>的源代码</p>
+<div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-keyword">if</span> ( m &gt;= <span class="hljs-number">0</span> &amp;&amp; (<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>)k &lt; <span class="hljs-number">0x40</span> &amp;&amp; m &lt;= <span class="hljs-number">63</span> )
+          &#123;
+            v19 = off_FA20[v24][k][m];
+            off_FA88 = (<span class="hljs-type">char</span> *)sub_6314((<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>)v24, (<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>)k, (<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>)m, v12);
+          &#125;
+          <span class="hljs-keyword">else</span>
+          &#123;
+            v19 = <span class="hljs-number">44</span>;</code></pre></div>
+
+<p>以下是<code>sub_6314</code>的代码：</p>
+<div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-type">char</span> *__fastcall <span class="hljs-title function_">sub_6314</span><span class="hljs-params">(__int64 a1, <span class="hljs-type">int</span> a2, <span class="hljs-type">int</span> a3, __int64 a4)</span>
+&#123;
+  <span class="hljs-keyword">if</span> ( a2 != <span class="hljs-number">18</span> )
+    <span class="hljs-keyword">return</span> (<span class="hljs-type">char</span> *)a4;
+  <span class="hljs-keyword">if</span> ( a3 &lt;= <span class="hljs-number">4</span> || a3 &gt; <span class="hljs-number">54</span> )
+    <span class="hljs-keyword">return</span> (<span class="hljs-type">char</span> *)a4;
+  byte_104C9 = <span class="hljs-number">32</span>;
+  dword_E120[a3 - <span class="hljs-number">5</span>] ^= sub_62B5();
+  <span class="hljs-keyword">if</span> ( (<span class="hljs-type">unsigned</span> __int8)sub_62E3(dword_E120[a3 - <span class="hljs-number">5</span>]) )
+    byte_104C8 = dword_E120[a3 - <span class="hljs-number">5</span>] &amp; <span class="hljs-number">0x7F</span>;
+  <span class="hljs-keyword">else</span>
+    byte_104C8 = <span class="hljs-number">32</span>;
+  <span class="hljs-keyword">return</span> &amp;byte_104C8;
+&#125;</code></pre></div>
+
+<p><code>sub_62B5</code></p>
+<div class="code-wrapper"><pre><code class="hljs C">__int64 <span class="hljs-title function_">sub_62B5</span><span class="hljs-params">()</span>
+&#123;
+  dword_E1E8 = <span class="hljs-number">1103515245</span> * dword_E1E8 + <span class="hljs-number">12345</span>;
+  <span class="hljs-keyword">return</span> (dword_E1E8 &gt;&gt; <span class="hljs-number">10</span>) &amp; <span class="hljs-number">0x7FFF</span>;
+&#125;</code></pre></div>
+
+<p><code>sub_62E3</code></p>
+<div class="code-wrapper"><pre><code class="hljs C">_BOOL8 __fastcall <span class="hljs-title function_">sub_62E3</span><span class="hljs-params">(<span class="hljs-type">char</span> a1)</span>
+&#123;
+  <span class="hljs-keyword">return</span> (a1 &amp; <span class="hljs-number">0x7Fu</span>) &lt;= <span class="hljs-number">0x7E</span> &amp;&amp; (a1 &amp; <span class="hljs-number">0x7Fu</span>) &gt; <span class="hljs-number">0x20</span>;
+&#125;</code></pre></div>
+
+<p><code>dword_E120</code></p>
+<div class="code-wrapper"><pre><code class="hljs C">.data:<span class="hljs-number">000000000000E120</span> dword_E120      dd <span class="hljs-number">27F</span>Bh, <span class="hljs-number">27</span>A4h, <span class="hljs-number">464</span>Eh, <span class="hljs-number">0E36</span>h, <span class="hljs-number">7B</span>70h, <span class="hljs-number">5E7</span>Ah, <span class="hljs-number">1</span>A4Ah, <span class="hljs-number">45</span>C1h
+.data:<span class="hljs-number">000000000000E120</span>                                         ; DATA XREF: sub_6314+<span class="hljs-number">5</span>C↑o
+.data:<span class="hljs-number">000000000000E120</span>                                         ; sub_6314+<span class="hljs-number">7</span>A↑o ...
+.data:<span class="hljs-number">000000000000E140</span>                 dd <span class="hljs-number">2B</span>DFh, <span class="hljs-number">23B</span>Dh, <span class="hljs-number">3</span>A15h, <span class="hljs-number">5B</span>83h, <span class="hljs-number">1E15</span>h, <span class="hljs-number">5367</span>h, <span class="hljs-number">50B</span>8h, <span class="hljs-number">20</span>CAh
+.data:<span class="hljs-number">000000000000E160</span>                 dd <span class="hljs-number">41F</span>5h, <span class="hljs-number">57</span>D1h, <span class="hljs-number">7750</span>h, <span class="hljs-number">2</span>ADFh, <span class="hljs-number">11F</span>8h, <span class="hljs-number">9B</span>Bh, <span class="hljs-number">5724</span>h, <span class="hljs-number">7374</span>h
+.data:<span class="hljs-number">000000000000E180</span>                 dd <span class="hljs-number">3</span>CE6h, <span class="hljs-number">646</span>Eh, <span class="hljs-number">10</span>Ch, <span class="hljs-number">6E10</span>h, <span class="hljs-number">64F</span>4h, <span class="hljs-number">3263</span>h, <span class="hljs-number">3137</span>h, <span class="hljs-number">0B</span>8h
+.data:<span class="hljs-number">000000000000E1</span>A0                 dd <span class="hljs-number">229</span>Ch, <span class="hljs-number">7B</span>CDh, <span class="hljs-number">73B</span>Dh, <span class="hljs-number">480</span>Ch, <span class="hljs-number">14</span>DBh, <span class="hljs-number">68B</span>9h, <span class="hljs-number">5</span>C8Ah, <span class="hljs-number">1B</span>61h
+.data:<span class="hljs-number">000000000000E1</span>C0                 dd <span class="hljs-number">6</span>C59h, <span class="hljs-number">5707</span>h, <span class="hljs-number">9E6</span>h, <span class="hljs-number">1F</span>B9h, <span class="hljs-number">2</span>AD3h, <span class="hljs-number">76</span>D4h, <span class="hljs-number">3113</span>h, <span class="hljs-number">7</span>C7Eh
+.data:<span class="hljs-number">000000000000E1</span>E0                 dd <span class="hljs-number">11E0</span>h, <span class="hljs-number">6</span>C70h</code></pre></div>
+
+<p>结合上述思路，那么可以发现这个程序应该逆向的顺序为:</p>
+<div class="code-wrapper"><pre><code class="hljs cpp">off_FA88-&gt;dword_<span class="hljs-number">108E0</span>-&gt;dword_E<span class="hljs-number">1E8</span></code></pre></div>
+
+<h1 id="Exploit"><a href="#Exploit" class="headerlink" title="Exploit"></a>Exploit</h1><div class="code-wrapper"><pre><code class="hljs python">dword_E1E8 = <span class="hljs-number">0x1106</span>
+dword_E120 = [
+    <span class="hljs-number">0x27fb</span>, <span class="hljs-number">0x27a4</span>, <span class="hljs-number">0x464e</span>, <span class="hljs-number">0x0e36</span>, <span class="hljs-number">0x7b70</span>, <span class="hljs-number">0x5e7a</span>, <span class="hljs-number">0x1a4a</span>, <span class="hljs-number">0x45c1</span>,
+    <span class="hljs-number">0x2bdf</span>, <span class="hljs-number">0x23bd</span>, <span class="hljs-number">0x3a15</span>, <span class="hljs-number">0x5b83</span>, <span class="hljs-number">0x1e15</span>, <span class="hljs-number">0x5367</span>, <span class="hljs-number">0x50b8</span>, <span class="hljs-number">0x20ca</span>,
+    <span class="hljs-number">0x41f5</span>, <span class="hljs-number">0x57d1</span>, <span class="hljs-number">0x7750</span>, <span class="hljs-number">0x2adf</span>, <span class="hljs-number">0x11f8</span>, <span class="hljs-number">0x09bb</span>, <span class="hljs-number">0x5724</span>, <span class="hljs-number">0x7374</span>,
+    <span class="hljs-number">0x3ce6</span>, <span class="hljs-number">0x646e</span>, <span class="hljs-number">0x010c</span>, <span class="hljs-number">0x6e10</span>, <span class="hljs-number">0x64f4</span>, <span class="hljs-number">0x3263</span>, <span class="hljs-number">0x3137</span>, <span class="hljs-number">0x00b8</span>,
+    <span class="hljs-number">0x229c</span>, <span class="hljs-number">0x7bcd</span>, <span class="hljs-number">0x73bd</span>, <span class="hljs-number">0x480c</span>, <span class="hljs-number">0x14db</span>, <span class="hljs-number">0x68b9</span>, <span class="hljs-number">0x5c8a</span>, <span class="hljs-number">0x1b61</span>,
+    <span class="hljs-number">0x6c59</span>, <span class="hljs-number">0x5707</span>, <span class="hljs-number">0x09e6</span>, <span class="hljs-number">0x1fb9</span>, <span class="hljs-number">0x2ad3</span>, <span class="hljs-number">0x76d4</span>, <span class="hljs-number">0x3113</span>, <span class="hljs-number">0x7c7e</span>,
+    <span class="hljs-number">0x11e0</span>, <span class="hljs-number">0x6c70</span>
+]
+ 
+ 
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">sub_62B5</span>():
+    <span class="hljs-keyword">global</span> dword_E1E8
+    dword_E1E8 = (<span class="hljs-number">1103515245</span> * dword_E1E8 + <span class="hljs-number">12345</span>) &amp; <span class="hljs-number">0xFFFFFFFF</span>
+    <span class="hljs-keyword">return</span> (dword_E1E8 &gt;&gt; <span class="hljs-number">10</span>) &amp; <span class="hljs-number">0x7FFF</span>
+ 
+ 
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">llog</span>(<span class="hljs-params">n</span>):
+    a = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">while</span> n &gt;= <span class="hljs-number">10</span>:
+        n //= <span class="hljs-number">10</span>
+        a += <span class="hljs-number">1</span>
+    <span class="hljs-keyword">return</span> a
+ 
+ 
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">sub_62E3</span>(<span class="hljs-params">a1</span>):
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0x7E</span> &gt;= (a1 &amp; <span class="hljs-number">0x7F</span>) &gt; <span class="hljs-number">0x20</span>
+ 
+ 
+count = <span class="hljs-number">0</span>
+<span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">50</span>):
+        dword_E120[i] ^= sub_62B5()
+ 
+    count += <span class="hljs-number">1</span>
+    dword_E1E8 += <span class="hljs-number">42</span> + llog(count)
+ 
+    <span class="hljs-keyword">if</span> count % <span class="hljs-number">1000000</span> == <span class="hljs-number">0</span>:
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Count: <span class="hljs-subst">&#123;count&#125;</span>&quot;</span>)
+ 
+    flag = <span class="hljs-built_in">bytearray</span>(<span class="hljs-number">51</span>)
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">50</span>):
+        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> sub_62E3(dword_E120[i]):
+            <span class="hljs-keyword">break</span>
+        flag[i] = dword_E120[i] &amp; <span class="hljs-number">0xFF</span>
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">continue</span>
+ 
+    <span class="hljs-keyword">if</span> flag[:<span class="hljs-number">6</span>] == <span class="hljs-string">b&#x27;CatCTF&#x27;</span>:
+        <span class="hljs-built_in">print</span>(flag.decode())
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Count: <span class="hljs-subst">&#123;count&#125;</span>&quot;</span>)
+        <span class="hljs-keyword">break</span></code></pre></div>
+
+<div class="code-wrapper"><pre><code class="hljs bash">~/Git-Projects/CTF_Challenges/Reverse/CatFly$ python3 exp.py 
+Count: 1000000
+Count: 2000000
+Count: 3000000
+Count: 4000000
+Count: 5000000
+Count: 6000000
+Count: 7000000
+Count: 8000000
+Count: 9000000
+Count: 10000000
+Count: 11000000
+Count: 12000000
+Count: 13000000
+Count: 14000000
+Count: 15000000
+Count: 16000000
+Count: 17000000
+Count: 18000000
+Count: 19000000
+Count: 20000000
+Count: 21000000
+Count: 22000000
+Count: 23000000
+Count: 24000000
+Count: 25000000
+Count: 26000000
+Count: 27000000
+Count: 28000000
+Count: 29000000
+Count: 30000000
+Count: 31000000
+Count: 32000000
+Count: 33000000
+Count: 34000000
+Count: 35000000
+Count: 36000000
+Count: 37000000
+Count: 38000000
+Count: 39000000
+Count: 40000000
+Count: 41000000
+Count: 42000000
+Count: 43000000
+Count: 44000000
+Count: 45000000
+Count: 46000000
+Count: 47000000
+Count: 48000000
+Count: 49000000
+Count: 50000000
+Count: 51000000
+Count: 52000000
+Count: 53000000
+Count: 54000000
+Count: 55000000
+Count: 56000000
+Count: 57000000
+Count: 58000000
+Count: 59000000
+Count: 60000000
+Count: 61000000
+Count: 62000000
+Count: 63000000
+Count: 64000000
+Count: 65000000
+Count: 66000000
+Count: 67000000
+Count: 68000000
+Count: 69000000
+Count: 70000000
+Count: 71000000
+Count: 72000000
+Count: 73000000
+Count: 74000000
+Count: 75000000
+Count: 76000000
+Count: 77000000
+Count: 78000000
+Count: 79000000
+Count: 80000000
+Count: 81000000
+Count: 82000000
+Count: 83000000
+Count: 84000000
+Count: 85000000
+Count: 86000000
+Count: 87000000
+Count: 88000000
+Count: 89000000
+Count: 90000000
+Count: 91000000
+Count: 92000000
+Count: 93000000
+Count: 94000000
+Count: 95000000
+Count: 96000000
+Count: 97000000
+Count: 98000000
+Count: 99000000
+Count: 100000000
+CatCTF&#123;Fly1NG_NyAnC4t_Cha5eS_the_FL4G_in_The_Sky&#125;
+Count: 100001958</code></pre></div>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Reverse/" class="category-chain-item">Reverse</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Reverse/" class="print-no-link">#Reverse</a>
+      
+        <a href="/tags/CTF/" class="print-no-link">#CTF</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>CATCTF-Reverse-CatFly Writeup</div>
+      <div>https://zer0ptr.github.io/2025/08/26/CATCTF-RE-CatFly/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>zer0ptr</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>August 26, 2025</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/08/26/adworld-easyRE/" title="easyRE1 Writeup">
+                        <span class="hidden-mobile">easyRE1 Writeup</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
