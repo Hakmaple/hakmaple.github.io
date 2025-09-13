@@ -1,0 +1,119 @@
+/*
+ * 霞鹜文楷字体数学公式显示修复
+ * LXGW WenKai Font Math Formula Display Fix
+ * 
+ * 解决霞鹜文楷字体在数学公式中显示过小的问题
+ * Fixes the issue where LXGW WenKai font appears too small in math formulas
+ */
+
+/* 通用数学公式容器修复 */
+/* General math formula container fixes */
+.math,
+.math-display,
+.math-inline,
+[class*="math"],
+[class*="katex"],
+[class*="MathJax"] {
+    font-size: 1.1em !important;
+    line-height: 1.4 !important;
+}
+
+/* MathJax 修复 */
+/* MathJax fixes */
+.MathJax,
+.MathJax_Display,
+.MathJax_Preview,
+.MathJax_SVG,
+.MathJax_SVG_Display {
+    font-size: 1.15em !important;
+    line-height: 1.5 !important;
+}
+
+.MathJax_SVG svg {
+    font-size: 1.1em !important;
+}
+
+/* MathJax v3 修复 */
+/* MathJax v3 fixes */
+mjx-container,
+mjx-container[display="true"],
+mjx-container[display="block"] {
+    font-size: 1.15em !important;
+    line-height: 1.5 !important;
+}
+
+mjx-math {
+    font-size: inherit !important;
+}
+
+/* KaTeX 修复 */
+/* KaTeX fixes */
+.katex,
+.katex-display,
+.katex-html {
+    font-size: 1.15em !important;
+    line-height: 1.5 !important;
+}
+
+.katex .base {
+    font-size: inherit !important;
+}
+
+/* 行内公式特殊处理 */
+/* Inline math special handling */
+.math-inline,
+.katex:not(.katex-display),
+mjx-container:not([display="true"]):not([display="block"]) {
+    font-size: 1.05em !important;
+    vertical-align: baseline !important;
+    line-height: 1.3 !important;
+}
+
+/* 块级公式特殊处理 */
+/* Block math special handling */
+.math-display,
+.katex-display,
+mjx-container[display="true"],
+mjx-container[display="block"] {
+    font-size: 1.2em !important;
+    margin: 1em 0 !important;
+    text-align: center !important;
+}
+
+/* 确保数学符号清晰度 */
+/* Ensure math symbols clarity */
+.math *,
+.katex *,
+.MathJax *,
+mjx-container * {
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+}
+
+/* 响应式设计 */
+/* Responsive design */
+@media screen and (max-width: 768px) {
+    .math,
+    .katex,
+    .MathJax,
+    mjx-container {
+        font-size: 1.05em !important;
+    }
+    
+    .math-display,
+    .katex-display,
+    mjx-container[display="true"] {
+        font-size: 1.1em !important;
+    }
+}
+
+/* 高分辨率屏幕优化 */
+/* High resolution screen optimization */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .math,
+    .katex,
+    .MathJax,
+    mjx-container {
+        font-size: 1.12em !important;
+    }
+}
