@@ -44,9 +44,13 @@ For more projects and learning records, please visit my [GitHub](https://github.
 - 🎉 Guangdong-Hong Kong-Macao Youth Informatics Innovation Competition Selection Competition(Dongguan) Third Prize  ——2025/06
 - 🎉 Tencent AIGC Competition Greet  ——2025/04/30
 - 🎉 Dongguan AI&Robot Competition 3rd  ——2024/11/30 
+- 🎉 High-risk vulnerability submission certificate of Shanghai Jiao Tong University  ——2024/05
+- 🎉 D.G.JHFL School First-class scholarship (8000 yuan RMB) ——2023/09
+- 🎉 D.G.JHFL School First-class scholarship (8000 yuan RMB) ——2022/09
 
 # 📖 Educational Background
 - *2024.09 - Present*, Dongguan No.13 High School (Dongguan Middle School - Songshan Lake School Group), Second-year high school student
+- *2021.09 - 2024.07*, Dongguan Jiahui Foreign Language School
 - Focused on learning computer science and cybersecurity-related knowledge 
 
 # 💬 Learning Sharing
