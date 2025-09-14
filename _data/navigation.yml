@@ -6,17 +6,26 @@ main:
   - title: "News"
     url: "/#-news"
 
-  - title: "Publications"
-    url: "/#-publications"
+  - title: "Research Projects & Learning Achievements"
+    url: "/#-research-projects--learning-achievements"
 
   - title: "Honors and Awards"
     url: "/#-honors-and-awards"
 
-  - title: "Educations"
-    url: "/#-educations"
+  - title: "Educational Background"
+    url: "/#-educational-background"
 
-  - title: "Invited Talks"
-    url: "/#-invited-talks"
+  - title: "Learning Sharing"
+    url: "/#-learning-sharing"
 
-  - title: "Internships"
-    url: "/#-internships"
+  - title: "Skills and Interests"
+    url: "/#-skills-and-interests"
+
+  - title: "Publications"
+    url: "/#-publications"
+
+  - title: "Internships and Experiences"
+    url: "/#-internships-and-experiences"
+
+  - title: "Kind Words"
+    url: "/#-kind-words"
