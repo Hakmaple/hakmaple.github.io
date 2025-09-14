@@ -41,6 +41,9 @@ For more projects and learning records, please visit my [GitHub](https://github.
 
 # 🎖 Honors and Awards
 - Currently focused on the learning stage, looking forward to achieving more in future studies and research 
+- 🎉 Guangdong-Hong Kong-Macao Youth Informatics Innovation Competition Selection Competition(Dongguan) Third Prize  ——2025/06
+- 🎉 Tencent AIGC Competition Greet  ——2025/04/30
+- 🎉 Dongguan AI&Robot Competition 3rd  ——2024/11/30 
 
 # 📖 Educational Background
 - *2024.09 - Present*, Dongguan No.13 High School (Dongguan Middle School - Songshan Lake School Group), Second-year high school student
@@ -56,7 +59,7 @@ For more projects and learning records, please visit my [GitHub](https://github.
 - **GitHub**: [@Hakmaple](https://github.com/Hakmaple)
 
 # 📝 Publications
-
+None
 # 💻 Internships and Experiences
 
 # 💬 Kind Words
