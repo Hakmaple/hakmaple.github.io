@@ -1,1468 +1,328 @@
-
-
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
+<!DOCTYPE HTML>
+<html>
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>CATCTF-Reverse-CatFly Writeup | Hakmaple&#39;s Blog</title>
+  <meta name="author" content="hakmaple">
+  
+  <meta name="description" content="Analysis查看文件类型
+~/CTF_Challenges/Reverse/CatFly$ file CatFly CatFly: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=d05baf98f7d937f503c87ced28e78998e8d3046b, for GNU/Linux 3.2.0, stripped
 
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/SecureNexusLab.png">
-  <link rel="icon" href="/img/SecureNexusLab.png">
-  
+main函数IDA伪代码如下：
+__int64 __fastcall main(int a1, char **a2, char **a3)&amp;#123;  size_t v3; // rbx  _WORD v5[4]; // [rsp+10h] [rbp-4B0h] BYREF  time_t time1; // [rsp+18h] [rbp-4A8h] BYREF  time_t timer; // [rsp+20h] [rbp-4A0h] BYREF  int longind; // [rsp+2Ch] [rbp-494h] BYREF  _QWORD s[129]; // [rsp+30h] [rbp-490h] BYREF  int v10; // [rsp+43Ch] [rbp-84h]  double v11; // [rsp+440h] [rbp-80h]  char *v12; // [rsp+448h] [rbp-78h]  int v13; // [rsp+450h] [rbp-70h]  unsigned int v14; // [rsp+454h] [rbp-6Ch]  unsigned __int8 v15; // [rsp+45Ah] [rbp-66h]  char v16; // [rsp+45Bh] [rbp-65h]  int n; // [rsp+45Ch] [rbp-64h]  int v18; // [rsp+460h] [rbp-60h]  char v19; // [rsp+467h] [rbp-59h]  int m; // [rsp+468h] [rbp-58h]  int k; // [rsp+46Ch] [rbp-54h]  char v22; // [rsp+473h] [rbp-4Dh]  int v23; // [rsp+474h] [rbp-4Ch]  unsigned __int64 v24; // [rsp+478h] [rbp-48h]  int v25; // [rsp+484h] [rbp-3Ch]  int v26; // [rsp+488h] [rbp-38h]  int v27; // [rsp+48Ch] [rbp-34h]  char v28; // [rsp+490h] [rbp-30h]  bool v29; // [rsp+491h] [rbp-2Fh]  unsigned __int16 v30; // [rsp+492h] [rbp-2Eh]  int v31; // [rsp+494h] [rbp-2Ch]  unsigned int v32; // [rsp+498h] [rbp-28h]  unsigned int i; // [rsp+49Ch] [rbp-24h]  int v34; // [rsp+4A0h] [rbp-20h]  unsigned int j; // [rsp+4A4h] [rbp-1Ch]  char *haystack; // [rsp+4A8h] [rbp-18h]  haystack = 0;  i = 0;  v32 = 0;  v31 = 0;  memset(s, 0, 1024);  v30 = 0;  v29 = 0;  v28 = 0;  v27 = 90;  while ( 1 )  &amp;#123;    v26 = getopt_long(a1, a2, &amp;quot;eshiItnd:f:r:R:c:C:W:H:&amp;quot;, &amp;amp;longopts, &amp;amp;longind);    if ( v26 == -1 )      break;    if ( !v26 &amp;amp;&amp;amp; !*((_QWORD *)&amp;amp;longopts.flag + 4 * longind) )      v26 = *(&amp;amp;longopts.val + 8 * longind);    switch ( v26 )    &amp;#123;      case &amp;#x27;C&amp;#x27;:        dword_E1F8 = atoi(optarg);        break;      case &amp;#x27;H&amp;#x27;:        dword_E1EC = (64 - atoi(optarg)) / 2;        dword_E1F0 = (atoi(optarg) + 64) / 2;        break;      case &amp;#x27;I&amp;#x27;:        v28 = 1;        break;      case &amp;#x27;R&amp;#x27;:        dword_E1F0 = atoi(optarg);        break;      case &amp;#x27;W&amp;#x27;:        dword_E1F4 = (64 - atoi(optarg)) / 2;        dword_E1F8 = (atoi(optarg) + 64) / 2;        break;      case &amp;#x27;c&amp;#x27;:        dword_E1F4 = atoi(optarg);        break;      case &amp;#x27;d&amp;#x27;:        if ( atoi(optarg) &amp;gt; 9 &amp;amp;&amp;amp; atoi(optarg) &amp;lt;= 1000 )          v27 = atoi(optarg);        break;      case &amp;#x27;e&amp;#x27;:        dword_E104 = 0;        break;      case &amp;#x27;f&amp;#x27;:        dword_104C4 = atoi(optarg);        break;      case &amp;#x27;h&amp;#x27;:        sub_67F0(a2);        exit(0);      case &amp;#x27;i&amp;#x27;:        v29 = 1;        break;      case &amp;#x27;r&amp;#x27;:        dword_E1EC = atoi(optarg);        break;      case &amp;#x27;s&amp;#x27;:        dword_E108 = 0;        break;      case &amp;#x27;t&amp;#x27;:        dword_104C0 = 1;        break;      default:        continue;    &amp;#125;  &amp;#125;  if ( dword_104C0 )  &amp;#123;    v29 = v28 == 0;    sub_6669();    for ( i = 0; i &amp;lt;= 0xFF; ++i )    &amp;#123;      if ( *((_BYTE *)&amp;amp;unk_104E0 + i) )      &amp;#123;        sub_66AF(*((unsigned __int8 *)&amp;amp;unk_104E0 + i), i);        fflush(stdout);      &amp;#125;    &amp;#125;    for ( i = 0; i &amp;lt;= 0xFF; ++i )    &amp;#123;      if ( *((_BYTE *)&amp;amp;unk_105E0 + i) )      &amp;#123;        sub_66AF(*((unsigned __int8 *)&amp;amp;unk_105E0 + i), i);        fflush(stdout);      &amp;#125;    &amp;#125;    signal(14, sub_64C0);    if ( !_setjmp(env) )    &amp;#123;      alarm(1u);      while ( !feof(stdin) &amp;amp;&amp;amp; v32 &amp;lt;= 1 )      &amp;#123;        v16 = getchar();        v15 = 0;        if ( v16 == -1 )        &amp;#123;          v16 = getchar();          switch ( v16 )          &amp;#123;            case -16:              v31 = 0;              if ( LOBYTE(s[0]) == 24 )              &amp;#123;                alarm(2u);                haystack = strndup((const char *)s + 2, 0x3FEu);                ++v32;              &amp;#125;              else if ( LOBYTE(s[0]) == 31 )              &amp;#123;                alarm(2u);                dword_E1FC = (BYTE1(s[0]) &amp;lt;&amp;lt; 8) | BYTE2(s[0]);                dword_E200 = (BYTE3(s[0]) &amp;lt;&amp;lt; 8) | BYTE4(s[0]);                ++v32;              &amp;#125;              break;            case -15:              sub_66AF(241, 0);              fflush(stdout);              break;            case -6:              v31 = 1;              v30 = 0;              memset(s, 0, 0x400u);              break;            case -5:            case -4:              v15 = getchar();              if ( !*((_BYTE *)&amp;amp;unk_105E0 + v15) )                *((_BYTE *)&amp;amp;unk_105E0 + v15) = -4;              sub_66AF(*((unsigned __int8 *)&amp;amp;unk_105E0 + v15), v15);              fflush(stdout);              if ( v16 == -5 &amp;amp;&amp;amp; v15 == 24 )              &amp;#123;                printf(&amp;quot;%c%c%c%c%c%c&amp;quot;, 255, 250, 24, 1, 255, 240);                fflush(stdout);              &amp;#125;              break;            case -3:            case -2:              v15 = getchar();              if ( !*((_BYTE *)&amp;amp;unk_104E0 + v15) )                *((_BYTE *)&amp;amp;unk_104E0 + v15) = -2;              sub_66AF(*((unsigned __int8 *)&amp;amp;unk_104E0 + v15), v15);              fflush(stdout);              break;            case -1:              v32 = 2;              break;            default:              continue;          &amp;#125;        &amp;#125;        else if ( v31 &amp;amp;&amp;amp; v30 &amp;lt;= 0x3FEu )        &amp;#123;          *((_BYTE *)s + v30++) = v16;        &amp;#125;      &amp;#125;    &amp;#125;    alarm(0);  &amp;#125;  else  &amp;#123;    haystack = getenv(&amp;quot;TERM&amp;quot;);    ioctl(0, 0x5413u, v5);    dword_E1FC = v5[1];    dword_E200 = v5[0];  &amp;#125;  v34 = 2;  if ( haystack )  &amp;#123;    for ( j = 0; ; ++j )    &amp;#123;      v3 = j;      if ( v3 &amp;gt;= strlen(haystack) )        break;      haystack[j] = tolower(haystack[j]);    &amp;#125;    if ( strstr(haystack, &amp;quot;xterm&amp;quot;) )    &amp;#123;      v34 = 1;    &amp;#125;    else if ( strstr(haystack, &amp;quot;toaru&amp;quot;) )    &amp;#123;      v34 = 1;    &amp;#125;    else if ( strstr(haystack, &amp;quot;linux&amp;quot;) )    &amp;#123;      v34 = 3;    &amp;#125;    else if ( strstr(haystack, &amp;quot;vtnt&amp;quot;) )    &amp;#123;      v34 = 5;    &amp;#125;    else if ( strstr(haystack, &amp;quot;cygwin&amp;quot;) )    &amp;#123;      v34 = 5;    &amp;#125;    else if ( strstr(haystack, &amp;quot;vt220&amp;quot;) )    &amp;#123;      v34 = 6;    &amp;#125;    else if ( strstr(haystack, &amp;quot;fallback&amp;quot;) )    &amp;#123;      v34 = 4;    &amp;#125;    else if ( strstr(haystack, &amp;quot;rxvt-256color&amp;quot;) )    &amp;#123;      v34 = 1;    &amp;#125;    else if ( strstr(haystack, &amp;quot;rxvt&amp;quot;) )    &amp;#123;      v34 = 3;    &amp;#125;    else if ( strstr(haystack, &amp;quot;vt100&amp;quot;) &amp;amp;&amp;amp; dword_E1FC == 40 )    &amp;#123;      v34 = 7;    &amp;#125;    else if ( !strncmp(haystack, &amp;quot;st&amp;quot;, 2u) )    &amp;#123;      v34 = 1;    &amp;#125;  &amp;#125;  v25 = 0;  signal(2, sub_64A8);  signal(13, sub_64E6);  if ( !dword_104C0 )    signal(28, handler);  switch ( v34 )  &amp;#123;    case 1:      qword_FE20 = (__int64)&amp;quot;\x1B[48;5;17m&amp;quot;;      qword_FE30 = (__int64)&amp;quot;\x1B[48;5;231m&amp;quot;;      qword_FDF8 = (__int64)&amp;quot;\x1B[48;5;16m&amp;quot;;      qword_FEC0 = (__int64)&amp;quot;\x1B[48;5;230m&amp;quot;;      qword_FDE0 = (__int64)&amp;quot;\x1B[48;5;175m&amp;quot;;      qword_FE28 = (__int64)&amp;quot;\x1B[48;5;162m&amp;quot;;      qword_FEB0 = (__int64)&amp;quot;\x1B[48;5;196m&amp;quot;;      qword_FDF0 = (__int64)&amp;quot;\x1B[48;5;214m&amp;quot;;      qword_FE18 = (__int64)&amp;quot;\x1B[48;5;226m&amp;quot;;      qword_FDD8 = (__int64)&amp;quot;\x1B[48;5;118m&amp;quot;;      qword_FEA8 = (__int64)&amp;quot;\x1B[48;5;33m&amp;quot;;      qword_FE98 = (__int64)&amp;quot;\x1B[48;5;19m&amp;quot;;      qword_FE10 = (__int64)&amp;quot;\x1B[48;5;240m&amp;quot;;      qword_FDE8 = (__int64)&amp;quot;\x1B[48;5;175m&amp;quot;;      break;    case 2:      qword_FE20 = (__int64)&amp;quot;\x1B[104m&amp;quot;;      qword_FE30 = (__int64)&amp;quot;\x1B[107m&amp;quot;;      qword_FDF8 = (__int64)&amp;quot;\x1B[40m&amp;quot;;      qword_FEC0 = (__int64)&amp;quot;\x1B[47m&amp;quot;;      qword_FDE0 = (__int64)&amp;quot;\x1B[105m&amp;quot;;      qword_FE28 = (__int64)&amp;quot;\x1B[101m&amp;quot;;      qword_FEB0 = (__int64)&amp;quot;\x1B[101m&amp;quot;;      qword_FDF0 = (__int64)&amp;quot;\x1B[43m&amp;quot;;      qword_FE18 = (__int64)&amp;quot;\x1B[103m&amp;quot;;      qword_FDD8 = (__int64)&amp;quot;\x1B[102m&amp;quot;;      qword_FEA8 = (__int64)&amp;quot;\x1B[104m&amp;quot;;      qword_FE98 = (__int64)&amp;quot;\x1B[44m&amp;quot;;      qword_FE10 = (__int64)&amp;quot;\x1B[100m&amp;quot;;      qword_FDE8 = (__int64)&amp;quot;\x1B[105m&amp;quot;;      break;    case 3:      qword_FE20 = (__int64)&amp;quot;\x1B[25;44m&amp;quot;;      qword_FE30 = (__int64)&amp;quot;\x1B[5;47m&amp;quot;;      qword_FDF8 = (__int64)&amp;quot;\x1B[25;40m&amp;quot;;      qword_FEC0 = (__int64)&amp;quot;\x1B[5;47m&amp;quot;;      qword_FDE0 = (__int64)&amp;quot;\x1B[5;45m&amp;quot;;      qword_FE28 = (__int64)&amp;quot;\x1B[5;41m&amp;quot;;      qword_FEB0 = (__int64)&amp;quot;\x1B[5;41m&amp;quot;;      qword_FDF0 = (__int64)&amp;quot;\x1B[25;43m&amp;quot;;      qword_FE18 = (__int64)&amp;quot;\x1B[5;43m&amp;quot;;      qword_FDD8 = (__int64)&amp;quot;\x1B[5;42m&amp;quot;;      qword_FEA8 = (__int64)&amp;quot;\x1B[25;44m&amp;quot;;      qword_FE98 = (__int64)&amp;quot;\x1B[5;44m&amp;quot;;      qword_FE10 = (__int64)&amp;quot;\x1B[5;40m&amp;quot;;      qword_FDE8 = (__int64)&amp;quot;\x1B[5;45m&amp;quot;;      break;    case 4:      qword_FE20 = (__int64)&amp;quot;\x1B[0;34;44m&amp;quot;;      qword_FE30 = (__int64)&amp;quot;\x1B[1;37;47m&amp;quot;;      qword_FDF8 = (__int64)&amp;quot;\x1B[0;30;40m&amp;quot;;      qword_FEC0 = (__int64)&amp;quot;\x1B[1;37;47m&amp;quot;;      qword_FDE0 = (__int64)&amp;quot;\x1B[1;35;45m&amp;quot;;      qword_FE28 = (__int64)&amp;quot;\x1B[1;31;41m&amp;quot;;      qword_FEB0 = (__int64)&amp;quot;\x1B[1;31;41m&amp;quot;;      qword_FDF0 = (__int64)&amp;quot;\x1B[0;33;43m&amp;quot;;      qword_FE18 = (__int64)&amp;quot;\x1B[1;33;43m&amp;quot;;      qword_FDD8 = (__int64)&amp;quot;\x1B[1;32;42m&amp;quot;;      qword_FEA8 = (__int64)&amp;quot;\x1B[1;34;44m&amp;quot;;      qword_FE98 = (__int64)&amp;quot;\x1B[0;34;44m&amp;quot;;      qword_FE10 = (__int64)&amp;quot;\x1B[1;30;40m&amp;quot;;      qword_FDE8 = (__int64)&amp;quot;\x1B[1;35;45m&amp;quot;;      off_FA88 = (char *)&amp;amp;unk_BCFF;      break;    case 5:      qword_FE20 = (__int64)&amp;quot;\x1B[0;34;44m&amp;quot;;      qword_FE30 = (__int64)&amp;quot;\x1B[1;37;47m&amp;quot;;      qword_FDF8 = (__int64)&amp;quot;\x1B[0;30;40m&amp;quot;;      qword_FEC0 = (__int64)&amp;quot;\x1B[1;37;47m&amp;quot;;      qword_FDE0 = (__int64)&amp;quot;\x1B[1;35;45m&amp;quot;;      qword_FE28 = (__int64)&amp;quot;\x1B[1;31;41m&amp;quot;;      qword_FEB0 = (__int64)&amp;quot;\x1B[1;31;41m&amp;quot;;      qword_FDF0 = (__int64)&amp;quot;\x1B[0;33;43m&amp;quot;;      qword_FE18 = (__int64)&amp;quot;\x1B[1;33;43m&amp;quot;;      qword_FDD8 = (__int64)&amp;quot;\x1B[1;32;42m&amp;quot;;      qword_FEA8 = (__int64)&amp;quot;\x1B[1;34;44m&amp;quot;;      qword_FE98 = (__int64)&amp;quot;\x1B[0;34;44m&amp;quot;;      qword_FE10 = (__int64)&amp;quot;\x1B[1;30;40m&amp;quot;;      qword_FDE8 = (__int64)&amp;quot;\x1B[1;35;45m&amp;quot;;      off_FA88 = (char *)&amp;amp;unk_BD06;      break;    case 6:      qword_FE20 = (__int64)&amp;amp;unk_BD09;      qword_FE30 = (__int64)&amp;amp;unk_BD0C;      qword_FDF8 = (__int64)&amp;quot;  &amp;quot;;      qword_FEC0 = (__int64)&amp;amp;unk_BD0F;      qword_FDE0 = (__int64)&amp;amp;unk_BD12;      qword_FE28 = (__int64)&amp;amp;unk_BD15;      qword_FEB0 = (__int64)&amp;amp;unk_BD0F;      qword_FDF0 = (__int64)&amp;amp;unk_BD18;      qword_FE18 = (__int64)&amp;amp;unk_BD1B;      qword_FDD8 = (__int64)&amp;amp;unk_BD1E;      qword_FEA8 = (__int64)&amp;amp;unk_BD21;      qword_FE98 = (__int64)&amp;amp;unk_BD24;      qword_FE10 = (__int64)&amp;amp;unk_BD27;      qword_FDE8 = (__int64)&amp;amp;unk_BD2A;      v25 = 1;      break;    case 7:      qword_FE20 = (__int64)&amp;amp;unk_BD2D;      qword_FE30 = (__int64)&amp;amp;unk_BD2F;      qword_FDF8 = (__int64)&amp;amp;unk_BD31;      qword_FEC0 = (__int64)&amp;amp;unk_BD33;      qword_FDE0 = (__int64)&amp;amp;unk_BD35;      qword_FE28 = (__int64)&amp;amp;unk_BD37;      qword_FEB0 = (__int64)&amp;amp;unk_BD33;      qword_FDF0 = (__int64)&amp;amp;unk_BD39;      qword_FE18 = (__int64)&amp;amp;unk_BD3B;      qword_FDD8 = (__int64)&amp;amp;unk_BD3D;      qword_FEA8 = (__int64)&amp;amp;unk_BD3F;      qword_FE98 = (__int64)&amp;amp;unk_BD41;      qword_FE10 = (__int64)&amp;amp;unk_BD43;      qword_FDE8 = (__int64)&amp;amp;unk_BD45;      v25 = 1;      dword_E1FC = 40;      break;    default:      break;  &amp;#125;  if ( dword_E1F4 == dword_E1F8 )  &amp;#123;    dword_E1F4 = (dword_E1FC / -2 + 64) / 2;    dword_E1F8 = (dword_E1FC / 2 + 64) / 2;    byte_104CB = 1;  &amp;#125;  if ( dword_E1EC == dword_E1F0 )  &amp;#123;    dword_E1EC = (65 - dword_E200) / 2;    dword_E1F0 = (dword_E200 + 63) / 2;    byte_104CC = 1;  &amp;#125;  if ( dword_E108 )  &amp;#123;    printf(&amp;quot;\x1BkNyanyanyanyanyanyanya...\x1B\\&amp;quot;);    printf(&amp;quot;\x1B]1;Nyanyanyanyanyanyanya...\a&amp;quot;);    printf(&amp;quot;\x1B]2;Nyanyanyanyanyanyanya...\a&amp;quot;);  &amp;#125;  if ( dword_E104 )    printf(&amp;quot;\x1B[H\x1B[2J\x1B[?25l&amp;quot;);  else    printf(&amp;quot;\x1B[s&amp;quot;);  if ( v29 )  &amp;#123;    v14 = 5;    for ( j = 0; j &amp;lt; v14; ++j )    &amp;#123;      sub_65E2(3);      printf(&amp;quot;                             \x1B[1mNyancat Telnet Server\x1B[0m&amp;quot;);      sub_65E2(2);      printf(&amp;quot;                   written and run by \x1B[1;32mK. Lange\x1B[1;34m @_klange\x1B[0m&amp;quot;);      sub_65E2(2);      printf(&amp;quot;        If things don&amp;#x27;t look right, try:&amp;quot;);      sub_65E2(1);      printf(&amp;quot;                TERM=fallback telnet ...&amp;quot;);      sub_65E2(2);      printf(&amp;quot;        Or on Windows:&amp;quot;);      sub_65E2(1);      printf(&amp;quot;                telnet -t vtnt ...&amp;quot;);      sub_65E2(2);      printf(&amp;quot;        Problems? Check the website:&amp;quot;);      sub_65E2(1);      printf(&amp;quot;                \x1B[1;34mhttp://nyancat.dakko.us\x1B[0m&amp;quot;);      sub_65E2(2);      printf(&amp;quot;        This is a telnet server, remember your escape keys!&amp;quot;);      sub_65E2(1);      printf(&amp;quot;                \x1B[1;31m^]quit\x1B[0m to exit&amp;quot;);      sub_65E2(2);      printf(&amp;quot;        Starting in %d...                \n&amp;quot;, v14 - j);      fflush(stdout);      usleep(0x61A80u);      if ( dword_E104 )        printf(&amp;quot;\x1B[H&amp;quot;);      else        printf(&amp;quot;\x1B[u&amp;quot;);    &amp;#125;    if ( dword_E104 )      printf(&amp;quot;\x1B[H\x1B[2J\x1B[?25l&amp;quot;);  &amp;#125;  time(&amp;amp;timer);  v13 = 1;  v24 = 0;  v23 = 0;  v22 = 0;  v12 = off_FA88;  while ( v13 )  &amp;#123;    if ( dword_E104 )      printf(&amp;quot;\x1B[H&amp;quot;);    else      printf(&amp;quot;\x1B[u&amp;quot;);    for ( k = dword_E1EC; k &amp;lt; dword_E1F0; ++k )    &amp;#123;      for ( m = dword_E1F4; m &amp;lt; dword_E1F8; ++m )      &amp;#123;        if ( k &amp;lt;= 23 || k &amp;gt; 42 || m &amp;gt;= 0 )        &amp;#123;          if ( m &amp;gt;= 0 &amp;amp;&amp;amp; (unsigned int)k &amp;lt; 0x40 &amp;amp;&amp;amp; m &amp;lt;= 63 )          &amp;#123;            v19 = off_FA20[v24][k][m];            off_FA88 = (char *)sub_6314((unsigned int)v24, (unsigned int)k, (unsigned int)m, v12);          &amp;#125;          else          &amp;#123;            v19 = 44;          &amp;#125;        &amp;#125;        else        &amp;#123;          v18 = (2 - m) % 16 / 8;          if ( ((v24 &amp;gt;&amp;gt; 1) &amp;amp; 1) != 0 )            v18 = 1 - v18;          s[128] = &amp;quot;,,&amp;gt;&amp;gt;&amp;amp;&amp;amp;&amp;amp;+++###==;;;,,&amp;quot;;          v19 = asc_BFE3[v18 - 23 + k];          if ( !v19 )            v19 = 44;        &amp;#125;        if ( v25 )        &amp;#123;          printf(&amp;quot;%s&amp;quot;, *((const char **)&amp;amp;unk_FCC0 + v19));        &amp;#125;        else if ( v19 == v22 || !*((_QWORD *)&amp;amp;unk_FCC0 + v19) )        &amp;#123;          printf(&amp;quot;%s&amp;quot;, off_FA88);        &amp;#125;        else        &amp;#123;          v22 = v19;          printf(&amp;quot;%s%s&amp;quot;, *((const char **)&amp;amp;unk_FCC0 + v19), off_FA88);        &amp;#125;      &amp;#125;      sub_65E2(1);    &amp;#125;    if ( dword_E100 )    &amp;#123;      time(&amp;amp;time1);      v11 = difftime(time1, timer);      v10 = sub_63FF((unsigned int)(int)v11);      for ( n = (dword_E1FC - 29 - v10) / 2; n &amp;gt; 0; --n )        putchar(32);      dword_E1E8 += printf(&amp;quot;\x1B[1;37mYou have nyaned for %d times!\x1B[J\x1B[0m&amp;quot;, ++dword_108E0);    &amp;#125;    v22 = 0;    ++v23;    if ( dword_104C4 &amp;amp;&amp;amp; v23 == dword_104C4 )      sub_6471();    if ( !off_FA20[++v24] )      v24 = 0;    usleep(1000 * v27);  &amp;#125;  return 0;&amp;#125;
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="zer0ptr">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="Analysis查看文件类型 ~&#x2F;CTF_Challenges&#x2F;Reverse&#x2F;CatFly$ file CatFly  CatFly: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter &#x2F;lib64&#x2F;ld-linux-x86-64.so.2, BuildID[sha1]">
-<meta property="og:type" content="article">
-<meta property="og:title" content="CATCTF-Reverse-CatFly Writeup">
-<meta property="og:url" content="https://zer0ptr.github.io/2025/08/26/CATCTF-RE-CatFly/index.html">
-<meta property="og:site_name" content="zer0ptr&#39;s Blog">
-<meta property="og:description" content="Analysis查看文件类型 ~&#x2F;CTF_Challenges&#x2F;Reverse&#x2F;CatFly$ file CatFly  CatFly: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter &#x2F;lib64&#x2F;ld-linux-x86-64.so.2, BuildID[sha1]">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-08-26T03:56:17.000Z">
-<meta property="article:modified_time" content="2025-08-26T06:52:22.129Z">
-<meta property="article:author" content="zer0ptr">
-<meta property="article:tag" content="Reverse">
-<meta property="article:tag" content="CTF">
-<meta name="twitter:card" content="summary_large_image">
+注意到这一部分，printf(&amp;quot;%s&amp;quot;, off_FA88);这里我们进一步跟进 off_FA88看到了对它的赋值操作 off_FA88 = sub_6314((unsigned int)v24, k, m, (__int64)v12);此时我们查看sub_6314的源代码
+if ( m &amp;gt;= 0 &amp;amp;&amp;amp; (unsigned int)k &amp;lt; 0x40 &amp;amp;&amp;amp; m &amp;lt;= 63 )          &amp;#123;            v19 = off_FA20[v24][k][m];            off_FA88 = (char *)sub_6314((unsigned int)v24, (unsigned int)k, (unsigned int)m, v12);          &amp;#125;          else          &amp;#123;            v19 = 44;
+
+以下是sub_6314的代码：
+char *__fastcall sub_6314(__int64 a1, int a2, int a3, __int64 a4)&amp;#123;  if ( a2 != 18 )    return (char *)a4;  if ( a3 &amp;lt;= 4 || a3 &amp;gt; 54 )    return (char *)a4;  byte_104C9 = 32;  dword_E120[a3 - 5] ^= sub_62B5();  if ( (unsigned __int8)sub_62E3(dword_E120[a3 - 5]) )    byte_104C8 = dword_E120[a3 - 5] &amp;amp; 0x7F;  else    byte_104C8 = 32;  return &amp;amp;byte_104C8;&amp;#125;
+
+sub_62B5"> 
   
   
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="CATCTF-Reverse-CatFly Writeup"/>
+  <meta property="og:site_name" content="Hakmaple&#39;s Blog"/>
+
   
-  <title>CATCTF-Reverse-CatFly Writeup - zer0ptr&#39;s Blog</title>
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-
-
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
-
-
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"zer0ptr.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
-    }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
+    <meta property="og:image" content=""/>
   
 
   
-
+    <link rel="alternative" href="/atom.xml" title="Hakmaple&#39;s Blog" type="application/atom+xml">
   
-
   
-
+    <link href="/cat.png" rel="icon">
   
-
   
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
+  <script src="/js/jquery-2.0.3.min.js"></script>
 
-
+  <!-- analytics -->
   
-  <script src="/js/sakura.js"></script>
-  <script src="/js/love.js"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70812759-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70812759-1');
+</script>
+
+
+
+
+
+
 <meta name="generator" content="Hexo 7.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
 
-
-<body>
-  
-
-  <header>
-    
-
-<div class="header-inner" style="height: 70vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>zer0ptr&#39;s blog</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/" target="_self">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/" target="_self">
-                <i class="iconfont icon-archive-fill"></i>
-                <span>归档</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/" target="_self">
-                <i class="iconfont icon-category-fill"></i>
-                <span>分类</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/" target="_self">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/" target="_self">
-                <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/links/" target="_self">
-                <i class="iconfont icon-link-fill"></i>
-                <span>友链</span>
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-  
-
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/sakura.jpeg') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="CATCTF-Reverse-CatFly Writeup"></span>
-          
-        </div>
-
-        
-          
-  <div class="mt-3">
-    
-    
-      <span class="post-meta">
-        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-08-26 11:56" pubdate>
-          2025年8月26日 中午
-        </time>
-      </span>
-    
-  </div>
-
-  <div class="mt-1">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-chart"></i>
-        
-          2.5k 字
-        
-      </span>
-    
-
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-clock-fill"></i>
-        
-        
-        
-          21 分钟
-        
-      </span>
-    
-
-    
-    
-  </div>
-
-
-        
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">Hakmaple&#39;s Blog</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
       </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
 
-      
-    </div>
-  </div>
-</div>
+  <div class="container">
+  	<div class="content">
+    	 
 
-</div>
 
-  </header>
+	
+		<div class="page-header">
+			<h1> CATCTF-Reverse-CatFly Writeup</h1>
+		</div>
+	
 
-  <main>
-    
-      
 
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
 
-    </div>
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
 
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">CATCTF-Reverse-CatFly Writeup</h1>
-            
-            
-              <div class="markdown-body">
-                
-                <h1 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h1><p>查看文件类型</p>
-<div class="code-wrapper"><pre><code class="hljs bash">~/CTF_Challenges/Reverse/CatFly$ file CatFly 
-CatFly: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=d05baf98f7d937f503c87ced28e78998e8d3046b, <span class="hljs-keyword">for</span> GNU/Linux 3.2.0, stripped</code></pre></div>
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h1><p>查看文件类型</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">~/CTF_Challenges/Reverse/CatFly$ file CatFly </span><br><span class="line">CatFly: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=d05baf98f7d937f503c87ced28e78998e8d3046b, <span class="keyword">for</span> GNU/Linux 3.2.0, stripped</span><br></pre></td></tr></table></figure>
 
 <p>main函数IDA伪代码如下：</p>
-<div class="code-wrapper"><pre><code class="hljs C">__int64 __fastcall <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> a1, <span class="hljs-type">char</span> **a2, <span class="hljs-type">char</span> **a3)</span>
-&#123;
-  <span class="hljs-type">size_t</span> v3; <span class="hljs-comment">// rbx</span>
-  _WORD v5[<span class="hljs-number">4</span>]; <span class="hljs-comment">// [rsp+10h] [rbp-4B0h] BYREF</span>
-  <span class="hljs-type">time_t</span> time1; <span class="hljs-comment">// [rsp+18h] [rbp-4A8h] BYREF</span>
-  <span class="hljs-type">time_t</span> timer; <span class="hljs-comment">// [rsp+20h] [rbp-4A0h] BYREF</span>
-  <span class="hljs-type">int</span> longind; <span class="hljs-comment">// [rsp+2Ch] [rbp-494h] BYREF</span>
-  _QWORD s[<span class="hljs-number">129</span>]; <span class="hljs-comment">// [rsp+30h] [rbp-490h] BYREF</span>
-  <span class="hljs-type">int</span> v10; <span class="hljs-comment">// [rsp+43Ch] [rbp-84h]</span>
-  <span class="hljs-type">double</span> v11; <span class="hljs-comment">// [rsp+440h] [rbp-80h]</span>
-  <span class="hljs-type">char</span> *v12; <span class="hljs-comment">// [rsp+448h] [rbp-78h]</span>
-  <span class="hljs-type">int</span> v13; <span class="hljs-comment">// [rsp+450h] [rbp-70h]</span>
-  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> v14; <span class="hljs-comment">// [rsp+454h] [rbp-6Ch]</span>
-  <span class="hljs-type">unsigned</span> __int8 v15; <span class="hljs-comment">// [rsp+45Ah] [rbp-66h]</span>
-  <span class="hljs-type">char</span> v16; <span class="hljs-comment">// [rsp+45Bh] [rbp-65h]</span>
-  <span class="hljs-type">int</span> n; <span class="hljs-comment">// [rsp+45Ch] [rbp-64h]</span>
-  <span class="hljs-type">int</span> v18; <span class="hljs-comment">// [rsp+460h] [rbp-60h]</span>
-  <span class="hljs-type">char</span> v19; <span class="hljs-comment">// [rsp+467h] [rbp-59h]</span>
-  <span class="hljs-type">int</span> m; <span class="hljs-comment">// [rsp+468h] [rbp-58h]</span>
-  <span class="hljs-type">int</span> k; <span class="hljs-comment">// [rsp+46Ch] [rbp-54h]</span>
-  <span class="hljs-type">char</span> v22; <span class="hljs-comment">// [rsp+473h] [rbp-4Dh]</span>
-  <span class="hljs-type">int</span> v23; <span class="hljs-comment">// [rsp+474h] [rbp-4Ch]</span>
-  <span class="hljs-type">unsigned</span> __int64 v24; <span class="hljs-comment">// [rsp+478h] [rbp-48h]</span>
-  <span class="hljs-type">int</span> v25; <span class="hljs-comment">// [rsp+484h] [rbp-3Ch]</span>
-  <span class="hljs-type">int</span> v26; <span class="hljs-comment">// [rsp+488h] [rbp-38h]</span>
-  <span class="hljs-type">int</span> v27; <span class="hljs-comment">// [rsp+48Ch] [rbp-34h]</span>
-  <span class="hljs-type">char</span> v28; <span class="hljs-comment">// [rsp+490h] [rbp-30h]</span>
-  <span class="hljs-type">bool</span> v29; <span class="hljs-comment">// [rsp+491h] [rbp-2Fh]</span>
-  <span class="hljs-type">unsigned</span> __int16 v30; <span class="hljs-comment">// [rsp+492h] [rbp-2Eh]</span>
-  <span class="hljs-type">int</span> v31; <span class="hljs-comment">// [rsp+494h] [rbp-2Ch]</span>
-  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> v32; <span class="hljs-comment">// [rsp+498h] [rbp-28h]</span>
-  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> i; <span class="hljs-comment">// [rsp+49Ch] [rbp-24h]</span>
-  <span class="hljs-type">int</span> v34; <span class="hljs-comment">// [rsp+4A0h] [rbp-20h]</span>
-  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> j; <span class="hljs-comment">// [rsp+4A4h] [rbp-1Ch]</span>
-  <span class="hljs-type">char</span> *haystack; <span class="hljs-comment">// [rsp+4A8h] [rbp-18h]</span>
-
-  haystack = <span class="hljs-number">0</span>;
-  i = <span class="hljs-number">0</span>;
-  v32 = <span class="hljs-number">0</span>;
-  v31 = <span class="hljs-number">0</span>;
-  <span class="hljs-built_in">memset</span>(s, <span class="hljs-number">0</span>, <span class="hljs-number">1024</span>);
-  v30 = <span class="hljs-number">0</span>;
-  v29 = <span class="hljs-number">0</span>;
-  v28 = <span class="hljs-number">0</span>;
-  v27 = <span class="hljs-number">90</span>;
-  <span class="hljs-keyword">while</span> ( <span class="hljs-number">1</span> )
-  &#123;
-    v26 = getopt_long(a1, a2, <span class="hljs-string">&quot;eshiItnd:f:r:R:c:C:W:H:&quot;</span>, &amp;longopts, &amp;longind);
-    <span class="hljs-keyword">if</span> ( v26 == <span class="hljs-number">-1</span> )
-      <span class="hljs-keyword">break</span>;
-    <span class="hljs-keyword">if</span> ( !v26 &amp;&amp; !*((_QWORD *)&amp;longopts.flag + <span class="hljs-number">4</span> * longind) )
-      v26 = *(&amp;longopts.val + <span class="hljs-number">8</span> * longind);
-    <span class="hljs-keyword">switch</span> ( v26 )
-    &#123;
-      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;C&#x27;</span>:
-        dword_E1F8 = atoi(optarg);
-        <span class="hljs-keyword">break</span>;
-      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;H&#x27;</span>:
-        dword_E1EC = (<span class="hljs-number">64</span> - atoi(optarg)) / <span class="hljs-number">2</span>;
-        dword_E1F0 = (atoi(optarg) + <span class="hljs-number">64</span>) / <span class="hljs-number">2</span>;
-        <span class="hljs-keyword">break</span>;
-      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;I&#x27;</span>:
-        v28 = <span class="hljs-number">1</span>;
-        <span class="hljs-keyword">break</span>;
-      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;R&#x27;</span>:
-        dword_E1F0 = atoi(optarg);
-        <span class="hljs-keyword">break</span>;
-      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;W&#x27;</span>:
-        dword_E1F4 = (<span class="hljs-number">64</span> - atoi(optarg)) / <span class="hljs-number">2</span>;
-        dword_E1F8 = (atoi(optarg) + <span class="hljs-number">64</span>) / <span class="hljs-number">2</span>;
-        <span class="hljs-keyword">break</span>;
-      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;c&#x27;</span>:
-        dword_E1F4 = atoi(optarg);
-        <span class="hljs-keyword">break</span>;
-      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;d&#x27;</span>:
-        <span class="hljs-keyword">if</span> ( atoi(optarg) &gt; <span class="hljs-number">9</span> &amp;&amp; atoi(optarg) &lt;= <span class="hljs-number">1000</span> )
-          v27 = atoi(optarg);
-        <span class="hljs-keyword">break</span>;
-      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;e&#x27;</span>:
-        dword_E104 = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">break</span>;
-      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;f&#x27;</span>:
-        dword_104C4 = atoi(optarg);
-        <span class="hljs-keyword">break</span>;
-      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;h&#x27;</span>:
-        sub_67F0(a2);
-        <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);
-      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;i&#x27;</span>:
-        v29 = <span class="hljs-number">1</span>;
-        <span class="hljs-keyword">break</span>;
-      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;r&#x27;</span>:
-        dword_E1EC = atoi(optarg);
-        <span class="hljs-keyword">break</span>;
-      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;s&#x27;</span>:
-        dword_E108 = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">break</span>;
-      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;t&#x27;</span>:
-        dword_104C0 = <span class="hljs-number">1</span>;
-        <span class="hljs-keyword">break</span>;
-      <span class="hljs-keyword">default</span>:
-        <span class="hljs-keyword">continue</span>;
-    &#125;
-  &#125;
-  <span class="hljs-keyword">if</span> ( dword_104C0 )
-  &#123;
-    v29 = v28 == <span class="hljs-number">0</span>;
-    sub_6669();
-    <span class="hljs-keyword">for</span> ( i = <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">0xFF</span>; ++i )
-    &#123;
-      <span class="hljs-keyword">if</span> ( *((_BYTE *)&amp;unk_104E0 + i) )
-      &#123;
-        sub_66AF(*((<span class="hljs-type">unsigned</span> __int8 *)&amp;unk_104E0 + i), i);
-        fflush(<span class="hljs-built_in">stdout</span>);
-      &#125;
-    &#125;
-    <span class="hljs-keyword">for</span> ( i = <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">0xFF</span>; ++i )
-    &#123;
-      <span class="hljs-keyword">if</span> ( *((_BYTE *)&amp;unk_105E0 + i) )
-      &#123;
-        sub_66AF(*((<span class="hljs-type">unsigned</span> __int8 *)&amp;unk_105E0 + i), i);
-        fflush(<span class="hljs-built_in">stdout</span>);
-      &#125;
-    &#125;
-    signal(<span class="hljs-number">14</span>, sub_64C0);
-    <span class="hljs-keyword">if</span> ( !_setjmp(env) )
-    &#123;
-      alarm(<span class="hljs-number">1u</span>);
-      <span class="hljs-keyword">while</span> ( !feof(<span class="hljs-built_in">stdin</span>) &amp;&amp; v32 &lt;= <span class="hljs-number">1</span> )
-      &#123;
-        v16 = getchar();
-        v15 = <span class="hljs-number">0</span>;
-        <span class="hljs-keyword">if</span> ( v16 == <span class="hljs-number">-1</span> )
-        &#123;
-          v16 = getchar();
-          <span class="hljs-keyword">switch</span> ( v16 )
-          &#123;
-            <span class="hljs-keyword">case</span> <span class="hljs-number">-16</span>:
-              v31 = <span class="hljs-number">0</span>;
-              <span class="hljs-keyword">if</span> ( LOBYTE(s[<span class="hljs-number">0</span>]) == <span class="hljs-number">24</span> )
-              &#123;
-                alarm(<span class="hljs-number">2u</span>);
-                haystack = strndup((<span class="hljs-type">const</span> <span class="hljs-type">char</span> *)s + <span class="hljs-number">2</span>, <span class="hljs-number">0x3FEu</span>);
-                ++v32;
-              &#125;
-              <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( LOBYTE(s[<span class="hljs-number">0</span>]) == <span class="hljs-number">31</span> )
-              &#123;
-                alarm(<span class="hljs-number">2u</span>);
-                dword_E1FC = (BYTE1(s[<span class="hljs-number">0</span>]) &lt;&lt; <span class="hljs-number">8</span>) | BYTE2(s[<span class="hljs-number">0</span>]);
-                dword_E200 = (BYTE3(s[<span class="hljs-number">0</span>]) &lt;&lt; <span class="hljs-number">8</span>) | BYTE4(s[<span class="hljs-number">0</span>]);
-                ++v32;
-              &#125;
-              <span class="hljs-keyword">break</span>;
-            <span class="hljs-keyword">case</span> <span class="hljs-number">-15</span>:
-              sub_66AF(<span class="hljs-number">241</span>, <span class="hljs-number">0</span>);
-              fflush(<span class="hljs-built_in">stdout</span>);
-              <span class="hljs-keyword">break</span>;
-            <span class="hljs-keyword">case</span> <span class="hljs-number">-6</span>:
-              v31 = <span class="hljs-number">1</span>;
-              v30 = <span class="hljs-number">0</span>;
-              <span class="hljs-built_in">memset</span>(s, <span class="hljs-number">0</span>, <span class="hljs-number">0x400u</span>);
-              <span class="hljs-keyword">break</span>;
-            <span class="hljs-keyword">case</span> <span class="hljs-number">-5</span>:
-            <span class="hljs-keyword">case</span> <span class="hljs-number">-4</span>:
-              v15 = getchar();
-              <span class="hljs-keyword">if</span> ( !*((_BYTE *)&amp;unk_105E0 + v15) )
-                *((_BYTE *)&amp;unk_105E0 + v15) = <span class="hljs-number">-4</span>;
-              sub_66AF(*((<span class="hljs-type">unsigned</span> __int8 *)&amp;unk_105E0 + v15), v15);
-              fflush(<span class="hljs-built_in">stdout</span>);
-              <span class="hljs-keyword">if</span> ( v16 == <span class="hljs-number">-5</span> &amp;&amp; v15 == <span class="hljs-number">24</span> )
-              &#123;
-                <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%c%c%c%c%c%c&quot;</span>, <span class="hljs-number">255</span>, <span class="hljs-number">250</span>, <span class="hljs-number">24</span>, <span class="hljs-number">1</span>, <span class="hljs-number">255</span>, <span class="hljs-number">240</span>);
-                fflush(<span class="hljs-built_in">stdout</span>);
-              &#125;
-              <span class="hljs-keyword">break</span>;
-            <span class="hljs-keyword">case</span> <span class="hljs-number">-3</span>:
-            <span class="hljs-keyword">case</span> <span class="hljs-number">-2</span>:
-              v15 = getchar();
-              <span class="hljs-keyword">if</span> ( !*((_BYTE *)&amp;unk_104E0 + v15) )
-                *((_BYTE *)&amp;unk_104E0 + v15) = <span class="hljs-number">-2</span>;
-              sub_66AF(*((<span class="hljs-type">unsigned</span> __int8 *)&amp;unk_104E0 + v15), v15);
-              fflush(<span class="hljs-built_in">stdout</span>);
-              <span class="hljs-keyword">break</span>;
-            <span class="hljs-keyword">case</span> <span class="hljs-number">-1</span>:
-              v32 = <span class="hljs-number">2</span>;
-              <span class="hljs-keyword">break</span>;
-            <span class="hljs-keyword">default</span>:
-              <span class="hljs-keyword">continue</span>;
-          &#125;
-        &#125;
-        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( v31 &amp;&amp; v30 &lt;= <span class="hljs-number">0x3FEu</span> )
-        &#123;
-          *((_BYTE *)s + v30++) = v16;
-        &#125;
-      &#125;
-    &#125;
-    alarm(<span class="hljs-number">0</span>);
-  &#125;
-  <span class="hljs-keyword">else</span>
-  &#123;
-    haystack = getenv(<span class="hljs-string">&quot;TERM&quot;</span>);
-    ioctl(<span class="hljs-number">0</span>, <span class="hljs-number">0x5413u</span>, v5);
-    dword_E1FC = v5[<span class="hljs-number">1</span>];
-    dword_E200 = v5[<span class="hljs-number">0</span>];
-  &#125;
-  v34 = <span class="hljs-number">2</span>;
-  <span class="hljs-keyword">if</span> ( haystack )
-  &#123;
-    <span class="hljs-keyword">for</span> ( j = <span class="hljs-number">0</span>; ; ++j )
-    &#123;
-      v3 = j;
-      <span class="hljs-keyword">if</span> ( v3 &gt;= <span class="hljs-built_in">strlen</span>(haystack) )
-        <span class="hljs-keyword">break</span>;
-      haystack[j] = <span class="hljs-built_in">tolower</span>(haystack[j]);
-    &#125;
-    <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strstr</span>(haystack, <span class="hljs-string">&quot;xterm&quot;</span>) )
-    &#123;
-      v34 = <span class="hljs-number">1</span>;
-    &#125;
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strstr</span>(haystack, <span class="hljs-string">&quot;toaru&quot;</span>) )
-    &#123;
-      v34 = <span class="hljs-number">1</span>;
-    &#125;
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strstr</span>(haystack, <span class="hljs-string">&quot;linux&quot;</span>) )
-    &#123;
-      v34 = <span class="hljs-number">3</span>;
-    &#125;
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strstr</span>(haystack, <span class="hljs-string">&quot;vtnt&quot;</span>) )
-    &#123;
-      v34 = <span class="hljs-number">5</span>;
-    &#125;
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strstr</span>(haystack, <span class="hljs-string">&quot;cygwin&quot;</span>) )
-    &#123;
-      v34 = <span class="hljs-number">5</span>;
-    &#125;
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strstr</span>(haystack, <span class="hljs-string">&quot;vt220&quot;</span>) )
-    &#123;
-      v34 = <span class="hljs-number">6</span>;
-    &#125;
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strstr</span>(haystack, <span class="hljs-string">&quot;fallback&quot;</span>) )
-    &#123;
-      v34 = <span class="hljs-number">4</span>;
-    &#125;
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strstr</span>(haystack, <span class="hljs-string">&quot;rxvt-256color&quot;</span>) )
-    &#123;
-      v34 = <span class="hljs-number">1</span>;
-    &#125;
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strstr</span>(haystack, <span class="hljs-string">&quot;rxvt&quot;</span>) )
-    &#123;
-      v34 = <span class="hljs-number">3</span>;
-    &#125;
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strstr</span>(haystack, <span class="hljs-string">&quot;vt100&quot;</span>) &amp;&amp; dword_E1FC == <span class="hljs-number">40</span> )
-    &#123;
-      v34 = <span class="hljs-number">7</span>;
-    &#125;
-    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( !<span class="hljs-built_in">strncmp</span>(haystack, <span class="hljs-string">&quot;st&quot;</span>, <span class="hljs-number">2u</span>) )
-    &#123;
-      v34 = <span class="hljs-number">1</span>;
-    &#125;
-  &#125;
-  v25 = <span class="hljs-number">0</span>;
-  signal(<span class="hljs-number">2</span>, sub_64A8);
-  signal(<span class="hljs-number">13</span>, sub_64E6);
-  <span class="hljs-keyword">if</span> ( !dword_104C0 )
-    signal(<span class="hljs-number">28</span>, handler);
-  <span class="hljs-keyword">switch</span> ( v34 )
-  &#123;
-    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:
-      qword_FE20 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;17m&quot;</span>;
-      qword_FE30 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;231m&quot;</span>;
-      qword_FDF8 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;16m&quot;</span>;
-      qword_FEC0 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;230m&quot;</span>;
-      qword_FDE0 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;175m&quot;</span>;
-      qword_FE28 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;162m&quot;</span>;
-      qword_FEB0 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;196m&quot;</span>;
-      qword_FDF0 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;214m&quot;</span>;
-      qword_FE18 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;226m&quot;</span>;
-      qword_FDD8 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;118m&quot;</span>;
-      qword_FEA8 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;33m&quot;</span>;
-      qword_FE98 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;19m&quot;</span>;
-      qword_FE10 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;240m&quot;</span>;
-      qword_FDE8 = (__int64)<span class="hljs-string">&quot;\x1B[48;5;175m&quot;</span>;
-      <span class="hljs-keyword">break</span>;
-    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:
-      qword_FE20 = (__int64)<span class="hljs-string">&quot;\x1B[104m&quot;</span>;
-      qword_FE30 = (__int64)<span class="hljs-string">&quot;\x1B[107m&quot;</span>;
-      qword_FDF8 = (__int64)<span class="hljs-string">&quot;\x1B[40m&quot;</span>;
-      qword_FEC0 = (__int64)<span class="hljs-string">&quot;\x1B[47m&quot;</span>;
-      qword_FDE0 = (__int64)<span class="hljs-string">&quot;\x1B[105m&quot;</span>;
-      qword_FE28 = (__int64)<span class="hljs-string">&quot;\x1B[101m&quot;</span>;
-      qword_FEB0 = (__int64)<span class="hljs-string">&quot;\x1B[101m&quot;</span>;
-      qword_FDF0 = (__int64)<span class="hljs-string">&quot;\x1B[43m&quot;</span>;
-      qword_FE18 = (__int64)<span class="hljs-string">&quot;\x1B[103m&quot;</span>;
-      qword_FDD8 = (__int64)<span class="hljs-string">&quot;\x1B[102m&quot;</span>;
-      qword_FEA8 = (__int64)<span class="hljs-string">&quot;\x1B[104m&quot;</span>;
-      qword_FE98 = (__int64)<span class="hljs-string">&quot;\x1B[44m&quot;</span>;
-      qword_FE10 = (__int64)<span class="hljs-string">&quot;\x1B[100m&quot;</span>;
-      qword_FDE8 = (__int64)<span class="hljs-string">&quot;\x1B[105m&quot;</span>;
-      <span class="hljs-keyword">break</span>;
-    <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:
-      qword_FE20 = (__int64)<span class="hljs-string">&quot;\x1B[25;44m&quot;</span>;
-      qword_FE30 = (__int64)<span class="hljs-string">&quot;\x1B[5;47m&quot;</span>;
-      qword_FDF8 = (__int64)<span class="hljs-string">&quot;\x1B[25;40m&quot;</span>;
-      qword_FEC0 = (__int64)<span class="hljs-string">&quot;\x1B[5;47m&quot;</span>;
-      qword_FDE0 = (__int64)<span class="hljs-string">&quot;\x1B[5;45m&quot;</span>;
-      qword_FE28 = (__int64)<span class="hljs-string">&quot;\x1B[5;41m&quot;</span>;
-      qword_FEB0 = (__int64)<span class="hljs-string">&quot;\x1B[5;41m&quot;</span>;
-      qword_FDF0 = (__int64)<span class="hljs-string">&quot;\x1B[25;43m&quot;</span>;
-      qword_FE18 = (__int64)<span class="hljs-string">&quot;\x1B[5;43m&quot;</span>;
-      qword_FDD8 = (__int64)<span class="hljs-string">&quot;\x1B[5;42m&quot;</span>;
-      qword_FEA8 = (__int64)<span class="hljs-string">&quot;\x1B[25;44m&quot;</span>;
-      qword_FE98 = (__int64)<span class="hljs-string">&quot;\x1B[5;44m&quot;</span>;
-      qword_FE10 = (__int64)<span class="hljs-string">&quot;\x1B[5;40m&quot;</span>;
-      qword_FDE8 = (__int64)<span class="hljs-string">&quot;\x1B[5;45m&quot;</span>;
-      <span class="hljs-keyword">break</span>;
-    <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:
-      qword_FE20 = (__int64)<span class="hljs-string">&quot;\x1B[0;34;44m&quot;</span>;
-      qword_FE30 = (__int64)<span class="hljs-string">&quot;\x1B[1;37;47m&quot;</span>;
-      qword_FDF8 = (__int64)<span class="hljs-string">&quot;\x1B[0;30;40m&quot;</span>;
-      qword_FEC0 = (__int64)<span class="hljs-string">&quot;\x1B[1;37;47m&quot;</span>;
-      qword_FDE0 = (__int64)<span class="hljs-string">&quot;\x1B[1;35;45m&quot;</span>;
-      qword_FE28 = (__int64)<span class="hljs-string">&quot;\x1B[1;31;41m&quot;</span>;
-      qword_FEB0 = (__int64)<span class="hljs-string">&quot;\x1B[1;31;41m&quot;</span>;
-      qword_FDF0 = (__int64)<span class="hljs-string">&quot;\x1B[0;33;43m&quot;</span>;
-      qword_FE18 = (__int64)<span class="hljs-string">&quot;\x1B[1;33;43m&quot;</span>;
-      qword_FDD8 = (__int64)<span class="hljs-string">&quot;\x1B[1;32;42m&quot;</span>;
-      qword_FEA8 = (__int64)<span class="hljs-string">&quot;\x1B[1;34;44m&quot;</span>;
-      qword_FE98 = (__int64)<span class="hljs-string">&quot;\x1B[0;34;44m&quot;</span>;
-      qword_FE10 = (__int64)<span class="hljs-string">&quot;\x1B[1;30;40m&quot;</span>;
-      qword_FDE8 = (__int64)<span class="hljs-string">&quot;\x1B[1;35;45m&quot;</span>;
-      off_FA88 = (<span class="hljs-type">char</span> *)&amp;unk_BCFF;
-      <span class="hljs-keyword">break</span>;
-    <span class="hljs-keyword">case</span> <span class="hljs-number">5</span>:
-      qword_FE20 = (__int64)<span class="hljs-string">&quot;\x1B[0;34;44m&quot;</span>;
-      qword_FE30 = (__int64)<span class="hljs-string">&quot;\x1B[1;37;47m&quot;</span>;
-      qword_FDF8 = (__int64)<span class="hljs-string">&quot;\x1B[0;30;40m&quot;</span>;
-      qword_FEC0 = (__int64)<span class="hljs-string">&quot;\x1B[1;37;47m&quot;</span>;
-      qword_FDE0 = (__int64)<span class="hljs-string">&quot;\x1B[1;35;45m&quot;</span>;
-      qword_FE28 = (__int64)<span class="hljs-string">&quot;\x1B[1;31;41m&quot;</span>;
-      qword_FEB0 = (__int64)<span class="hljs-string">&quot;\x1B[1;31;41m&quot;</span>;
-      qword_FDF0 = (__int64)<span class="hljs-string">&quot;\x1B[0;33;43m&quot;</span>;
-      qword_FE18 = (__int64)<span class="hljs-string">&quot;\x1B[1;33;43m&quot;</span>;
-      qword_FDD8 = (__int64)<span class="hljs-string">&quot;\x1B[1;32;42m&quot;</span>;
-      qword_FEA8 = (__int64)<span class="hljs-string">&quot;\x1B[1;34;44m&quot;</span>;
-      qword_FE98 = (__int64)<span class="hljs-string">&quot;\x1B[0;34;44m&quot;</span>;
-      qword_FE10 = (__int64)<span class="hljs-string">&quot;\x1B[1;30;40m&quot;</span>;
-      qword_FDE8 = (__int64)<span class="hljs-string">&quot;\x1B[1;35;45m&quot;</span>;
-      off_FA88 = (<span class="hljs-type">char</span> *)&amp;unk_BD06;
-      <span class="hljs-keyword">break</span>;
-    <span class="hljs-keyword">case</span> <span class="hljs-number">6</span>:
-      qword_FE20 = (__int64)&amp;unk_BD09;
-      qword_FE30 = (__int64)&amp;unk_BD0C;
-      qword_FDF8 = (__int64)<span class="hljs-string">&quot;  &quot;</span>;
-      qword_FEC0 = (__int64)&amp;unk_BD0F;
-      qword_FDE0 = (__int64)&amp;unk_BD12;
-      qword_FE28 = (__int64)&amp;unk_BD15;
-      qword_FEB0 = (__int64)&amp;unk_BD0F;
-      qword_FDF0 = (__int64)&amp;unk_BD18;
-      qword_FE18 = (__int64)&amp;unk_BD1B;
-      qword_FDD8 = (__int64)&amp;unk_BD1E;
-      qword_FEA8 = (__int64)&amp;unk_BD21;
-      qword_FE98 = (__int64)&amp;unk_BD24;
-      qword_FE10 = (__int64)&amp;unk_BD27;
-      qword_FDE8 = (__int64)&amp;unk_BD2A;
-      v25 = <span class="hljs-number">1</span>;
-      <span class="hljs-keyword">break</span>;
-    <span class="hljs-keyword">case</span> <span class="hljs-number">7</span>:
-      qword_FE20 = (__int64)&amp;unk_BD2D;
-      qword_FE30 = (__int64)&amp;unk_BD2F;
-      qword_FDF8 = (__int64)&amp;unk_BD31;
-      qword_FEC0 = (__int64)&amp;unk_BD33;
-      qword_FDE0 = (__int64)&amp;unk_BD35;
-      qword_FE28 = (__int64)&amp;unk_BD37;
-      qword_FEB0 = (__int64)&amp;unk_BD33;
-      qword_FDF0 = (__int64)&amp;unk_BD39;
-      qword_FE18 = (__int64)&amp;unk_BD3B;
-      qword_FDD8 = (__int64)&amp;unk_BD3D;
-      qword_FEA8 = (__int64)&amp;unk_BD3F;
-      qword_FE98 = (__int64)&amp;unk_BD41;
-      qword_FE10 = (__int64)&amp;unk_BD43;
-      qword_FDE8 = (__int64)&amp;unk_BD45;
-      v25 = <span class="hljs-number">1</span>;
-      dword_E1FC = <span class="hljs-number">40</span>;
-      <span class="hljs-keyword">break</span>;
-    <span class="hljs-keyword">default</span>:
-      <span class="hljs-keyword">break</span>;
-  &#125;
-  <span class="hljs-keyword">if</span> ( dword_E1F4 == dword_E1F8 )
-  &#123;
-    dword_E1F4 = (dword_E1FC / <span class="hljs-number">-2</span> + <span class="hljs-number">64</span>) / <span class="hljs-number">2</span>;
-    dword_E1F8 = (dword_E1FC / <span class="hljs-number">2</span> + <span class="hljs-number">64</span>) / <span class="hljs-number">2</span>;
-    byte_104CB = <span class="hljs-number">1</span>;
-  &#125;
-  <span class="hljs-keyword">if</span> ( dword_E1EC == dword_E1F0 )
-  &#123;
-    dword_E1EC = (<span class="hljs-number">65</span> - dword_E200) / <span class="hljs-number">2</span>;
-    dword_E1F0 = (dword_E200 + <span class="hljs-number">63</span>) / <span class="hljs-number">2</span>;
-    byte_104CC = <span class="hljs-number">1</span>;
-  &#125;
-  <span class="hljs-keyword">if</span> ( dword_E108 )
-  &#123;
-    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\x1BkNyanyanyanyanyanyanya...\x1B\\&quot;</span>);
-    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\x1B]1;Nyanyanyanyanyanyanya...\a&quot;</span>);
-    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\x1B]2;Nyanyanyanyanyanyanya...\a&quot;</span>);
-  &#125;
-  <span class="hljs-keyword">if</span> ( dword_E104 )
-    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\x1B[H\x1B[2J\x1B[?25l&quot;</span>);
-  <span class="hljs-keyword">else</span>
-    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\x1B[s&quot;</span>);
-  <span class="hljs-keyword">if</span> ( v29 )
-  &#123;
-    v14 = <span class="hljs-number">5</span>;
-    <span class="hljs-keyword">for</span> ( j = <span class="hljs-number">0</span>; j &lt; v14; ++j )
-    &#123;
-      sub_65E2(<span class="hljs-number">3</span>);
-      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;                             \x1B[1mNyancat Telnet Server\x1B[0m&quot;</span>);
-      sub_65E2(<span class="hljs-number">2</span>);
-      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;                   written and run by \x1B[1;32mK. Lange\x1B[1;34m @_klange\x1B[0m&quot;</span>);
-      sub_65E2(<span class="hljs-number">2</span>);
-      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;        If things don&#x27;t look right, try:&quot;</span>);
-      sub_65E2(<span class="hljs-number">1</span>);
-      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;                TERM=fallback telnet ...&quot;</span>);
-      sub_65E2(<span class="hljs-number">2</span>);
-      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;        Or on Windows:&quot;</span>);
-      sub_65E2(<span class="hljs-number">1</span>);
-      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;                telnet -t vtnt ...&quot;</span>);
-      sub_65E2(<span class="hljs-number">2</span>);
-      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;        Problems? Check the website:&quot;</span>);
-      sub_65E2(<span class="hljs-number">1</span>);
-      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;                \x1B[1;34mhttp://nyancat.dakko.us\x1B[0m&quot;</span>);
-      sub_65E2(<span class="hljs-number">2</span>);
-      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;        This is a telnet server, remember your escape keys!&quot;</span>);
-      sub_65E2(<span class="hljs-number">1</span>);
-      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;                \x1B[1;31m^]quit\x1B[0m to exit&quot;</span>);
-      sub_65E2(<span class="hljs-number">2</span>);
-      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;        Starting in %d...                \n&quot;</span>, v14 - j);
-      fflush(<span class="hljs-built_in">stdout</span>);
-      usleep(<span class="hljs-number">0x61A80u</span>);
-      <span class="hljs-keyword">if</span> ( dword_E104 )
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\x1B[H&quot;</span>);
-      <span class="hljs-keyword">else</span>
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\x1B[u&quot;</span>);
-    &#125;
-    <span class="hljs-keyword">if</span> ( dword_E104 )
-      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\x1B[H\x1B[2J\x1B[?25l&quot;</span>);
-  &#125;
-  time(&amp;timer);
-  v13 = <span class="hljs-number">1</span>;
-  v24 = <span class="hljs-number">0</span>;
-  v23 = <span class="hljs-number">0</span>;
-  v22 = <span class="hljs-number">0</span>;
-  v12 = off_FA88;
-  <span class="hljs-keyword">while</span> ( v13 )
-  &#123;
-    <span class="hljs-keyword">if</span> ( dword_E104 )
-      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\x1B[H&quot;</span>);
-    <span class="hljs-keyword">else</span>
-      <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\x1B[u&quot;</span>);
-    <span class="hljs-keyword">for</span> ( k = dword_E1EC; k &lt; dword_E1F0; ++k )
-    &#123;
-      <span class="hljs-keyword">for</span> ( m = dword_E1F4; m &lt; dword_E1F8; ++m )
-      &#123;
-        <span class="hljs-keyword">if</span> ( k &lt;= <span class="hljs-number">23</span> || k &gt; <span class="hljs-number">42</span> || m &gt;= <span class="hljs-number">0</span> )
-        &#123;
-          <span class="hljs-keyword">if</span> ( m &gt;= <span class="hljs-number">0</span> &amp;&amp; (<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>)k &lt; <span class="hljs-number">0x40</span> &amp;&amp; m &lt;= <span class="hljs-number">63</span> )
-          &#123;
-            v19 = off_FA20[v24][k][m];
-            off_FA88 = (<span class="hljs-type">char</span> *)sub_6314((<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>)v24, (<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>)k, (<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>)m, v12);
-          &#125;
-          <span class="hljs-keyword">else</span>
-          &#123;
-            v19 = <span class="hljs-number">44</span>;
-          &#125;
-        &#125;
-        <span class="hljs-keyword">else</span>
-        &#123;
-          v18 = (<span class="hljs-number">2</span> - m) % <span class="hljs-number">16</span> / <span class="hljs-number">8</span>;
-          <span class="hljs-keyword">if</span> ( ((v24 &gt;&gt; <span class="hljs-number">1</span>) &amp; <span class="hljs-number">1</span>) != <span class="hljs-number">0</span> )
-            v18 = <span class="hljs-number">1</span> - v18;
-          s[<span class="hljs-number">128</span>] = <span class="hljs-string">&quot;,,&gt;&gt;&amp;&amp;&amp;+++###==;;;,,&quot;</span>;
-          v19 = asc_BFE3[v18 - <span class="hljs-number">23</span> + k];
-          <span class="hljs-keyword">if</span> ( !v19 )
-            v19 = <span class="hljs-number">44</span>;
-        &#125;
-        <span class="hljs-keyword">if</span> ( v25 )
-        &#123;
-          <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, *((<span class="hljs-type">const</span> <span class="hljs-type">char</span> **)&amp;unk_FCC0 + v19));
-        &#125;
-        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> ( v19 == v22 || !*((_QWORD *)&amp;unk_FCC0 + v19) )
-        &#123;
-          <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, off_FA88);
-        &#125;
-        <span class="hljs-keyword">else</span>
-        &#123;
-          v22 = v19;
-          <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s%s&quot;</span>, *((<span class="hljs-type">const</span> <span class="hljs-type">char</span> **)&amp;unk_FCC0 + v19), off_FA88);
-        &#125;
-      &#125;
-      sub_65E2(<span class="hljs-number">1</span>);
-    &#125;
-    <span class="hljs-keyword">if</span> ( dword_E100 )
-    &#123;
-      time(&amp;time1);
-      v11 = difftime(time1, timer);
-      v10 = sub_63FF((<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>)(<span class="hljs-type">int</span>)v11);
-      <span class="hljs-keyword">for</span> ( n = (dword_E1FC - <span class="hljs-number">29</span> - v10) / <span class="hljs-number">2</span>; n &gt; <span class="hljs-number">0</span>; --n )
-        <span class="hljs-built_in">putchar</span>(<span class="hljs-number">32</span>);
-      dword_E1E8 += <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\x1B[1;37mYou have nyaned for %d times!\x1B[J\x1B[0m&quot;</span>, ++dword_108E0);
-    &#125;
-    v22 = <span class="hljs-number">0</span>;
-    ++v23;
-    <span class="hljs-keyword">if</span> ( dword_104C4 &amp;&amp; v23 == dword_104C4 )
-      sub_6471();
-    <span class="hljs-keyword">if</span> ( !off_FA20[++v24] )
-      v24 = <span class="hljs-number">0</span>;
-    usleep(<span class="hljs-number">1000</span> * v27);
-  &#125;
-  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
-&#125;</code></pre></div>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">__int64 __fastcall <span class="title function_">main</span><span class="params">(<span class="type">int</span> a1, <span class="type">char</span> **a2, <span class="type">char</span> **a3)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">size_t</span> v3; <span class="comment">// rbx</span></span><br><span class="line">  _WORD v5[<span class="number">4</span>]; <span class="comment">// [rsp+10h] [rbp-4B0h] BYREF</span></span><br><span class="line">  <span class="type">time_t</span> time1; <span class="comment">// [rsp+18h] [rbp-4A8h] BYREF</span></span><br><span class="line">  <span class="type">time_t</span> timer; <span class="comment">// [rsp+20h] [rbp-4A0h] BYREF</span></span><br><span class="line">  <span class="type">int</span> longind; <span class="comment">// [rsp+2Ch] [rbp-494h] BYREF</span></span><br><span class="line">  _QWORD s[<span class="number">129</span>]; <span class="comment">// [rsp+30h] [rbp-490h] BYREF</span></span><br><span class="line">  <span class="type">int</span> v10; <span class="comment">// [rsp+43Ch] [rbp-84h]</span></span><br><span class="line">  <span class="type">double</span> v11; <span class="comment">// [rsp+440h] [rbp-80h]</span></span><br><span class="line">  <span class="type">char</span> *v12; <span class="comment">// [rsp+448h] [rbp-78h]</span></span><br><span class="line">  <span class="type">int</span> v13; <span class="comment">// [rsp+450h] [rbp-70h]</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span> v14; <span class="comment">// [rsp+454h] [rbp-6Ch]</span></span><br><span class="line">  <span class="type">unsigned</span> __int8 v15; <span class="comment">// [rsp+45Ah] [rbp-66h]</span></span><br><span class="line">  <span class="type">char</span> v16; <span class="comment">// [rsp+45Bh] [rbp-65h]</span></span><br><span class="line">  <span class="type">int</span> n; <span class="comment">// [rsp+45Ch] [rbp-64h]</span></span><br><span class="line">  <span class="type">int</span> v18; <span class="comment">// [rsp+460h] [rbp-60h]</span></span><br><span class="line">  <span class="type">char</span> v19; <span class="comment">// [rsp+467h] [rbp-59h]</span></span><br><span class="line">  <span class="type">int</span> m; <span class="comment">// [rsp+468h] [rbp-58h]</span></span><br><span class="line">  <span class="type">int</span> k; <span class="comment">// [rsp+46Ch] [rbp-54h]</span></span><br><span class="line">  <span class="type">char</span> v22; <span class="comment">// [rsp+473h] [rbp-4Dh]</span></span><br><span class="line">  <span class="type">int</span> v23; <span class="comment">// [rsp+474h] [rbp-4Ch]</span></span><br><span class="line">  <span class="type">unsigned</span> __int64 v24; <span class="comment">// [rsp+478h] [rbp-48h]</span></span><br><span class="line">  <span class="type">int</span> v25; <span class="comment">// [rsp+484h] [rbp-3Ch]</span></span><br><span class="line">  <span class="type">int</span> v26; <span class="comment">// [rsp+488h] [rbp-38h]</span></span><br><span class="line">  <span class="type">int</span> v27; <span class="comment">// [rsp+48Ch] [rbp-34h]</span></span><br><span class="line">  <span class="type">char</span> v28; <span class="comment">// [rsp+490h] [rbp-30h]</span></span><br><span class="line">  <span class="type">bool</span> v29; <span class="comment">// [rsp+491h] [rbp-2Fh]</span></span><br><span class="line">  <span class="type">unsigned</span> __int16 v30; <span class="comment">// [rsp+492h] [rbp-2Eh]</span></span><br><span class="line">  <span class="type">int</span> v31; <span class="comment">// [rsp+494h] [rbp-2Ch]</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span> v32; <span class="comment">// [rsp+498h] [rbp-28h]</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span> i; <span class="comment">// [rsp+49Ch] [rbp-24h]</span></span><br><span class="line">  <span class="type">int</span> v34; <span class="comment">// [rsp+4A0h] [rbp-20h]</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span> j; <span class="comment">// [rsp+4A4h] [rbp-1Ch]</span></span><br><span class="line">  <span class="type">char</span> *haystack; <span class="comment">// [rsp+4A8h] [rbp-18h]</span></span><br><span class="line"></span><br><span class="line">  haystack = <span class="number">0</span>;</span><br><span class="line">  i = <span class="number">0</span>;</span><br><span class="line">  v32 = <span class="number">0</span>;</span><br><span class="line">  v31 = <span class="number">0</span>;</span><br><span class="line">  <span class="built_in">memset</span>(s, <span class="number">0</span>, <span class="number">1024</span>);</span><br><span class="line">  v30 = <span class="number">0</span>;</span><br><span class="line">  v29 = <span class="number">0</span>;</span><br><span class="line">  v28 = <span class="number">0</span>;</span><br><span class="line">  v27 = <span class="number">90</span>;</span><br><span class="line">  <span class="keyword">while</span> ( <span class="number">1</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    v26 = getopt_long(a1, a2, <span class="string">&quot;eshiItnd:f:r:R:c:C:W:H:&quot;</span>, &amp;longopts, &amp;longind);</span><br><span class="line">    <span class="keyword">if</span> ( v26 == <span class="number">-1</span> )</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">if</span> ( !v26 &amp;&amp; !*((_QWORD *)&amp;longopts.flag + <span class="number">4</span> * longind) )</span><br><span class="line">      v26 = *(&amp;longopts.val + <span class="number">8</span> * longind);</span><br><span class="line">    <span class="keyword">switch</span> ( v26 )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;C&#x27;</span>:</span><br><span class="line">        dword_E1F8 = atoi(optarg);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;H&#x27;</span>:</span><br><span class="line">        dword_E1EC = (<span class="number">64</span> - atoi(optarg)) / <span class="number">2</span>;</span><br><span class="line">        dword_E1F0 = (atoi(optarg) + <span class="number">64</span>) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;I&#x27;</span>:</span><br><span class="line">        v28 = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;R&#x27;</span>:</span><br><span class="line">        dword_E1F0 = atoi(optarg);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;W&#x27;</span>:</span><br><span class="line">        dword_E1F4 = (<span class="number">64</span> - atoi(optarg)) / <span class="number">2</span>;</span><br><span class="line">        dword_E1F8 = (atoi(optarg) + <span class="number">64</span>) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;c&#x27;</span>:</span><br><span class="line">        dword_E1F4 = atoi(optarg);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;d&#x27;</span>:</span><br><span class="line">        <span class="keyword">if</span> ( atoi(optarg) &gt; <span class="number">9</span> &amp;&amp; atoi(optarg) &lt;= <span class="number">1000</span> )</span><br><span class="line">          v27 = atoi(optarg);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;e&#x27;</span>:</span><br><span class="line">        dword_E104 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;f&#x27;</span>:</span><br><span class="line">        dword_104C4 = atoi(optarg);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;h&#x27;</span>:</span><br><span class="line">        sub_67F0(a2);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;i&#x27;</span>:</span><br><span class="line">        v29 = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;r&#x27;</span>:</span><br><span class="line">        dword_E1EC = atoi(optarg);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;s&#x27;</span>:</span><br><span class="line">        dword_E108 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;t&#x27;</span>:</span><br><span class="line">        dword_104C0 = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> ( dword_104C0 )</span><br><span class="line">  &#123;</span><br><span class="line">    v29 = v28 == <span class="number">0</span>;</span><br><span class="line">    sub_6669();</span><br><span class="line">    <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt;= <span class="number">0xFF</span>; ++i )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">if</span> ( *((_BYTE *)&amp;unk_104E0 + i) )</span><br><span class="line">      &#123;</span><br><span class="line">        sub_66AF(*((<span class="type">unsigned</span> __int8 *)&amp;unk_104E0 + i), i);</span><br><span class="line">        fflush(<span class="built_in">stdout</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt;= <span class="number">0xFF</span>; ++i )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">if</span> ( *((_BYTE *)&amp;unk_105E0 + i) )</span><br><span class="line">      &#123;</span><br><span class="line">        sub_66AF(*((<span class="type">unsigned</span> __int8 *)&amp;unk_105E0 + i), i);</span><br><span class="line">        fflush(<span class="built_in">stdout</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    signal(<span class="number">14</span>, sub_64C0);</span><br><span class="line">    <span class="keyword">if</span> ( !_setjmp(env) )</span><br><span class="line">    &#123;</span><br><span class="line">      alarm(<span class="number">1u</span>);</span><br><span class="line">      <span class="keyword">while</span> ( !feof(<span class="built_in">stdin</span>) &amp;&amp; v32 &lt;= <span class="number">1</span> )</span><br><span class="line">      &#123;</span><br><span class="line">        v16 = getchar();</span><br><span class="line">        v15 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> ( v16 == <span class="number">-1</span> )</span><br><span class="line">        &#123;</span><br><span class="line">          v16 = getchar();</span><br><span class="line">          <span class="keyword">switch</span> ( v16 )</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">-16</span>:</span><br><span class="line">              v31 = <span class="number">0</span>;</span><br><span class="line">              <span class="keyword">if</span> ( LOBYTE(s[<span class="number">0</span>]) == <span class="number">24</span> )</span><br><span class="line">              &#123;</span><br><span class="line">                alarm(<span class="number">2u</span>);</span><br><span class="line">                haystack = strndup((<span class="type">const</span> <span class="type">char</span> *)s + <span class="number">2</span>, <span class="number">0x3FEu</span>);</span><br><span class="line">                ++v32;</span><br><span class="line">              &#125;</span><br><span class="line">              <span class="keyword">else</span> <span class="keyword">if</span> ( LOBYTE(s[<span class="number">0</span>]) == <span class="number">31</span> )</span><br><span class="line">              &#123;</span><br><span class="line">                alarm(<span class="number">2u</span>);</span><br><span class="line">                dword_E1FC = (BYTE1(s[<span class="number">0</span>]) &lt;&lt; <span class="number">8</span>) | BYTE2(s[<span class="number">0</span>]);</span><br><span class="line">                dword_E200 = (BYTE3(s[<span class="number">0</span>]) &lt;&lt; <span class="number">8</span>) | BYTE4(s[<span class="number">0</span>]);</span><br><span class="line">                ++v32;</span><br><span class="line">              &#125;</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">-15</span>:</span><br><span class="line">              sub_66AF(<span class="number">241</span>, <span class="number">0</span>);</span><br><span class="line">              fflush(<span class="built_in">stdout</span>);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">-6</span>:</span><br><span class="line">              v31 = <span class="number">1</span>;</span><br><span class="line">              v30 = <span class="number">0</span>;</span><br><span class="line">              <span class="built_in">memset</span>(s, <span class="number">0</span>, <span class="number">0x400u</span>);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">-5</span>:</span><br><span class="line">            <span class="keyword">case</span> <span class="number">-4</span>:</span><br><span class="line">              v15 = getchar();</span><br><span class="line">              <span class="keyword">if</span> ( !*((_BYTE *)&amp;unk_105E0 + v15) )</span><br><span class="line">                *((_BYTE *)&amp;unk_105E0 + v15) = <span class="number">-4</span>;</span><br><span class="line">              sub_66AF(*((<span class="type">unsigned</span> __int8 *)&amp;unk_105E0 + v15), v15);</span><br><span class="line">              fflush(<span class="built_in">stdout</span>);</span><br><span class="line">              <span class="keyword">if</span> ( v16 == <span class="number">-5</span> &amp;&amp; v15 == <span class="number">24</span> )</span><br><span class="line">              &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;%c%c%c%c%c%c&quot;</span>, <span class="number">255</span>, <span class="number">250</span>, <span class="number">24</span>, <span class="number">1</span>, <span class="number">255</span>, <span class="number">240</span>);</span><br><span class="line">                fflush(<span class="built_in">stdout</span>);</span><br><span class="line">              &#125;</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">-3</span>:</span><br><span class="line">            <span class="keyword">case</span> <span class="number">-2</span>:</span><br><span class="line">              v15 = getchar();</span><br><span class="line">              <span class="keyword">if</span> ( !*((_BYTE *)&amp;unk_104E0 + v15) )</span><br><span class="line">                *((_BYTE *)&amp;unk_104E0 + v15) = <span class="number">-2</span>;</span><br><span class="line">              sub_66AF(*((<span class="type">unsigned</span> __int8 *)&amp;unk_104E0 + v15), v15);</span><br><span class="line">              fflush(<span class="built_in">stdout</span>);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">-1</span>:</span><br><span class="line">              v32 = <span class="number">2</span>;</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">              <span class="keyword">continue</span>;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> ( v31 &amp;&amp; v30 &lt;= <span class="number">0x3FEu</span> )</span><br><span class="line">        &#123;</span><br><span class="line">          *((_BYTE *)s + v30++) = v16;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    alarm(<span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    haystack = getenv(<span class="string">&quot;TERM&quot;</span>);</span><br><span class="line">    ioctl(<span class="number">0</span>, <span class="number">0x5413u</span>, v5);</span><br><span class="line">    dword_E1FC = v5[<span class="number">1</span>];</span><br><span class="line">    dword_E200 = v5[<span class="number">0</span>];</span><br><span class="line">  &#125;</span><br><span class="line">  v34 = <span class="number">2</span>;</span><br><span class="line">  <span class="keyword">if</span> ( haystack )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">for</span> ( j = <span class="number">0</span>; ; ++j )</span><br><span class="line">    &#123;</span><br><span class="line">      v3 = j;</span><br><span class="line">      <span class="keyword">if</span> ( v3 &gt;= <span class="built_in">strlen</span>(haystack) )</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      haystack[j] = <span class="built_in">tolower</span>(haystack[j]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ( <span class="built_in">strstr</span>(haystack, <span class="string">&quot;xterm&quot;</span>) )</span><br><span class="line">    &#123;</span><br><span class="line">      v34 = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ( <span class="built_in">strstr</span>(haystack, <span class="string">&quot;toaru&quot;</span>) )</span><br><span class="line">    &#123;</span><br><span class="line">      v34 = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ( <span class="built_in">strstr</span>(haystack, <span class="string">&quot;linux&quot;</span>) )</span><br><span class="line">    &#123;</span><br><span class="line">      v34 = <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ( <span class="built_in">strstr</span>(haystack, <span class="string">&quot;vtnt&quot;</span>) )</span><br><span class="line">    &#123;</span><br><span class="line">      v34 = <span class="number">5</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ( <span class="built_in">strstr</span>(haystack, <span class="string">&quot;cygwin&quot;</span>) )</span><br><span class="line">    &#123;</span><br><span class="line">      v34 = <span class="number">5</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ( <span class="built_in">strstr</span>(haystack, <span class="string">&quot;vt220&quot;</span>) )</span><br><span class="line">    &#123;</span><br><span class="line">      v34 = <span class="number">6</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ( <span class="built_in">strstr</span>(haystack, <span class="string">&quot;fallback&quot;</span>) )</span><br><span class="line">    &#123;</span><br><span class="line">      v34 = <span class="number">4</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ( <span class="built_in">strstr</span>(haystack, <span class="string">&quot;rxvt-256color&quot;</span>) )</span><br><span class="line">    &#123;</span><br><span class="line">      v34 = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ( <span class="built_in">strstr</span>(haystack, <span class="string">&quot;rxvt&quot;</span>) )</span><br><span class="line">    &#123;</span><br><span class="line">      v34 = <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ( <span class="built_in">strstr</span>(haystack, <span class="string">&quot;vt100&quot;</span>) &amp;&amp; dword_E1FC == <span class="number">40</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      v34 = <span class="number">7</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ( !<span class="built_in">strncmp</span>(haystack, <span class="string">&quot;st&quot;</span>, <span class="number">2u</span>) )</span><br><span class="line">    &#123;</span><br><span class="line">      v34 = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  v25 = <span class="number">0</span>;</span><br><span class="line">  signal(<span class="number">2</span>, sub_64A8);</span><br><span class="line">  signal(<span class="number">13</span>, sub_64E6);</span><br><span class="line">  <span class="keyword">if</span> ( !dword_104C0 )</span><br><span class="line">    signal(<span class="number">28</span>, handler);</span><br><span class="line">  <span class="keyword">switch</span> ( v34 )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">      qword_FE20 = (__int64)<span class="string">&quot;\x1B[48;5;17m&quot;</span>;</span><br><span class="line">      qword_FE30 = (__int64)<span class="string">&quot;\x1B[48;5;231m&quot;</span>;</span><br><span class="line">      qword_FDF8 = (__int64)<span class="string">&quot;\x1B[48;5;16m&quot;</span>;</span><br><span class="line">      qword_FEC0 = (__int64)<span class="string">&quot;\x1B[48;5;230m&quot;</span>;</span><br><span class="line">      qword_FDE0 = (__int64)<span class="string">&quot;\x1B[48;5;175m&quot;</span>;</span><br><span class="line">      qword_FE28 = (__int64)<span class="string">&quot;\x1B[48;5;162m&quot;</span>;</span><br><span class="line">      qword_FEB0 = (__int64)<span class="string">&quot;\x1B[48;5;196m&quot;</span>;</span><br><span class="line">      qword_FDF0 = (__int64)<span class="string">&quot;\x1B[48;5;214m&quot;</span>;</span><br><span class="line">      qword_FE18 = (__int64)<span class="string">&quot;\x1B[48;5;226m&quot;</span>;</span><br><span class="line">      qword_FDD8 = (__int64)<span class="string">&quot;\x1B[48;5;118m&quot;</span>;</span><br><span class="line">      qword_FEA8 = (__int64)<span class="string">&quot;\x1B[48;5;33m&quot;</span>;</span><br><span class="line">      qword_FE98 = (__int64)<span class="string">&quot;\x1B[48;5;19m&quot;</span>;</span><br><span class="line">      qword_FE10 = (__int64)<span class="string">&quot;\x1B[48;5;240m&quot;</span>;</span><br><span class="line">      qword_FDE8 = (__int64)<span class="string">&quot;\x1B[48;5;175m&quot;</span>;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">      qword_FE20 = (__int64)<span class="string">&quot;\x1B[104m&quot;</span>;</span><br><span class="line">      qword_FE30 = (__int64)<span class="string">&quot;\x1B[107m&quot;</span>;</span><br><span class="line">      qword_FDF8 = (__int64)<span class="string">&quot;\x1B[40m&quot;</span>;</span><br><span class="line">      qword_FEC0 = (__int64)<span class="string">&quot;\x1B[47m&quot;</span>;</span><br><span class="line">      qword_FDE0 = (__int64)<span class="string">&quot;\x1B[105m&quot;</span>;</span><br><span class="line">      qword_FE28 = (__int64)<span class="string">&quot;\x1B[101m&quot;</span>;</span><br><span class="line">      qword_FEB0 = (__int64)<span class="string">&quot;\x1B[101m&quot;</span>;</span><br><span class="line">      qword_FDF0 = (__int64)<span class="string">&quot;\x1B[43m&quot;</span>;</span><br><span class="line">      qword_FE18 = (__int64)<span class="string">&quot;\x1B[103m&quot;</span>;</span><br><span class="line">      qword_FDD8 = (__int64)<span class="string">&quot;\x1B[102m&quot;</span>;</span><br><span class="line">      qword_FEA8 = (__int64)<span class="string">&quot;\x1B[104m&quot;</span>;</span><br><span class="line">      qword_FE98 = (__int64)<span class="string">&quot;\x1B[44m&quot;</span>;</span><br><span class="line">      qword_FE10 = (__int64)<span class="string">&quot;\x1B[100m&quot;</span>;</span><br><span class="line">      qword_FDE8 = (__int64)<span class="string">&quot;\x1B[105m&quot;</span>;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">      qword_FE20 = (__int64)<span class="string">&quot;\x1B[25;44m&quot;</span>;</span><br><span class="line">      qword_FE30 = (__int64)<span class="string">&quot;\x1B[5;47m&quot;</span>;</span><br><span class="line">      qword_FDF8 = (__int64)<span class="string">&quot;\x1B[25;40m&quot;</span>;</span><br><span class="line">      qword_FEC0 = (__int64)<span class="string">&quot;\x1B[5;47m&quot;</span>;</span><br><span class="line">      qword_FDE0 = (__int64)<span class="string">&quot;\x1B[5;45m&quot;</span>;</span><br><span class="line">      qword_FE28 = (__int64)<span class="string">&quot;\x1B[5;41m&quot;</span>;</span><br><span class="line">      qword_FEB0 = (__int64)<span class="string">&quot;\x1B[5;41m&quot;</span>;</span><br><span class="line">      qword_FDF0 = (__int64)<span class="string">&quot;\x1B[25;43m&quot;</span>;</span><br><span class="line">      qword_FE18 = (__int64)<span class="string">&quot;\x1B[5;43m&quot;</span>;</span><br><span class="line">      qword_FDD8 = (__int64)<span class="string">&quot;\x1B[5;42m&quot;</span>;</span><br><span class="line">      qword_FEA8 = (__int64)<span class="string">&quot;\x1B[25;44m&quot;</span>;</span><br><span class="line">      qword_FE98 = (__int64)<span class="string">&quot;\x1B[5;44m&quot;</span>;</span><br><span class="line">      qword_FE10 = (__int64)<span class="string">&quot;\x1B[5;40m&quot;</span>;</span><br><span class="line">      qword_FDE8 = (__int64)<span class="string">&quot;\x1B[5;45m&quot;</span>;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">      qword_FE20 = (__int64)<span class="string">&quot;\x1B[0;34;44m&quot;</span>;</span><br><span class="line">      qword_FE30 = (__int64)<span class="string">&quot;\x1B[1;37;47m&quot;</span>;</span><br><span class="line">      qword_FDF8 = (__int64)<span class="string">&quot;\x1B[0;30;40m&quot;</span>;</span><br><span class="line">      qword_FEC0 = (__int64)<span class="string">&quot;\x1B[1;37;47m&quot;</span>;</span><br><span class="line">      qword_FDE0 = (__int64)<span class="string">&quot;\x1B[1;35;45m&quot;</span>;</span><br><span class="line">      qword_FE28 = (__int64)<span class="string">&quot;\x1B[1;31;41m&quot;</span>;</span><br><span class="line">      qword_FEB0 = (__int64)<span class="string">&quot;\x1B[1;31;41m&quot;</span>;</span><br><span class="line">      qword_FDF0 = (__int64)<span class="string">&quot;\x1B[0;33;43m&quot;</span>;</span><br><span class="line">      qword_FE18 = (__int64)<span class="string">&quot;\x1B[1;33;43m&quot;</span>;</span><br><span class="line">      qword_FDD8 = (__int64)<span class="string">&quot;\x1B[1;32;42m&quot;</span>;</span><br><span class="line">      qword_FEA8 = (__int64)<span class="string">&quot;\x1B[1;34;44m&quot;</span>;</span><br><span class="line">      qword_FE98 = (__int64)<span class="string">&quot;\x1B[0;34;44m&quot;</span>;</span><br><span class="line">      qword_FE10 = (__int64)<span class="string">&quot;\x1B[1;30;40m&quot;</span>;</span><br><span class="line">      qword_FDE8 = (__int64)<span class="string">&quot;\x1B[1;35;45m&quot;</span>;</span><br><span class="line">      off_FA88 = (<span class="type">char</span> *)&amp;unk_BCFF;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">      qword_FE20 = (__int64)<span class="string">&quot;\x1B[0;34;44m&quot;</span>;</span><br><span class="line">      qword_FE30 = (__int64)<span class="string">&quot;\x1B[1;37;47m&quot;</span>;</span><br><span class="line">      qword_FDF8 = (__int64)<span class="string">&quot;\x1B[0;30;40m&quot;</span>;</span><br><span class="line">      qword_FEC0 = (__int64)<span class="string">&quot;\x1B[1;37;47m&quot;</span>;</span><br><span class="line">      qword_FDE0 = (__int64)<span class="string">&quot;\x1B[1;35;45m&quot;</span>;</span><br><span class="line">      qword_FE28 = (__int64)<span class="string">&quot;\x1B[1;31;41m&quot;</span>;</span><br><span class="line">      qword_FEB0 = (__int64)<span class="string">&quot;\x1B[1;31;41m&quot;</span>;</span><br><span class="line">      qword_FDF0 = (__int64)<span class="string">&quot;\x1B[0;33;43m&quot;</span>;</span><br><span class="line">      qword_FE18 = (__int64)<span class="string">&quot;\x1B[1;33;43m&quot;</span>;</span><br><span class="line">      qword_FDD8 = (__int64)<span class="string">&quot;\x1B[1;32;42m&quot;</span>;</span><br><span class="line">      qword_FEA8 = (__int64)<span class="string">&quot;\x1B[1;34;44m&quot;</span>;</span><br><span class="line">      qword_FE98 = (__int64)<span class="string">&quot;\x1B[0;34;44m&quot;</span>;</span><br><span class="line">      qword_FE10 = (__int64)<span class="string">&quot;\x1B[1;30;40m&quot;</span>;</span><br><span class="line">      qword_FDE8 = (__int64)<span class="string">&quot;\x1B[1;35;45m&quot;</span>;</span><br><span class="line">      off_FA88 = (<span class="type">char</span> *)&amp;unk_BD06;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">      qword_FE20 = (__int64)&amp;unk_BD09;</span><br><span class="line">      qword_FE30 = (__int64)&amp;unk_BD0C;</span><br><span class="line">      qword_FDF8 = (__int64)<span class="string">&quot;  &quot;</span>;</span><br><span class="line">      qword_FEC0 = (__int64)&amp;unk_BD0F;</span><br><span class="line">      qword_FDE0 = (__int64)&amp;unk_BD12;</span><br><span class="line">      qword_FE28 = (__int64)&amp;unk_BD15;</span><br><span class="line">      qword_FEB0 = (__int64)&amp;unk_BD0F;</span><br><span class="line">      qword_FDF0 = (__int64)&amp;unk_BD18;</span><br><span class="line">      qword_FE18 = (__int64)&amp;unk_BD1B;</span><br><span class="line">      qword_FDD8 = (__int64)&amp;unk_BD1E;</span><br><span class="line">      qword_FEA8 = (__int64)&amp;unk_BD21;</span><br><span class="line">      qword_FE98 = (__int64)&amp;unk_BD24;</span><br><span class="line">      qword_FE10 = (__int64)&amp;unk_BD27;</span><br><span class="line">      qword_FDE8 = (__int64)&amp;unk_BD2A;</span><br><span class="line">      v25 = <span class="number">1</span>;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">      qword_FE20 = (__int64)&amp;unk_BD2D;</span><br><span class="line">      qword_FE30 = (__int64)&amp;unk_BD2F;</span><br><span class="line">      qword_FDF8 = (__int64)&amp;unk_BD31;</span><br><span class="line">      qword_FEC0 = (__int64)&amp;unk_BD33;</span><br><span class="line">      qword_FDE0 = (__int64)&amp;unk_BD35;</span><br><span class="line">      qword_FE28 = (__int64)&amp;unk_BD37;</span><br><span class="line">      qword_FEB0 = (__int64)&amp;unk_BD33;</span><br><span class="line">      qword_FDF0 = (__int64)&amp;unk_BD39;</span><br><span class="line">      qword_FE18 = (__int64)&amp;unk_BD3B;</span><br><span class="line">      qword_FDD8 = (__int64)&amp;unk_BD3D;</span><br><span class="line">      qword_FEA8 = (__int64)&amp;unk_BD3F;</span><br><span class="line">      qword_FE98 = (__int64)&amp;unk_BD41;</span><br><span class="line">      qword_FE10 = (__int64)&amp;unk_BD43;</span><br><span class="line">      qword_FDE8 = (__int64)&amp;unk_BD45;</span><br><span class="line">      v25 = <span class="number">1</span>;</span><br><span class="line">      dword_E1FC = <span class="number">40</span>;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> ( dword_E1F4 == dword_E1F8 )</span><br><span class="line">  &#123;</span><br><span class="line">    dword_E1F4 = (dword_E1FC / <span class="number">-2</span> + <span class="number">64</span>) / <span class="number">2</span>;</span><br><span class="line">    dword_E1F8 = (dword_E1FC / <span class="number">2</span> + <span class="number">64</span>) / <span class="number">2</span>;</span><br><span class="line">    byte_104CB = <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> ( dword_E1EC == dword_E1F0 )</span><br><span class="line">  &#123;</span><br><span class="line">    dword_E1EC = (<span class="number">65</span> - dword_E200) / <span class="number">2</span>;</span><br><span class="line">    dword_E1F0 = (dword_E200 + <span class="number">63</span>) / <span class="number">2</span>;</span><br><span class="line">    byte_104CC = <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> ( dword_E108 )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\x1BkNyanyanyanyanyanyanya...\x1B\\&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\x1B]1;Nyanyanyanyanyanyanya...\a&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\x1B]2;Nyanyanyanyanyanyanya...\a&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> ( dword_E104 )</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\x1B[H\x1B[2J\x1B[?25l&quot;</span>);</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\x1B[s&quot;</span>);</span><br><span class="line">  <span class="keyword">if</span> ( v29 )</span><br><span class="line">  &#123;</span><br><span class="line">    v14 = <span class="number">5</span>;</span><br><span class="line">    <span class="keyword">for</span> ( j = <span class="number">0</span>; j &lt; v14; ++j )</span><br><span class="line">    &#123;</span><br><span class="line">      sub_65E2(<span class="number">3</span>);</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;                             \x1B[1mNyancat Telnet Server\x1B[0m&quot;</span>);</span><br><span class="line">      sub_65E2(<span class="number">2</span>);</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;                   written and run by \x1B[1;32mK. Lange\x1B[1;34m @_klange\x1B[0m&quot;</span>);</span><br><span class="line">      sub_65E2(<span class="number">2</span>);</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;        If things don&#x27;t look right, try:&quot;</span>);</span><br><span class="line">      sub_65E2(<span class="number">1</span>);</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;                TERM=fallback telnet ...&quot;</span>);</span><br><span class="line">      sub_65E2(<span class="number">2</span>);</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;        Or on Windows:&quot;</span>);</span><br><span class="line">      sub_65E2(<span class="number">1</span>);</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;                telnet -t vtnt ...&quot;</span>);</span><br><span class="line">      sub_65E2(<span class="number">2</span>);</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;        Problems? Check the website:&quot;</span>);</span><br><span class="line">      sub_65E2(<span class="number">1</span>);</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;                \x1B[1;34mhttp://nyancat.dakko.us\x1B[0m&quot;</span>);</span><br><span class="line">      sub_65E2(<span class="number">2</span>);</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;        This is a telnet server, remember your escape keys!&quot;</span>);</span><br><span class="line">      sub_65E2(<span class="number">1</span>);</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;                \x1B[1;31m^]quit\x1B[0m to exit&quot;</span>);</span><br><span class="line">      sub_65E2(<span class="number">2</span>);</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;        Starting in %d...                \n&quot;</span>, v14 - j);</span><br><span class="line">      fflush(<span class="built_in">stdout</span>);</span><br><span class="line">      usleep(<span class="number">0x61A80u</span>);</span><br><span class="line">      <span class="keyword">if</span> ( dword_E104 )</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;\x1B[H&quot;</span>);</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;\x1B[u&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ( dword_E104 )</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;\x1B[H\x1B[2J\x1B[?25l&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  time(&amp;timer);</span><br><span class="line">  v13 = <span class="number">1</span>;</span><br><span class="line">  v24 = <span class="number">0</span>;</span><br><span class="line">  v23 = <span class="number">0</span>;</span><br><span class="line">  v22 = <span class="number">0</span>;</span><br><span class="line">  v12 = off_FA88;</span><br><span class="line">  <span class="keyword">while</span> ( v13 )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( dword_E104 )</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;\x1B[H&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;\x1B[u&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span> ( k = dword_E1EC; k &lt; dword_E1F0; ++k )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">for</span> ( m = dword_E1F4; m &lt; dword_E1F8; ++m )</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="keyword">if</span> ( k &lt;= <span class="number">23</span> || k &gt; <span class="number">42</span> || m &gt;= <span class="number">0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="keyword">if</span> ( m &gt;= <span class="number">0</span> &amp;&amp; (<span class="type">unsigned</span> <span class="type">int</span>)k &lt; <span class="number">0x40</span> &amp;&amp; m &lt;= <span class="number">63</span> )</span><br><span class="line">          &#123;</span><br><span class="line">            v19 = off_FA20[v24][k][m];</span><br><span class="line">            off_FA88 = (<span class="type">char</span> *)sub_6314((<span class="type">unsigned</span> <span class="type">int</span>)v24, (<span class="type">unsigned</span> <span class="type">int</span>)k, (<span class="type">unsigned</span> <span class="type">int</span>)m, v12);</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">else</span></span><br><span class="line">          &#123;</span><br><span class="line">            v19 = <span class="number">44</span>;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">          v18 = (<span class="number">2</span> - m) % <span class="number">16</span> / <span class="number">8</span>;</span><br><span class="line">          <span class="keyword">if</span> ( ((v24 &gt;&gt; <span class="number">1</span>) &amp; <span class="number">1</span>) != <span class="number">0</span> )</span><br><span class="line">            v18 = <span class="number">1</span> - v18;</span><br><span class="line">          s[<span class="number">128</span>] = <span class="string">&quot;,,&gt;&gt;&amp;&amp;&amp;+++###==;;;,,&quot;</span>;</span><br><span class="line">          v19 = asc_BFE3[v18 - <span class="number">23</span> + k];</span><br><span class="line">          <span class="keyword">if</span> ( !v19 )</span><br><span class="line">            v19 = <span class="number">44</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> ( v25 )</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>, *((<span class="type">const</span> <span class="type">char</span> **)&amp;unk_FCC0 + v19));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> ( v19 == v22 || !*((_QWORD *)&amp;unk_FCC0 + v19) )</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>, off_FA88);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">          v22 = v19;</span><br><span class="line">          <span class="built_in">printf</span>(<span class="string">&quot;%s%s&quot;</span>, *((<span class="type">const</span> <span class="type">char</span> **)&amp;unk_FCC0 + v19), off_FA88);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      sub_65E2(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ( dword_E100 )</span><br><span class="line">    &#123;</span><br><span class="line">      time(&amp;time1);</span><br><span class="line">      v11 = difftime(time1, timer);</span><br><span class="line">      v10 = sub_63FF((<span class="type">unsigned</span> <span class="type">int</span>)(<span class="type">int</span>)v11);</span><br><span class="line">      <span class="keyword">for</span> ( n = (dword_E1FC - <span class="number">29</span> - v10) / <span class="number">2</span>; n &gt; <span class="number">0</span>; --n )</span><br><span class="line">        <span class="built_in">putchar</span>(<span class="number">32</span>);</span><br><span class="line">      dword_E1E8 += <span class="built_in">printf</span>(<span class="string">&quot;\x1B[1;37mYou have nyaned for %d times!\x1B[J\x1B[0m&quot;</span>, ++dword_108E0);</span><br><span class="line">    &#125;</span><br><span class="line">    v22 = <span class="number">0</span>;</span><br><span class="line">    ++v23;</span><br><span class="line">    <span class="keyword">if</span> ( dword_104C4 &amp;&amp; v23 == dword_104C4 )</span><br><span class="line">      sub_6471();</span><br><span class="line">    <span class="keyword">if</span> ( !off_FA20[++v24] )</span><br><span class="line">      v24 = <span class="number">0</span>;</span><br><span class="line">    usleep(<span class="number">1000</span> * v27);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>注意到这一部分，<code>printf(&quot;%s&quot;, off_FA88);</code>这里我们进一步跟进 <code>off_FA88</code><br>看到了对它的赋值操作 <code>off_FA88 = sub_6314((unsigned int)v24, k, m, (__int64)v12);</code><br>此时我们查看<code>sub_6314</code>的源代码</p>
-<div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-keyword">if</span> ( m &gt;= <span class="hljs-number">0</span> &amp;&amp; (<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>)k &lt; <span class="hljs-number">0x40</span> &amp;&amp; m &lt;= <span class="hljs-number">63</span> )
-          &#123;
-            v19 = off_FA20[v24][k][m];
-            off_FA88 = (<span class="hljs-type">char</span> *)sub_6314((<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>)v24, (<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>)k, (<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span>)m, v12);
-          &#125;
-          <span class="hljs-keyword">else</span>
-          &#123;
-            v19 = <span class="hljs-number">44</span>;</code></pre></div>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> ( m &gt;= <span class="number">0</span> &amp;&amp; (<span class="type">unsigned</span> <span class="type">int</span>)k &lt; <span class="number">0x40</span> &amp;&amp; m &lt;= <span class="number">63</span> )</span><br><span class="line">          &#123;</span><br><span class="line">            v19 = off_FA20[v24][k][m];</span><br><span class="line">            off_FA88 = (<span class="type">char</span> *)sub_6314((<span class="type">unsigned</span> <span class="type">int</span>)v24, (<span class="type">unsigned</span> <span class="type">int</span>)k, (<span class="type">unsigned</span> <span class="type">int</span>)m, v12);</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">else</span></span><br><span class="line">          &#123;</span><br><span class="line">            v19 = <span class="number">44</span>;</span><br></pre></td></tr></table></figure>
 
 <p>以下是<code>sub_6314</code>的代码：</p>
-<div class="code-wrapper"><pre><code class="hljs C"><span class="hljs-type">char</span> *__fastcall <span class="hljs-title function_">sub_6314</span><span class="hljs-params">(__int64 a1, <span class="hljs-type">int</span> a2, <span class="hljs-type">int</span> a3, __int64 a4)</span>
-&#123;
-  <span class="hljs-keyword">if</span> ( a2 != <span class="hljs-number">18</span> )
-    <span class="hljs-keyword">return</span> (<span class="hljs-type">char</span> *)a4;
-  <span class="hljs-keyword">if</span> ( a3 &lt;= <span class="hljs-number">4</span> || a3 &gt; <span class="hljs-number">54</span> )
-    <span class="hljs-keyword">return</span> (<span class="hljs-type">char</span> *)a4;
-  byte_104C9 = <span class="hljs-number">32</span>;
-  dword_E120[a3 - <span class="hljs-number">5</span>] ^= sub_62B5();
-  <span class="hljs-keyword">if</span> ( (<span class="hljs-type">unsigned</span> __int8)sub_62E3(dword_E120[a3 - <span class="hljs-number">5</span>]) )
-    byte_104C8 = dword_E120[a3 - <span class="hljs-number">5</span>] &amp; <span class="hljs-number">0x7F</span>;
-  <span class="hljs-keyword">else</span>
-    byte_104C8 = <span class="hljs-number">32</span>;
-  <span class="hljs-keyword">return</span> &amp;byte_104C8;
-&#125;</code></pre></div>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">char</span> *__fastcall <span class="title function_">sub_6314</span><span class="params">(__int64 a1, <span class="type">int</span> a2, <span class="type">int</span> a3, __int64 a4)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span> ( a2 != <span class="number">18</span> )</span><br><span class="line">    <span class="keyword">return</span> (<span class="type">char</span> *)a4;</span><br><span class="line">  <span class="keyword">if</span> ( a3 &lt;= <span class="number">4</span> || a3 &gt; <span class="number">54</span> )</span><br><span class="line">    <span class="keyword">return</span> (<span class="type">char</span> *)a4;</span><br><span class="line">  byte_104C9 = <span class="number">32</span>;</span><br><span class="line">  dword_E120[a3 - <span class="number">5</span>] ^= sub_62B5();</span><br><span class="line">  <span class="keyword">if</span> ( (<span class="type">unsigned</span> __int8)sub_62E3(dword_E120[a3 - <span class="number">5</span>]) )</span><br><span class="line">    byte_104C8 = dword_E120[a3 - <span class="number">5</span>] &amp; <span class="number">0x7F</span>;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    byte_104C8 = <span class="number">32</span>;</span><br><span class="line">  <span class="keyword">return</span> &amp;byte_104C8;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><code>sub_62B5</code></p>
-<div class="code-wrapper"><pre><code class="hljs C">__int64 <span class="hljs-title function_">sub_62B5</span><span class="hljs-params">()</span>
-&#123;
-  dword_E1E8 = <span class="hljs-number">1103515245</span> * dword_E1E8 + <span class="hljs-number">12345</span>;
-  <span class="hljs-keyword">return</span> (dword_E1E8 &gt;&gt; <span class="hljs-number">10</span>) &amp; <span class="hljs-number">0x7FFF</span>;
-&#125;</code></pre></div>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">__int64 <span class="title function_">sub_62B5</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">  dword_E1E8 = <span class="number">1103515245</span> * dword_E1E8 + <span class="number">12345</span>;</span><br><span class="line">  <span class="keyword">return</span> (dword_E1E8 &gt;&gt; <span class="number">10</span>) &amp; <span class="number">0x7FFF</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><code>sub_62E3</code></p>
-<div class="code-wrapper"><pre><code class="hljs C">_BOOL8 __fastcall <span class="hljs-title function_">sub_62E3</span><span class="hljs-params">(<span class="hljs-type">char</span> a1)</span>
-&#123;
-  <span class="hljs-keyword">return</span> (a1 &amp; <span class="hljs-number">0x7Fu</span>) &lt;= <span class="hljs-number">0x7E</span> &amp;&amp; (a1 &amp; <span class="hljs-number">0x7Fu</span>) &gt; <span class="hljs-number">0x20</span>;
-&#125;</code></pre></div>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">_BOOL8 __fastcall <span class="title function_">sub_62E3</span><span class="params">(<span class="type">char</span> a1)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">return</span> (a1 &amp; <span class="number">0x7Fu</span>) &lt;= <span class="number">0x7E</span> &amp;&amp; (a1 &amp; <span class="number">0x7Fu</span>) &gt; <span class="number">0x20</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><code>dword_E120</code></p>
-<div class="code-wrapper"><pre><code class="hljs C">.data:<span class="hljs-number">000000000000E120</span> dword_E120      dd <span class="hljs-number">27F</span>Bh, <span class="hljs-number">27</span>A4h, <span class="hljs-number">464</span>Eh, <span class="hljs-number">0E36</span>h, <span class="hljs-number">7B</span>70h, <span class="hljs-number">5E7</span>Ah, <span class="hljs-number">1</span>A4Ah, <span class="hljs-number">45</span>C1h
-.data:<span class="hljs-number">000000000000E120</span>                                         ; DATA XREF: sub_6314+<span class="hljs-number">5</span>C↑o
-.data:<span class="hljs-number">000000000000E120</span>                                         ; sub_6314+<span class="hljs-number">7</span>A↑o ...
-.data:<span class="hljs-number">000000000000E140</span>                 dd <span class="hljs-number">2B</span>DFh, <span class="hljs-number">23B</span>Dh, <span class="hljs-number">3</span>A15h, <span class="hljs-number">5B</span>83h, <span class="hljs-number">1E15</span>h, <span class="hljs-number">5367</span>h, <span class="hljs-number">50B</span>8h, <span class="hljs-number">20</span>CAh
-.data:<span class="hljs-number">000000000000E160</span>                 dd <span class="hljs-number">41F</span>5h, <span class="hljs-number">57</span>D1h, <span class="hljs-number">7750</span>h, <span class="hljs-number">2</span>ADFh, <span class="hljs-number">11F</span>8h, <span class="hljs-number">9B</span>Bh, <span class="hljs-number">5724</span>h, <span class="hljs-number">7374</span>h
-.data:<span class="hljs-number">000000000000E180</span>                 dd <span class="hljs-number">3</span>CE6h, <span class="hljs-number">646</span>Eh, <span class="hljs-number">10</span>Ch, <span class="hljs-number">6E10</span>h, <span class="hljs-number">64F</span>4h, <span class="hljs-number">3263</span>h, <span class="hljs-number">3137</span>h, <span class="hljs-number">0B</span>8h
-.data:<span class="hljs-number">000000000000E1</span>A0                 dd <span class="hljs-number">229</span>Ch, <span class="hljs-number">7B</span>CDh, <span class="hljs-number">73B</span>Dh, <span class="hljs-number">480</span>Ch, <span class="hljs-number">14</span>DBh, <span class="hljs-number">68B</span>9h, <span class="hljs-number">5</span>C8Ah, <span class="hljs-number">1B</span>61h
-.data:<span class="hljs-number">000000000000E1</span>C0                 dd <span class="hljs-number">6</span>C59h, <span class="hljs-number">5707</span>h, <span class="hljs-number">9E6</span>h, <span class="hljs-number">1F</span>B9h, <span class="hljs-number">2</span>AD3h, <span class="hljs-number">76</span>D4h, <span class="hljs-number">3113</span>h, <span class="hljs-number">7</span>C7Eh
-.data:<span class="hljs-number">000000000000E1</span>E0                 dd <span class="hljs-number">11E0</span>h, <span class="hljs-number">6</span>C70h</code></pre></div>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">.data:<span class="number">000000000000E120</span> dword_E120      dd <span class="number">27F</span>Bh, <span class="number">27</span>A4h, <span class="number">464</span>Eh, <span class="number">0E36</span>h, <span class="number">7B</span>70h, <span class="number">5E7</span>Ah, <span class="number">1</span>A4Ah, <span class="number">45</span>C1h</span><br><span class="line">.data:<span class="number">000000000000E120</span>                                         ; DATA XREF: sub_6314+<span class="number">5</span>C↑o</span><br><span class="line">.data:<span class="number">000000000000E120</span>                                         ; sub_6314+<span class="number">7</span>A↑o ...</span><br><span class="line">.data:<span class="number">000000000000E140</span>                 dd <span class="number">2B</span>DFh, <span class="number">23B</span>Dh, <span class="number">3</span>A15h, <span class="number">5B</span>83h, <span class="number">1E15</span>h, <span class="number">5367</span>h, <span class="number">50B</span>8h, <span class="number">20</span>CAh</span><br><span class="line">.data:<span class="number">000000000000E160</span>                 dd <span class="number">41F</span>5h, <span class="number">57</span>D1h, <span class="number">7750</span>h, <span class="number">2</span>ADFh, <span class="number">11F</span>8h, <span class="number">9B</span>Bh, <span class="number">5724</span>h, <span class="number">7374</span>h</span><br><span class="line">.data:<span class="number">000000000000E180</span>                 dd <span class="number">3</span>CE6h, <span class="number">646</span>Eh, <span class="number">10</span>Ch, <span class="number">6E10</span>h, <span class="number">64F</span>4h, <span class="number">3263</span>h, <span class="number">3137</span>h, <span class="number">0B</span>8h</span><br><span class="line">.data:<span class="number">000000000000E1</span>A0                 dd <span class="number">229</span>Ch, <span class="number">7B</span>CDh, <span class="number">73B</span>Dh, <span class="number">480</span>Ch, <span class="number">14</span>DBh, <span class="number">68B</span>9h, <span class="number">5</span>C8Ah, <span class="number">1B</span>61h</span><br><span class="line">.data:<span class="number">000000000000E1</span>C0                 dd <span class="number">6</span>C59h, <span class="number">5707</span>h, <span class="number">9E6</span>h, <span class="number">1F</span>B9h, <span class="number">2</span>AD3h, <span class="number">76</span>D4h, <span class="number">3113</span>h, <span class="number">7</span>C7Eh</span><br><span class="line">.data:<span class="number">000000000000E1</span>E0                 dd <span class="number">11E0</span>h, <span class="number">6</span>C70h</span><br></pre></td></tr></table></figure>
 
 <p>结合上述思路，那么可以发现这个程序应该逆向的顺序为:</p>
-<div class="code-wrapper"><pre><code class="hljs cpp">off_FA88-&gt;dword_<span class="hljs-number">108E0</span>-&gt;dword_E<span class="hljs-number">1E8</span></code></pre></div>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">off_FA88-&gt;dword_<span class="number">108E0</span>-&gt;dword_E<span class="number">1E8</span></span><br></pre></td></tr></table></figure>
 
-<h1 id="Exploit"><a href="#Exploit" class="headerlink" title="Exploit"></a>Exploit</h1><div class="code-wrapper"><pre><code class="hljs python">dword_E1E8 = <span class="hljs-number">0x1106</span>
-dword_E120 = [
-    <span class="hljs-number">0x27fb</span>, <span class="hljs-number">0x27a4</span>, <span class="hljs-number">0x464e</span>, <span class="hljs-number">0x0e36</span>, <span class="hljs-number">0x7b70</span>, <span class="hljs-number">0x5e7a</span>, <span class="hljs-number">0x1a4a</span>, <span class="hljs-number">0x45c1</span>,
-    <span class="hljs-number">0x2bdf</span>, <span class="hljs-number">0x23bd</span>, <span class="hljs-number">0x3a15</span>, <span class="hljs-number">0x5b83</span>, <span class="hljs-number">0x1e15</span>, <span class="hljs-number">0x5367</span>, <span class="hljs-number">0x50b8</span>, <span class="hljs-number">0x20ca</span>,
-    <span class="hljs-number">0x41f5</span>, <span class="hljs-number">0x57d1</span>, <span class="hljs-number">0x7750</span>, <span class="hljs-number">0x2adf</span>, <span class="hljs-number">0x11f8</span>, <span class="hljs-number">0x09bb</span>, <span class="hljs-number">0x5724</span>, <span class="hljs-number">0x7374</span>,
-    <span class="hljs-number">0x3ce6</span>, <span class="hljs-number">0x646e</span>, <span class="hljs-number">0x010c</span>, <span class="hljs-number">0x6e10</span>, <span class="hljs-number">0x64f4</span>, <span class="hljs-number">0x3263</span>, <span class="hljs-number">0x3137</span>, <span class="hljs-number">0x00b8</span>,
-    <span class="hljs-number">0x229c</span>, <span class="hljs-number">0x7bcd</span>, <span class="hljs-number">0x73bd</span>, <span class="hljs-number">0x480c</span>, <span class="hljs-number">0x14db</span>, <span class="hljs-number">0x68b9</span>, <span class="hljs-number">0x5c8a</span>, <span class="hljs-number">0x1b61</span>,
-    <span class="hljs-number">0x6c59</span>, <span class="hljs-number">0x5707</span>, <span class="hljs-number">0x09e6</span>, <span class="hljs-number">0x1fb9</span>, <span class="hljs-number">0x2ad3</span>, <span class="hljs-number">0x76d4</span>, <span class="hljs-number">0x3113</span>, <span class="hljs-number">0x7c7e</span>,
-    <span class="hljs-number">0x11e0</span>, <span class="hljs-number">0x6c70</span>
-]
- 
- 
-<span class="hljs-keyword">def</span> <span class="hljs-title function_">sub_62B5</span>():
-    <span class="hljs-keyword">global</span> dword_E1E8
-    dword_E1E8 = (<span class="hljs-number">1103515245</span> * dword_E1E8 + <span class="hljs-number">12345</span>) &amp; <span class="hljs-number">0xFFFFFFFF</span>
-    <span class="hljs-keyword">return</span> (dword_E1E8 &gt;&gt; <span class="hljs-number">10</span>) &amp; <span class="hljs-number">0x7FFF</span>
- 
- 
-<span class="hljs-keyword">def</span> <span class="hljs-title function_">llog</span>(<span class="hljs-params">n</span>):
-    a = <span class="hljs-number">0</span>
-    <span class="hljs-keyword">while</span> n &gt;= <span class="hljs-number">10</span>:
-        n //= <span class="hljs-number">10</span>
-        a += <span class="hljs-number">1</span>
-    <span class="hljs-keyword">return</span> a
- 
- 
-<span class="hljs-keyword">def</span> <span class="hljs-title function_">sub_62E3</span>(<span class="hljs-params">a1</span>):
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0x7E</span> &gt;= (a1 &amp; <span class="hljs-number">0x7F</span>) &gt; <span class="hljs-number">0x20</span>
- 
- 
-count = <span class="hljs-number">0</span>
-<span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
-    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">50</span>):
-        dword_E120[i] ^= sub_62B5()
- 
-    count += <span class="hljs-number">1</span>
-    dword_E1E8 += <span class="hljs-number">42</span> + llog(count)
- 
-    <span class="hljs-keyword">if</span> count % <span class="hljs-number">1000000</span> == <span class="hljs-number">0</span>:
-        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Count: <span class="hljs-subst">&#123;count&#125;</span>&quot;</span>)
- 
-    flag = <span class="hljs-built_in">bytearray</span>(<span class="hljs-number">51</span>)
-    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">50</span>):
-        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> sub_62E3(dword_E120[i]):
-            <span class="hljs-keyword">break</span>
-        flag[i] = dword_E120[i] &amp; <span class="hljs-number">0xFF</span>
-    <span class="hljs-keyword">else</span>:
-        <span class="hljs-keyword">continue</span>
- 
-    <span class="hljs-keyword">if</span> flag[:<span class="hljs-number">6</span>] == <span class="hljs-string">b&#x27;CatCTF&#x27;</span>:
-        <span class="hljs-built_in">print</span>(flag.decode())
-        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Count: <span class="hljs-subst">&#123;count&#125;</span>&quot;</span>)
-        <span class="hljs-keyword">break</span></code></pre></div>
+<h1 id="Exploit"><a href="#Exploit" class="headerlink" title="Exploit"></a>Exploit</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">dword_E1E8 = <span class="number">0x1106</span></span><br><span class="line">dword_E120 = [</span><br><span class="line">    <span class="number">0x27fb</span>, <span class="number">0x27a4</span>, <span class="number">0x464e</span>, <span class="number">0x0e36</span>, <span class="number">0x7b70</span>, <span class="number">0x5e7a</span>, <span class="number">0x1a4a</span>, <span class="number">0x45c1</span>,</span><br><span class="line">    <span class="number">0x2bdf</span>, <span class="number">0x23bd</span>, <span class="number">0x3a15</span>, <span class="number">0x5b83</span>, <span class="number">0x1e15</span>, <span class="number">0x5367</span>, <span class="number">0x50b8</span>, <span class="number">0x20ca</span>,</span><br><span class="line">    <span class="number">0x41f5</span>, <span class="number">0x57d1</span>, <span class="number">0x7750</span>, <span class="number">0x2adf</span>, <span class="number">0x11f8</span>, <span class="number">0x09bb</span>, <span class="number">0x5724</span>, <span class="number">0x7374</span>,</span><br><span class="line">    <span class="number">0x3ce6</span>, <span class="number">0x646e</span>, <span class="number">0x010c</span>, <span class="number">0x6e10</span>, <span class="number">0x64f4</span>, <span class="number">0x3263</span>, <span class="number">0x3137</span>, <span class="number">0x00b8</span>,</span><br><span class="line">    <span class="number">0x229c</span>, <span class="number">0x7bcd</span>, <span class="number">0x73bd</span>, <span class="number">0x480c</span>, <span class="number">0x14db</span>, <span class="number">0x68b9</span>, <span class="number">0x5c8a</span>, <span class="number">0x1b61</span>,</span><br><span class="line">    <span class="number">0x6c59</span>, <span class="number">0x5707</span>, <span class="number">0x09e6</span>, <span class="number">0x1fb9</span>, <span class="number">0x2ad3</span>, <span class="number">0x76d4</span>, <span class="number">0x3113</span>, <span class="number">0x7c7e</span>,</span><br><span class="line">    <span class="number">0x11e0</span>, <span class="number">0x6c70</span></span><br><span class="line">]</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sub_62B5</span>():</span><br><span class="line">    <span class="keyword">global</span> dword_E1E8</span><br><span class="line">    dword_E1E8 = (<span class="number">1103515245</span> * dword_E1E8 + <span class="number">12345</span>) &amp; <span class="number">0xFFFFFFFF</span></span><br><span class="line">    <span class="keyword">return</span> (dword_E1E8 &gt;&gt; <span class="number">10</span>) &amp; <span class="number">0x7FFF</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">llog</span>(<span class="params">n</span>):</span><br><span class="line">    a = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> n &gt;= <span class="number">10</span>:</span><br><span class="line">        n //= <span class="number">10</span></span><br><span class="line">        a += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> a</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sub_62E3</span>(<span class="params">a1</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0x7E</span> &gt;= (a1 &amp; <span class="number">0x7F</span>) &gt; <span class="number">0x20</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">count = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">50</span>):</span><br><span class="line">        dword_E120[i] ^= sub_62B5()</span><br><span class="line"> </span><br><span class="line">    count += <span class="number">1</span></span><br><span class="line">    dword_E1E8 += <span class="number">42</span> + llog(count)</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> count % <span class="number">1000000</span> == <span class="number">0</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Count: <span class="subst">&#123;count&#125;</span>&quot;</span>)</span><br><span class="line"> </span><br><span class="line">    flag = <span class="built_in">bytearray</span>(<span class="number">51</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">50</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> sub_62E3(dword_E120[i]):</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        flag[i] = dword_E120[i] &amp; <span class="number">0xFF</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> flag[:<span class="number">6</span>] == <span class="string">b&#x27;CatCTF&#x27;</span>:</span><br><span class="line">        <span class="built_in">print</span>(flag.decode())</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Count: <span class="subst">&#123;count&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
 
-<div class="code-wrapper"><pre><code class="hljs bash">~/Git-Projects/CTF_Challenges/Reverse/CatFly$ python3 exp.py 
-Count: 1000000
-Count: 2000000
-Count: 3000000
-Count: 4000000
-Count: 5000000
-Count: 6000000
-Count: 7000000
-Count: 8000000
-Count: 9000000
-Count: 10000000
-Count: 11000000
-Count: 12000000
-Count: 13000000
-Count: 14000000
-Count: 15000000
-Count: 16000000
-Count: 17000000
-Count: 18000000
-Count: 19000000
-Count: 20000000
-Count: 21000000
-Count: 22000000
-Count: 23000000
-Count: 24000000
-Count: 25000000
-Count: 26000000
-Count: 27000000
-Count: 28000000
-Count: 29000000
-Count: 30000000
-Count: 31000000
-Count: 32000000
-Count: 33000000
-Count: 34000000
-Count: 35000000
-Count: 36000000
-Count: 37000000
-Count: 38000000
-Count: 39000000
-Count: 40000000
-Count: 41000000
-Count: 42000000
-Count: 43000000
-Count: 44000000
-Count: 45000000
-Count: 46000000
-Count: 47000000
-Count: 48000000
-Count: 49000000
-Count: 50000000
-Count: 51000000
-Count: 52000000
-Count: 53000000
-Count: 54000000
-Count: 55000000
-Count: 56000000
-Count: 57000000
-Count: 58000000
-Count: 59000000
-Count: 60000000
-Count: 61000000
-Count: 62000000
-Count: 63000000
-Count: 64000000
-Count: 65000000
-Count: 66000000
-Count: 67000000
-Count: 68000000
-Count: 69000000
-Count: 70000000
-Count: 71000000
-Count: 72000000
-Count: 73000000
-Count: 74000000
-Count: 75000000
-Count: 76000000
-Count: 77000000
-Count: 78000000
-Count: 79000000
-Count: 80000000
-Count: 81000000
-Count: 82000000
-Count: 83000000
-Count: 84000000
-Count: 85000000
-Count: 86000000
-Count: 87000000
-Count: 88000000
-Count: 89000000
-Count: 90000000
-Count: 91000000
-Count: 92000000
-Count: 93000000
-Count: 94000000
-Count: 95000000
-Count: 96000000
-Count: 97000000
-Count: 98000000
-Count: 99000000
-Count: 100000000
-CatCTF&#123;Fly1NG_NyAnC4t_Cha5eS_the_FL4G_in_The_Sky&#125;
-Count: 100001958</code></pre></div>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">~/Git-Projects/CTF_Challenges/Reverse/CatFly$ python3 exp.py </span><br><span class="line">Count: 1000000</span><br><span class="line">Count: 2000000</span><br><span class="line">Count: 3000000</span><br><span class="line">Count: 4000000</span><br><span class="line">Count: 5000000</span><br><span class="line">Count: 6000000</span><br><span class="line">Count: 7000000</span><br><span class="line">Count: 8000000</span><br><span class="line">Count: 9000000</span><br><span class="line">Count: 10000000</span><br><span class="line">Count: 11000000</span><br><span class="line">Count: 12000000</span><br><span class="line">Count: 13000000</span><br><span class="line">Count: 14000000</span><br><span class="line">Count: 15000000</span><br><span class="line">Count: 16000000</span><br><span class="line">Count: 17000000</span><br><span class="line">Count: 18000000</span><br><span class="line">Count: 19000000</span><br><span class="line">Count: 20000000</span><br><span class="line">Count: 21000000</span><br><span class="line">Count: 22000000</span><br><span class="line">Count: 23000000</span><br><span class="line">Count: 24000000</span><br><span class="line">Count: 25000000</span><br><span class="line">Count: 26000000</span><br><span class="line">Count: 27000000</span><br><span class="line">Count: 28000000</span><br><span class="line">Count: 29000000</span><br><span class="line">Count: 30000000</span><br><span class="line">Count: 31000000</span><br><span class="line">Count: 32000000</span><br><span class="line">Count: 33000000</span><br><span class="line">Count: 34000000</span><br><span class="line">Count: 35000000</span><br><span class="line">Count: 36000000</span><br><span class="line">Count: 37000000</span><br><span class="line">Count: 38000000</span><br><span class="line">Count: 39000000</span><br><span class="line">Count: 40000000</span><br><span class="line">Count: 41000000</span><br><span class="line">Count: 42000000</span><br><span class="line">Count: 43000000</span><br><span class="line">Count: 44000000</span><br><span class="line">Count: 45000000</span><br><span class="line">Count: 46000000</span><br><span class="line">Count: 47000000</span><br><span class="line">Count: 48000000</span><br><span class="line">Count: 49000000</span><br><span class="line">Count: 50000000</span><br><span class="line">Count: 51000000</span><br><span class="line">Count: 52000000</span><br><span class="line">Count: 53000000</span><br><span class="line">Count: 54000000</span><br><span class="line">Count: 55000000</span><br><span class="line">Count: 56000000</span><br><span class="line">Count: 57000000</span><br><span class="line">Count: 58000000</span><br><span class="line">Count: 59000000</span><br><span class="line">Count: 60000000</span><br><span class="line">Count: 61000000</span><br><span class="line">Count: 62000000</span><br><span class="line">Count: 63000000</span><br><span class="line">Count: 64000000</span><br><span class="line">Count: 65000000</span><br><span class="line">Count: 66000000</span><br><span class="line">Count: 67000000</span><br><span class="line">Count: 68000000</span><br><span class="line">Count: 69000000</span><br><span class="line">Count: 70000000</span><br><span class="line">Count: 71000000</span><br><span class="line">Count: 72000000</span><br><span class="line">Count: 73000000</span><br><span class="line">Count: 74000000</span><br><span class="line">Count: 75000000</span><br><span class="line">Count: 76000000</span><br><span class="line">Count: 77000000</span><br><span class="line">Count: 78000000</span><br><span class="line">Count: 79000000</span><br><span class="line">Count: 80000000</span><br><span class="line">Count: 81000000</span><br><span class="line">Count: 82000000</span><br><span class="line">Count: 83000000</span><br><span class="line">Count: 84000000</span><br><span class="line">Count: 85000000</span><br><span class="line">Count: 86000000</span><br><span class="line">Count: 87000000</span><br><span class="line">Count: 88000000</span><br><span class="line">Count: 89000000</span><br><span class="line">Count: 90000000</span><br><span class="line">Count: 91000000</span><br><span class="line">Count: 92000000</span><br><span class="line">Count: 93000000</span><br><span class="line">Count: 94000000</span><br><span class="line">Count: 95000000</span><br><span class="line">Count: 96000000</span><br><span class="line">Count: 97000000</span><br><span class="line">Count: 98000000</span><br><span class="line">Count: 99000000</span><br><span class="line">Count: 100000000</span><br><span class="line">CatCTF&#123;Fly1NG_NyAnC4t_Cha5eS_the_FL4G_in_The_Sky&#125;</span><br><span class="line">Count: 100001958</span><br></pre></td></tr></table></figure>
 
 
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
+	  <div class="article-footer-copyright">
 
-<span class="category-chains">
-  
-  
+    本博客采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议(CC BY-NC-SA 4.0) 发布.</a>
+</div>
+
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
     
-      <span class="category-chain">
-        
-  <a href="/categories/Reverse/" class="category-chain-item">Reverse</a>
-  
-  
-
-      </span>
     
-  
-</span>
+    <a href="/2025/08/28/crypto-basic-math-knowledge/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
 
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Reverse/" class="print-no-link">#Reverse</a>
-      
-        <a href="/tags/CTF/" class="print-no-link">#CTF</a>
-      
-    </div>
-  
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2025/08/26/adworld-easyRE/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
 </div>
 
 
-              
-  
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+<section id="comment">
+    <h2 class="title">Comments</h2>
 
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>CATCTF-Reverse-CatFly Writeup</div>
-      <div>https://zer0ptr.github.io/2025/08/26/CATCTF-RE-CatFly/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>zer0ptr</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2025年8月26日</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>许可协议</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-cc-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
+    
+</section>
+
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2025-08-26 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/Reverse/">Reverse<span>2</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/Reverse/">Reverse<span>3</span></a></li> <li><a href="/tags/CTF/">CTF<span>9</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+		
+
+	</div>
+	
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
   </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2025/08/28/crypto-basic-math-knowledge/" title="Crypto基础数学知识">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Crypto基础数学知识</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2025/08/26/adworld-easyRE/" title="easyRE1 Writeup">
-                        <span class="hidden-mobile">easyRE1 Writeup</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
+  <div class="container-narrow">
+  <footer> <p>
   
+  &copy; 2025 hakmaple's Blog
   
-    <article id="comments" lazyload>
-      
-
-    </article>
-  
-
-
-          </article>
-        </div>
-      </div>
-    </div>
-
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-
-
-  </aside>
-
-
-    </div>
-  </div>
-</div>
-
-
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
+      powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.Theme <a href="https://github.com/Ares-X/hexo-theme-freemind.bithack" target="_blank">freemind.bithack</a>  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
   
 
 
   
-  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
 
 
-
-
-
-
-
-
-
-    
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-    
-
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-    </div>
-  
-  
-  
-</div>
-
-  </footer>
-
-  <!-- Scripts -->
-  
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
-
-
-<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
-      }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
-
-
-
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
-    var toc = jQuery('#toc');
-    if (toc.length === 0 || !window.tocbot) { return; }
-    var boardCtn = jQuery('#board-ctn');
-    var boardTop = boardCtn.offset().top;
-
-    window.tocbot.init(Object.assign({
-      tocSelector     : '#toc-body',
-      contentSelector : '.markdown-body',
-      linkClass       : 'tocbot-link',
-      activeLinkClass : 'tocbot-active-link',
-      listClass       : 'tocbot-list',
-      isCollapsedClass: 'tocbot-is-collapsed',
-      collapsibleClass: 'tocbot-is-collapsible',
-      scrollSmooth    : true,
-      includeTitleTags: true,
-      headingsOffset  : -boardTop,
-    }, CONFIG.toc));
-    if (toc.find('.toc-list-item').length > 0) {
-      toc.css('visibility', 'visible');
-    }
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('tocbot' in window) {
-        tocbot.refresh();
-        var toc = jQuery('#toc');
-        if (toc.length === 0 || !tocbot) {
-          return;
-        }
-        if (toc.find('.toc-list-item').length > 0) {
-          toc.css('visibility', 'visible');
-        }
-      }
-    });
-  });
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
 </script>
 
 
-  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
 
-  <script>Fluid.plugins.codeWidget();</script>
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
 
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
-    window.anchors.options = {
-      placement: CONFIG.anchorjs.placement,
-      visible  : CONFIG.anchorjs.visible
-    };
-    if (CONFIG.anchorjs.icon) {
-      window.anchors.options.icon = CONFIG.anchorjs.icon;
-    }
-    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-    var res = [];
-    for (var item of el) {
-      res.push('.markdown-body > ' + item.trim());
-    }
-    if (CONFIG.anchorjs.placement === 'left') {
-      window.anchors.options.class = 'anchorjs-link-left';
-    }
-    window.anchors.add(res.join(', '));
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('anchors' in window) {
-        anchors.removeAll();
-        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-        var res = [];
-        for (var item of el) {
-          res.push('.markdown-body > ' + item.trim());
-        }
-        if (CONFIG.anchorjs.placement === 'left') {
-          anchors.options.class = 'anchorjs-link-left';
-        }
-        anchors.add(res.join(', '));
-      }
-    });
-  });
-</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
-    Fluid.plugins.fancyBox();
-  });
-</script>
-
-
-  <script>Fluid.plugins.imageCaption();</script>
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
-  
-
-  <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
-  </noscript>
 </body>
-</html>
+   </html>

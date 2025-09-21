@@ -1,90 +1,206 @@
-pre code.hljs {
-  display: block;
-  overflow-x: auto;
-  padding: 1em
+pre,
+.highlight,
+.gist {
+    background: #333;
+    margin: 1em 0;
+    padding: 1em 2%;
+    overflow: auto;
+    color: #c9d1d9;
+    font-size: 14px;
+    text-shadow: none;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border-style: solid;
+    border-color: #ddd;
+    border-width: 1px 0;
+    line-height: 20px
 }
-code.hljs {
-  padding: 3px 5px
-}
-/*
 
-Atom One Dark by Daniel Gamage
-Original One Dark Syntax theme from https://github.com/atom/one-dark-syntax
+code {
+    background: #eee;
+    border: 0px solid #d6d6d6;
+    padding: 0 5px;
+    margin: 2 2px;
+    font-size: 90%;
+    text-shadow: 0 0px rgb(0, 0, 0);
+    word-break: break-all;
+    word-wrap: break-word;
+    white-space: normal
+}
 
-base:    #282c34
-mono-1:  #abb2bf
-mono-2:  #818896
-mono-3:  #5c6370
-hue-1:   #56b6c2
-hue-2:   #61aeee
-hue-3:   #c678dd
-hue-4:   #98c379
-hue-5:   #e06c75
-hue-5-2: #be5046
-hue-6:   #d19a66
-hue-6-2: #e6c07b
+.highlight .gutter pre {
+    text-align: left;
+    padding-right: 20px;
+    width: 100%;
+    color: #666
+}
 
-*/
-.hljs {
-  color: #abb2bf;
-  background: #282c34
+pre,
+code {
+    font-family: Menlo, "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, Consolas, monospace
 }
-.hljs-comment,
-.hljs-quote {
-  color: #5c6370;
-  font-style: italic
+
+pre code {
+    background: 0;
+    text-shadow: none;
+    padding: 0;
+    color: white; 
 }
-.hljs-doctag,
-.hljs-keyword,
-.hljs-formula {
-  color: #c678dd
+
+.highlight pre {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    white-space: pre
 }
-.hljs-section,
-.hljs-name,
-.hljs-selector-tag,
-.hljs-deletion,
-.hljs-subst {
-  color: #e06c75
+
+.highlight table {
+    margin: 0;
+    width: auto
 }
-.hljs-literal {
-  color: #56b6c2
+
+.highlight td {
+    border: 0;
+    padding: 0
 }
-.hljs-string,
-.hljs-regexp,
-.hljs-addition,
-.hljs-attribute,
-.hljs-meta .hljs-string {
-  color: #98c379
+
+.container .gist .gist-file {
+    border: 0;
+    font-family: Menlo, "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, Consolas, monospace;
+    margin: 0
 }
-.hljs-attr,
-.hljs-variable,
-.hljs-template-variable,
-.hljs-type,
-.hljs-selector-class,
-.hljs-selector-attr,
-.hljs-selector-pseudo,
-.hljs-number {
-  color: #d19a66
+
+.container .gist .gist-file .gist-data {
+    background: 0;
+    border: 0
 }
-.hljs-symbol,
-.hljs-bullet,
-.hljs-link,
-.hljs-meta,
-.hljs-selector-id,
-.hljs-title {
-  color: #61aeee
+
+.container .gist .gist-file .gist-data .line-numbers {
+    background: 0;
+    border: 0;
+    padding-right: 20px;
+    color: #666;
+    text-align: left
 }
-.hljs-built_in,
-.hljs-title.class_,
-.hljs-class .hljs-title {
-  color: #e6c07b
+
+.container .gist .gist-file .gist-data .line-data {
+    padding: 0 !important
 }
-.hljs-emphasis {
-  font-style: italic
+
+.container .gist .gist-file .highlight {
+    margin: 0;
+    padding: 0;
+    border: 0
 }
-.hljs-strong {
-  font-weight: bold
+
+.container .gist .gist-file .gist-meta {
+    background: #333;
+    color: #999;
+    font: .85em "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-shadow: 0;
+    padding: 0;
+    margin-top: 1em;
+    margin-left: 20px
 }
-.hljs-link {
-  text-decoration: underline
+
+.container .gist .gist-file .gist-meta a {
+    color: #258fb8;
+    font-weight: normal
+}
+
+.container .gist .gist-file .gist-meta a:hover {
+    text-decoration: underline
+}
+
+.highlight figcaption {
+    zoom: 1;
+    font-size: .85em;
+    color: #999;
+    line-height: 1em;
+    margin-bottom: 1em
+}
+
+.highlight figcaption:before,
+.highlight figcaption:after {
+    content: "";
+    display: table
+}
+
+.highlight figcaption:after {
+    clear: both
+}
+
+.highlight figcaption a {
+    float: right
+}
+
+pre .comment{
+        color: #8b949e
+    }
+
+pre .title {
+    color: #d2a8ff
+}
+
+pre .variable,
+pre .attribute,
+pre .tag,
+pre .regexp,
+pre .ruby .constant,
+pre .xml .tag .title,
+pre .xml .pi,
+pre .xml .doctype,
+pre .html .doctype,
+pre .css .id,
+pre .css .class,
+pre .css .pseudo {
+    color: #79c0ff
+}
+
+pre .number{
+        color: #79c0ff
+}
+
+pre .preprocessor,
+pre .built_in,
+pre .literal,
+pre .params,
+pre .constant {
+    color: #ffa657
+}
+
+pre .class,
+pre .ruby .class .title,
+pre .css .rules .attribute {
+    color: #9c9
+}
+
+pre .string,
+pre .value,
+pre .inheritance,
+pre .header,
+pre .ruby .symbol,
+pre .xml .cdata {
+    color: #a5d6ff
+}
+
+pre .css .hexcolor {
+    color: #6cc
+}
+
+pre .function,
+pre .python .decorator,
+pre .python .title,
+pre .ruby .function .title,
+pre .ruby .title .keyword,
+pre .perl .sub,
+pre .javascript .title,
+pre .coffeescript .title {
+    color: #69c
+}
+
+pre .keyword,
+pre .javascript .function {
+    color: #ff7b72
 }
