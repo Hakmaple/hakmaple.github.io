@@ -137,6 +137,79 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2025/07/21/SWPUCTF2021新生赛Web刷题记录/" >SWPUCTF2021新生赛Web刷题记录</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2025-07-21  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h2 id="SWPUCTF-2021-新生赛-gift-F12"><a href="#SWPUCTF-2021-新生赛-gift-F12" class="headerlink" title="[SWPUCTF 2021 新生赛]gift_F12"></a>[SWPUCTF 2021 新生赛]gift_F12</h2><p>Ctrl+U查看前端源码再Ctrl+F搜搜Flag即可</p>
+<h2 id="SWPUCTF-2021-新生赛-jicao"><a href="#SWPUCTF-2021-新生赛-jicao" class="headerlink" title="[SWPUCTF 2021 新生赛]jicao"></a>[SWPUCTF 2021 新生赛]jicao</h2><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">highlight_file</span>(<span class="string">&#x27;index.php&#x27;</span>);</span><br><span class="line"><span class="keyword">include</span>(<span class="string">&quot;flag.php&quot;</span>);</span><br><span class="line"><span class="variable">$id</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;id&#x27;</span>];</span><br><span class="line"><span class="variable">$json</span>=<span class="title function_ invoke__">json_decode</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;json&#x27;</span>],<span class="literal">true</span>);</span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$id</span>==<span class="string">&quot;wllmNB&quot;</span>&amp;&amp;<span class="variable">$json</span>[<span class="string">&#x27;x&#x27;</span>]==<span class="string">&quot;wllm&quot;</span>)</span><br><span class="line">&#123;<span class="keyword">echo</span> <span class="variable">$flag</span>;&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>代码审计，以post方式传<code>id=wllmNB</code>和以get方式传<code>json=&#123;&quot;x&quot;:&quot;wllm&quot;&#125;</code>即可</p>
+<h2 id="SWPUCTF-2021-新生赛-easy-md5"><a href="#SWPUCTF-2021-新生赛-easy-md5" class="headerlink" title="[SWPUCTF 2021 新生赛]easy_md5"></a>[SWPUCTF 2021 新生赛]easy_md5</h2><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"> <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line"> <span class="keyword">include</span> <span class="string">&#x27;flag2.php&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;name&#x27;</span>]) &amp;&amp; <span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;password&#x27;</span>]))&#123;</span><br><span class="line">    <span class="variable">$name</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;name&#x27;</span>];</span><br><span class="line">    <span class="variable">$password</span> = <span class="variable">$_POST</span>[<span class="string">&#x27;password&#x27;</span>];</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$name</span> != <span class="variable">$password</span> &amp;&amp; <span class="title function_ invoke__">md5</span>(<span class="variable">$name</span>) == <span class="title function_ invoke__">md5</span>(<span class="variable">$password</span>))&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="variable">$flag</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;wrong!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;wrong!&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line">wrong!</span><br></pre></td></tr></table></figure>
+
+<p>要求：<code>name</code>的值不等于<code>password</code>的值且其md5后相等</p>
+<p>两种方法：</p>
+<h4 id="1-数组漏洞绕过"><a href="#1-数组漏洞绕过" class="headerlink" title="1.数组漏洞绕过"></a>1.数组漏洞绕过</h4>
+	
+	</div>
+  <a type="button" href="/2025/07/21/SWPUCTF2021新生赛Web刷题记录/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2025/07/21/攻防世界Crypto-babyFibo/" >攻防世界Crypto-babyFibo</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2025-07-21  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>附件内容：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> libnum</span><br><span class="line"><span class="keyword">from</span> secret <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">fibo</span>(<span class="params">n</span>):</span><br><span class="line">    <span class="keyword">assert</span> n &gt;= <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> n &lt; <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> n</span><br><span class="line">    <span class="keyword">return</span> fibo(n-<span class="number">1</span>) + fibo(n-<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">s = fibo(<span class="number">1000</span>)</span><br><span class="line">m = libnum.s2n(flag+os.urandom((<span class="built_in">len</span>(<span class="built_in">bin</span>(s))-<span class="number">2</span>)//<span class="number">8</span>-<span class="built_in">len</span>(flag)))</span><br><span class="line">c = m^s</span><br><span class="line"><span class="built_in">print</span>(c)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>s是斐波那契数的第1000个数</li>
+<li>m&#x3D;flag+随机数字然后再(String to Number)转为一个超大数字</li>
+<li>c&#x3D;m^s</li>
+</ul>
+<p>那解题思路就是将其中设计的步骤反着来一遍</p>
+<h2 id="开搞"><a href="#开搞" class="headerlink" title="开搞"></a>开搞</h2><h3 id="计算fibo-1000"><a href="#计算fibo-1000" class="headerlink" title="计算fibo(1000)"></a>计算fibo(1000)</h3><p>以下由三种方法计算fibo(1000) </p>
+<p>由于直接递归1000不可行</p>
+<h4 id="方法一：动态规划："><a href="#方法一：动态规划：" class="headerlink" title="方法一：动态规划："></a>方法一：动态规划：</h4>
+	
+	</div>
+  <a type="button" href="/2025/07/21/攻防世界Crypto-babyFibo/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2025/07/21/攻防世界Crypto-初识RSA/" >攻防世界Crypto-初识RSA</a>
 		</h3>
 		</div>
@@ -433,74 +506,6 @@
 </div>
 
 		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2025/04/19/Basic-ROP-Learning/" >Basic ROP Learning</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2025-04-19  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="Basic-ROP-Learning"><a href="#Basic-ROP-Learning" class="headerlink" title="Basic-ROP-Learning"></a>Basic-ROP-Learning</h2><h2 id="ROP-Return-Oriented-Programming-概述"><a href="#ROP-Return-Oriented-Programming-概述" class="headerlink" title="ROP(Return-Oriented Programming)概述"></a>ROP(Return-Oriented Programming)概述</h2><p>ROP(Return-Oriented Programming)是一种高级的<strong>代码复用攻击技术</strong>，主要用于绕过现代操作系统的安全防护机制（如DEP&#x2F;NX）。其核心思想是在<strong>栈缓冲区溢出的基础上，利用程序中已有的小片段 (gadgets) 来改变某些寄存器或者变量的值，从而控制程序的执行流程。</strong></p>
-<h3 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1. 基本概念"></a>1. <strong>基本概念</strong></h3><h4 id="（1）产生背景"><a href="#（1）产生背景" class="headerlink" title="（1）产生背景"></a>（1）产生背景</h4><ul>
-<li><p><strong>DEP&#x2F;NX防护</strong>：现代系统禁止执行栈&#x2F;堆上的代码（数据执行保护）。</p>
-</li>
-<li><p><strong>ASLR防护</strong>：随机化内存布局，增加预测难度。</p>
-</li>
-<li><p><strong>ROP应对方案</strong>：复用已有代码（<code>.text</code>段），避免直接注入shellcode。</p>
-</li>
-</ul>
-	
-	</div>
-  <a type="button" href="/2025/04/19/Basic-ROP-Learning/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2025/02/08/条件竞争漏洞学习/" >条件竞争漏洞学习</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2025-02-08  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h2 id="Web安全条件竞争漏洞学习"><a href="#Web安全条件竞争漏洞学习" class="headerlink" title="Web安全条件竞争漏洞学习"></a>Web安全条件竞争漏洞学习</h2><h4 id="0x00-概述"><a href="#0x00-概述" class="headerlink" title="0x00 概述"></a>0x00 概述</h4><p>​		条件竞争漏洞发生在多个线程同时访问同一个共享代码、变量、文件等，，由于多个不同线程同时与相同的数据进行交互，从而导致碰撞冲突（例如，后端多个线程同时修改数据库中的某一个字段值）。攻击者通过精心定制请求到达后端的时间故意制造冲突，并由此实现恶意目的。这个漏洞存在于操作系统、数据库、web等多个层面，由于大多服务端框架在处理不同用户的请求时是并发进行的，而开发者在进行代码开发时常常倾向于认为代码会以线性的方式执行，而忽视了并行服务器会并发执行多个线程，这就会导致意想不到的结果。</p>
-<h6 id="简单来说，就是多线程同时操作一个对象，而没有对对象进行加锁等保证一致性的操作"><a href="#简单来说，就是多线程同时操作一个对象，而没有对对象进行加锁等保证一致性的操作" class="headerlink" title="简单来说，就是多线程同时操作一个对象，而没有对对象进行加锁等保证一致性的操作"></a>简单来说，就是多线程同时操作一个对象，而没有对对象进行加锁等保证一致性的操作</h6><h4 id="0x01-简单分析"><a href="#0x01-简单分析" class="headerlink" title="0x01 简单分析"></a>0x01 简单分析</h4><p>我们来设计一个简答的业务逻辑：商城系统中，用户提交折扣码，后端会检测用户是否已经使用过折扣码。若未使用过，则使用该折扣码，并记录折扣码使用状态为True。若已使用折扣码，用户再次使用折扣码时，后端程序读取折扣码使用状态为True，拒绝用户再次使用折扣码。</p>
-<p><img src="https://pic2.zhimg.com/80/v2-ffffaa1fb957682cebb626a0482344b3_720w.webp" alt="Lesson-eb3846115f6b8"></p>
-<p>我们在这里用一段简单的python代码来模拟后端逻辑，处理请求的<code>handle_req()</code>函数是并发（多线程&#x2F;多进程）执行的：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> **handle_req**():</span><br><span class="line">    <span class="keyword">if</span> code_already_used = <span class="literal">False</span>: <span class="comment"># 判断如果没有使用过折扣码（实际应该是对数据库的查询，此处简化写法）</span></span><br><span class="line">        use_code()				  <span class="comment"># 使用折扣码，对商品进行打折</span></span><br><span class="line">        code_already_used = <span class="literal">True</span>  <span class="comment"># 使用过折扣码后，将折扣码使用状态为True（实际应该是对数据库的数据更新，此处简化写法）</span></span><br><span class="line">    <span class="keyword">else</span>:						  <span class="comment"># 若已经使用过折扣码</span></span><br><span class="line">        reject_use_code()      	  <span class="comment"># 拒绝再次使用折扣码</span></span><br></pre></td></tr></table></figure>
-
-<p>但是这个过程可能会存在条件竞争漏洞，因为我们第一次请求判断的状态为false即未使用折扣码，但是第一个请求执行到第四行时准备更新数据库内容而第二个请求又开始执行并将折扣码使用状态再一次地标记为false，从而造成了使用了两次折扣码，触发了条件竞争漏洞，如下图所示：后端将记录折扣码使用状态为True之前，可能存在条件竞争，上述第2、3行代码执行的时间就是<code>竞争窗口</code>。</p>
-	
-	</div>
-  <a type="button" href="/2025/02/08/条件竞争漏洞学习/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
 
 		</div>
 
@@ -516,7 +521,7 @@
 
         <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
  
-          <a type="button" class="btn btn-default disabled">Next<i class="fa fa-arrow-circle-o-right"></i></a>
+       <a href="/page/3/" type="button" class="btn btn-default ">Next<i class="fa fa-arrow-circle-o-right"></i></a>     
         
 
   
@@ -552,7 +557,7 @@
 		
 			<li><a href="/categories/Crypto/">Crypto<span>1</span></a></li>
 		
-			<li><a href="/categories/Pwn/">Pwn<span>2</span></a></li>
+			<li><a href="/categories/Pwn/">Pwn<span>4</span></a></li>
 		
 			<li><a href="/categories/Reverse/">Reverse<span>2</span></a></li>
 		
@@ -571,21 +576,21 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/ctf/">ctf<span>2</span></a></li>
-		
 			<li><a href="/tags/Web/">Web<span>4</span></a></li>
 		
-			<li><a href="/tags/vuln-analysis/">vuln analysis<span>1</span></a></li>
-		
-			<li><a href="/tags/Reverse/">Reverse<span>3</span></a></li>
-		
-			<li><a href="/tags/CTF/">CTF<span>9</span></a></li>
-		
-			<li><a href="/tags/Pwn/">Pwn<span>2</span></a></li>
+			<li><a href="/tags/Pwn/">Pwn<span>4</span></a></li>
 		
 			<li><a href="/tags/misc/">misc<span>2</span></a></li>
 		
+			<li><a href="/tags/CTF/">CTF<span>9</span></a></li>
+		
+			<li><a href="/tags/Reverse/">Reverse<span>3</span></a></li>
+		
 			<li><a href="/tags/Crypto/">Crypto<span>7</span></a></li>
+		
+			<li><a href="/tags/ctf/">ctf<span>2</span></a></li>
+		
+			<li><a href="/tags/vuln-analysis/">vuln analysis<span>1</span></a></li>
 		
 		 
 		</ul>
@@ -599,6 +604,14 @@
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2025/09/24/bugku-overflow2-wp/" ><i class="fa fa-file-o"></i>Bugku Overflow2 Writeups</a>
+      </li>
+    
+      <li>
+        <a href="/2025/09/24/bugku-overflow-wp/" ><i class="fa fa-file-o"></i>Bugku Overflow Writeups</a>
+      </li>
+    
+      <li>
         <a href="/2025/09/20/pwndbg-ret2sth/" ><i class="fa fa-file-o"></i>初学者视角：我是如何一步步调试理解ret2text的</a>
       </li>
     
@@ -608,14 +621,6 @@
     
       <li>
         <a href="/2025/08/26/CATCTF-RE-CatFly/" ><i class="fa fa-file-o"></i>CATCTF-Reverse-CatFly Writeup</a>
-      </li>
-    
-      <li>
-        <a href="/2025/08/26/adworld-easyRE/" ><i class="fa fa-file-o"></i>easyRE1 Writeup</a>
-      </li>
-    
-      <li>
-        <a href="/2025/08/26/adworld-reversing-x64Elf-100/" ><i class="fa fa-file-o"></i>Reversing-x64Elf-100 Writeup</a>
       </li>
     
   </ul>

